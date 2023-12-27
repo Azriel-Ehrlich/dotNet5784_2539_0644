@@ -14,7 +14,7 @@ namespace Stage0
         {
             Console.WriteLine("Enter your name");
             string userName = Console.ReadLine();
-            Console.WriteLine("{0},Welcome to my first console application",userName);
+            Console.WriteLine("{0}, Welcome to my first console application",userName);
         }
     }
 }
