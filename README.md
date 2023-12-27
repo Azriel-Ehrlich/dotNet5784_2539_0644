@@ -2,4 +2,4 @@
 
 ## hi I'm the first partner
 
-and I'm the second partner. *Cowabunga!*
+and I'm the second partner. 
