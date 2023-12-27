@@ -2,4 +2,5 @@
 
 ## hi I'm the first partner
 
-and I'm the second partner. 
+and I'm the second partner.
+I love to work with my partner.
