@@ -1,8 +1,8 @@
 ﻿namespace Dal;
+
 using DO;
 using DalApi;
 using System.Collections.Generic;
-using System.Reflection.Metadata.Ecma335;
 
 public class EngineerImplementation : IEngineer
 {
@@ -19,7 +19,8 @@ public class EngineerImplementation : IEngineer
 	public void Delete(int id)
 	{
 		Engineer? eng = Read(id) ?? throw new Exception($"Engineer with the same id doesn't exist: id={id}");
-		DataSource.Engineers.Remove(eng);
+		//DataSource.Engineers.Remove(eng);
+		Update(eng with { Active = false });
 	}
 
 	public Engineer? Read(int id)
