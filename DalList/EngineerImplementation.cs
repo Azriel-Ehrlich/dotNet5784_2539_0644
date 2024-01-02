@@ -2,31 +2,40 @@
 using DO;
 using DalApi;
 using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
 
 public class EngineerImplementation : IEngineer
 {
-    public int Create(Engineer item)
-    {
-        throw new NotImplementedException();
-    }
+	public int Create(Engineer item)
+	{
+		// search if `item` already exists
+		if (Read(item.Id) is not null)
+			throw new Exception($"Engineer with the same id already exists: id={item.Id}");
 
-    public void Delete(int id)
-    {
-        throw new NotImplementedException();
-    }
+		DataSource.Engineers.Add(item);
+		return (int)item.Id;
+	}
 
-    public Engineer? Read(int id)
-    {
-        throw new NotImplementedException();
-    }
+	public void Delete(int id)
+	{
+		Engineer? eng = Read(id) ?? throw new Exception($"Engineer with the same id doesn't exist: id={id}");
+		DataSource.Engineers.Remove(eng);
+	}
 
-    public List<Engineer> ReadAll()
-    {
-        throw new NotImplementedException();
-    }
+	public Engineer? Read(int id)
+	{
+		return DataSource.Engineers.Find(x => x.Id == id); // just find
+	}
 
-    public void Update(Engineer item)
-    {
-        throw new NotImplementedException();
-    }
+	public List<Engineer> ReadAll()
+	{
+		return new List<Engineer>(DataSource.Engineers);
+	}
+
+	public void Update(Engineer item)
+	{
+		Engineer? eng = Read(item.Id) ?? throw new Exception($"Engineer with the same id doesn't exist: id={item.Id}");
+		DataSource.Engineers.Remove(eng); // remove the old item
+		DataSource.Engineers.Add(item); // and add the new one
+	}
 }

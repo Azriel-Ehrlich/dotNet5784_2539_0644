@@ -14,7 +14,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\DalFacade\DalFacade.csproj" />
+		<ProjectReference Include="..\DalFacade\DalFacade.csproj" />
 	</ItemGroup>
 
 </Project>

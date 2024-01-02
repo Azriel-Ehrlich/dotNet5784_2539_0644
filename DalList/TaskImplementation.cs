@@ -5,28 +5,33 @@ using System.Collections.Generic;
 
 public class TaskImplementation : ITask
 {
-    public int Create(Task item)
-    {
-        throw new NotImplementedException();
-    }
+	public int Create(Task item)
+	{
+		Task newTask = item with { Id = DataSource.Config.NextTaskId };
+		DataSource.Tasks.Add(newTask);
+		return newTask.Id;
+	}
 
-    public void Delete(int id)
-    {
-        throw new NotImplementedException();
-    }
+	public void Delete(int id)
+	{
+		Task? task = Read(id) ?? throw new Exception($"Task with the same id doesn't exist: id={id}");
+		DataSource.Tasks.Remove(task);
+	}
 
-    public Task? Read(int id)
-    {
-        throw new NotImplementedException();
-    }
+	public Task? Read(int id)
+	{
+		return DataSource.Tasks.Find(x => x.Id == id);
+	}
 
-    public List<Task> ReadAll()
-    {
-        throw new NotImplementedException();
-    }
+	public List<Task> ReadAll()
+	{
+		return new List<Task>(DataSource.Tasks);
+	}
 
-    public void Update(Task item)
-    {
-        throw new NotImplementedException();
-    }
+	public void Update(Task item)
+	{
+		Task? task = Read(item.Id) ?? throw new Exception($"Task with the same id doesn't exist: id={item.Id}");
+		DataSource.Tasks.Remove(task); // remove the old item
+		DataSource.Tasks.Add(item); // and add the new one
+	}
 }
