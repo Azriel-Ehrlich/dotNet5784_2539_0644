@@ -1,6 +1,6 @@
 ﻿namespace DalApi;
 using DO;
-public interface ITaskask
+public interface ITask
 {
     int Create(Task item); //Creates new entity object in DAL
     Task? Read(int id); //Reads entity object by its ID 
