@@ -13,7 +13,7 @@ public class EngineerImplementation : IEngineer
 			throw new Exception($"Engineer with the same id already exists: id={item.Id}");
 
 		DataSource.Engineers.Add(item);
-		return (int)item.Id;
+		return item.Id;
 	}
 
 	public void Delete(int id)
