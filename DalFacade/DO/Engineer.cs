@@ -19,5 +19,5 @@ public record Engineer
 	bool Active = true
 )
 {
-	public Engineer(int id) : this(id, "", 0, "", EngineerExperience.Beginner) { }
+	public Engineer(int id = 0) : this(id, "", 0, "", EngineerExperience.Beginner) { }
 }

@@ -1,4 +1,6 @@
-﻿namespace DO;
+﻿using System.Runtime.CompilerServices;
+
+namespace DO;
 
 /// <summary>
 /// A task to be done by an engineer
@@ -23,17 +25,17 @@ public record Task
 	string Alias,
 	string Description,
 	DateTime CreatedAtDate,
-	TimeSpan? RequiredEffortTime,
-	bool IsMilestone,
-	EngineerExperience? Complexity,
-	DateTime? StartDate,
-	DateTime? SchedualdDate,
-	DateTime? DeadLineDate,
-	DateTime? CompleteDate,
-	string? Deliverables,
-	string? Remarks,
-	int? EngineerId
+	TimeSpan? RequiredEffortTime = null,
+	bool IsMilestone = false,
+	EngineerExperience? Complexity = null,
+	DateTime? StartDate = null,
+	DateTime? SchedualdDate = null,
+	DateTime? DeadLineDate = null,
+	DateTime? CompleteDate = null,
+	string? Deliverables = null,
+	string? Remarks = null,
+	int? EngineerId = null
 )
 {
-	public Task(int id = 0) : this(id, "", "", DateTime.Now, null, false, null, null, null, null, null, null, null, null) { }
+	public Task(int id = 0) : this(id, "", "", DateTime.Now) { }
 }
