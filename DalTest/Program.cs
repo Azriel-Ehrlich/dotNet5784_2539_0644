@@ -3,7 +3,6 @@
 using Dal;
 using DalApi;
 using DO;
-using System.Runtime.CompilerServices;
 
 internal class Program
 {
@@ -14,9 +13,9 @@ internal class Program
 	public enum MainChoices
 	{
 		Exit,
-		EngineerMenu,
-		TaskMenu,
-		DependencyMenu
+		Engineer,
+		Task,
+		Dependency
 	}
 	public enum CrudChoices
 	{
@@ -28,151 +27,181 @@ internal class Program
 		Delete
 	}
 
+	/// <summary> The main function of the program. </summary>
+	/// <param name="args"> The arguments of the program. </param>
 	static void Main(string[] args)
 	{
-		try
+		Initialization.Do(s_dalTask, s_dalEngineer, s_dalDependency); // initialize the data
+
+		Console.WriteLine("Welcome to the missions managing manu");
+		Console.WriteLine("Our mission is to send a spaceship to space. yay!");
+		Console.WriteLine("-------------------------------------------------");
+
+		// Dictionary of functions to call for each menu choice with cool syntax:
+		Dictionary<MainChoices, Dictionary<CrudChoices, Action>> funcs = new()
 		{
-			Initialization.Do(s_dalTask, s_dalEngineer, s_dalDependency); // initialize the data
-
-			Console.WriteLine("Welcome to the missions managing manu");
-			Console.WriteLine("Our mission is to send a spaceship to space. yay!");
-			Console.WriteLine("-------------------------------------------------");
-
-			MainChoices mainChoices;
-			CrudChoices crudChoices;
-
-			do
 			{
-				mainChoices = readMainMenu();
+				MainChoices.Engineer,
+				new Dictionary<CrudChoices, Action>()
+				{
+					{ CrudChoices.Create, createNewEngineer },
+					{ CrudChoices.Read, readEngineer },
+					{ CrudChoices.ReadAll, readAllEngineers },
+					{ CrudChoices.Update, updateEngineer },
+					{ CrudChoices.Delete, deleteEngineer }
+				}
+			},
+			{
+				MainChoices.Task,
+				new Dictionary<CrudChoices, Action>()
+				{
+					{ CrudChoices.Create, createNewTask },
+					{ CrudChoices.Read, readTask },
+					{ CrudChoices.ReadAll, readAllTasks },
+					{ CrudChoices.Update, updateTask },
+					{ CrudChoices.Delete, deleteTask }
+				}
+			},
+			{
+				MainChoices.Dependency,
+				new Dictionary<CrudChoices, Action>()
+				{
+					{ CrudChoices.Create, createNewDependency },
+					{ CrudChoices.Read, readDependency },
+					{ CrudChoices.ReadAll, readAllDependencies },
+					{ CrudChoices.Update, updateDependency },
+					{ CrudChoices.Delete, deleteDependency }
+				}
+			}
+		};
 
-				if (mainChoices == MainChoices.Exit)
+		MainChoices mainChoice = MainChoices.Engineer; // default value so the loop will start
+		while (mainChoice != MainChoices.Exit)
+		{
+			try
+			{
+				mainChoice = getMainMenuChoice();
+				if (mainChoice == MainChoices.Exit)
 					break;
 
-				do
+				CrudChoices crudChoice = CrudChoices.Create; // default value so the loop will start
+				while (crudChoice != CrudChoices.Exit)
 				{
-					crudChoices = readCrudMenu();
-
-					if (crudChoices == CrudChoices.Exit)
-						break;
-
-					switch (crudChoices)
+					try
 					{
-						case CrudChoices.Create:
-							switch (mainChoices)
-							{
-								case MainChoices.EngineerMenu: break;
-								case MainChoices.TaskMenu: s_dalTask!.Create(readNewTask()); break;
-								case MainChoices.DependencyMenu: break;
-							}
+						crudChoice = getCrudMenuChoice(mainChoice);
+						if (crudChoice == CrudChoices.Exit)
 							break;
-						
-						case CrudChoices.Read:
-							switch (mainChoices)
-							{
-								case MainChoices.EngineerMenu: break;
-								case MainChoices.TaskMenu: printTask(); break;
-								case MainChoices.DependencyMenu: break;
-							}
-							break;
-						
-						case CrudChoices.ReadAll:
-							switch (mainChoices)
-							{
-								case MainChoices.EngineerMenu: break;
-								case MainChoices.TaskMenu:
-									foreach (var task in s_dalTask!.ReadAll())
-										Console.WriteLine($"> {task}");
-									break;
-                                case MainChoices.DependencyMenu: break;
-							}
-							break;
-						
-						case CrudChoices.Update:
-							break;
-						
-						case CrudChoices.Delete:
-							break;
-						
-						default:
-							break;
+
+						funcs[mainChoice][crudChoice](); // call the function with cool syntax :)
 					}
-				} while (crudChoices != CrudChoices.Exit);
-
-
-			} while (mainChoices != MainChoices.Exit);
+					catch (Exception exp)
+					{
+						Console.WriteLine("Error: " + exp.Message);
+					}
+				}
+			}
+			catch (Exception exp)
+			{
+				Console.WriteLine("Error: " + exp.Message);
+			}
 		}
-		catch (Exception exp)
-		{
-			Console.WriteLine(exp);
-		}
 	}
 
 
-	// Menu functions:
-	static MainChoices readMainMenu()
+	/*
+	 * Helper functions:
+	 */
+
+	/// <summary> Reads an integer from the user. </summary>
+	/// <returns> The integer that the user entered. </returns>
+	/// <exception cref="Exception"> Thrown when the user entered an invalid input. </exception>
+	static int readInt()
 	{
-		Console.WriteLine("please choose one of the following options");
-		Console.WriteLine("1) to open the Engineer managing manu");
-		Console.WriteLine("2) to open the Task managing manu");
-		Console.WriteLine("3) to open the Dependency managing manu");
-		Console.WriteLine("0) to exit");
-
-		string? text = Console.ReadLine();
-		if (text == null)
-			throw new Exception("invalid input please try again");
-
-		int choise = int.Parse(text);
-		if (choise < 0 || 3 < choise)
-			throw new Exception("invalid input please try again");
-
-		return (MainChoices)choise;
+		int res;
+		if (!int.TryParse(Console.ReadLine(), out res))
+			throw new Exception("invalid input");
+		return res;
 	}
 
-	static CrudChoices readCrudMenu()
+	/// <summary> Reads a double from the user. </summary>
+	/// <returns> The double that the user entered. </returns>
+	/// <exception cref="Exception"> Thrown when the user entered an invalid input. </exception>
+	static double readDouble()
 	{
-		Console.WriteLine("please choose one of the requested actions");
-		Console.WriteLine("0) to return to the main manu");
-		Console.WriteLine("1) to create new item");
-		Console.WriteLine("2) to read a specific item");
-		Console.WriteLine("3) to read all of the items");
-		Console.WriteLine("4) to update a specific item");
-		Console.WriteLine("5) to delete a specific item");
-
-		string? text = Console.ReadLine();
-		if (text == null)
+		double res;
+		if (!double.TryParse(Console.ReadLine(), out res))
 			throw new Exception("invalid input please try again");
 
-		int choise = int.Parse(text);
-		if (choise < 0 || 5 < choise)
-			throw new Exception("invalid input please try again");
+		return res;
+	}
 
-		return (CrudChoices)choise;
+	/*
+	 * Menu functions:
+	 */
+
+	/// <summary> Gets the choice of the user for the main menu. </summary>
+	/// <returns> The choice of the user for the main menu. </returns>
+	static MainChoices getMainMenuChoice()
+	{
+		Console.WriteLine("Main manu:");
+		Console.WriteLine("Please choose one of the following options:");
+		Console.WriteLine("1) open the Engineer managing manu");
+		Console.WriteLine("2) open the Task managing manu");
+		Console.WriteLine("3) open the Dependency managing manu");
+		Console.WriteLine("0) exit");
+
+		return (MainChoices)readInt();
+	}
+
+	/// <summary> Gets the choice of the user for the CRUD menu. </summary>
+	/// <param name="mainChoice"> The choice of the user for the main menu. used to print the correct menu. </param>
+	/// <returns> The choice of the user for the CRUD menu. </returns>
+	static CrudChoices getCrudMenuChoice(MainChoices mainChoice)
+	{
+		// print message about the current menu:
+		Console.WriteLine($"{mainChoice} managing manu:");
+		Console.WriteLine("Please choose one of the requested actions:");
+		Console.WriteLine("0) return to the main manu");
+		Console.WriteLine("1) create new item");
+		Console.WriteLine("2) read a specific item");
+		Console.WriteLine("3) read all of the items");
+		Console.WriteLine("4) update a specific item");
+		Console.WriteLine("5) delete a specific item");
+
+		return (CrudChoices)readInt();
 	}
 
 
-	// Task functions:
-	static Task readNewTask()
-	{
-		string alias;
-		string description;
+	/*
+	 * Task functions
+	 */
 
+	/// <summary> Gets a task from the user. </summary>
+	/// <returns> The task that the user entered. </returns>
+	static Task getTaskFromUser()
+	{
 		Console.Write("enter the name of the task: ");
-		alias = Console.ReadLine()!;
+		string alias = Console.ReadLine()!;
 
 		Console.Write("enter the description of the task: ");
-		description = Console.ReadLine()!;
-		
+		string description = Console.ReadLine()!;
+
 		Console.Write("what is the id of the Engineer who assigned to do the Task: ");
-		int engineerId = int.Parse(Console.ReadLine()!);
+		int engineerId = readInt();
 
-		return new Task(0, alias, description, DateTime.Now, null,
-			false, null, null, null, null, null, null, null, engineerId);
+		return new Task(alias, description, engineerId);
 	}
-
-	static void printTask()
+	/// <summary> Creates a new task and adds it to the database. </summary>
+	static void createNewTask()
+	{
+		s_dalTask!.Create(getTaskFromUser());
+	}
+	/// <summary> Reads a task from the database and prints it to the console. </summary>
+	static void readTask()
 	{
 		Console.Write("enter the id of the Task: ");
-		int id = int.Parse(Console.ReadLine()!);
+		int id = readInt();
 
 		Task? task = s_dalTask!.Read(id);
 		if (task == null)
@@ -180,18 +209,156 @@ internal class Program
 		else
 			Console.WriteLine(task);
 	}
+	/// <summary> Reads all tasks from the database and prints them to the console. </summary>
+	static void readAllTasks()
+	{
+		foreach (var task in s_dalTask!.ReadAll())
+			Console.WriteLine($"> {task}");
+	}
+	/// <summary> Updates a task in the database. </summary>
+	static void updateTask()
+	{
+		Console.Write("enter the id of the Task: ");
+		int id = readInt();
+		Task task = getTaskFromUser();
+		s_dalTask!.Update(task with { Id = id });
+	}
+	/// <summary> Deletes a task from the database. </summary>
+	static void deleteTask()
+	{
+		Console.Write("enter the id of the Task: ");
+		int id = readInt();
+		s_dalTask!.Delete(id);
+	}
 
 
-	// old code:
+	/*
+	 * Engineer functions
+	 */
 
+	/// <summary> Gets an engineer from the user. </summary>
+	/// <returns> The engineer that the user entered. </returns>
+	static Engineer getEngineerFromUser()
+	{
+		Console.Write("enter the id number of the Engineer: ");
+		int id = readInt();
+
+		Console.Write("enter the email of the Engineer: ");
+		string email = Console.ReadLine()!;
+
+		Console.Write("enter the amount of money per hour the Engineer gets: ");
+		double cost = readDouble();
+
+		Console.Write("enter the full name of the Engineer: ");
+		string name = Console.ReadLine()!;
+
+		Console.Write("enter the level of the Engineer (0-4): ");
+		EngineerExperience level = (EngineerExperience)readInt();
+
+		return new Engineer(id, email, cost, name, level);
+	}
+	/// <summary> Creates a new engineer and adds it to the database. </summary>
+	static void createNewEngineer()
+	{
+		s_dalEngineer!.Create(getEngineerFromUser());
+	}
+	/// <summary> Reads an engineer from the database and prints it to the console. </summary>
+	static void readEngineer()
+	{
+		Console.Write("enter the id of the Engineer: ");
+		int id = readInt();
+
+		Engineer? eng = s_dalEngineer!.Read(id);
+		if (eng == null)
+			Console.WriteLine("the Engineer does not exist");
+		else
+			Console.WriteLine(eng);
+	}
+	/// <summary> Reads all engineers from the database and prints them to the console. </summary>
+	static void readAllEngineers()
+	{
+		foreach (var eng in s_dalEngineer!.ReadAll())
+			Console.WriteLine($"> {eng}");
+	}
+	/// <summary> Updates an engineer in the database. </summary>
+	static void updateEngineer()
+	{
+		s_dalEngineer!.Update(getEngineerFromUser()); // we receive the id from the user in `getEngineerFromUser`
+	}
+	/// <summary> Deletes an engineer from the database. </summary>
+	static void deleteEngineer()
+	{
+		Console.Write("enter the id of the Engineer: ");
+		int id = readInt();
+		s_dalEngineer!.Delete(id);
+	}
+
+
+	/*
+	 * Dependency functions
+	 */
+
+	/// <summary> Gets a dependency from the user. </summary>
+	/// <returns> The dependency that the user entered. </returns>
+	static Dependency getDependencyFromUser()
+	{
+		Console.Write("enter the id of the dependent task: ");
+		int dependentId = readInt();
+
+		Console.Write("enter the id of the task that must be done first: ");
+		int dependsOnId = readInt();
+
+		return new Dependency(dependentId, dependsOnId);
+	}
+	/// <summary> Creates a new dependency and adds it to the database. </summary>
+	static void createNewDependency()
+	{
+		s_dalDependency!.Create(getDependencyFromUser());
+	}
+	/// <summary> Reads a dependency from the database and prints it to the console. </summary>
+	static void readDependency()
+	{
+		Console.Write("enter the id of the Dependency: ");
+		int id = readInt();
+
+		Dependency? dep = s_dalDependency!.Read(id);
+		if (dep == null)
+			Console.WriteLine("the Dependency does not exist");
+		else
+			Console.WriteLine(dep);
+	}
+	/// <summary> Reads all dependencies from the database and prints them to the console. </summary>
+	static void readAllDependencies()
+	{
+		foreach (var dep in s_dalDependency!.ReadAll())
+			Console.WriteLine($"> {dep}");
+	}
+	/// <summary> Updates a dependency in the database. </summary>
+	static void updateDependency()
+	{
+		Console.WriteLine("enter the id of the Dependency: ");
+		int id = readInt();
+		Dependency dep = getDependencyFromUser();
+		s_dalDependency!.Update(dep with { Id = id });
+	}
+	/// <summary> Deletes a dependency from the database. </summary>
+	static void deleteDependency()
+	{
+		Console.Write("enter the id of the Dependency: ");
+		int id = readInt();
+		s_dalDependency!.Delete(id);
+	}
+
+
+	// code of AE:
 	/*
 	private static void ChooseMenu()
 	{
 		Console.WriteLine("Welcome to the missions managing manu");
-        Console.WriteLine("Our mission is to send a spaceship to space. yay!");
-        Console.WriteLine("-------------------------------------------------");
+		Console.WriteLine("Our mission is to send a spaceship to space. yay!");
+		Console.WriteLine("-------------------------------------------------");
 
-        do
+		do
 		{
 			Console.WriteLine("please choose one of the following options");
 			Console.WriteLine("press 1 to open the Engineer managing manu");

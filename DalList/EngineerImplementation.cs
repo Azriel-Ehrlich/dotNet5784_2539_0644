@@ -20,7 +20,7 @@ public class EngineerImplementation : IEngineer
 	{
 		Engineer? eng = Read(id) ?? throw new Exception($"Engineer with the same id doesn't exist: id={id}");
 		//DataSource.Engineers.Remove(eng);
-		Update(eng with { Active = false });
+		Update(eng with { Active = false }); // we don't want to remove the engineer, just make him inactive
 	}
 
 	public Engineer? Read(int id)

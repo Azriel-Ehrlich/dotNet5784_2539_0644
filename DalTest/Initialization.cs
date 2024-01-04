@@ -12,7 +12,7 @@ public static class Initialization
 	private static readonly int MIN_ID = 20000000, MAX_ID = 40000000;
 
 	/*
-	 * our project is to build a spaceship and found a colony on Mars of green aliens
+	 * our project is to build a spaceship and found a colony of green aliens on Mars
 	 */
 
 	// TODO: Maor Noy said that we need to create DB arrays and them create objects inside the loops
@@ -121,6 +121,9 @@ public static class Initialization
 		new Dependency(0, 22, 21) // after launching the spaceship, we can start looking for aliens
 	};
 
+	/// <summary>
+	/// Create the list of the engineers
+	/// </summary>
 	private static void createEngineers()
 	{
 		int id;
@@ -132,6 +135,9 @@ public static class Initialization
 		}
 	}
 
+	/// <summary>
+	/// Create the list of the tasks
+	/// </summary>
 	private static void createTasks()
 	{
 		foreach (var task in TASKS)
@@ -140,6 +146,9 @@ public static class Initialization
 		}
 	}
 
+	/// <summary>
+	/// Create the list of the dependencies between the tasks
+	/// </summary>
 	private static void createDependencies()
 	{
 		foreach (var dep in DEPENDENCIES)
@@ -148,10 +157,17 @@ public static class Initialization
 		}
 	}
 
+	/// <summary>
+	/// Initialize the DAL
+	/// </summary>
+	/// <param name="dalTask">Implementation of <see cref="ITask"/> </param>
+	/// <param name="dalEngineer">Implementation of <see cref="IEngineer"/> </param>
+	/// <param name="dalDependency">Implementation of <see cref="IDependency"/> </param>
+	/// <exception cref="NullReferenceException">Thrown when one of the parameters is null</exception>
 	public static void Do(ITask? dalTask, IEngineer? dalEngineer, IDependency? dalDependency)
 	{
 		if (dalTask == null || dalEngineer == null || dalDependency == null)
-			throw new Exception("DAL can not be null!");
+			throw new NullReferenceException("DAL can not be null!");
 
 		s_dalTask = dalTask;
 		s_dalEngineer = dalEngineer;
