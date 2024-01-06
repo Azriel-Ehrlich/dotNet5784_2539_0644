@@ -5,176 +5,193 @@ using DO;
 
 public static class Initialization
 {
-	private static ITask? s_dalTask;
-	private static IEngineer? s_dalEngineer;
-	private static IDependency? s_dalDependency;
-	private static readonly Random s_rand = new();
-	private static readonly int MIN_ID = 20000000, MAX_ID = 40000000;
+    private static ITask? s_dalTask;
+    private static IEngineer? s_dalEngineer;
+    private static IDependency? s_dalDependency;
+    private static readonly Random s_rand = new();
+    private static readonly int MIN_ID = 20000000, MAX_ID = 40000000;
 
-	/*
-	 * our project is to build a spaceship and found a colony of green aliens on Mars
+    /*
+	 * our project is to build a spaceship and conduct a reasearch on Mars
 	 */
 
-	// TODO: Maor Noy said that we need to create DB arrays and them create objects inside the loops
 
-	// our tasks:
-	// TODO: insert normal dates and times
-	private static readonly Task[] TASKS = {
-		// preperations for the mission:
-		new Task(0, "plane", "plane the mission", DateTime.Now, TimeSpan.FromHours(100), false, EngineerExperience.Beginner, null, new DateTime(2020, 1, 1), null, null, "the plane of the mission", null, 0),
-	
-		// recruit a team:
-		new Task(0, "recruit 1", "recruit a team of engineers", DateTime.Now, TimeSpan.FromHours(100), false, EngineerExperience.Beginner, null, new DateTime(2020, 1, 1), null, null, "the plane of the mission", null, 0),
-		new Task(0, "recruit 2", "recruit a team of physicists", DateTime.Now, TimeSpan.FromHours(100), false, EngineerExperience.Beginner, null, new DateTime(2020, 1, 1), null, null, "the plane of the mission", null, 0),
-		new Task(0, "recruit 3", "recruit a team of astronauts", DateTime.Now, TimeSpan.FromHours(100), false, EngineerExperience.Beginner, null, new DateTime(2020, 1, 1), null, null, "the plane of the mission", null, 0),
 
-		// research:
-		new Task(0, "search 1", "Research strong and cheap materials to build the spacecraft", DateTime.Now, TimeSpan.FromHours(100), false, EngineerExperience.Beginner, null, new DateTime(2020, 1, 1), null, null, "the plane of the mission", null, 0),
-		new Task(0, "search 2", "Find the best flight route", DateTime.Now, TimeSpan.FromHours(100), false, EngineerExperience.Beginner, null, new DateTime(2020, 1, 1), null, null, "the plane of the mission", null, 0),
-		new Task(0, "search 3", "Make sure they don't collide with meteors", DateTime.Now, TimeSpan.FromHours(100), false, EngineerExperience.Beginner, null, new DateTime(2020, 1, 1), null, null, "the plane of the mission", null, 0),
+    // our tasks:
+    // TODO: insert normal dates and times
+    private static readonly Task[] TASKS = {
+       // Initiating the mission planning process
+new Task(0, "Mission Planning", "Plan the mission to Mars", DateTime.Now.AddYears(-3), TimeSpan.FromDays(365 * 3), false, EngineerExperience.Expert, null, new DateTime(2027, 1, 1), null, null, "Mission plan details", null, 0),
 
-		// build the spaceship:
-		new Task(0, "Build 1", "Build a powerful engine", DateTime.Now, TimeSpan.FromHours(100), false, EngineerExperience.Beginner, null, new DateTime(2020, 1, 1), null, null, "the plane of the mission", null, 0),
-		new Task(0, "Build 2", "build the body of the spaceship", DateTime.Now, TimeSpan.FromHours(100), false, EngineerExperience.Beginner, null, new DateTime(2020, 1, 1), null, null, "the plane of the mission", null, 0),
+// Choosing the crew for the mission
+new Task(0, "Crew Selection", "Select a qualified crew for the mission", DateTime.Now.AddYears(-2), TimeSpan.FromDays(365 * 2), false, EngineerExperience.Expert, null, new DateTime(2028, 1, 1), null, null, "Crew selection criteria", null, 0),
 
-		// buy equipment:
-		new Task(0, "equipment 1", "bring radios", DateTime.Now, TimeSpan.FromHours(100), false, EngineerExperience.Beginner, null, new DateTime(2020, 1, 1), null, null, "the plane of the mission", null, 0),
-		new Task(0, "equipment 2", "fill food", DateTime.Now, TimeSpan.FromHours(100), false, EngineerExperience.Beginner, null, new DateTime(2020, 1, 1), null, null, "the plane of the mission", null, 0),
-		new Task(0, "equipment 3", "Bring space suits", DateTime.Now, TimeSpan.FromHours(100), false, EngineerExperience.Beginner, null, new DateTime(2020, 1, 1), null, null, "the plane of the mission", null, 0),
+// Creating the design for the spacecraft
+new Task(0, "Spacecraft Design", "Design the spacecraft for the mission", DateTime.Now.AddYears(-1), TimeSpan.FromDays(365), false, EngineerExperience.Intermediate, null, new DateTime(2029, 1, 1), null, null, "Spacecraft design specifications", null, 0),
 
-		// training:
-		new Task(0, "training 1", "train the crew to fly", DateTime.Now, TimeSpan.FromHours(100), false, EngineerExperience.Beginner, null, new DateTime(2020, 1, 1), null, null, "the plane of the mission", null, 0),
-		new Task(0, "training 2", "Train the staff in the control room", DateTime.Now, TimeSpan.FromHours(100), false, EngineerExperience.Beginner, null, new DateTime(2020, 1, 1), null, null, "the plane of the mission", null, 0),
-		new Task(0, "training 3", "Make sure they are in sync", DateTime.Now, TimeSpan.FromHours(100), false, EngineerExperience.Beginner, null, new DateTime(2020, 1, 1), null, null, "the plane of the mission", null, 0),
+// Working on the launch system
+new Task(0, "Launch System Development", "Develop the launch system for the spacecraft", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Beginner, null, new DateTime(2030, 1, 1), null, null, "Launch system development plan", null, 0),
 
-		// manning:
-		new Task(0, "manning", "Man the spaceship", DateTime.Now, TimeSpan.FromHours(100), false, EngineerExperience.Beginner, null, new DateTime(2020, 1, 1), null, null, "the plane of the mission", null, 0),
+// Planning for orbital insertion
+new Task(0, "Orbital Insertion Planning", "Plan the orbital insertion phase of the mission", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Expert, null, new DateTime(2031, 1, 1), null, null, "Orbital insertion plan", null, 0),
 
-		// preperations for launch:
-		new Task(0, "Preparations 1", "Find a truck big enough", DateTime.Now, TimeSpan.FromHours(100), false, EngineerExperience.Beginner, null, new DateTime(2020, 1, 1), null, null, "the plane of the mission", null, 0),
-		new Task(0, "Preparations 2", "Place the spaceship in place", DateTime.Now, TimeSpan.FromHours(100), false, EngineerExperience.Beginner, null, new DateTime(2020, 1, 1), null, null, "the plane of the mission", null, 0),
-		new Task(0, "Preparations 3", "Fill up fuel", DateTime.Now, TimeSpan.FromHours(100), false, EngineerExperience.Beginner, null, new DateTime(2020, 1, 1), null, null, "the plane of the mission", null, 0),
+// Designing the habitat for Mars surface
+new Task(0, "Surface Habitat Design", "Design the habitat for the Mars surface", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Intermediate, null, new DateTime(2032, 1, 1), null, null, "Surface habitat design details", null, 0),
 
-		// launch:
-		new Task(0, "Dispatch 1", "Dramatic countdown", DateTime.Now, TimeSpan.FromHours(100), false, EngineerExperience.Beginner, null, new DateTime(2020, 1, 1), null, null, "the plane of the mission", null, 0),
-		new Task(0, "Dispatch 2", "Launch the spaceship", DateTime.Now, TimeSpan.FromHours(100), false, EngineerExperience.Beginner, null, new DateTime(2020, 1, 1), null, null, "the plane of the mission", null, 0),
-		new Task(0, "Dispatch 3", "Thunderous applause", DateTime.Now, TimeSpan.FromHours(100), false, EngineerExperience.Beginner, null, new DateTime(2020, 1, 1), null, null, "the plane of the mission", null, 0),
+// Planning for mission supplies and resources
+new Task(0, "Supply and Resource Planning", "Plan the supply and resource management for the mission", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Beginner, null, new DateTime(2033, 1, 1), null, null, "Supply and resource planning details", null, 0),
 
-		// space travel:
-		new Task(0, "space travel", "Look for aliens", DateTime.Now, TimeSpan.FromHours(100), false, EngineerExperience.Beginner, null, new DateTime(2020, 1, 1), null, null, "the plane of the mission", null, 0),
+// Creating communication systems
+new Task(0, "Communication Systems", "Develop communication systems for the mission", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Expert, null, new DateTime(2034, 1, 1), null, null, "Communication systems specifications", null, 0),
 
-		// To be continued...
-	};
+// Planning for Mars entry and landing
+new Task(0, "Mars Entry and Landing", "Plan the entry and landing on Mars", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Intermediate, null, new DateTime(2035, 1, 1), null, null, "Mars entry and landing plan", null, 0),
 
-	// our amazing team:
-	private static readonly Engineer[] ENGINEERS = {
-		new Engineer(0, "alan@gmail.com", 80, "Alan", EngineerExperience.AdvancedBeginner), // engineer of building the spaceship
+// Creating equipment for surface exploration
+new Task(0, "Surface Exploration Equipment", "Develop equipment for surface exploration", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Beginner, null, new DateTime(2036, 1, 1), null, null, "Surface exploration equipment details", null, 0),
+
+// Planning for environmental monitoring
+new Task(0, "Environmental Monitoring", "Plan environmental monitoring for the mission", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Expert, null, new DateTime(2037, 1, 1), null, null, "Environmental monitoring plan", null, 0),
+
+// Creating emergency response plans
+new Task(0, "Emergency Response Planning", "Develop plans for emergency responses", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Intermediate, null, new DateTime(2038, 1, 1), null, null, "Emergency response planning details", null, 0),
+
+// Planning for crew health and medical support
+new Task(0, "Crew Health and Medical Planning", "Plan for crew health and medical needs", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Beginner, null, new DateTime(2039, 1, 1), null, null, "Crew health and medical planning details", null, 0),
+
+// Creating ascent vehicle design
+new Task(0, "Mars Ascent Vehicle Design", "Design the ascent vehicle for returning from Mars", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Expert, null, new DateTime(2040, 1, 1), null, null, "Mars ascent vehicle design details", null, 0),
+
+// Planning for the return journey
+new Task(0, "Return Journey Planning", "Plan the journey back to Earth", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Intermediate, null, new DateTime(2041, 1, 1), null, null, "Return journey planning details", null, 0),
+
+// Collecting and analyzing samples
+new Task(0, "Sample Collection and Analysis", "Collect and analyze surface samples", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Beginner, null, new DateTime(2042, 1, 1), null, null, "Sample collection and analysis details", null, 0),
+
+// Planning for crew well-being
+new Task(0, "Crew Exercise and Well-being", "Plan for crew exercise and well-being", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Expert, null, new DateTime(2043, 1, 1), null, null, "Crew exercise and well-being plan", null, 0),
+
+// Establishing communication with Earth
+new Task(0, "Communication with Earth", "Establish communication with Earth", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Intermediate, null, new DateTime(2044, 1, 1), null, null, "Communication with Earth plan", null, 0),
+
+// Engaging with the public and outreach
+new Task(0, "Public Relations and Outreach", "Engage in public relations and outreach activities", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Beginner, null, new DateTime(2045, 1, 1), null, null, "Public relations and outreach plan", null, 0),
+
+// Analyzing mission outcomes
+new Task(0, "Post-Mission Analysis", "Conduct post-mission analysis", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Expert, null, new DateTime(2046, 1, 1), null, null, "Post-mission analysis details", null, 0)
+
+    };
+
+    // our amazing team:
+    private static readonly Engineer[] ENGINEERS = {
+        new Engineer(0, "alan@gmail.com", 80, "Alan", EngineerExperience.AdvancedBeginner), // engineer of building the spaceship
 		new Engineer(0, "mic@gmail.com", 300, "Michael", EngineerExperience.Expert), // engineer of the flight route
 		new Engineer(0, "brandon@gmail.com", 200, "Brandon", EngineerExperience.Advanced), // space explorer
 		new Engineer(0, "nati@gmail.com", 150, "Natalie", EngineerExperience.Intermediate), // astronaut
 		new Engineer(0, "elizabeth123@gmail.com", 60, "Elizabeth", EngineerExperience.Beginner) // logistics manager
 	};
 
-	// the dependencies between the tasks:
-	private static readonly Dependency[] DEPENDENCIES = {
-		// preperations for the mission: the mission can start only after the plane is ready
-		new Dependency(0, 0, 0),
+    // the dependencies between the tasks:
+    private static readonly Dependency[] DEPENDENCIES = {
+		
+		// Dependencies
+new Dependency(0, 1, 0),   // Crew Selection depends on Mission Planning
+new Dependency(0, 2, 1),   // Spacecraft Design depends on Crew Selection
+new Dependency(0, 3, 2),   // Launch System Development depends on Spacecraft Design
+new Dependency(0, 4, 3),   // Orbital Insertion Planning depends on Launch System Development
+new Dependency(0, 5, 4),   // Surface Habitat Design depends on Orbital Insertion Planning
+new Dependency(0, 6, 5),   // Supply and Resource Planning depends on Surface Habitat Design
+new Dependency(0, 7, 6),   // Communication Systems depends on Supply and Resource Planning
+new Dependency(0, 8, 7),   // Mars Entry and Landing depends on Communication Systems
+new Dependency(0, 9, 8),   // Surface Exploration Equipment depends on Mars Entry and Landing
+new Dependency(0, 10, 9),  // Environmental Monitoring depends on Surface Exploration Equipment
+new Dependency(0, 11, 10), // Emergency Response Planning depends on Environmental Monitoring
+new Dependency(0, 12, 11), // Crew Health and Medical Planning depends on Emergency Response Planning
+new Dependency(0, 13, 12), // Mars Ascent Vehicle Design depends on Crew Health and Medical Planning
+new Dependency(0, 14, 13), // Return Journey Planning depends on Mars Ascent Vehicle Design
+new Dependency(0, 15, 14), // Sample Collection and Analysis depends on Return Journey Planning
+new Dependency(0, 16, 15), // Crew Exercise and Well-being depends on Sample Collection and Analysis
+new Dependency(0, 17, 16), // Communication with Earth depends on Crew Exercise and Well-being
+new Dependency(0, 18, 17), // Public Relations and Outreach depends on Communication with Earth
+new Dependency(0, 19, 18), // Post-Mission Analysis depends on Public Relations and Outreach
 
-		// recruit a team: the team can start working only after the mission is planned
-		new Dependency(0, 1, 0), // recruit engineers
-		new Dependency(0, 2, 0), // recruit physicists
-		new Dependency(0, 3, 0), // recruit astronauts
+new Dependency(0, 10, 5),  // Emergency Response Planning depends on Surface Habitat Design
+new Dependency(0, 11, 10), // Crew Health and Medical Planning depends on Emergency Response Planning
+new Dependency(0, 12, 11), // Mars Ascent Vehicle Design depends on Crew Health and Medical Planning
+new Dependency(0, 13, 12), // Return Journey Planning depends on Mars Ascent Vehicle Design
+new Dependency(0, 14, 13), // Sample Collection and Analysis depends on Return Journey Planning
+new Dependency(0, 15, 14), // Crew Exercise and Well-being depends on Sample Collection and Analysis
+new Dependency(0, 16, 15), // Communication with Earth depends on Crew Exercise and Well-being
+new Dependency(0, 17, 16), // Public Relations and Outreach depends on Communication with Earth
+new Dependency(0, 18, 17), // Post-Mission Analysis depends on Public Relations and Outreach
 
-		// research: we need to know the materials before we can build the spaceship
-		new Dependency(0, 4, 1), // after recruiting the engineers, we can start the research of materials
-		new Dependency(0, 5, 2), // after recruiting the physicists, we can start the research of the flight route
-		new Dependency(0, 6, 2), // after recruiting the physicists, we can start the research of the meteors
+new Dependency(0, 5, 2),  // Surface Habitat Design depends on Spacecraft Design
+new Dependency(0, 6, 5),  // Supply and Resource Planning depends on Surface Habitat Design
+new Dependency(0, 7, 6),  // Communication Systems depends on Supply and Resource Planning
+new Dependency(0, 8, 7),  // Mars Entry and Landing depends on Communication Systems
+new Dependency(0, 9, 8),  // Surface Exploration Equipment depends on Mars Entry and Landing
+new Dependency(0, 10, 9), // Environmental Monitoring depends on Surface Exploration Equipment
+new Dependency(0, 11, 10),// Emergency Response Planning depends on Environmental Monitoring
+new Dependency(0, 12, 11),// Crew Health and Medical Planning depends on Emergency Response Planning
+new Dependency(0, 13, 12),// Mars Ascent Vehicle Design depends on Crew Health and Medical Planning
+new Dependency(0, 14, 13) // Return Journey Planning depends on Mars Ascent Vehicle Design
 
-		// build the spaceship:
-		new Dependency(0, 7, 4), // after researching the materials, we can start building the engine
-		new Dependency(0, 8, 4), // after researching the materials, we can start building the spaceship
+};
 
-		// buy equipment:
-		new Dependency(0, 9, 0), // don't need nothing special to buy the radios
-		new Dependency(0, 10, 0), // we need to buy food for the astronauts
-		new Dependency(0, 11, 4), // we need create the space suits especially for the astronauts
+    /// <summary>
+    /// Create the list of the engineers
+    /// </summary>
+    private static void createEngineers()
+    {
+        int id;
+        foreach (var eng in ENGINEERS)
+        {
+            do id = s_rand.Next(MIN_ID, MAX_ID + 1);
+            while (s_dalEngineer!.Read(id) != null);
+            s_dalEngineer.Create(eng with { Id = id });
+        }
+    }
 
-		// training:
-		new Dependency(0, 12, 11), // after buying the radios, we can start training the crew
-		new Dependency(0, 13, 11), // after buying the radios, we can start training the control room
-		new Dependency(0, 14, 13), // after training the control room, we can check if they are in sync
+    /// <summary>
+    /// Create the list of the tasks
+    /// </summary>
+    private static void createTasks()
+    {
+        foreach (var task in TASKS)
+        {
+            s_dalTask!.Create(task);
+        }
+    }
 
-		// manning:
-		new Dependency(0, 15, 12), // after training we can manning the spaceship
+    /// <summary>
+    /// Create the list of the dependencies between the tasks
+    /// </summary>
+    private static void createDependencies()
+    {
+        foreach (var dep in DEPENDENCIES)
+        {
+            s_dalDependency!.Create(dep);
+        }
+    }
 
-		// preperations for launch:
-		new Dependency(0, 16, 8), // after building the spaceship, we can find a truck big enough
-		new Dependency(0, 17, 16), // after finding a truck big enough, we can place the spaceship in place
-		new Dependency(0, 18, 17), // after placing the spaceship in place, we can fill up fuel
+    /// <summary>
+    /// Initialize the DAL
+    /// </summary>
+    /// <param name="dalTask">Implementation of <see cref="ITask"/> </param>
+    /// <param name="dalEngineer">Implementation of <see cref="IEngineer"/> </param>
+    /// <param name="dalDependency">Implementation of <see cref="IDependency"/> </param>
+    /// <exception cref="NullReferenceException">Thrown when one of the parameters is null</exception>
+    public static void Do(ITask? dalTask, IEngineer? dalEngineer, IDependency? dalDependency)
+    {
+        if (dalTask == null || dalEngineer == null || dalDependency == null)
+            throw new NullReferenceException("DAL can not be null!");
 
-		// launch:
-		new Dependency(0, 19, 18), // after filling up fuel, we can start the countdown
-		new Dependency(0, 20, 19), // after the countdown, we can launch the spaceship
-		new Dependency(0, 21, 20), // after launching the spaceship, we can hear the applause
+        s_dalTask = dalTask;
+        s_dalEngineer = dalEngineer;
+        s_dalDependency = dalDependency;
 
-		// space travel:
-		new Dependency(0, 22, 21) // after launching the spaceship, we can start looking for aliens
-	};
-
-	/// <summary>
-	/// Create the list of the engineers
-	/// </summary>
-	private static void createEngineers()
-	{
-		int id;
-		foreach (var eng in ENGINEERS)
-		{
-			do id = s_rand.Next(MIN_ID, MAX_ID + 1);
-			while (s_dalEngineer!.Read(id) != null);
-			s_dalEngineer.Create(eng with { Id = id });
-		}
-	}
-
-	/// <summary>
-	/// Create the list of the tasks
-	/// </summary>
-	private static void createTasks()
-	{
-		foreach (var task in TASKS)
-		{
-			s_dalTask!.Create(task);
-		}
-	}
-
-	/// <summary>
-	/// Create the list of the dependencies between the tasks
-	/// </summary>
-	private static void createDependencies()
-	{
-		foreach (var dep in DEPENDENCIES)
-		{
-			s_dalDependency!.Create(dep);
-		}
-	}
-
-	/// <summary>
-	/// Initialize the DAL
-	/// </summary>
-	/// <param name="dalTask">Implementation of <see cref="ITask"/> </param>
-	/// <param name="dalEngineer">Implementation of <see cref="IEngineer"/> </param>
-	/// <param name="dalDependency">Implementation of <see cref="IDependency"/> </param>
-	/// <exception cref="NullReferenceException">Thrown when one of the parameters is null</exception>
-	public static void Do(ITask? dalTask, IEngineer? dalEngineer, IDependency? dalDependency)
-	{
-		if (dalTask == null || dalEngineer == null || dalDependency == null)
-			throw new NullReferenceException("DAL can not be null!");
-
-		s_dalTask = dalTask;
-		s_dalEngineer = dalEngineer;
-		s_dalDependency = dalDependency;
-
-		createEngineers();
-		createTasks();
-		createDependencies();
-	}
+        createEngineers();
+        createTasks();
+        createDependencies();
+    }
 }

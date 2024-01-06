@@ -19,7 +19,7 @@ public class EngineerImplementation : IEngineer
 	public void Delete(int id)
 	{
 		Engineer? eng = Read(id) ?? throw new Exception($"Engineer with the same id doesn't exist: id={id}");
-		//DataSource.Engineers.Remove(eng);
+		Task? task = DataSource.Tasks.Find(x => x.Id == id)?? throw new Exception($"the Engineer has a task to do ");
 		Update(eng with { Active = false }); // we don't want to remove the engineer, just make him inactive
 	}
 
