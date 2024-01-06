@@ -16,7 +16,7 @@ public class TaskImplementation : ITask
 	public void Delete(int id)
 	{
 		Task? task = Read(id) ?? throw new Exception($"Task with the same id doesn't exist: id={id}");
-		DataSource.Tasks.Remove(task);
+		Update(task with { Active = false }); // we don't want to remove the task, just make it inactive
 	}
 
 	public Task? Read(int id)
