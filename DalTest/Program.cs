@@ -151,7 +151,10 @@ internal class Program
 		Console.WriteLine("3) open the Dependency managing manu");
 		Console.WriteLine("0) exit");
 
-		return (MainChoices)readInt();
+		MainChoices choose =(MainChoices)readInt();
+		if (choose < MainChoices.Exit || choose > MainChoices.Dependency)
+            throw new Exception("invalid input please try again");
+		return choose;
 	}
 
 	/// <summary> Gets the choice of the user for the CRUD menu. </summary>
@@ -169,7 +172,10 @@ internal class Program
 		Console.WriteLine("4) update a specific item");
 		Console.WriteLine("5) delete a specific item");
 
-		return (CrudChoices)readInt();
+		CrudChoices choose= (CrudChoices)readInt();
+		if (choose < CrudChoices.Exit || choose > CrudChoices.Delete)
+            throw new Exception("invalid input please try again");
+		return choose;
 	}
 
 
