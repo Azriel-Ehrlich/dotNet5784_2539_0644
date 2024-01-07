@@ -33,6 +33,7 @@ internal class Program
     {
         Initialization.Do(s_dalTask, s_dalEngineer, s_dalDependency); // initialize the data
 
+        Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine("Welcome to the missions managing manu");
         Console.WriteLine("Our mission is to send a spaceship to space");
         Console.WriteLine("--------------------------------------------");
@@ -93,19 +94,25 @@ internal class Program
                         if (crudChoice == CrudChoices.Exit)
                             break;
 
+                        Console.ForegroundColor = ConsoleColor.White;
+
                         funcs[mainChoice][crudChoice](); // call the function with cool syntax :)
                     }
                     catch (Exception exp)
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Error: " + exp.Message);
                     }
                 }
             }
             catch (Exception exp)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Error: " + exp.Message);
             }
         }
+
+        Console.ForegroundColor = ConsoleColor.White; // reset the color
     }
 
 
@@ -144,6 +151,7 @@ internal class Program
     /// <returns> The choice of the user for the main menu. </returns>
     static MainChoices getMainMenuChoice()
     {
+        Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine("Main manu:");
         Console.WriteLine("Please choose one of the following options:");
         Console.WriteLine("1) open the Engineer managing manu");
@@ -162,6 +170,7 @@ internal class Program
     /// <returns> The choice of the user for the CRUD menu. </returns>
     static CrudChoices getCrudMenuChoice(MainChoices mainChoice)
     {
+        Console.ForegroundColor = ConsoleColor.Yellow;
         // print message about the current menu:
         Console.WriteLine($"{mainChoice} managing manu:");
         Console.WriteLine("Please choose one of the requested actions:");

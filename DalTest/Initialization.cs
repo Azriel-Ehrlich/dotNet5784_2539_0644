@@ -5,22 +5,22 @@ using DO;
 
 public static class Initialization
 {
-    private static ITask? s_dalTask;
-    private static IEngineer? s_dalEngineer;
-    private static IDependency? s_dalDependency;
-    private static readonly Random s_rand = new();
-    private static readonly int MIN_ID = 20000000, MAX_ID = 40000000;
+	private static ITask? s_dalTask;
+	private static IEngineer? s_dalEngineer;
+	private static IDependency? s_dalDependency;
+	private static readonly Random s_rand = new();
+	private static readonly int MIN_ID = 20000000, MAX_ID = 40000000;
 
-    /*
+	/*
 	 * our project is to build a spaceship and conduct a reasearch on Mars
 	 */
 
 
 
-    // our tasks:
-    // TODO: insert normal dates and times
-    private static readonly Task[] TASKS = {
-       // Initiating the mission planning process
+	// our tasks:
+	// TODO: insert normal dates and times
+	private static readonly Task[] TASKS = {
+	   // Initiating the mission planning process
 new Task(0, "Mission Planning", "Plan the mission to Mars", DateTime.Now.AddYears(-3), TimeSpan.FromDays(365 * 3), false, EngineerExperience.Expert, null, new DateTime(2027, 1, 1), null, null, "Mission plan details", null, 0),
 
 // Choosing the crew for the mission
@@ -80,19 +80,19 @@ new Task(0, "Public Relations and Outreach", "Engage in public relations and out
 // Analyzing mission outcomes
 new Task(0, "Post-Mission Analysis", "Conduct post-mission analysis", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Expert, null, new DateTime(2046, 1, 1), null, null, "Post-mission analysis details", null, 0)
 
-    };
+	};
 
-    // our amazing team:
-    private static readonly Engineer[] ENGINEERS = {
-        new Engineer(0, "alan@gmail.com", 80, "Alan", EngineerExperience.AdvancedBeginner), // engineer of building the spaceship
+	// our amazing team:
+	private static readonly Engineer[] ENGINEERS = {
+		new Engineer(0, "alan@gmail.com", 80, "Alan", EngineerExperience.AdvancedBeginner), // engineer of building the spaceship
 		new Engineer(0, "mic@gmail.com", 300, "Michael", EngineerExperience.Expert), // engineer of the flight route
 		new Engineer(0, "brandon@gmail.com", 200, "Brandon", EngineerExperience.Advanced), // space explorer
 		new Engineer(0, "nati@gmail.com", 150, "Natalie", EngineerExperience.Intermediate), // astronaut
 		new Engineer(0, "elizabeth123@gmail.com", 60, "Elizabeth", EngineerExperience.Beginner) // logistics manager
 	};
 
-    // the dependencies between the tasks:
-    private static readonly Dependency[] DEPENDENCIES = {
+	// the dependencies between the tasks:
+	private static readonly Dependency[] DEPENDENCIES = {
 		
 		// Dependencies
 new Dependency(0, 1, 0),   // Crew Selection depends on Mission Planning
@@ -138,60 +138,52 @@ new Dependency(0, 14, 13) // Return Journey Planning depends on Mars Ascent Vehi
 
 };
 
-    /// <summary>
-    /// Create the list of the engineers
-    /// </summary>
-    private static void createEngineers()
-    {
-        int id;
-        foreach (var eng in ENGINEERS)
-        {
-            do id = s_rand.Next(MIN_ID, MAX_ID + 1);
-            while (s_dalEngineer!.Read(id) != null);
-            s_dalEngineer.Create(eng with { Id = id });
-        }
-    }
+	/// <summary> Create the list of the engineers </summary>
+	private static void createEngineers()
+	{
+		int id;
+		foreach (var eng in ENGINEERS)
+		{
+			do id = s_rand.Next(MIN_ID, MAX_ID + 1);
+			while (s_dalEngineer!.Read(id) != null);
+			s_dalEngineer.Create(eng with { Id = id });
+		}
+	}
 
-    /// <summary>
-    /// Create the list of the tasks
-    /// </summary>
-    private static void createTasks()
-    {
-        foreach (var task in TASKS)
-        {
-            s_dalTask!.Create(task);
-        }
-    }
+	/// <summary> Create the list of the tasks </summary>
+	private static void createTasks()
+	{
+		foreach (var task in TASKS)
+		{
+			s_dalTask!.Create(task);
+		}
+	}
 
-    /// <summary>
-    /// Create the list of the dependencies between the tasks
-    /// </summary>
-    private static void createDependencies()
-    {
-        foreach (var dep in DEPENDENCIES)
-        {
-            s_dalDependency!.Create(dep);
-        }
-    }
+	/// <summary> Create the list of the dependencies between the tasks </summary>
+	private static void createDependencies()
+	{
+		foreach (var dep in DEPENDENCIES)
+		{
+			s_dalDependency!.Create(dep);
+		}
+	}
 
-    /// <summary>
-    /// Initialize the DAL
-    /// </summary>
-    /// <param name="dalTask">Implementation of <see cref="ITask"/> </param>
-    /// <param name="dalEngineer">Implementation of <see cref="IEngineer"/> </param>
-    /// <param name="dalDependency">Implementation of <see cref="IDependency"/> </param>
-    /// <exception cref="NullReferenceException">Thrown when one of the parameters is null</exception>
-    public static void Do(ITask? dalTask, IEngineer? dalEngineer, IDependency? dalDependency)
-    {
-        if (dalTask == null || dalEngineer == null || dalDependency == null)
-            throw new NullReferenceException("DAL can not be null!");
+	/// <summary> Initialize the DAL </summary>
+	/// <param name="dalTask">Implementation of <see cref="ITask"/> </param>
+	/// <param name="dalEngineer">Implementation of <see cref="IEngineer"/> </param>
+	/// <param name="dalDependency">Implementation of <see cref="IDependency"/> </param>
+	/// <exception cref="NullReferenceException">Thrown when one of the parameters is null</exception>
+	public static void Do(ITask? dalTask, IEngineer? dalEngineer, IDependency? dalDependency)
+	{
+		if (dalTask == null || dalEngineer == null || dalDependency == null)
+			throw new NullReferenceException("DAL can not be null!");
 
-        s_dalTask = dalTask;
-        s_dalEngineer = dalEngineer;
-        s_dalDependency = dalDependency;
+		s_dalTask = dalTask;
+		s_dalEngineer = dalEngineer;
+		s_dalDependency = dalDependency;
 
-        createEngineers();
-        createTasks();
-        createDependencies();
-    }
+		createEngineers();
+		createTasks();
+		createDependencies();
+	}
 }
