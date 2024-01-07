@@ -10,22 +10,6 @@ internal class Program
     private static IDependency? s_dalDependency = new DependencyImplementation();
     private static ITask? s_dalTask = new TaskImplementation();
 
-    public enum MainChoices
-    {
-        Exit,
-        Engineer,
-        Task,
-        Dependency
-    }
-    public enum CrudChoices
-    {
-        Exit,
-        Create,
-        Read,
-        ReadAll,
-        Update,
-        Delete
-    }
 
     /// <summary> The main function of the program. </summary>
     /// <param name="args"> The arguments of the program. </param>
