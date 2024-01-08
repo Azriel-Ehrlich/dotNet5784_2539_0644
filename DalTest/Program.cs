@@ -115,17 +115,6 @@ internal class Program
 		return res;
 	}
 
-	/// <summary> Reads a double from the user. </summary>
-	/// <returns> The double that the user entered. </returns>
-	/// <exception cref="Exception"> Thrown when the user entered an invalid input. </exception>
-	static double readDouble()
-	{
-		double res;
-		if (!double.TryParse(Console.ReadLine(), out res))
-			throw new Exception("invalid input please try again");
-
-		return res;
-	}
 
 	/*
 	 * Menu functions:
@@ -145,7 +134,7 @@ internal class Program
 
 		MainChoices choose = (MainChoices)readInt();
 		if (choose < MainChoices.Exit || choose > MainChoices.Dependency)
-			throw new Exception("invalid input please try again");
+			throw new Exception("invalid input");
 		return choose;
 	}
 
@@ -162,12 +151,12 @@ internal class Program
 		Console.WriteLine("1) create new item");
 		Console.WriteLine("2) read a specific item");
 		Console.WriteLine("3) read all of the items");
-		Console.WriteLine("4) update a specific item");
+		Console.WriteLine("4) update a specific item (if you don't want to change a field, leave it empty).");
 		Console.WriteLine("5) delete a specific item");
 
 		CrudChoices choose = (CrudChoices)readInt();
 		if (choose < CrudChoices.Exit || choose > CrudChoices.Delete)
-			throw new Exception("invalid input please try again");
+			throw new Exception("invalid input");
 		return choose;
 	}
 
@@ -190,21 +179,17 @@ internal class Program
 		int engineerId = readInt();
 		Console.WriteLine("enter start date");
 
-		string? line;
+		string? inputText;
 
-		line = Console.ReadLine();
+		inputText = Console.ReadLine();
 		DateTime? startDate = null, deadLine = null;
-		if (line != null && line != "")
-		{
-			startDate = DateTime.Parse(line);
-		}
+		if (inputText != null && inputText != "")
+			startDate = DateTime.Parse(inputText);
 
 		Console.WriteLine("enter deadLine");
-		line = Console.ReadLine();
-		if (line != null && line != "")
-		{
-			deadLine = DateTime.Parse(line);
-		}
+		inputText = Console.ReadLine();
+		if (inputText != null && inputText != "")
+			deadLine = DateTime.Parse(inputText);
 
 		TimeSpan? requiredEffortTime = deadLine - startDate;
 		Console.Write("is this task is a milestone? ");
@@ -245,8 +230,71 @@ internal class Program
 	{
 		Console.Write("enter the id of the Task: ");
 		int id = readInt();
-		Task task = getTaskFromUser();
-		s_dalTask!.Update(task with { Id = id });
+
+		Task oldTask = s_dalTask!.Read(id) ?? throw new Exception("the Task does not exist");
+
+		Console.Write("enter the name of the task: ");
+		string? alias = Console.ReadLine();
+		if (alias == null || alias == "")
+			alias = oldTask.Alias;
+
+		Console.Write("enter the description of the task: ");
+		string? description = Console.ReadLine();
+		if (description == null || description == "")
+			description = oldTask.Description;
+
+		Console.Write("what is the id of the Engineer who assigned to do the Task: ");
+		int? engineerId = oldTask.EngineerId;
+		string? inputText = Console.ReadLine();
+		if (inputText != null && inputText != "")
+		{
+			int tmp;
+			if (!int.TryParse(inputText, out tmp))
+				throw new Exception("invalid input");
+			engineerId = tmp;
+		}
+
+		DateTime? startDate = oldTask.StartDate;
+		Console.Write("enter start date: ");
+		inputText = Console.ReadLine();
+		if (inputText != null && inputText != "")
+			startDate = DateTime.Parse(inputText);
+
+		DateTime? deadLine = oldTask.DeadLineDate;
+		Console.Write("enter deadLine: ");
+		inputText = Console.ReadLine();
+		if (inputText != null && inputText != "")
+			deadLine = DateTime.Parse(inputText);
+
+		TimeSpan? requiredEffortTime = deadLine - startDate;
+
+		Console.Write("is this task is a milestone? ");
+		bool isMilestone = oldTask.IsMilestone;
+		inputText = Console.ReadLine();
+		if (inputText != null && inputText != "")
+		{
+			bool tmp;
+			if (!bool.TryParse(inputText, out tmp))
+				throw new Exception("invalid input");
+			isMilestone = tmp;
+		}
+
+		Console.Write("enter the complexity of the task (0-4): ");
+		EngineerExperience? complexity = oldTask.Complexity;
+		inputText = Console.ReadLine();
+		if (inputText != null && inputText != "")
+		{
+			int tmp;
+			if (!int.TryParse(inputText, out tmp))
+				throw new Exception("invalid input");
+			if (tmp < 0 || tmp > 4)
+				throw new Exception("invalid input");
+			complexity = (EngineerExperience)tmp;
+		}
+
+		s_dalTask!.Update(new Task(id, alias, description, DateTime.Now,
+			requiredEffortTime, isMilestone, complexity, startDate,
+			null, deadLine, null, "", "", engineerId));
 	}
 	/// <summary> Deletes a task from the database. </summary>
 	static void deleteTask()
@@ -261,9 +309,9 @@ internal class Program
 	 * Engineer functions
 	 */
 
-	/// <summary> Gets an engineer from the user. </summary>
-	/// <returns> The engineer that the user entered. </returns>
-	static Engineer getEngineerFromUser()
+
+	/// <summary> Creates a new engineer and adds it to the database according to user. </summary>
+	static void createNewEngineer()
 	{
 		Console.Write("enter the id number of the Engineer: ");
 		int id = readInt();
@@ -272,7 +320,9 @@ internal class Program
 		string email = Console.ReadLine()!;
 
 		Console.Write("enter the amount of money per hour the Engineer gets: ");
-		double cost = readDouble();
+		double cost;
+		if (!double.TryParse(Console.ReadLine(), out cost))
+			throw new Exception("invalid input");
 
 		Console.Write("enter the full name of the Engineer: ");
 		string name = Console.ReadLine()!;
@@ -280,12 +330,7 @@ internal class Program
 		Console.Write("enter the level of the Engineer (0-4): ");
 		EngineerExperience level = (EngineerExperience)readInt();
 
-		return new Engineer(id, email, cost, name, level);
-	}
-	/// <summary> Creates a new engineer and adds it to the database. </summary>
-	static void createNewEngineer()
-	{
-		s_dalEngineer!.Create(getEngineerFromUser());
+		s_dalEngineer!.Create(new Engineer(id, email, cost, name, level));
 	}
 	/// <summary> Reads an engineer from the database and prints it to the console. </summary>
 	static void readEngineer()
@@ -305,10 +350,49 @@ internal class Program
 		foreach (var eng in s_dalEngineer!.ReadAll())
 			Console.WriteLine($"> {eng}");
 	}
-	/// <summary> Updates an engineer in the database. </summary>
+	/// <summary> Updates an engineer in the database according to user input. </summary>
 	static void updateEngineer()
 	{
-		s_dalEngineer!.Update(getEngineerFromUser()); // we receive the id from the user in `getEngineerFromUser`
+		Console.Write("enter the id number of the Engineer: ");
+		int id = readInt();
+
+		Engineer oldEng = s_dalEngineer!.Read(id) ?? throw new Exception("the Engineer does not exist");
+
+		string? inputText;
+
+		Console.Write("enter the email of the Engineer: ");
+		string? email = Console.ReadLine();
+		if (email == null || email == "")
+			email = oldEng.Email;
+
+		Console.Write("enter the amount of money per hour the Engineer gets: ");
+		double cost = oldEng.Cost;
+		inputText = Console.ReadLine();
+		if (inputText != null && inputText != "")
+		{
+			if (!double.TryParse(inputText, out cost))
+				throw new Exception("invalid input");
+		}
+
+		Console.Write("enter the full name of the Engineer: ");
+		string? name = Console.ReadLine();
+		if (name == null || name == "")
+			name = oldEng.Name;	
+
+		Console.Write("enter the level of the Engineer (0-4): ");
+		EngineerExperience level = oldEng.Level;
+		inputText = Console.ReadLine();
+		if (inputText != null && inputText != "")
+		{
+			int tmp;
+			if (!int.TryParse(inputText, out tmp))
+				throw new Exception("invalid input");
+			if (tmp < 0 || tmp > 4)
+				throw new Exception("invalid input");
+			level = (EngineerExperience)tmp;
+		}
+
+		s_dalEngineer!.Update(new Engineer(id, email, cost, name, level));
 	}
 	/// <summary> Deletes an engineer from the database. </summary>
 	static void deleteEngineer()
@@ -323,9 +407,8 @@ internal class Program
 	 * Dependency functions
 	 */
 
-	/// <summary> Gets a dependency from the user. </summary>
-	/// <returns> The dependency that the user entered. </returns>
-	static Dependency getDependencyFromUser()
+	/// <summary> Creates a new dependency and adds it to the database according to user input. </summary>
+	static void createNewDependency()
 	{
 		Console.Write("enter the id of the dependent task: ");
 		int dependentId = readInt();
@@ -333,12 +416,7 @@ internal class Program
 		Console.Write("enter the id of the task that must be done first: ");
 		int dependsOnId = readInt();
 
-		return new Dependency(dependentId, dependsOnId);
-	}
-	/// <summary> Creates a new dependency and adds it to the database. </summary>
-	static void createNewDependency()
-	{
-		s_dalDependency!.Create(getDependencyFromUser());
+		s_dalDependency!.Create(new Dependency(dependentId, dependsOnId));
 	}
 	/// <summary> Reads a dependency from the database and prints it to the console. </summary>
 	static void readDependency()
@@ -358,13 +436,29 @@ internal class Program
 		foreach (var dep in s_dalDependency!.ReadAll())
 			Console.WriteLine($"> {dep}");
 	}
-	/// <summary> Updates a dependency in the database. </summary>
+	/// <summary> Updates a dependency in the database according to user input. </summary>
 	static void updateDependency()
 	{
 		Console.WriteLine("enter the id of the Dependency: ");
 		int id = readInt();
-		Dependency dep = getDependencyFromUser();
-		s_dalDependency!.Update(dep with { Id = id });
+
+		Dependency oldDep = s_dalDependency!.Read(id) ?? throw new Exception("the Dependency does not exist");
+
+		int? dependentId = oldDep.DependentTask;
+		int? dependsOnId = oldDep.DependsOnTask;
+		string? inputText;
+
+		Console.Write("enter the id of the dependent task: ");
+		inputText = Console.ReadLine();
+		if (inputText != null && inputText != "")
+			dependentId = int.Parse(inputText);
+
+		Console.Write("enter the id of the task that must be done first: ");
+		inputText = Console.ReadLine();
+		if (inputText != null && inputText != "")
+			dependsOnId = int.Parse(inputText);
+
+		s_dalDependency!.Update(new Dependency(id, dependentId, dependsOnId));
 	}
 	/// <summary> Deletes a dependency from the database. </summary>
 	static void deleteDependency()
