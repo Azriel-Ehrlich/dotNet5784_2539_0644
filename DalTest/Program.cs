@@ -115,7 +115,6 @@ internal class Program
 		return res;
 	}
 
-
 	/*
 	 * Menu functions:
 	 */
