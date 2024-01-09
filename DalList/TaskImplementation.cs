@@ -15,7 +15,7 @@ internal class TaskImplementation : ITask
 
 	public void Delete(int id)
 	{
-		Task? task = Read(id) ?? throw new Exception($"Task with the same id doesn't exist: id={id}");
+		Task? task = Read(id) ?? throw new DalDoesNotExistException($"Task with id {id} doesn't exist");
 		Update(task with { Active = false }); // we don't want to remove the task, just make it inactive
 	}
 
@@ -24,21 +24,21 @@ internal class TaskImplementation : ITask
 		return Read(x => x.Id == id);
 	}
 
-    public Task? Read(Func<Task, bool> filter)
-    {
-		return DataSource.Tasks.Where(filter).GetEnumerator().Current;
-    }
-
-    public IEnumerable<Task?> ReadAll(Func<Task, bool>? filter = null)
-    {
-        if (filter is null)
-            return DataSource.Tasks.Select(e => e);
-        return DataSource.Tasks.Where(filter);
-    }
-
-    public void Update(Task item)
+	public Task? Read(Func<Task, bool> filter)
 	{
-		Task? task = Read(item.Id) ?? throw new Exception($"Task with the same id doesn't exist: id={item.Id}");
+		return DataSource.Tasks.Where(filter).FirstOrDefault();
+	}
+
+	public IEnumerable<Task?> ReadAll(Func<Task, bool>? filter = null)
+	{
+		if (filter is null)
+			return DataSource.Tasks.Select(e => e);
+		return DataSource.Tasks.Where(filter);
+	}
+
+	public void Update(Task item)
+	{
+		Task? task = Read(item.Id) ?? throw new DalDoesNotExistException($"Task with id {item.Id} doesn't exist");
 		DataSource.Tasks.Remove(task); // remove the old item
 		DataSource.Tasks.Add(item); // and add the new one
 	}

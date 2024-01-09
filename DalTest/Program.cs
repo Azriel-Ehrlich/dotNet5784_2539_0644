@@ -3,15 +3,16 @@
 using Dal;
 using DalApi;
 using DO;
+using System.ComponentModel.DataAnnotations;
 
 internal class Program
 {
-    static readonly IDal s_dal = new DalList();
+	static readonly IDal s_dal = new DalList();
 
 
-    /// <summary> The main function of the program. </summary>
-    /// <param name="args"> The arguments of the program. </param>
-    static void Main(string[] args)
+	/// <summary> The main function of the program. </summary>
+	/// <param name="args"> The arguments of the program. </param>
+	static void Main(string[] args)
 	{
 		Initialization.Do(s_dal); // initialize the data
 
@@ -104,13 +105,22 @@ internal class Program
 
 	/// <summary> Reads an integer from the user. </summary>
 	/// <returns> The integer that the user entered. </returns>
-	/// <exception cref="Exception"> Thrown when the user entered an invalid input. </exception>
+	/// <exception cref="DalInvalidInputException"> Thrown when the user entered an invalid input. </exception>
 	static int readInt()
 	{
-		int res;
-		if (!int.TryParse(Console.ReadLine(), out res))
-			throw new Exception("invalid input");
-		return res;
+		return toInt(Console.ReadLine());
+	}
+
+	/// <summary> Converts a string to an integer. </summary>
+	/// <param name="str"> The str to convert. </param>
+	/// <returns> The integer from the string. </returns>
+	/// <exception cref="DalInvalidInputException"> Thrown when the user entered an invalid input. </exception>
+	static int toInt(string? str)
+	{
+		int i;
+		if (!int.TryParse(str, out i))
+			throw new DalInvalidInputException();
+		return i;
 	}
 
 	/*
@@ -131,7 +141,7 @@ internal class Program
 
 		MainChoices choose = (MainChoices)readInt();
 		if (choose < MainChoices.Exit || choose > MainChoices.Dependency)
-			throw new Exception("invalid input");
+			throw new DalInvalidInputException();
 		return choose;
 	}
 
@@ -153,7 +163,7 @@ internal class Program
 
 		CrudChoices choose = (CrudChoices)readInt();
 		if (choose < CrudChoices.Exit || choose > CrudChoices.Delete)
-			throw new Exception("invalid input");
+			throw new DalInvalidInputException();
 		return choose;
 	}
 
@@ -228,7 +238,7 @@ internal class Program
 		Console.Write("enter the id of the Task: ");
 		int id = readInt();
 
-		Task oldTask = s_dal.Task!.Read(id) ?? throw new Exception("the Task does not exist");
+		Task oldTask = s_dal.Task!.Read(id) ?? throw new DalDoesNotExistException("the Task does not exist");
 
 		Console.Write("enter the name of the task: ");
 		string? alias = Console.ReadLine();
@@ -244,12 +254,7 @@ internal class Program
 		int? engineerId = oldTask.EngineerId;
 		string? inputText = Console.ReadLine();
 		if (inputText != null && inputText != "")
-		{
-			int tmp;
-			if (!int.TryParse(inputText, out tmp))
-				throw new Exception("invalid input");
-			engineerId = tmp;
-		}
+			engineerId = toInt(inputText);
 
 		DateTime? startDate = oldTask.StartDate;
 		Console.Write("enter start date: ");
@@ -272,7 +277,7 @@ internal class Program
 		{
 			bool tmp;
 			if (!bool.TryParse(inputText, out tmp))
-				throw new Exception("invalid input");
+				throw new DalInvalidInputException();
 			isMilestone = tmp;
 		}
 
@@ -281,11 +286,9 @@ internal class Program
 		inputText = Console.ReadLine();
 		if (inputText != null && inputText != "")
 		{
-			int tmp;
-			if (!int.TryParse(inputText, out tmp))
-				throw new Exception("invalid input");
+			int tmp = toInt(inputText);
 			if (tmp < 0 || tmp > 4)
-				throw new Exception("invalid input");
+				throw new DalInvalidInputException();
 			complexity = (EngineerExperience)tmp;
 		}
 
@@ -319,7 +322,7 @@ internal class Program
 		Console.Write("enter the amount of money per hour the Engineer gets: ");
 		double cost;
 		if (!double.TryParse(Console.ReadLine(), out cost))
-			throw new Exception("invalid input");
+			throw new DalInvalidInputException();
 
 		Console.Write("enter the full name of the Engineer: ");
 		string name = Console.ReadLine()!;
@@ -353,7 +356,7 @@ internal class Program
 		Console.Write("enter the id number of the Engineer: ");
 		int id = readInt();
 
-		Engineer oldEng = s_dal.Engineer!.Read(id) ?? throw new Exception("the Engineer does not exist");
+		Engineer oldEng = s_dal.Engineer!.Read(id) ?? throw new DalDoesNotExistException("the Engineer does not exist");
 
 		string? inputText;
 
@@ -368,7 +371,7 @@ internal class Program
 		if (inputText != null && inputText != "")
 		{
 			if (!double.TryParse(inputText, out cost))
-				throw new Exception("invalid input");
+				throw new DalInvalidInputException();
 		}
 
 		Console.Write("enter the full name of the Engineer: ");
@@ -381,11 +384,9 @@ internal class Program
 		inputText = Console.ReadLine();
 		if (inputText != null && inputText != "")
 		{
-			int tmp;
-			if (!int.TryParse(inputText, out tmp))
-				throw new Exception("invalid input");
+			int tmp = toInt(inputText);
 			if (tmp < 0 || tmp > 4)
-				throw new Exception("invalid input");
+				throw new DalInvalidInputException();
 			level = (EngineerExperience)tmp;
 		}
 
@@ -439,7 +440,7 @@ internal class Program
 		Console.WriteLine("enter the id of the Dependency: ");
 		int id = readInt();
 
-		Dependency oldDep = s_dal.Dependency!.Read(id) ?? throw new Exception("the Dependency does not exist");
+		Dependency oldDep = s_dal.Dependency!.Read(id) ?? throw new DalDoesNotExistException("the Dependency does not exist");
 
 		int? dependentId = oldDep.DependentTask;
 		int? dependsOnId = oldDep.DependsOnTask;
