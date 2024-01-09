@@ -6,16 +6,14 @@ using DO;
 
 internal class Program
 {
-	private static IEngineer? s_dalEngineer = new EngineerImplementation();
-	private static IDependency? s_dalDependency = new DependencyImplementation();
-	private static ITask? s_dalTask = new TaskImplementation();
+    static readonly IDal s_dal = new DalList();
 
 
-	/// <summary> The main function of the program. </summary>
-	/// <param name="args"> The arguments of the program. </param>
-	static void Main(string[] args)
+    /// <summary> The main function of the program. </summary>
+    /// <param name="args"> The arguments of the program. </param>
+    static void Main(string[] args)
 	{
-		Initialization.Do(s_dalTask, s_dalEngineer, s_dalDependency); // initialize the data
+		Initialization.Do(s_dal); // initialize the data
 
 		Console.ForegroundColor = ConsoleColor.Cyan;
 		Console.WriteLine("Welcome to the missions managing manu");
@@ -204,7 +202,7 @@ internal class Program
 	/// <summary> Creates a new task and adds it to the database. </summary>
 	static void createNewTask()
 	{
-		s_dalTask!.Create(getTaskFromUser());
+		s_dal.Task!.Create(getTaskFromUser());
 	}
 	/// <summary> Reads a task from the database and prints it to the console. </summary>
 	static void readTask()
@@ -212,7 +210,7 @@ internal class Program
 		Console.Write("enter the id of the Task: ");
 		int id = readInt();
 
-		Task? task = s_dalTask!.Read(id);
+		Task? task = s_dal.Task!.Read(id);
 		if (task == null)
 			Console.WriteLine("the Task does not exist");
 		else
@@ -221,7 +219,7 @@ internal class Program
 	/// <summary> Reads all tasks from the database and prints them to the console. </summary>
 	static void readAllTasks()
 	{
-		foreach (var task in s_dalTask!.ReadAll())
+		foreach (var task in s_dal.Task!.ReadAll())
 			Console.WriteLine($"> {task}");
 	}
 	/// <summary> Updates a task in the database. </summary>
@@ -230,7 +228,7 @@ internal class Program
 		Console.Write("enter the id of the Task: ");
 		int id = readInt();
 
-		Task oldTask = s_dalTask!.Read(id) ?? throw new Exception("the Task does not exist");
+		Task oldTask = s_dal.Task!.Read(id) ?? throw new Exception("the Task does not exist");
 
 		Console.Write("enter the name of the task: ");
 		string? alias = Console.ReadLine();
@@ -291,7 +289,7 @@ internal class Program
 			complexity = (EngineerExperience)tmp;
 		}
 
-		s_dalTask!.Update(new Task(id, alias, description, DateTime.Now,
+		s_dal.Task!.Update(new Task(id, alias, description, DateTime.Now,
 			requiredEffortTime, isMilestone, complexity, startDate,
 			null, deadLine, null, "", "", engineerId));
 	}
@@ -300,7 +298,7 @@ internal class Program
 	{
 		Console.Write("enter the id of the Task: ");
 		int id = readInt();
-		s_dalTask!.Delete(id);
+		s_dal.Task!.Delete(id);
 	}
 
 
@@ -329,7 +327,7 @@ internal class Program
 		Console.Write("enter the level of the Engineer (0-4): ");
 		EngineerExperience level = (EngineerExperience)readInt();
 
-		s_dalEngineer!.Create(new Engineer(id, email, cost, name, level));
+		s_dal.Engineer!.Create(new Engineer(id, email, cost, name, level));
 	}
 	/// <summary> Reads an engineer from the database and prints it to the console. </summary>
 	static void readEngineer()
@@ -337,7 +335,7 @@ internal class Program
 		Console.Write("enter the id of the Engineer: ");
 		int id = readInt();
 
-		Engineer? eng = s_dalEngineer!.Read(id);
+		Engineer? eng = s_dal.Engineer!.Read(id);
 		if (eng == null)
 			Console.WriteLine("the Engineer does not exist");
 		else
@@ -346,7 +344,7 @@ internal class Program
 	/// <summary> Reads all engineers from the database and prints them to the console. </summary>
 	static void readAllEngineers()
 	{
-		foreach (var eng in s_dalEngineer!.ReadAll())
+		foreach (var eng in s_dal.Engineer!.ReadAll())
 			Console.WriteLine($"> {eng}");
 	}
 	/// <summary> Updates an engineer in the database according to user input. </summary>
@@ -355,7 +353,7 @@ internal class Program
 		Console.Write("enter the id number of the Engineer: ");
 		int id = readInt();
 
-		Engineer oldEng = s_dalEngineer!.Read(id) ?? throw new Exception("the Engineer does not exist");
+		Engineer oldEng = s_dal.Engineer!.Read(id) ?? throw new Exception("the Engineer does not exist");
 
 		string? inputText;
 
@@ -391,14 +389,14 @@ internal class Program
 			level = (EngineerExperience)tmp;
 		}
 
-		s_dalEngineer!.Update(new Engineer(id, email, cost, name, level));
+		s_dal.Engineer!.Update(new Engineer(id, email, cost, name, level));
 	}
 	/// <summary> Deletes an engineer from the database. </summary>
 	static void deleteEngineer()
 	{
 		Console.Write("enter the id of the Engineer: ");
 		int id = readInt();
-		s_dalEngineer!.Delete(id);
+		s_dal.Engineer!.Delete(id);
 	}
 
 
@@ -415,7 +413,7 @@ internal class Program
 		Console.Write("enter the id of the task that must be done first: ");
 		int dependsOnId = readInt();
 
-		s_dalDependency!.Create(new Dependency(dependentId, dependsOnId));
+		s_dal.Dependency!.Create(new Dependency(dependentId, dependsOnId));
 	}
 	/// <summary> Reads a dependency from the database and prints it to the console. </summary>
 	static void readDependency()
@@ -423,7 +421,7 @@ internal class Program
 		Console.Write("enter the id of the Dependency: ");
 		int id = readInt();
 
-		Dependency? dep = s_dalDependency!.Read(id);
+		Dependency? dep = s_dal.Dependency!.Read(id);
 		if (dep == null)
 			Console.WriteLine("the Dependency does not exist");
 		else
@@ -432,7 +430,7 @@ internal class Program
 	/// <summary> Reads all dependencies from the database and prints them to the console. </summary>
 	static void readAllDependencies()
 	{
-		foreach (var dep in s_dalDependency!.ReadAll())
+		foreach (var dep in s_dal.Dependency!.ReadAll())
 			Console.WriteLine($"> {dep}");
 	}
 	/// <summary> Updates a dependency in the database according to user input. </summary>
@@ -441,7 +439,7 @@ internal class Program
 		Console.WriteLine("enter the id of the Dependency: ");
 		int id = readInt();
 
-		Dependency oldDep = s_dalDependency!.Read(id) ?? throw new Exception("the Dependency does not exist");
+		Dependency oldDep = s_dal.Dependency!.Read(id) ?? throw new Exception("the Dependency does not exist");
 
 		int? dependentId = oldDep.DependentTask;
 		int? dependsOnId = oldDep.DependsOnTask;
@@ -457,13 +455,13 @@ internal class Program
 		if (inputText != null && inputText != "")
 			dependsOnId = int.Parse(inputText);
 
-		s_dalDependency!.Update(new Dependency(id, dependentId, dependsOnId));
+		s_dal.Dependency!.Update(new Dependency(id, dependentId, dependsOnId));
 	}
 	/// <summary> Deletes a dependency from the database. </summary>
 	static void deleteDependency()
 	{
 		Console.Write("enter the id of the Dependency: ");
 		int id = readInt();
-		s_dalDependency!.Delete(id);
+		s_dal.Dependency!.Delete(id);
 	}
 }
