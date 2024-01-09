@@ -5,9 +5,7 @@ using DO;
 
 public static class Initialization
 {
-	private static ITask? s_dalTask;
-	private static IEngineer? s_dalEngineer;
-	private static IDependency? s_dalDependency;
+	private static IDal? s_dal;
 	private static readonly Random s_rand = new();
 	private static readonly int MIN_ID = 20000000, MAX_ID = 40000000;
 
@@ -137,8 +135,8 @@ public static class Initialization
 		foreach (var eng in ENGINEERS)
 		{
 			do id = s_rand.Next(MIN_ID, MAX_ID + 1);
-			while (s_dalEngineer!.Read(id) != null);
-			s_dalEngineer.Create(eng with { Id = id });
+			while (s_dal!.Engineer.Read(id) != null);
+			s_dal.Engineer.Create(eng with { Id = id });
 		}
 	}
 
@@ -147,7 +145,7 @@ public static class Initialization
 	{
 		foreach (var task in TASKS)
 		{
-			s_dalTask!.Create(task);
+			s_dal!.Task.Create(task);
 		}
 	}
 
@@ -156,7 +154,7 @@ public static class Initialization
 	{
 		foreach (var dep in DEPENDENCIES)
 		{
-			s_dalDependency!.Create(dep);
+			s_dal!.Dependency.Create(dep);
 		}
 	}
 
@@ -165,14 +163,9 @@ public static class Initialization
 	/// <param name="dalEngineer">Implementation of <see cref="IEngineer"/> </param>
 	/// <param name="dalDependency">Implementation of <see cref="IDependency"/> </param>
 	/// <exception cref="NullReferenceException">Thrown when one of the parameters is null</exception>
-	public static void Do(ITask? dalTask, IEngineer? dalEngineer, IDependency? dalDependency)
+	public static void Do(IDal? dal)
 	{
-		if (dalTask == null || dalEngineer == null || dalDependency == null)
-			throw new NullReferenceException("DAL can not be null!");
-
-		s_dalTask = dalTask;
-		s_dalEngineer = dalEngineer;
-		s_dalDependency = dalDependency;
+		s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!");
 
 		createEngineers();
 		createTasks();
