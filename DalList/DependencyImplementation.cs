@@ -3,6 +3,8 @@
 using DO;
 using DalApi;
 using System.Collections.Generic;
+using System.Linq;
+using System.Diagnostics.Metrics;
 
 internal class DependencyImplementation : IDependency
 {
@@ -21,15 +23,22 @@ internal class DependencyImplementation : IDependency
 
 	public Dependency? Read(int id)
 	{
-		return DataSource.Dependencys.Find(x => x.Id == id);
+		return Read(x => x.Id == id);
 	}
 
-	public List<Dependency> ReadAll()
-	{
-		return new List<Dependency>(DataSource.Dependencys);
-	}
+    public Dependency? Read(Func<Dependency, bool> filter)
+    {
+		return DataSource.Dependencys.Where(filter).GetEnumerator().Current;
+    }
 
-	public void Update(Dependency item)
+    public IEnumerable<Dependency?> ReadAll(Func<Dependency, bool>? filter = null)
+    {
+        if (filter is null)
+            return DataSource.Dependencys.Select(e => e);
+        return DataSource.Dependencys.Where(filter);
+    }
+
+    public void Update(Dependency item)
 	{
 		Dependency? dep = Read(item.Id) ?? throw new Exception($"Dependency with the same id doesn't exist: id={item.Id}");
 		DataSource.Dependencys.Remove(dep); // remove the old item

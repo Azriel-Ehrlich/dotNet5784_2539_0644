@@ -21,15 +21,22 @@ internal class TaskImplementation : ITask
 
 	public Task? Read(int id)
 	{
-		return DataSource.Tasks.Find(x => x.Id == id);
+		return Read(x => x.Id == id);
 	}
 
-	public List<Task> ReadAll()
-	{
-		return new List<Task>(DataSource.Tasks);
-	}
+    public Task? Read(Func<Task, bool> filter)
+    {
+		return DataSource.Tasks.Where(filter).GetEnumerator().Current;
+    }
 
-	public void Update(Task item)
+    public IEnumerable<Task?> ReadAll(Func<Task, bool>? filter = null)
+    {
+        if (filter is null)
+            return DataSource.Tasks.Select(e => e);
+        return DataSource.Tasks.Where(filter);
+    }
+
+    public void Update(Task item)
 	{
 		Task? task = Read(item.Id) ?? throw new Exception($"Task with the same id doesn't exist: id={item.Id}");
 		DataSource.Tasks.Remove(task); // remove the old item
