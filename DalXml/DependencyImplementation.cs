@@ -9,68 +9,87 @@ internal class DependencyImplementation : IDependency
 {
 	public int Create(Dependency item)
 	{
-		Dependency dep = item with { Id = Config.NextDependencyId};
-
 		// read all dependencies from xml file
 		XElement dependencies = XMLTools.LoadListFromXMLElement("dependencies");
 
 		// add the new dependency to the list
+		int id = Config.NextDependencyId;
 		XElement xDep = new XElement("Dependency");
-		xDep.Add("Id", dep.Id);
-		xDep.Add("DependentTask", dep.DependentTask);
-		xDep.Add("DependsOnTask", dep.DependsOnTask);
+		xDep.Add("Id", id);
+		xDep.Add("DependentTask", item.DependentTask);
+		xDep.Add("DependsOnTask", item.DependsOnTask);
 		dependencies.Add(xDep);
 
 		// save the list to xml file
 		XMLTools.SaveListToXMLElement(dependencies, "dependencies");
 
-		return dep.Id;
+		return id;
 	}
 
 	public void Delete(int id)
 	{
 		// read all dependencies from xml file
 		XElement dependencies = XMLTools.LoadListFromXMLElement("dependencies");
+		
 		// remove the dependency with the given id
-		dependencies.Elements().Where(x => int.Parse(x.Element("Id")!.Value) == id).Remove();
+		XElement xDep = GetXmlDependencyById(dependencies, id) ?? throw new DalDoesNotExistException($"Dependency with id {id} doesn't exist");
+		xDep.Remove();
+
 		// save the list to xml file
 		XMLTools.SaveListToXMLElement(dependencies, "dependencies");
 	}
 
 	public Dependency? Read(int id)
 	{
-		throw new NotImplementedException();
+		return Read(dep => dep.Id == id);
 	}
 
 	public Dependency? Read(Func<Dependency, bool> filter)
 	{
-		throw new NotImplementedException();
+		return ReadAll(filter).FirstOrDefault();
 	}
 
 	public IEnumerable<Dependency?> ReadAll(Func<Dependency, bool>? filter = null)
 	{
-		// read all dependencies from xml file
-		XElement dependencies = XMLTools.LoadListFromXMLElement("dependencies");
+		var list = XMLTools.LoadListFromXMLElement("dependencies")
+			.Elements()
+			.Select(ConvertXmlToDependency);
 
-		// convert the xml elements to dependencies
-		foreach (XElement xDep in dependencies.Elements())
-		{
-			Dependency dep = new Dependency() {
-				Id = int.Parse(xDep.Element("Id")!.Value),
-				DependentTask = int.Parse(xDep.Element("DependentTask")!.Value),
-				DependsOnTask = int.Parse(xDep.Element("DependsOnTask")!.Value)
-			};
+		if (filter != null)
+			list = list.Where(filter);
 
-			// if there is a filter, check if the dependency matches it
-			if (filter == null || filter(dep))
-				yield return dep;
-		}
-
-		yield break;
+		return list;
 	}
 
 	public void Update(Dependency item)
 	{
-		throw new NotImplementedException();
+		// read all dependencies from xml file
+		XElement dependencies = XMLTools.LoadListFromXMLElement("dependencies");
+
+		// find child with the given id
+		XElement xDep = GetXmlDependencyById(dependencies, item.Id) ?? throw new DalDoesNotExistException($"Dependency with id {item.Id} doesn't exist");
+
+		// update the dependency
+		xDep.Element("DependentTask")!.Value = item.DependentTask.ToString()!;
+		xDep.Element("DependsOnTask")!.Value = item.DependsOnTask.ToString()!;
+
+		// save the list to xml file
+		XMLTools.SaveListToXMLElement(dependencies, "dependencies");
+	}
+
+	private XElement? GetXmlDependencyById(XElement parent, int id)
+	{
+		return parent.Elements()
+			.Where(x => ConvertXmlToDependency(x).Id == id)
+			.FirstOrDefault();
+	}
+
+	private Dependency ConvertXmlToDependency(XElement xDep)
+	{
+		return new Dependency(
+			int.Parse(xDep.Element("Id")!.Value),
+			int.Parse(xDep.Element("DependentTask")!.Value),
+			int.Parse(xDep.Element("DependsOnTask")!.Value)
+		);
 	}
 }
