@@ -7,11 +7,13 @@ using System.Xml.Linq;
 
 internal class DependencyImplementation : IDependency
 {
+	readonly string s_dependencies_xml = "dependencies";
+
 	/// <inheritdoc/>
 	public int Create(Dependency item)
 	{
 		// read all dependencies from xml file
-		XElement dependencies = XMLTools.LoadListFromXMLElement("dependencies");
+		XElement dependencies = XMLTools.LoadListFromXMLElement(s_dependencies_xml);
 
 		// add the new dependency to the list
 		int id = Config.NextDependencyId;
@@ -22,7 +24,7 @@ internal class DependencyImplementation : IDependency
 		dependencies.Add(xDep);
 
 		// save the list to xml file
-		XMLTools.SaveListToXMLElement(dependencies, "dependencies");
+		XMLTools.SaveListToXMLElement(dependencies, s_dependencies_xml);
 
 		return id;
 	}
@@ -31,14 +33,14 @@ internal class DependencyImplementation : IDependency
 	public void Delete(int id)
 	{
 		// read all dependencies from xml file
-		XElement dependencies = XMLTools.LoadListFromXMLElement("dependencies");
+		XElement dependencies = XMLTools.LoadListFromXMLElement(s_dependencies_xml);
 		
 		// remove the dependency with the given id
 		XElement xDep = GetXmlDependencyById(dependencies, id) ?? throw new DalDoesNotExistException($"Dependency with id {id} doesn't exist");
 		xDep.Remove();
 
 		// save the list to xml file
-		XMLTools.SaveListToXMLElement(dependencies, "dependencies");
+		XMLTools.SaveListToXMLElement(dependencies, s_dependencies_xml);
 	}
 
 	/// <inheritdoc/>
@@ -56,7 +58,7 @@ internal class DependencyImplementation : IDependency
 	/// <inheritdoc/>
 	public IEnumerable<Dependency?> ReadAll(Func<Dependency, bool>? filter = null)
 	{
-		IEnumerable<Dependency> list = XMLTools.LoadListFromXMLElement("dependencies")
+		IEnumerable<Dependency> list = XMLTools.LoadListFromXMLElement(s_dependencies_xml)
 			.Elements()
 			.Select(ConvertXmlToDependency);
 
@@ -70,7 +72,7 @@ internal class DependencyImplementation : IDependency
 	public void Update(Dependency item)
 	{
 		// read all dependencies from xml file
-		XElement dependencies = XMLTools.LoadListFromXMLElement("dependencies");
+		XElement dependencies = XMLTools.LoadListFromXMLElement(s_dependencies_xml);
 
 		// find child with the given id
 		XElement xDep = GetXmlDependencyById(dependencies, item.Id) ?? throw new DalDoesNotExistException($"Dependency with id {item.Id} doesn't exist");
@@ -80,7 +82,7 @@ internal class DependencyImplementation : IDependency
 		xDep.Element("DependsOnTask")!.Value = item.DependsOnTask.ToString()!;
 
 		// save the list to xml file
-		XMLTools.SaveListToXMLElement(dependencies, "dependencies");
+		XMLTools.SaveListToXMLElement(dependencies, s_dependencies_xml);
 	}
 
 
