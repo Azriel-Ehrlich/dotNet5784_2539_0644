@@ -24,3 +24,8 @@ public class DalInvalidInputException : Exception
 {
 	public DalInvalidInputException(string? message = "invalid input") : base(message) { }
 }
+[Serializable]
+public class DalXMLFileLoadCreateException : Exception
+{
+	public DalXMLFileLoadCreateException(string? message = "invalid input") : base(message) { }
+}
