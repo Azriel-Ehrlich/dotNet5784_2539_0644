@@ -56,7 +56,7 @@ internal class DependencyImplementation : IDependency
 	/// <inheritdoc/>
 	public IEnumerable<Dependency?> ReadAll(Func<Dependency, bool>? filter = null)
 	{
-		IEnumerable<Dependency?> list = XMLTools.LoadListFromXMLElement("dependencies")
+		IEnumerable<Dependency> list = XMLTools.LoadListFromXMLElement("dependencies")
 			.Elements()
 			.Select(ConvertXmlToDependency);
 
