@@ -3,12 +3,23 @@ using DO;
 using DalApi;
 using System;
 using System.Collections.Generic;
+using System.Xml.Linq;
 
 internal class DependencyImplementation : IDependency
 {
 	public int Create(Dependency item)
 	{
-		throw new NotImplementedException();
+		// read all dependencies from xml file
+		List<Dependency> dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>("dependencies");
+		
+		// add the new dependency to the list
+		Dependency dep = item with { Id = Config.NextDependencyId};
+		dependencies.Add(dep);
+		
+		// save the list to xml file
+		XMLTools.SaveListToXMLSerializer(dependencies, "dependencies");
+
+		return dep.Id;
 	}
 
 	public void Delete(int id)
