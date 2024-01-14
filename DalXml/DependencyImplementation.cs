@@ -9,22 +9,32 @@ internal class DependencyImplementation : IDependency
 {
 	public int Create(Dependency item)
 	{
-		// read all dependencies from xml file
-		List<Dependency> dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>("dependencies");
-		
-		// add the new dependency to the list
 		Dependency dep = item with { Id = Config.NextDependencyId};
-		dependencies.Add(dep);
-		
+
+		// read all dependencies from xml file
+		XElement dependencies = XMLTools.LoadListFromXMLElement("dependencies");
+
+		// add the new dependency to the list
+		XElement xDep = new XElement("Dependency");
+		xDep.Add("Id", dep.Id);
+		xDep.Add("DependentTask", dep.DependentTask);
+		xDep.Add("DependsOnTask", dep.DependsOnTask);
+		dependencies.Add(xDep);
+
 		// save the list to xml file
-		XMLTools.SaveListToXMLSerializer(dependencies, "dependencies");
+		XMLTools.SaveListToXMLElement(dependencies, "dependencies");
 
 		return dep.Id;
 	}
 
 	public void Delete(int id)
 	{
-		throw new NotImplementedException();
+		// read all dependencies from xml file
+		XElement dependencies = XMLTools.LoadListFromXMLElement("dependencies");
+		// remove the dependency with the given id
+		dependencies.Elements().Where(x => int.Parse(x.Element("Id")!.Value) == id).Remove();
+		// save the list to xml file
+		XMLTools.SaveListToXMLElement(dependencies, "dependencies");
 	}
 
 	public Dependency? Read(int id)
@@ -39,7 +49,24 @@ internal class DependencyImplementation : IDependency
 
 	public IEnumerable<Dependency?> ReadAll(Func<Dependency, bool>? filter = null)
 	{
-		throw new NotImplementedException();
+		// read all dependencies from xml file
+		XElement dependencies = XMLTools.LoadListFromXMLElement("dependencies");
+
+		// convert the xml elements to dependencies
+		foreach (XElement xDep in dependencies.Elements())
+		{
+			Dependency dep = new Dependency() {
+				Id = int.Parse(xDep.Element("Id")!.Value),
+				DependentTask = int.Parse(xDep.Element("DependentTask")!.Value),
+				DependsOnTask = int.Parse(xDep.Element("DependsOnTask")!.Value)
+			};
+
+			// if there is a filter, check if the dependency matches it
+			if (filter == null || filter(dep))
+				yield return dep;
+		}
+
+		yield break;
 	}
 
 	public void Update(Dependency item)
