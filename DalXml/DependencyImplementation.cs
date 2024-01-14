@@ -7,6 +7,7 @@ using System.Xml.Linq;
 
 internal class DependencyImplementation : IDependency
 {
+	/// <inheritdoc/>
 	public int Create(Dependency item)
 	{
 		// read all dependencies from xml file
@@ -26,6 +27,7 @@ internal class DependencyImplementation : IDependency
 		return id;
 	}
 
+	/// <inheritdoc/>
 	public void Delete(int id)
 	{
 		// read all dependencies from xml file
@@ -39,19 +41,22 @@ internal class DependencyImplementation : IDependency
 		XMLTools.SaveListToXMLElement(dependencies, "dependencies");
 	}
 
+	/// <inheritdoc/>
 	public Dependency? Read(int id)
 	{
-		return Read(dep => dep.Id == id);
+		return Read(dep => dep.Id == id); // use the other Read method
 	}
 
+	/// <inheritdoc/>
 	public Dependency? Read(Func<Dependency, bool> filter)
 	{
-		return ReadAll(filter).FirstOrDefault();
+		return ReadAll(filter).FirstOrDefault(); // we did it, so we use it!
 	}
 
+	/// <inheritdoc/>
 	public IEnumerable<Dependency?> ReadAll(Func<Dependency, bool>? filter = null)
 	{
-		var list = XMLTools.LoadListFromXMLElement("dependencies")
+		IEnumerable<Dependency?> list = XMLTools.LoadListFromXMLElement("dependencies")
 			.Elements()
 			.Select(ConvertXmlToDependency);
 
@@ -61,6 +66,7 @@ internal class DependencyImplementation : IDependency
 		return list;
 	}
 
+	/// <inheritdoc/>
 	public void Update(Dependency item)
 	{
 		// read all dependencies from xml file
@@ -77,6 +83,11 @@ internal class DependencyImplementation : IDependency
 		XMLTools.SaveListToXMLElement(dependencies, "dependencies");
 	}
 
+
+	/// <summary> Get an XElement from a parent XElement by the id of the dependency </summary>
+	/// <param name="parent"> The parent XElement </param>
+	/// <param name="id"> The id of the dependency </param>
+	/// <returns> The XElement with the given id </returns>
 	private XElement? GetXmlDependencyById(XElement parent, int id)
 	{
 		return parent.Elements()
@@ -84,6 +95,9 @@ internal class DependencyImplementation : IDependency
 			.FirstOrDefault();
 	}
 
+	/// <summary> Convert an XElement to a Dependency </summary>
+	/// <param name="xDep"> The XElement to convert </param>
+	/// <returns> The converted Dependency </returns>
 	private Dependency ConvertXmlToDependency(XElement xDep)
 	{
 		return new Dependency(
