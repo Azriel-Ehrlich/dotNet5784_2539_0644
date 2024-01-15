@@ -3,13 +3,13 @@ using DO;
 using DalApi;
 using System;
 using System.Collections.Generic;
-using System.Data.Common;
 
 internal class EngineerImplementation : IEngineer
 {
     readonly string s_engineers_xml = "engineers";
 
-    public int Create(Engineer item)
+	/// <inheritdoc/>
+	public int Create(Engineer item)
     {
         List<Engineer> engineers = XMLTools.LoadListFromXMLSerializer<Engineer>(s_engineers_xml);
         if (engineers.Where(e => e.Id == item.Id).FirstOrDefault() is not null)
@@ -19,7 +19,8 @@ internal class EngineerImplementation : IEngineer
         return item.Id;
     }
 
-    public void Delete(int id)
+	/// <inheritdoc/>
+	public void Delete(int id)
     {
         List<Engineer> engineers = XMLTools.LoadListFromXMLSerializer<Engineer>(s_engineers_xml);
         Engineer? engineer = engineers.Where(eng=>eng.Id==id).FirstOrDefault() ?? throw new DalDoesNotExistException($"Engineer with id {id} doesn't exist");
@@ -30,17 +31,20 @@ internal class EngineerImplementation : IEngineer
                     
     }
 
-    public Engineer? Read(int id)
+	/// <inheritdoc/>
+	public Engineer? Read(int id)
     {
         return Read(x => x.Id == id);
     }
 
-    public Engineer? Read(Func<Engineer, bool> filter)
+	/// <inheritdoc/>
+	public Engineer? Read(Func<Engineer, bool> filter)
     {
         return ReadAll(filter).FirstOrDefault();
     }
 
-    public IEnumerable<Engineer?> ReadAll(Func<Engineer, bool>? filter = null)
+	/// <inheritdoc/>
+	public IEnumerable<Engineer?> ReadAll(Func<Engineer, bool>? filter = null)
     {
         List<Engineer> engineers = XMLTools.LoadListFromXMLSerializer<Engineer>(s_engineers_xml);
         if (filter is null)
@@ -48,7 +52,8 @@ internal class EngineerImplementation : IEngineer
         return engineers.Where(filter);
     }
 
-    public void Update(Engineer item)
+	/// <inheritdoc/>
+	public void Update(Engineer item)
     {
         List<Engineer> engineers = XMLTools.LoadListFromXMLSerializer<Engineer>(s_engineers_xml);
         Engineer? engineer = Read(item.Id) ?? throw new DalDoesNotExistException($"Engineer with id {item.Id} doesn't exist");

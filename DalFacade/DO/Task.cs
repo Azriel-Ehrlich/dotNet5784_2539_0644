@@ -38,7 +38,7 @@ public record Task
 	bool Active = true
 )
 {
-	public Task(int id = 0) : this(id, "", "", DateTime.Now) { }
+	public Task() : this(0, "", "", DateTime.Now) { }
 	public Task(string alias, string description, int engineerId) 
 		: this(0, alias, description, DateTime.Now, null, false, null, null, null, null, null, null, null, engineerId) { }
 }

@@ -9,6 +9,8 @@ public static class Initialization
 	private static readonly Random s_rand = new();
 	private static readonly int MIN_ID = 20000000, MAX_ID = 40000000;
 
+	// TODO: create normal arrays of classes instaces and not tuples
+
 	/*
 	 * our project is to build a spaceship and conduct a reasearch on Mars
 	 */
