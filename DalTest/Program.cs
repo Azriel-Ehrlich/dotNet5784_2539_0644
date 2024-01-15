@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 internal class Program
 {
-	static readonly IDal s_dal = new DalList();
+	static readonly IDal s_dal = new DalXml();
 
 
 	/// <summary> The main function of the program. </summary>
