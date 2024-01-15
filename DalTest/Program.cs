@@ -9,13 +9,10 @@ internal class Program
 {
 	static readonly IDal s_dal = new DalXml();
 
-
 	/// <summary> The main function of the program. </summary>
 	/// <param name="args"> The arguments of the program. </param>
 	static void Main(string[] args)
 	{
-		Initialization.Do(s_dal); // initialize the data
-
 		Console.ForegroundColor = ConsoleColor.Cyan;
 		Console.WriteLine("Welcome to the missions managing manu");
 		Console.WriteLine("Our mission is to send a spaceship to space");
@@ -59,6 +56,8 @@ internal class Program
 			}
 		};
 
+		init();
+
 		MainChoices mainChoice = MainChoices.Engineer; // default value so the loop will start
 		while (mainChoice != MainChoices.Exit)
 		{
@@ -98,6 +97,17 @@ internal class Program
 		Console.ForegroundColor = ConsoleColor.White; // reset the color
 	}
 
+	private static void init()
+	{
+		Console.ForegroundColor = ConsoleColor.Magenta;
+
+		Console.Write("Would you like to create Initial data? (Y/N) ");
+		string? ans;
+		do ans = Console.ReadLine();
+		while (ans == null);
+		if (ans == "Y" || ans == "y")
+			Initialization.Do(s_dal); // initialize the data
+	}
 
 	/*
 	 * Helper functions:

@@ -8,17 +8,17 @@ internal class TaskImplementation : ITask
 {
 	readonly string s_tasks_xml = "tasks";
 
+	/// <inheritdoc/>
 	public int Create(Task item)
 	{
 		List<Task> tasks = XMLTools.LoadListFromXMLSerializer<Task>(s_tasks_xml);
-		if (tasks.Where(t => t.Id == item.Id).FirstOrDefault() is not null)
-            throw new DalAlreadyExistsException($"Task with id {item.Id} already exists");
 		int id = Config.NextTaskId;
 		tasks.Add(item with { Id = id });
 		XMLTools.SaveListToXMLSerializer(tasks, s_tasks_xml);
 		return id;
 	}
 
+	/// <inheritdoc/>
 	public void Delete(int id)
 	{
 		List<Task> tasks = XMLTools.LoadListFromXMLSerializer<Task>(s_tasks_xml);
@@ -26,16 +26,19 @@ internal class TaskImplementation : ITask
 		Update(task with { Active = false });
 	}
 
+	/// <inheritdoc/>
 	public Task? Read(int id)
 	{
 		return Read(x => x.Id == id);
 	}
 
+	/// <inheritdoc/>
 	public Task? Read(Func<Task, bool> filter)
 	{
 		return ReadAll(filter).FirstOrDefault();
 	}
 
+	/// <inheritdoc/>
 	public IEnumerable<Task?> ReadAll(Func<Task, bool>? filter = null)
 	{
 		List<Task> tasks = XMLTools.LoadListFromXMLSerializer<Task>(s_tasks_xml);
@@ -44,6 +47,7 @@ internal class TaskImplementation : ITask
 		return tasks.Where(filter);
 	}
 
+	/// <inheritdoc/>
 	public void Update(Task item)
 	{
 		List<Task> tasks = XMLTools.LoadListFromXMLSerializer<Task>(s_tasks_xml);

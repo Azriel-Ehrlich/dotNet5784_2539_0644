@@ -17,11 +17,11 @@ internal class DependencyImplementation : IDependency
 
 		// add the new dependency to the list
 		int id = Config.NextDependencyId;
-		XElement xDep = new XElement("Dependency");
-		xDep.Add("Id", id);
-		xDep.Add("DependentTask", item.DependentTask);
-		xDep.Add("DependsOnTask", item.DependsOnTask);
-		dependencies.Add(xDep);
+		dependencies.Add(new XElement("Dependency",
+			new XElement("Id", id),
+			new XElement("DependentTask", item.DependentTask),
+			new XElement("DependsOnTask", item.DependsOnTask)
+		));
 
 		// save the list to xml file
 		XMLTools.SaveListToXMLElement(dependencies, s_dependencies_xml);
@@ -34,7 +34,7 @@ internal class DependencyImplementation : IDependency
 	{
 		// read all dependencies from xml file
 		XElement dependencies = XMLTools.LoadListFromXMLElement(s_dependencies_xml);
-		
+
 		// remove the dependency with the given id
 		XElement xDep = GetXmlDependencyById(dependencies, id) ?? throw new DalDoesNotExistException($"Dependency with id {id} doesn't exist");
 		xDep.Remove();
