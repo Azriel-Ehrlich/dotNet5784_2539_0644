@@ -640,4 +640,21 @@
     <EngineerId>0</EngineerId>
     <Active>true</Active>
   </Task>
+  <Task>
+    <Id>62</Id>
+    <Alias>aaa</Alias>
+    <Description>bbb</Description>
+    <CreatedAtDate>2024-01-16T11:55:31.3174201+02:00</CreatedAtDate>
+    <RequiredEffortTime xsi:nil="true" />
+    <IsMilestone>false</IsMilestone>
+    <Complexity>Advanced</Complexity>
+    <StartDate xsi:nil="true" />
+    <SchedualdDate xsi:nil="true" />
+    <DeadLineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <Deliverables />
+    <Remarks />
+    <EngineerId>222</EngineerId>
+    <Active>true</Active>
+  </Task>
 </ArrayOfTask>

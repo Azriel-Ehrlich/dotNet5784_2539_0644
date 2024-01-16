@@ -103,9 +103,9 @@ internal class DependencyImplementation : IDependency
 	private Dependency ConvertXmlToDependency(XElement xDep)
 	{
 		return new Dependency(
-			int.Parse(xDep.Element("Id")!.Value),
-			int.Parse(xDep.Element("DependentTask")!.Value),
-			int.Parse(xDep.Element("DependsOnTask")!.Value)
+			(int)xDep.ToIntNullable("Id")!,
+			xDep.ToIntNullable("DependentTask"),
+			xDep.ToIntNullable("DependsOnTask")
 		);
 	}
 }

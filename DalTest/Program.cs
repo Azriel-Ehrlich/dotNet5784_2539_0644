@@ -97,6 +97,7 @@ internal class Program
 		Console.ForegroundColor = ConsoleColor.White; // reset the color
 	}
 
+	/// <summary> Asks the user if he wants to create initial data and creates it if he does. </summary>
 	private static void init()
 	{
 		Console.ForegroundColor = ConsoleColor.Magenta;
