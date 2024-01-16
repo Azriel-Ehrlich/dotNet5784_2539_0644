@@ -1,5 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
-
+using System.Xml.Serialization;
+using System.IO;
+using System.ComponentModel;
+using System.Runtime.Serialization;
 namespace DO;
 
 /// <summary>
@@ -41,4 +44,52 @@ public record Task
 	public Task() : this(0, "", "", DateTime.Now) { }
 	public Task(string alias, string description, int engineerId) 
 		: this(0, alias, description, DateTime.Now, null, false, null, null, null, null, null, null, null, engineerId) { }
+
+    // This method controls whether the RequiredEffortTime property should be serialized
+    public bool ShouldSerializeRequiredEffortTime()
+    {
+        return RequiredEffortTime.HasValue;
+    }
+
+    // This method controls whether the StartDate property should be serialized
+    public bool ShouldSerializeStartDate()
+    {
+        return StartDate.HasValue;
+    }
+
+    // This method controls whether the SchedualdDate property should be serialized
+    public bool ShouldSerializeSchedualdDate()
+    {
+        return SchedualdDate.HasValue;
+    }
+
+    // This method controls whether the DeadLineDate property should be serialized
+    public bool ShouldSerializeDeadLineDate()
+    {
+        return DeadLineDate.HasValue;
+    }
+
+    // This method controls whether the CompleteDate property should be serialized
+    public bool ShouldSerializeCompleteDate()
+    {
+        return CompleteDate.HasValue;
+    }
+
+    // This method controls whether the Deliverables property should be serialized
+    public bool ShouldSerializeDeliverables()
+    {
+        return !string.IsNullOrEmpty(Deliverables);
+    }
+
+    // This method controls whether the Remarks property should be serialized
+    public bool ShouldSerializeRemarks()
+    {
+        return !string.IsNullOrEmpty(Remarks);
+    }
+
+    // This method controls whether the EngineerId property should be serialized
+    public bool ShouldSerializeEngineerId()
+    {
+        return EngineerId.HasValue;
+    }
 }

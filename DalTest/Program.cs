@@ -276,7 +276,7 @@ internal class Program
 		if (inputText != null && inputText != "")
 			startDate = DateTime.Parse(inputText);
 
-		DateTime? deadLine = oldTask.DeadLineDate;
+		DateTime? deadLine =oldTask.StartDate;
 		Console.Write("enter deadLine: ");
 		inputText = Console.ReadLine();
 		if (inputText != null && inputText != "")
