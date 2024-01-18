@@ -1,5 +1,6 @@
 ﻿namespace DalTest;
 
+using Dal;
 using DalApi;
 using DO;
 
@@ -168,6 +169,12 @@ public static class Initialization
     public static void Do(IDal? dal)
     {
         s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!");
+
+		// when we use DalXml, we want to reset the files:
+		if (s_dal is DalXml dalXml)
+		{
+			dalXml.ResetFiles();
+		}
 
         createEngineers();
         createTasks();

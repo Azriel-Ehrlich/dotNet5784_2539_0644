@@ -107,7 +107,11 @@ internal class Program
 		do ans = Console.ReadLine();
 		while (ans == null);
 		if (ans == "Y" || ans == "y")
-			Initialization.Do(s_dal); // initialize the data
+		{
+			Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Creating initial data...");
+            Initialization.Do(s_dal); // initialize the data
+		}
 	}
 
 	/*

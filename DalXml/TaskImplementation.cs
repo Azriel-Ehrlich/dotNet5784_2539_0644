@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 internal class TaskImplementation : ITask
 {
-	readonly string s_tasks_xml = "tasks";
+	public static readonly string s_tasks_xml = "tasks";
 
 	/// <inheritdoc/>
 	public int Create(Task item)

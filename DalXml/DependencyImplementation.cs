@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 internal class DependencyImplementation : IDependency
 {
-	readonly string s_dependencies_xml = "dependencies";
+	public static readonly string s_dependencies_xml = "dependencies";
 
 	/// <inheritdoc/>
 	public int Create(Dependency item)

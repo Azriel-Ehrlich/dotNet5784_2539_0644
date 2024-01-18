@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 internal class EngineerImplementation : IEngineer
 {
-    readonly string s_engineers_xml = "engineers";
+	public static readonly string s_engineers_xml = "engineers";
 
 	/// <inheritdoc/>
 	public int Create(Engineer item)
