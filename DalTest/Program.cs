@@ -56,7 +56,6 @@ internal class Program
 			}
 		};
 
-		init();
 
 		MainChoices mainChoice = MainChoices.Engineer; // default value so the loop will start
 		while (mainChoice != MainChoices.Exit)
@@ -67,23 +66,31 @@ internal class Program
 				if (mainChoice == MainChoices.Exit)
 					break;
 
-				CrudChoices crudChoice = CrudChoices.Create; // default value so the loop will start
-				while (crudChoice != CrudChoices.Exit)
+				if (mainChoice == MainChoices.Initinialize)// initialize the data
 				{
-					try
-					{
-						crudChoice = getCrudMenuChoice(mainChoice);
-						if (crudChoice == CrudChoices.Exit)
-							break;
+					init();
 
-						Console.ForegroundColor = ConsoleColor.White;
-
-						funcs[mainChoice][crudChoice](); // call the function with cool syntax :)
-					}
-					catch (Exception exp)
+				}
+				else// open the CRUD menu
+				{
+					CrudChoices crudChoice = CrudChoices.Create; // default value so the loop will start
+					while (crudChoice != CrudChoices.Exit)
 					{
-						Console.ForegroundColor = ConsoleColor.Red;
-						Console.WriteLine("Error: " + exp.Message);
+						try
+						{
+							crudChoice = getCrudMenuChoice(mainChoice);
+							if (crudChoice == CrudChoices.Exit)
+								break;
+
+							Console.ForegroundColor = ConsoleColor.White;
+
+							funcs[mainChoice][crudChoice](); // call the function with cool syntax :)
+						}
+						catch (Exception exp)
+						{
+							Console.ForegroundColor = ConsoleColor.Red;
+							Console.WriteLine("Error: " + exp.Message);
+						}
 					}
 				}
 			}
@@ -152,10 +159,11 @@ internal class Program
 		Console.WriteLine("1) open the Engineer managing manu");
 		Console.WriteLine("2) open the Task managing manu");
 		Console.WriteLine("3) open the Dependency managing manu");
+		Console.WriteLine("4) initialize all of the data");
 		Console.WriteLine("0) exit");
 
 		MainChoices choose = (MainChoices)readInt();
-		if (choose < MainChoices.Exit || choose > MainChoices.Dependency)
+		if (choose < MainChoices.Exit || choose > MainChoices.Initinialize)
 			throw new DalInvalidInputException();
 		return choose;
 	}

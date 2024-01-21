@@ -16,7 +16,8 @@ public enum MainChoices
     Exit,
     Engineer,
     Task,
-    Dependency
+    Dependency,
+    Initinialize     
 }
 public enum CrudChoices
 {
