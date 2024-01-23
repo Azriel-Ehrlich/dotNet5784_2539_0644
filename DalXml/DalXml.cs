@@ -15,9 +15,8 @@ sealed internal class DalXml : IDal
 
 	public IDependency Dependency => new DependencyImplementation();
 
-
 	/// <summary> Reset all files to empty </summary>
-	public void ResetFiles()
+	public void Reset()
 	{
 		// to reset the files, we just save empty lists to them:
 		XMLTools.SaveListToXMLElement(new XElement("ArrayOfTask"), TaskImplementation.s_tasks_xml);
