@@ -171,12 +171,11 @@ public static class Initialization
     {
         //s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!");//stage2
         s_dal = DalApi.Factory.Get;
-        // when we use DalXml, we want to reset the files:
-		s_dal.ResetFiles();
-		
-        s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!");
 
-		// when we use DalXml, we want to reset the files:
+		if (s_dal is null)
+			throw new NullReferenceException("DAL object can not be null!");
+
+		// when we use new Dal, we want to reset the files:
 		s_dal.Reset();
 
         createEngineers();
