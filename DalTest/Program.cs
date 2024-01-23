@@ -4,14 +4,17 @@ using Dal;
 using DalApi;
 using DO;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 
 internal class Program
 {
-	static readonly IDal s_dal = new DalXml();
+    static readonly IDal s_dal = new DalList(); //stage 2
+   // static readonly IDal s_dal = new DalXml(); //stage 3
 
-	/// <summary> The main function of the program. </summary>
-	/// <param name="args"> The arguments of the program. </param>
-	static void Main(string[] args)
+
+    /// <summary> The main function of the program. </summary>
+    /// <param name="args"> The arguments of the program. </param>
+    static void Main(string[] args)
 	{
 		Console.ForegroundColor = ConsoleColor.Cyan;
 		Console.WriteLine("Welcome to the missions managing manu");

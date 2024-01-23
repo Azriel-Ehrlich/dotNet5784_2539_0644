@@ -2,9 +2,12 @@
 
 using DalApi;
 
-sealed public class DalList : IDal
+sealed internal class DalList : IDal
 {
-	public ITask Task => new TaskImplementation();
+    public static IDal Instance { get; } = new DalList();
+    private DalList() { }
+
+    public ITask Task => new TaskImplementation();
 
 	public IEngineer Engineer => new EngineerImplementation();
 

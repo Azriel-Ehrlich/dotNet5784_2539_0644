@@ -1,11 +1,15 @@
 ﻿namespace Dal;
 using DalApi;
 using DO;
+using System.Diagnostics;
 using System.Xml.Linq;
 
-public class DalXml : IDal
+sealed internal class DalXml : IDal
 {
-	public ITask Task => new TaskImplementation();
+    public static IDal Instance { get; } = new DalXml();
+    private DalXml() { }
+
+    public ITask Task => new TaskImplementation();
 
 	public IEngineer Engineer => new EngineerImplementation();
 
