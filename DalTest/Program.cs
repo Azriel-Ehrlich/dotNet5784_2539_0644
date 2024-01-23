@@ -8,8 +8,9 @@ using System.Diagnostics;
 
 internal class Program
 {
-    static readonly IDal s_dal = new DalList(); //stage 2
-   // static readonly IDal s_dal = new DalXml(); //stage 3
+    // static readonly IDal s_dal = new DalList(); //stage 2
+    // static readonly IDal s_dal = new DalXml(); //stage 3
+    static readonly IDal s_dal = Factory.Get; //stage 4
 
 
     /// <summary> The main function of the program. </summary>
@@ -120,7 +121,7 @@ internal class Program
 		{
 			Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Creating initial data...");
-            Initialization.Do(s_dal); // initialize the data
+            Initialization.Do(); // initialize the data
 		}
 	}
 

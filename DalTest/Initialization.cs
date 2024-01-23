@@ -166,12 +166,13 @@ public static class Initialization
     /// <param name="dalEngineer">Implementation of <see cref="IEngineer"/> </param>
     /// <param name="dalDependency">Implementation of <see cref="IDependency"/> </param>
     /// <exception cref="NullReferenceException">Thrown when one of the parameters is null</exception>
-    public static void Do(IDal? dal)
+   // public static void Do(IDal? dal)//stage2
+    public static void Do()
     {
-        s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!");
-
-		// when we use DalXml, we want to reset the files:
-		if (s_dal is DalXml dalXml)
+        //s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!");//stage2
+        s_dal = DalApi.Factory.Get;
+        // when we use DalXml, we want to reset the files:
+        if (s_dal is DalXml dalXml)
 		{
 			dalXml.ResetFiles();
 		}
