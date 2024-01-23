@@ -1,13 +1,14 @@
 ﻿namespace Dal;
 using DalApi;
-using DO;
-using System.Diagnostics;
 using System.Xml.Linq;
 
 sealed internal class DalXml : IDal
 {
-    public static IDal Instance { get; } = new DalXml();
-    private DalXml() { }
+	// see DalList for explanation:
+	private static readonly Lazy<DalXml> lazy = new Lazy<DalXml>(() => new DalXml());
+	private static readonly object padlock = new object();
+	public static DalXml Instance { get { lock (padlock) { return lazy.Value; } } }
+	private DalXml() { }
 
     public ITask Task => new TaskImplementation();
 

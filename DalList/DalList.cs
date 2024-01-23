@@ -4,10 +4,14 @@ using DalApi;
 
 sealed internal class DalList : IDal
 {
-    public static IDal Instance { get; } = new DalList();
-    private DalList() { }
+	// safe-thread and lazy-initialization singleton: https://csharpindepth.com/articles/singleton
+	private static readonly Lazy<DalList> lazy = new Lazy<DalList>(() => new DalList());
+	private static readonly object padlock = new object();
+	public static DalList Instance { get { lock (padlock) { return lazy.Value; } } }
 
-    public ITask Task => new TaskImplementation();
+	private DalList() { }
+
+	public ITask Task => new TaskImplementation();
 
 	public IEngineer Engineer => new EngineerImplementation();
 
