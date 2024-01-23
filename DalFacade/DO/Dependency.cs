@@ -1,8 +1,6 @@
 ﻿namespace DO;
-using System.Xml.Serialization;
-/// <summary>
-/// A dependency between two tasks (which can start only after the other is done)
-/// </summary>
+
+/// <summary> A dependency between two tasks (which can start only after the other is done) </summary>
 /// <param name="Id">Dependency's running id</param>
 /// <param name="DependentTask">Id of dependent task</param>
 /// <param name="DependsOnTask">Id of task that must be done first</param>

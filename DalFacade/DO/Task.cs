@@ -1,13 +1,6 @@
-﻿using System.Runtime.CompilerServices;
-using System.Xml.Serialization;
-using System.IO;
-using System.ComponentModel;
-using System.Runtime.Serialization;
-namespace DO;
+﻿namespace DO;
 
-/// <summary>
-/// A task to be done by an engineer
-/// </summary>
+/// <summary> A task to be done by an engineer </summary>
 /// <param name="Id">unique id of the task</param>
 /// <param name="Alias">Task's alias</param>
 /// <param name="Description">Task's description</param>
