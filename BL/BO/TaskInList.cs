@@ -8,7 +8,7 @@
 public class TaskInList
 {
 	public int Id { init; get; }
-	public string Description { set; get; }
-	public string Alias { set; get; }
+	public required string Description { set; get; }
+	public required string Alias { set; get; }
 	public Status Status { set; get; }
 }

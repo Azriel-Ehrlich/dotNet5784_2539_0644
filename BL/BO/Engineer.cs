@@ -10,9 +10,10 @@
 public class Engineer
 {
 	public int Id { init; get; }
-	public string Email { set; get; }
+	public required string Email { set; get; }
 	public double Cost { set; get; }
-	public string Name { set; get; }
+	public required string  Name { init; get; }
 	public EngineerExperience Level { set; get; }
 	public bool Active { set; get; }
+	public List<BO.TaskInEngineer>? Task { set; get; }
 }

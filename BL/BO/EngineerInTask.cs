@@ -6,5 +6,5 @@
 public class EngineerInTask
 {
 	public int Id { init; get; }
-	public string Name { set; get; }
+	public required string Name { set; get; }
 }

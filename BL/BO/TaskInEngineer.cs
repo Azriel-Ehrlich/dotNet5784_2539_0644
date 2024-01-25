@@ -6,5 +6,5 @@
 public class TaskInEngineer
 {
 	public int Id { init; get; }
-	public string Alias { set; get; }
+	public required string Alias { set; get; }
 }
