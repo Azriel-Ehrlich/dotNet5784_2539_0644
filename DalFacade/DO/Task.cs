@@ -25,7 +25,7 @@ public record Task
 	bool IsMilestone = false,
 	EngineerExperience? Complexity = null,
 	DateTime? StartDate = null,
-	DateTime? SchedualdDate = null,
+	DateTime? ScheduledDate = null,
 	DateTime? DeadLineDate = null,
 	DateTime? CompleteDate = null,
 	string? Deliverables = null,
@@ -53,7 +53,7 @@ public record Task
     // This method controls whether the SchedualdDate property should be serialized
     public bool ShouldSerializeSchedualdDate()
     {
-        return SchedualdDate.HasValue;
+        return ScheduledDate.HasValue;
     }
 
     // This method controls whether the DeadLineDate property should be serialized

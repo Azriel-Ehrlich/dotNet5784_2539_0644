@@ -28,7 +28,6 @@ internal class EngineerImplementation : IEngineer
         if (tasks.Where(t => t.EngineerId == id && t.Active == true).FirstOrDefault() is not null)
             throw new DalDoesNotExistException($"Engineer with id {id} is still assigned to a task");
         Update(engineer with { Active = false });
-                    
     }
 
 	/// <inheritdoc/>
