@@ -1,6 +1,6 @@
 ﻿namespace BlApi;
 
-internal interface ITask
+public interface ITask
 {
 	/// <summary> Create a new task </summary>
 	/// <param name="task"> The task to create </param>

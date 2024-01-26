@@ -79,10 +79,10 @@ internal class EngineerImplementation : BlApi.IEngineer
 	}
 
 	/// <inheritdoc/>
-	public BO.Engineer? ReadEngineer(int id)
+	public BO.Engineer ReadEngineer(int id)
 	{
-		DO.Engineer? res = _dal.Engineer.Read(id);
-		return (res is null) ? null : res.ToBOEngineer(_dal);
+		DO.Engineer res = _dal.Engineer.Read(id) ?? throw new BO.BlDoesNotExistException($"Engineer with id {id} doesn't exist");
+		return res.ToBOEngineer(_dal);
 	}
 
 	/// <inheritdoc/>

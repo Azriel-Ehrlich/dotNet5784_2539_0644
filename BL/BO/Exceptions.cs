@@ -30,3 +30,10 @@ public class BlInvalidParameterException : Exception
 {
 	public BlInvalidParameterException(string? message) : base(message) { }
 }
+
+/// <summary> exception for when a property of a BL object is null
+[Serializable]
+public class BlNullPropertyException : Exception
+{
+	public BlNullPropertyException(string? message) : base(message) { }
+}

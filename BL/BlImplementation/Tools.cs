@@ -4,7 +4,7 @@ namespace BlImplementation;
 
 
 /// <summary> This class contains extension methods for casting between DO and BO. </summary>
-internal static class CastingTools
+internal static class Tools
 {
 	/// <summary> Cast a DO.Engineer to a BO.Engineer. </summary>
 	/// <param name="engineer"> The DO.Engineer to cast. </param>
