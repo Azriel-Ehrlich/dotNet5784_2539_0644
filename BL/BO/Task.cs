@@ -21,20 +21,20 @@
 public class Task
 {
 	public int Id { init; get; }
-	public string Alias { set; get; }
-	public string Description { set; get; }
-	public DateTime CreatedAtDate { set; get; }
+	public required string Alias { set; get; }
+	public required string Description { set; get; }
+	public DateTime CreatedAtDate { init; get; }
 	public Status Status { set; get; }
-	public List<TaskInList> Dependencies { set; get; }
-	public MilestoneInTask Milestone { set; get; }
+	public List<TaskInList>? Dependencies { set; get; }
+	public MilestoneInTask? Milestone { set; get; }
 	public TimeSpan RequiredEffortTime { set; get; }
 	public DateTime StartDate { set; get; }
 	public DateTime ScheduledDate { set; get; }
 	public DateTime ForecastDate { set; get; }
 	public DateTime DeadlineDate { set; get; }
 	public DateTime CompleteDate { set; get; }
-	public string Deliverables { set; get; }
-	public string Remarks { set; get; }
-	public EngineerInTask Engineer { set; get; }
-	public EngineerExperience Copmlexity { set; get; }
+	public string? Deliverables { set; get; }
+	public string? Remarks { set; get; }
+	public EngineerInTask? Engineer { set; get; }
+	public EngineerExperience? Copmlexity { set; get; }
 }

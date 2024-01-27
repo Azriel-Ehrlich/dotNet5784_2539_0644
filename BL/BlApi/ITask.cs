@@ -7,6 +7,11 @@ public interface ITask
 	/// <returns> The id of the created task </returns>
 	public int Create(BO.Task task);
 
+	/// <summary> Delete a task </summary>
+	/// <param name="id"> The id of the task to delete </param>
+	public void Delete(int id);
+
+
 	/// <summary> Read a task </summary>
 	/// <param name="id"> The id of the task to read </param>
 	/// <returns> The task with the given id </returns>

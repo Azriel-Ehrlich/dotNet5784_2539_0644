@@ -9,7 +9,7 @@
 /// <param name="IsMilestone">Task is a milestone</param>
 /// <param name="Complexity">The complexity of the task</param>
 /// <param name="StartDate">Actual start date</param>
-/// <param name="SchedualdDate">Date the task is scheduled to start</param>
+/// <param name="ScheduledDate">Date the task is scheduled to start</param>
 /// <param name="DeadLineDate">Date the task is scheduled to end</param>
 /// <param name="CompleteDate">Actual end date</param>
 /// <param name="Deliverables">Task's deliverables</param>
