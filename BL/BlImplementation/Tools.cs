@@ -120,9 +120,14 @@ internal static class Tools
 		string result = type.Name + " {\n";
 		string indentation = new string('\t', indentationLevel);
 
-		if (obj is System.Collections.IList) // the list have special case :)
+		if (obj is System.Collections.IEnumerable) // the list have special case :)
 		{
-			System.Collections.IList l = (System.Collections.IList)obj;
+			System.Collections.IEnumerable l = (System.Collections.IEnumerable)obj;
+			foreach (var i in l)
+				result += ToStringProperty(i, indentationLevel + 1) + ",\n";
+			
+			/*
+			// the next code can works if `l = (System.Collections.IList)obj;`
 			for (int i = 0; i < l.Count; i++) // iterate by index so we can check if this is the last item
 			{
 				result += ToStringProperty(l[i], indentationLevel + 1);
@@ -130,7 +135,7 @@ internal static class Tools
 				if (i != l.Count - 1)
 					result += ",";
 				result += "\n";
-			}
+			}*/
 		}
 		else // all other cases
 		{
