@@ -5,12 +5,11 @@ using System.Xml.Linq;
 sealed internal class DalXml : IDal
 {
 	// see DalList for explanation:
-	private static readonly Lazy<DalXml> lazy = new Lazy<DalXml>(() => new DalXml());
-	private static readonly object padlock = new object();
-	public static DalXml Instance { get { lock (padlock) { return lazy.Value; } } }
+	private static readonly Lazy<DalXml> lazy = new Lazy<DalXml>(() => new DalXml(), LazyThreadSafetyMode.ExecutionAndPublication);
+	public static DalXml Instance { get => lazy.Value; }
 	private DalXml() { }
 
-    public ITask Task => new TaskImplementation();
+	public ITask Task => new TaskImplementation();
 
 	public IEngineer Engineer => new EngineerImplementation();
 
