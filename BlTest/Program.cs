@@ -26,9 +26,9 @@ internal class Program
 		// simple test for reflection to string
 		BO.Engineer e = new()
 		{
-			Id = 1,
+			Id = 347655849,
 			Name = "Moshe",
-			Email = "Moshe",
+			Email = "Moshe@gmail.com",
 			Cost = 20.44,
 			Level = BO.EngineerExperience.Beginner,
 			Active = true,
@@ -66,6 +66,7 @@ internal class Program
 				}
 			}
 		};
-        Console.WriteLine(e);
-    }
+		Console.WriteLine(e);
+		//Console.WriteLine(BlImplementation.Tools.ToStringProperty("bfdhd"));
+	}
 }

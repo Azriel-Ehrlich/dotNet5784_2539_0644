@@ -120,57 +120,32 @@ internal static class Tools
 		string result = type.Name + " {\n";
 		string indentation = new string('\t', indentationLevel);
 
-		if (obj is System.Collections.IEnumerable) // the list have special case :)
+		if (obj is System.Collections.IEnumerable lst) // the list have special case :)
 		{
-			System.Collections.IEnumerable l = (System.Collections.IEnumerable)obj;
-			foreach (var i in l)
-				result += ToStringProperty(i, indentationLevel + 1) + ",\n";
-			
-			/*
-			// the next code can works if `l = (System.Collections.IList)obj;`
-			for (int i = 0; i < l.Count; i++) // iterate by index so we can check if this is the last item
-			{
-				result += ToStringProperty(l[i], indentationLevel + 1);
-				// check if this is the last item:
-				if (i != l.Count - 1)
-					result += ",";
-				result += "\n";
-			}*/
+			foreach (var i in lst)
+				result += i.ToStringProperty(indentationLevel + 1) + ",\n";
 		}
 		else // all other cases
 		{
 			result = indentation + result;
 
-			PropertyInfo[] props = type.GetProperties();
-			for (int i = 0; i < props.Length; i++)
+			foreach (PropertyInfo property in type.GetProperties())
 			{
-				PropertyInfo property = props[i];
-
 				object value = property!.GetValue(obj)!;
 				result += $"{indentation}\t{property.Name} = ";
 
-				if (IsFlatType(property.PropertyType))
+				if (property.PropertyType.IsPrimitive || property.PropertyType.IsValueType || property.PropertyType == typeof(string))
 					result += $"{value}";
 				else
-					result += ToStringProperty(value, indentationLevel + 1);
+					result += value.ToStringProperty(indentationLevel + 1);
 
-				// check if this is the last property:
-				if (i != props.Length - 1)
-					result += ",";
-				result += "\n";
+				result += ",\n";
 			}
 		}
 
+		result = result.Remove(result.Length - 2, 1); // remove the last comma
 		result += indentation + "}";
 
 		return result;
-	}
-
-	/// <summary> Check if the type is flat (primitive, value type or string). </summary>
-	/// <param name="type"> The type to check. </param>
-	/// <returns> True if the type is flat, false otherwise. </returns>
-	static bool IsFlatType(Type type)
-	{
-		return type.IsPrimitive || type.IsValueType || type == typeof(string);
 	}
 }
