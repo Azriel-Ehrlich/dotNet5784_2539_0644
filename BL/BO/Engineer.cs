@@ -1,4 +1,6 @@
-﻿namespace BO;
+﻿using BlImplementation;
+
+namespace BO;
 
 /// <summary> This class represents an engineer. </summary>
 /// <param name="Id">Engineer's unique id</param>
@@ -16,4 +18,7 @@ public class Engineer
 	public EngineerExperience Level { set; get; }
 	public bool Active { set; get; }
 	public List<BO.TaskInEngineer>? Task { set; get; }
+
+
+	public override string ToString() => this.ToStringProperty();
 }

@@ -1,4 +1,8 @@
 ﻿using DalApi;
+using System.Reflection;
+
+using System;
+using System.Text;
 
 namespace BlImplementation;
 
@@ -98,5 +102,59 @@ internal static class Tools
 						task.RequiredEffortTime, false, (DO.EngineerExperience)task.Copmlexity!, task.StartDate,
 						task.ScheduledDate, task.DeadlineDate, task.CompleteDate, task.Deliverables, task.Remarks,
 						task.Engineer!.Id, true);
+	}
+
+
+	/// <summary> Extension method for casting generic object to string (reflection). </summary>
+	/// <typeparam name="T"> The type of the object. </typeparam>
+	/// <param name="obj"> The object to cast. </param>
+	/// <param name="indentationLevel"> The indentation level. </param>
+	/// <returns> The string representation of the object. </returns>
+	public static string ToStringProperty<T>(this T obj, int indentationLevel = 0)
+	{
+		if (obj == null)
+			return string.Empty;
+
+		Type type = obj.GetType();
+
+		string indentation = new string(' ', indentationLevel * 4);
+		string result = $"{indentation}{type.Name} {{\n";
+
+		if (obj is System.Collections.IList) // the list have special case :)
+		{
+			foreach (var item in (System.Collections.IList)obj)
+				result += $"{ToStringProperty(item, indentationLevel + 2)},\n";
+
+			result += $"{indentation}    ],\n";
+		}
+		else // all other cases
+		{
+			foreach (var property in type.GetProperties())
+			{
+				object value = property.GetValue(obj);
+				result += $"{indentation}    {property.Name} = ";
+
+				if (IsFlatType(property.PropertyType))
+				{
+					result += $"{value},\n";
+				}
+				else
+				{
+					result += $"{ToStringProperty(value, indentationLevel + 1)},\n";
+				}
+			}
+		}
+
+		result += $"{indentation}}}";
+
+		return result;
+	}
+
+	/// <summary> Check if the type is flat (primitive, value type or string). </summary>
+	/// <param name="type"> The type to check. </param>
+	/// <returns> True if the type is flat, false otherwise. </returns>
+	static bool IsFlatType(Type type)
+	{
+		return type.IsPrimitive || type.IsValueType || type == typeof(string);
 	}
 }

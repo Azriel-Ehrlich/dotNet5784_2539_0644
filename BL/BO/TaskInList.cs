@@ -1,4 +1,6 @@
-﻿namespace BO;
+﻿using BlImplementation;
+
+namespace BO;
 
 /// <summary> Task in list. </summary>
 /// <param name="Id">Task's unique id</param>
@@ -11,4 +13,7 @@ public class TaskInList
 	public required string Description { set; get; }
 	public required string Alias { set; get; }
 	public Status Status { set; get; }
+
+
+	public override string ToString() => this.ToStringProperty();
 }

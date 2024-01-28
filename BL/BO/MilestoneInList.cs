@@ -1,4 +1,6 @@
-﻿namespace BO;
+﻿using BlImplementation;
+
+namespace BO;
 
 public class MilestoneInList
 {
@@ -7,4 +9,7 @@ public class MilestoneInList
     public required string Alias { set; get; }
     public Status Status { set; get; }
     public double CompletionPrecentage { set; get; }
+
+
+	public override string ToString() => this.ToStringProperty();
 }

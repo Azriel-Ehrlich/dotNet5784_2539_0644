@@ -1,4 +1,6 @@
-﻿namespace BO;
+﻿using BlImplementation;
+
+namespace BO;
 /// <summary>MileStone </summary>
 /// <param name="Id">MileStone's unique id</param>
 /// <param name="Description">MileStone's description</param>
@@ -24,4 +26,7 @@ public class MileStone
 	public double CompletionPercentage { set; get; }
 	public string? Remarks { set; get; }
 	public required List<BO.TaskInList> Dependencies { set; get; }
+
+
+	public override string ToString() => this.ToStringProperty();
 }

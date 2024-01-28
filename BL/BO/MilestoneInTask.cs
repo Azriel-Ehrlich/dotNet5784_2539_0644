@@ -1,4 +1,6 @@
-﻿namespace BO;
+﻿using BlImplementation;
+
+namespace BO;
 
 /// <summary> Milestone in task. </summary>
 /// <param name="Id">Milestone's unique id</param>
@@ -7,4 +9,7 @@ public class MilestoneInTask
 {
 	public int Id { init; get; }
 	public required string Alias { set; get; }
+
+
+	public override string ToString() => this.ToStringProperty();
 }

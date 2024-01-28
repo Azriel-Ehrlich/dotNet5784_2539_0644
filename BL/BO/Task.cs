@@ -1,4 +1,6 @@
-﻿namespace BO;
+﻿using BlImplementation;
+
+namespace BO;
 
 /// <summary> This class represents task. </summary>
 /// <param name="Id">Task's unique id</param>
@@ -37,4 +39,7 @@ public class Task
 	public string? Remarks { set; get; }
 	public EngineerInTask? Engineer { set; get; }
 	public EngineerExperience? Copmlexity { set; get; }
+
+
+	public override string ToString() => this.ToStringProperty();
 }
