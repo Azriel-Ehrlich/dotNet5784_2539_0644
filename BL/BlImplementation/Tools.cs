@@ -1,9 +1,6 @@
 ﻿using DalApi;
 using System.Reflection;
 
-using System;
-using System.Text;
-
 namespace BlImplementation;
 
 
@@ -115,37 +112,51 @@ internal static class Tools
 		if (obj == null)
 			return string.Empty;
 
-		Type type = obj.GetType();
+		// The simple way: return obj as json
+		//return JsonSerializer.Serialize(obj, new JsonSerializerOptions(){WriteIndented = true});
+		// However, you said we must use reflection, so here we go:
 
-		string indentation = new string(' ', indentationLevel * 4);
-		string result = $"{indentation}{type.Name} {{\n";
+		Type type = obj.GetType();
+		string result = type.Name + " {\n";
+		string indentation = new string('\t', indentationLevel);
 
 		if (obj is System.Collections.IList) // the list have special case :)
 		{
-			foreach (var item in (System.Collections.IList)obj)
-				result += $"{ToStringProperty(item, indentationLevel + 2)},\n";
-
-			result += $"{indentation}    ],\n";
+			System.Collections.IList l = (System.Collections.IList)obj;
+			for (int i = 0; i < l.Count; i++) // iterate by index so we can check if this is the last item
+			{
+				result += ToStringProperty(l[i], indentationLevel + 1);
+				// check if this is the last item:
+				if (i != l.Count - 1)
+					result += ",";
+				result += "\n";
+			}
 		}
 		else // all other cases
 		{
-			foreach (var property in type.GetProperties())
+			result = indentation + result;
+
+			PropertyInfo[] props = type.GetProperties();
+			for (int i = 0; i < props.Length; i++)
 			{
-				object value = property.GetValue(obj);
-				result += $"{indentation}    {property.Name} = ";
+				PropertyInfo property = props[i];
+
+				object value = property!.GetValue(obj)!;
+				result += $"{indentation}\t{property.Name} = ";
 
 				if (IsFlatType(property.PropertyType))
-				{
-					result += $"{value},\n";
-				}
+					result += $"{value}";
 				else
-				{
-					result += $"{ToStringProperty(value, indentationLevel + 1)},\n";
-				}
+					result += ToStringProperty(value, indentationLevel + 1);
+
+				// check if this is the last property:
+				if (i != props.Length - 1)
+					result += ",";
+				result += "\n";
 			}
 		}
 
-		result += $"{indentation}}}";
+		result += indentation + "}";
 
 		return result;
 	}
