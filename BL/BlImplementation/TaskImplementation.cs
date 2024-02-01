@@ -102,9 +102,10 @@ internal class TaskImplementation : BlApi.ITask
         IEnumerable<DO.Task?> check = from t in test
                                       where t.DependentTask == id
                                       select _dal.Task.Read((int)t.DependsOnTask!);
-        if ((from t in check where t.StartDate == null select t).Any()) throw new BO.BlCannotUpdateException("The task cann't be updated");
-        if ((from t in check where (t.StartDate + t.RequiredEffortTime) > date select t).Any()) throw new BO.BlCannotUpdateException("The task cann't be updated");
-
-        _dal.Task.Update(tas with { ScheduledDate = date });
+        if ((from t in check where t.ScheduledDate == null select t).Any()) throw new BO.BlCannotUpdateException("The task cann't be updated");
+        if ((from t in check where (t.ScheduledDate + t.RequiredEffortTime) > date select t).Any()) throw new BO.BlCannotUpdateException("The task cann't be updated");
+        _dal.Task.Update(tas with { ScheduledDate = date ,});
     }
+    //funcion to suggest date for task 
+     
 }

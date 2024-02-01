@@ -6,9 +6,9 @@ using BO;
 
 internal class Program
 {
-	static IBl bl = new BlImplementation.Bl();
+    static IBl bl = new BlImplementation.Bl();
 
-	/*
+    /*
 	 How this program works:
 		1) insert all tasks
 		2) insert all dependencies to the database
@@ -18,428 +18,296 @@ internal class Program
 	 */
 
 
-	static void Main(string[] args)
-	{
-		// ascii art for BO. we are so cool :D
-		Console.ForegroundColor = ConsoleColor.Blue;
-		Console.WriteLine(@"  _____ _          ___  ___    _____       _   
+    static void Main(string[] args)
+    {
+        // ascii art for BO. we are so cool :D
+        Console.ForegroundColor = ConsoleColor.Blue;
+        Console.WriteLine(@"  _____ _          ___  ___    _____       _   
  |_   _| |_  ___  | _ )/ _ \  |_   _|__ __| |_ 
    | | | ' \/ -_) | _ \ (_) |   | |/ -_|_-<  _|
    |_| |_||_\___| |___/\___/    |_|\___/__/\__|
 ");
 
-		Console.ForegroundColor = ConsoleColor.Cyan;
-		Console.WriteLine("Welcome to the missions managing manu");
-		Console.WriteLine("Our mission is to send a spaceship to space");
-		Console.WriteLine("--------------------------------------------");
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine("Welcome to the missions managing manu");
+        Console.WriteLine("Our mission is to send a spaceship to space");
+        Console.WriteLine("--------------------------------------------");
 
-		init();
+        init();
 
-		// Dictionary of functions to call for each menu choice with cool syntax:
-		Dictionary<MainChoices, Dictionary<SubMenuChoices, Action>> funcs = new()
-		{
-			{
-				MainChoices.Engineer,
-				new Dictionary<SubMenuChoices, Action>()
-				{
-					{ SubMenuChoices.Create, createNewEngineer },
-					{ SubMenuChoices.Read, readEngineer },
-					{ SubMenuChoices.ReadAll, readAllEngineers },
-					{ SubMenuChoices.Update, updateEngineer },
-					{ SubMenuChoices.Delete, deleteEngineer },
-				}
-			},
-			{
-				MainChoices.Task,
-				new Dictionary<SubMenuChoices, Action>()
-				{
-					{ SubMenuChoices.Create, createNewTask },
-					{ SubMenuChoices.Read, readTask },
-					{ SubMenuChoices.ReadAll, readAllTasks },
-					{ SubMenuChoices.Update, updateTask },
-					{ SubMenuChoices.Delete, deleteTask },
-					{ SubMenuChoices.UpdateScheduledDate, updateScheduledDate }
-				}
-			}
-		};
+        Console.WriteLine("Please enter all the tasks:");
+        createTasks();
 
+        Console.WriteLine("Insert schedueled starting dates for all the tasks:");
+        readDates();
 
-		MainChoices mainChoice = MainChoices.Engineer; // default value so the loop will start
-		while (mainChoice != MainChoices.Exit)
-		{
-			try
-			{
-				mainChoice = getMainMenuChoice();
-				if (mainChoice == MainChoices.Exit)
-					break;
+        Console.WriteLine("Enter all engineers:");
+        createEngineers();
 
-				SubMenuChoices crudChoice = SubMenuChoices.Create; // default value so the loop will start
-				while (crudChoice != SubMenuChoices.Exit)
-				{
-					try
-					{
-						crudChoice = getSubMenuChoice(mainChoice);
-						if (crudChoice == SubMenuChoices.Exit)
-							break;
+        Console.WriteLine("And now select which engineer is assigned to which task:");
+        assignEngineersToTasks();
 
-						Console.ForegroundColor = ConsoleColor.White;
+        Console.WriteLine("congratulations! you have successfully inserted all the data to the database");
+        Console.WriteLine("Have a nice day and celebrate with delicious cake :)");
 
-						funcs[mainChoice][crudChoice](); // call the function with cool syntax :)
-					}
-					catch (Exception exp)
-					{
-						Console.ForegroundColor = ConsoleColor.Red;
-						Console.WriteLine("Error: " + exp.Message);
-					}
-				}
-			}
+        Console.ForegroundColor = ConsoleColor.White; // reset the color
+    }
 
-			catch (Exception exp)
-			{
-				Console.ForegroundColor = ConsoleColor.Red;
-				Console.WriteLine("Error: " + exp.Message);
-			}
-		}
+    /// <summary> reads all task from  the user and inserts them to the database </summary>
+    static void createTasks()
+    {
+        bool readMore = true;
+        while (readMore)
+        {
+            createNewTask();
 
-		Console.ForegroundColor = ConsoleColor.White; // reset the color
-	}
+            Console.Write("Do you want to enter another task? (Y/N) ");
+            string? ans = Console.ReadLine();
+            if (ans != "y" && ans != "Y")
+                readMore = false;
+        }
+    }
 
-	// the next functions are same to DalTest/Program.cs. maybe we should have put them in a different file
+    /// <summary> reads all dates from the user and inserts them to the database </summary>
+    static void readDates()
+    {
+        Console.WriteLine("Enter the scheduled start date of the project");
+        DateTime projStart=readDateTime();
+       bl.Task.UpdateScheduledDate(0,projStart); // update the scheduled date of the project
+        foreach (var task in bl.Task!.ReadAll())
+        {
+            Console.WriteLine($"Task's alias: {task.Alias}");
+            Console.Write("Enter the scheduled date of the task: "); DateTime scheduledDate = readDateTime();
 
+            DateTime? forecastDate = scheduledDate + task.RequiredEffortTime;
+            task.ScheduledDate = scheduledDate;
+            task.ForecastDate = forecastDate;
+            
 
-	/// <summary> Gets the choice of the user for the main menu. </summary>
-	/// <returns> The choice of the user for the main menu. </returns>
-	static MainChoices getMainMenuChoice()
-	{
-		Console.ForegroundColor = ConsoleColor.Green;
-		Console.WriteLine("Main manu:");
-		Console.WriteLine("Please choose one of the following options:");
-		Console.WriteLine("1) open the Engineer managing manu");
-		Console.WriteLine("2) open the Task managing manu");
-		Console.WriteLine("0) exit");
+            bl.Task!.Update(task);
+        }
+    }
 
-		MainChoices choice = (MainChoices)readInt();
-		if (choice < MainChoices.Exit || choice > MainChoices.Task)
-			throw new BlInvalidInputException();
-		return choice;
-	}
+    /// <summary> reads all engineers from the user and inserts them to the database </summary>
+    static void createEngineers()
+    {
+        bool readMore = true;
+        while (readMore)
+        {
+            createNewEngineer();
 
-	/// <summary> Gets the choice of the user for the CRUD menu. </summary>
-	/// <param name="mainChoice"> The choice of the user for the main menu. used to print the correct menu. </param>
-	/// <returns> The choice of the user for the CRUD menu. </returns>
-	static SubMenuChoices getSubMenuChoice(MainChoices mainChoice)
-	{
-		Console.ForegroundColor = ConsoleColor.Yellow;
-		// print message about the current menu:
-		Console.WriteLine($"{mainChoice} managing manu:");
-		Console.WriteLine("Please choose one of the requested actions:");
-		Console.WriteLine("0) return to the main manu");
-		Console.WriteLine("1) create new item");
-		Console.WriteLine("2) read a specific item");
-		Console.WriteLine("3) read all of the items");
-		Console.WriteLine("4) update a specific item (if you don't want to change a field, leave it empty).");
-		Console.WriteLine("5) delete a specific item");
+            Console.Write("Do you want to enter another engineer? (Y/N) ");
+            string? ans = Console.ReadLine();
+            if (ans == null || ans == "" || ans == "N" || ans == "n")
+                readMore = false;
+        }
+    }
 
-		if (mainChoice == MainChoices.Task)
-			Console.WriteLine("6) update the date of a specific task");
+    /// <summary> assign engineers to tasks </summary>
+    static void assignEngineersToTasks()
+    {
+        Console.WriteLine("Your engineers:");
+        foreach (var eng in bl.Engineer!.ReadAll())
+            Console.WriteLine($"> {eng.Id}: {eng.Name}, {eng.Level}");
 
-		SubMenuChoices choose = (SubMenuChoices)readInt();
-		if (mainChoice == MainChoices.Task && choose == SubMenuChoices.UpdateScheduledDate)
-			return choose;
-		if (choose < SubMenuChoices.Exit || choose > SubMenuChoices.Delete)
-			throw new BlInvalidInputException();
-		return choose;
-	}
-
-	/// <summary> Asks the user if he wants to create initial data and creates it if he does. </summary>
-	private static void init()
-	{
-		// same to the one in DalTest... thats because the access modifier is internal
-		Console.ForegroundColor = ConsoleColor.Magenta;
-
-		Console.Write("Would you like to create Initial data? (Y/N) ");
-		string? ans;
-		do ans = Console.ReadLine();
-		while (ans == null);
-		if (ans == "Y" || ans == "y")
-		{
-			Console.ForegroundColor = ConsoleColor.Yellow;
-			Console.WriteLine("Creating initial data...");
-			DalTest.Initialization.Do(); // initialize the data
-		}
-	}
-
-	/// <summary> Reads an integer from the user. </summary>
-	/// <returns> The integer that the user entered. </returns>
-	/// <exception cref="BlInvalidInputException"> Thrown when the user entered an invalid input. </exception>
-	static int readInt()
-	{
-		return toInt(Console.ReadLine());
-	}
-
-	/// <summary> Converts a string to an integer. </summary>
-	/// <param name="str"> The str to convert. </param>
-	/// <returns> The integer from the string. </returns>
-	/// <exception cref="BlInvalidInputException"> Thrown when the user entered an invalid input. </exception>
-	static int toInt(string? str)
-	{
-		int i;
-		if (!int.TryParse(str, out i))
-			throw new BlInvalidInputException();
-		return i;
-	}
-
-	/// <summary> Reads a date from the user. </summary>
-	static DateTime readDateTime()
-	{
-		return toDateTime(Console.ReadLine());
-	}
-	/// <summary> Converts a string to a date. </summary>
-	/// <param name="str"> The str to convert. </param>
-	/// <returns> The date from the string. </returns>
-	/// <exception cref="BlInvalidInputException"> Thrown when the user entered an invalid input. </exception>
-	static DateTime toDateTime(string? str)
-	{
-		DateTime d;
-		if (!DateTime.TryParse(str, out d))
-			throw new BlInvalidInputException();
-		return d;
-	}
-
-	/*
-	 * Engineer functions
-	 */
-
-	/// <summary> Creates a new engineer and adds it to the database according to user. </summary>
-	static void createNewEngineer()
-	{
-		Console.Write("enter the id number of the Engineer: ");
-		int id = readInt();
-
-		Console.Write("enter the email of the Engineer: ");
-		string email = Console.ReadLine()!;
-
-		Console.Write("enter the amount of money per hour the Engineer gets: ");
-		double cost;
-		if (!double.TryParse(Console.ReadLine(), out cost))
-			throw new BlInvalidInputException();
-
-		Console.Write("enter the full name of the Engineer: ");
-		string name = Console.ReadLine()!;
-
-		Console.Write("enter the level of the Engineer (0-4): ");
-		EngineerExperience level = (EngineerExperience)readInt();
-
-		// we do not need read the tasks of the engineer because he has no tasks yet
-
-		bl.Engineer!.Create(new Engineer
-		{
-			Id = id,
-			Email = email,
-			Cost = cost,
-			Name = name,
-			Level = level
-		});
-	}
-	/// <summary> Reads an engineer from the database and prints it to the console. </summary>
-	static void readEngineer()
-	{
-		Console.Write("enter the id of the Engineer: ");
-		int id = readInt();
-
-		Engineer? eng = bl.Engineer!.ReadEngineer(id);
-		if (eng == null)
-			Console.WriteLine("the Engineer does not exist");
-		else
-			Console.WriteLine(eng);
-	}
-	/// <summary> Reads all engineers from the database and prints them to the console. </summary>
-	static void readAllEngineers()
-	{
-		foreach (var eng in bl.Engineer!.ReadAll())
-			Console.WriteLine($"> {eng}");
-	}
-	/// <summary> Updates an engineer in the database according to user input. </summary>
-	static void updateEngineer()
-	{
-		Console.Write("enter the id number of the Engineer: ");
-		int id = readInt();
-
-		Engineer oldEng = bl.Engineer!.ReadEngineer(id) ?? throw new BlDoesNotExistException("the Engineer does not exist");
-
-		string? inputText;
-
-		Console.Write("enter the email of the Engineer: ");
-		string? email = Console.ReadLine();
-		if (email == null || email == "")
-			email = oldEng.Email;
-
-		Console.Write("enter the amount of money per hour the Engineer gets: ");
-		double cost = oldEng.Cost;
-		inputText = Console.ReadLine();
-		if (inputText != null && inputText != "")
-		{
-			if (!double.TryParse(inputText, out cost))
-				throw new BlInvalidInputException();
-		}
-
-		Console.Write("enter the full name of the Engineer: ");
-		string? name = Console.ReadLine();
-		if (name == null || name == "")
-			name = oldEng.Name;
-
-		Console.Write("enter the level of the Engineer (0-4): ");
-		EngineerExperience level = oldEng.Level;
-		inputText = Console.ReadLine();
-		if (inputText != null && inputText != "")
-		{
-			int tmp = toInt(inputText);
-			if (tmp < 0 || tmp > 4)
-				throw new BlInvalidInputException();
-			level = (EngineerExperience)tmp;
-		}
-
-		// TODO: read the tasks of the engineer and update them
-
-		bl.Engineer!.Update(new Engineer { Id = id, Email = email, Cost = cost, Name = name, Level = level });
-	}
-	/// <summary> Deletes an engineer from the database. </summary>
-	static void deleteEngineer()
-	{
-		Console.Write("enter the id of the Engineer: ");
-		int id = readInt();
-		bl.Engineer!.Delete(id);
-	}
+        Console.WriteLine("Your tasks:");
+        foreach (var task in bl.Task!.ReadAll())
+        {
+            Console.WriteLine($"Current task: {task.Alias}");
+            Console.Write("Enter the id of the engineer assigned to the task: ");
+            int engId;
+            Engineer? eng = null;
+            while (eng is null)
+            {
+                engId = readInt();
+                eng = bl.Engineer!.ReadEngineer(engId);
+                if (eng is null)
+                    Console.WriteLine("The engineer does not exist");
+            }
+            task.Engineer = new EngineerInTask() { Id = eng.Id, Name = eng.Name };
+            bl.Task!.Update(task);
+        }
+    }
 
 
-	/*
-	 * Task functions
-	 */
+    // the next functions are same to DalTest/Program.cs. maybe we should have put them in a different file
 
-	/// <summary> Creates a new task and adds it to the database. </summary>
-	static void createNewTask()
-	{
-		Console.Write("enter the name of the task: ");
-		string alias = Console.ReadLine()!;
+    /// <summary> Asks the user if he wants to create initial data and creates it if he does. </summary>
+    private static void init()
+    {
+        // same to the one in DalTest... thats because the access modifier is internal
+        Console.ForegroundColor = ConsoleColor.Magenta;
 
-		Console.Write("enter the description of the task: ");
-		string description = Console.ReadLine()!;
+        Console.Write("Would you like to create Initial data? (Y/N) ");
+        string? ans;
+        do ans = Console.ReadLine();
+        while (ans == null);
+        if (ans == "Y" || ans == "y")
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Creating initial data...");
+            DalTest.Initialization.Do(); // initialize the data
+        }
+    }
 
-		Console.Write("what is the id of the Engineer who assigned to do the Task: ");
-		int engineerId = readInt();
-		Engineer eng = bl.Engineer!.ReadEngineer(engineerId) ?? throw new BlDoesNotExistException("the Engineer does not exist");
-		EngineerInTask engineerInTask = new EngineerInTask() { Id = eng.Id, Name = eng.Name };
+    /// <summary> Reads an integer from the user. </summary>
+    /// <returns> The integer that the user entered. </returns>
+    /// <exception cref="BlInvalidInputException"> Thrown when the user entered an invalid input. </exception>
+    static int readInt()
+    {
+        //return toInt(Console.ReadLine());
+        int i = 0;
+        bool valid = false;
+        while (!valid)
+        {
+            try
+            {
+                i = toInt(Console.ReadLine());
+                valid = true;
+            }
+            catch (BlInvalidInputException ex)
+            {
+                Console.WriteLine(ex.Message);
+                valid = false;
+            }
+        }
+        return i;
+    }
 
-		Console.Write("enter the complexity of the task (0-4): ");
-		EngineerExperience complexity = (EngineerExperience)readInt();
+    /// <summary> Converts a string to an integer. </summary>
+    /// <param name="str"> The str to convert. </param>
+    /// <returns> The integer from the string. </returns>
+    /// <exception cref="BlInvalidInputException"> Thrown when the user entered an invalid input. </exception>
+    static int toInt(string? str)
+    {
+        int i;
+        if (!int.TryParse(str, out i))
+            throw new BlInvalidInputException();
+        return i;
+    }
 
-		Console.WriteLine("enter the required effort time of the task");
-		TimeSpan requiredEffortTime;
-		if (!TimeSpan.TryParse(Console.ReadLine(), out requiredEffortTime))
-			throw new BlInvalidInputException();
+    /// <summary> Reads a date from the user. </summary>
+    static DateTime readDateTime()
+    {
+        //return toDateTime(Console.ReadLine());
+        DateTime d = new DateTime();
+        bool valid = false;
+        while (!valid)
+        {
+            try
+            {
+                d = toDateTime(Console.ReadLine());
+                valid = true;
+            }
+            catch (BlInvalidInputException ex)
+            {
+                Console.WriteLine(ex.Message);
+                valid = false;
+            }
+        }
+        return d;
+    }
+    /// <summary> Converts a string to a date. </summary>
+    /// <param name="str"> The str to convert. </param>
+    /// <returns> The date from the string. </returns>
+    /// <exception cref="BlInvalidInputException"> Thrown when the user entered an invalid input. </exception>
+    static DateTime toDateTime(string? str)
+    {
+        DateTime d;
+        if (!DateTime.TryParse(str, out d))
+            throw new BlInvalidInputException();
+        return d;
+    }
 
-		bl.Task!.Create(new Task()
-		{
-			Alias = alias,
-			Description = description,
-			RequiredEffortTime = requiredEffortTime,
-			Complexity = complexity,
-			Engineer = engineerInTask
-		});
-	}
-	/// <summary> Reads a task from the database and prints it to the console. </summary>
-	static void readTask()
-	{
-		Console.Write("enter the id of the Task: ");
-		int id = readInt();
+    /// <summary> Creates a new engineer and adds it to the database according to user. </summary>
+    static void createNewEngineer()
+    {
+        Console.Write("enter the id number of the Engineer: ");
+        int id = readInt();
 
-		Task? task = bl.Task!.Read(id);
-		if (task == null)
-			Console.WriteLine("the Task does not exist");
-		else
-			Console.WriteLine(task);
-	}
-	/// <summary> Reads all tasks from the database and prints them to the console. </summary>
-	static void readAllTasks()
-	{
-		foreach (var task in bl.Task!.ReadAll())
-			Console.WriteLine($"> {task}");
-	}
-	/// <summary> Updates a task in the database. </summary>
-	static void updateTask()
-	{
-		Console.Write("enter the id of the Task: ");
-		int id = readInt();
+        Console.Write("enter the email of the Engineer: ");
+        string email = Console.ReadLine()!;
 
-		Task oldTask = bl.Task!.Read(id) ?? throw new BlDoesNotExistException("the Task does not exist");
+        Console.Write("enter the amount of money per hour the Engineer gets: ");
+        double cost;
+        if (!double.TryParse(Console.ReadLine(), out cost))
+            throw new BlInvalidInputException();
 
-		Console.Write("enter the name of the task: ");
-		string? alias = Console.ReadLine();
-		if (alias == null || alias == "")
-			alias = oldTask.Alias;
+        Console.Write("enter the full name of the Engineer: ");
+        string name = Console.ReadLine()!;
 
-		Console.Write("enter the description of the task: ");
-		string? description = Console.ReadLine();
-		if (description == null || description == "")
-			description = oldTask.Description;
+        Console.Write("enter the level of the Engineer (0-4): ");
+        EngineerExperience level = (EngineerExperience)readInt();
 
-		Console.Write("what is the id of the Engineer who assigned to do the Task: ");
-		int engineerId = oldTask.Engineer!.Id;
-		string? inputText = Console.ReadLine();
-		if (inputText != null && inputText != "")
-			engineerId = toInt(inputText);
-		Engineer eng = bl.Engineer!.ReadEngineer(engineerId) ?? throw new BlDoesNotExistException("the Engineer does not exist");
-		EngineerInTask engineerInTask = new EngineerInTask() { Id = eng.Id, Name = eng.Name };
+        // we do not need read the tasks of the engineer because he has no tasks yet
 
-		TimeSpan? requiredEffortTime = oldTask.RequiredEffortTime;
-		Console.Write("enter the required effort time of the task: ");
-		inputText = Console.ReadLine();
-		if (inputText != null && inputText != "")
-			requiredEffortTime = TimeSpan.Parse(inputText);
+        bl.Engineer!.Create(new Engineer
+        {
+            Id = id,
+            Email = email,
+            Cost = cost,
+            Name = name,
+            Level = level
+        });
+    }
 
-		Console.Write("enter the complexity of the task (0-4): ");
-		EngineerExperience? complexity = oldTask.Complexity;
-		inputText = Console.ReadLine();
-		if (inputText != null && inputText != "")
-		{
-			int tmp = toInt(inputText);
-			if (tmp < 0 || tmp > 4)
-				throw new BlInvalidInputException();
-			complexity = (EngineerExperience)tmp;
-		}
+    /// <summary> Creates a new task and adds it to the database. </summary>
+    static void createNewTask()
+    {
+        Console.Write("enter the name of the task: ");
+        string alias = Console.ReadLine()!;
 
-		Task updatedTask = new Task()
-		{
-			Id = id,
-			Alias = alias,
-			Description = description,
-			RequiredEffortTime = requiredEffortTime,
-			Complexity = complexity,
-			Engineer = engineerInTask
-		};
+        Console.Write("enter the description of the task: ");
+        string description = Console.ReadLine()!;
 
-		bl.Task!.Update(updatedTask);
-	}
-	/// <summary> Deletes a task from the database. </summary>
-	static void deleteTask()
-	{
-		Console.Write("enter the id of the Task: ");
-		int id = readInt();
-		bl.Task!.Delete(id);
-	}
-	/// <summary> Updates the scheduled date of a task in the database. </summary>
-	static void updateScheduledDate()
-	{
-		Console.Write("enter the id of the Task: ");
-		int id = readInt();
+        Console.Write("enter the complexity of the task (0-4): ");
+        EngineerExperience complexity = (EngineerExperience)readInt();
 
-		Console.Write("enter the new scheduled date: ");
-		string input = Console.ReadLine()!;
-		DateTime date = new DateTime();
-		if (input is not null && input != "")
-			if (!DateTime.TryParse(input, out date))
-				throw new BlInvalidInputException();
+        Console.WriteLine("enter the required effort time of the task");
+        TimeSpan requiredEffortTime;
+        if (!TimeSpan.TryParse(Console.ReadLine(), out requiredEffortTime))
+            throw new BlInvalidInputException();
 
-		bl.Task!.UpdateScheduledDate(id, date);
-	}
+        List<TaskInList> deps = new List<TaskInList>();
+        IEnumerable<Task> previousTasks = bl.Task!.ReadAll();
+        if (previousTasks.Count() > 1) // read dependencies only if there is at least 1 task
+        {
+            Console.Write("Is this task dependent on other tasks? (Y/N) ");
+            string? ans = Console.ReadLine();
+            if (ans == "Y" || ans == "y")
+            {
+                // print previous tasks
+                foreach (var task in previousTasks)
+                    Console.WriteLine($"> {task.Id}: {task.Alias}");
+
+                // read dependencies
+                bool readMore = true;
+                while (readMore)
+                {
+                    Console.Write("enter the id of the task this task is dependent on: ");
+                    int id = readInt();
+                    Task? task = bl.Task!.Read(id);
+                    if (task == null)
+                        Console.WriteLine("the task does not exist");
+                    else
+                        deps.Add(new TaskInList() { Id = task.Id, Alias = task.Alias, Description = task.Description });
+
+                    Console.Write("Do you want to enter another dependency? (Y/N) ");
+                    ans = Console.ReadLine();
+                    if (ans != "y" && ans != "Y")
+                        readMore = false;
+                }
+
+            }
+        }
+
+        bl.Task!.Create(new Task()
+        {
+            Alias = alias,
+            Description = description,
+            RequiredEffortTime = requiredEffortTime,
+            Complexity = complexity,
+            Dependencies = deps
+        });
+    }
 }
