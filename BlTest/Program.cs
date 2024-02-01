@@ -8,6 +8,15 @@ internal class Program
 {
 	static IBl bl = new BlImplementation.Bl();
 
+	/*
+	 How this program works:
+		1) insert all tasks
+		2) insert all dependencies to the database
+		3) insert dates for the tasks
+		4) engineers to the database
+		5) decide which engineer is assigned to which task
+	 */
+
 
 	static void Main(string[] args)
 	{
@@ -140,7 +149,6 @@ internal class Program
 		if (choose < SubMenuChoices.Exit || choose > SubMenuChoices.Delete)
 			throw new BlInvalidInputException();
 		return choose;
-
 	}
 
 	/// <summary> Asks the user if he wants to create initial data and creates it if he does. </summary>
@@ -308,9 +316,8 @@ internal class Program
 	 * Task functions
 	 */
 
-	/// <summary> Gets a task from the user. </summary>
-	/// <returns> The task that the user entered. </returns>
-	static Task getTaskFromUser()
+	/// <summary> Creates a new task and adds it to the database. </summary>
+	static void createNewTask()
 	{
 		Console.Write("enter the name of the task: ");
 		string alias = Console.ReadLine()!;
@@ -323,18 +330,6 @@ internal class Program
 		Engineer eng = bl.Engineer!.ReadEngineer(engineerId) ?? throw new BlDoesNotExistException("the Engineer does not exist");
 		EngineerInTask engineerInTask = new EngineerInTask() { Id = eng.Id, Name = eng.Name };
 
-		Console.WriteLine("enter start date");
-		DateTime startDate = readDateTime();
-
-		Console.WriteLine("enter scheduled date");
-		DateTime scheduledDate = readDateTime();
-
-		Console.WriteLine("enter forecast date");
-		DateTime forecastDate = readDateTime();
-
-		Console.WriteLine("enter complete date");
-		DateTime completeDate = readDateTime();
-
 		Console.Write("enter the complexity of the task (0-4): ");
 		EngineerExperience complexity = (EngineerExperience)readInt();
 
@@ -343,23 +338,14 @@ internal class Program
 		if (!TimeSpan.TryParse(Console.ReadLine(), out requiredEffortTime))
 			throw new BlInvalidInputException();
 
-		return new Task()
+		bl.Task!.Create(new Task()
 		{
 			Alias = alias,
 			Description = description,
 			RequiredEffortTime = requiredEffortTime,
-			StartDate = startDate,
-			ScheduledDate = scheduledDate,
-			ForecastDate = forecastDate,
-			CompleteDate = completeDate,
 			Complexity = complexity,
 			Engineer = engineerInTask
-		};
-	}
-	/// <summary> Creates a new task and adds it to the database. </summary>
-	static void createNewTask()
-	{
-		bl.Task!.Create(getTaskFromUser());
+		});
 	}
 	/// <summary> Reads a task from the database and prints it to the console. </summary>
 	static void readTask()
@@ -405,30 +391,6 @@ internal class Program
 		Engineer eng = bl.Engineer!.ReadEngineer(engineerId) ?? throw new BlDoesNotExistException("the Engineer does not exist");
 		EngineerInTask engineerInTask = new EngineerInTask() { Id = eng.Id, Name = eng.Name };
 
-		DateTime? startDate = oldTask.StartDate;
-		Console.Write("enter start date: ");
-		inputText = Console.ReadLine();
-		if (inputText != null && inputText != "")
-			startDate = DateTime.Parse(inputText);
-
-		DateTime? scheduledDate = oldTask.ScheduledDate;
-		Console.Write("enter scheduled date: ");
-		inputText = Console.ReadLine();
-		if (inputText != null && inputText != "")
-			scheduledDate = DateTime.Parse(inputText);
-
-		DateTime? forecastDate = oldTask.ForecastDate;
-		Console.Write("enter forecast date: ");
-		inputText = Console.ReadLine();
-		if (inputText != null && inputText != "")
-			forecastDate = DateTime.Parse(inputText);
-
-		DateTime? completeDate = oldTask.CompleteDate;
-		Console.Write("enter complete date: ");
-		inputText = Console.ReadLine();
-		if (inputText != null && inputText != "")
-			completeDate = DateTime.Parse(inputText);
-
 		TimeSpan? requiredEffortTime = oldTask.RequiredEffortTime;
 		Console.Write("enter the required effort time of the task: ");
 		inputText = Console.ReadLine();
@@ -452,10 +414,6 @@ internal class Program
 			Alias = alias,
 			Description = description,
 			RequiredEffortTime = requiredEffortTime,
-			StartDate = startDate,
-			ScheduledDate = scheduledDate,
-			ForecastDate = forecastDate,
-			CompleteDate = completeDate,
 			Complexity = complexity,
 			Engineer = engineerInTask
 		};
