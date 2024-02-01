@@ -23,3 +23,14 @@ public enum MainChoices
 	Engineer,
 	Task,
 }
+
+public enum SubMenuChoices
+{
+	Exit,
+	Create,
+	Read,
+	ReadAll,
+	Update,
+	Delete,
+	UpdateScheduledDate // used only for tasks
+}

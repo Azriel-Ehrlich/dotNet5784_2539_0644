@@ -36,7 +36,9 @@ internal class TaskImplementation : BlApi.ITask
                                DependsOnTask = t.Id
                            });
         }
-        return _dal.Task.Create(task.ToDOTask());
+        return _dal.Task.Create(task.ToDOTask() with { 
+            CreatedAtDate = DateTime.Now 
+        });
     }
 
     /// <inheritdoc/>
@@ -91,7 +93,7 @@ internal class TaskImplementation : BlApi.ITask
     }
 
     /// <inheritdoc/>
-    public void UpdateDate(int id, DateTime date)
+    public void UpdateScheduledDate(int id, DateTime date)
     {
         DO.Task? tas = _dal.Task.Read(id);
         if (tas is null) throw new BO.BlDoesNotExistException("The task doesn't exist");

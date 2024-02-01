@@ -29,5 +29,5 @@ public interface ITask
 	/// <summary> Update the date of a task </summary>
 	/// <param name="id"> The id of the task to update </param>
 	/// <param name="date"> The new date of the task </param>
-	public void UpdateDate(int id, DateTime date);
+	public void UpdateScheduledDate(int id, DateTime date);
 }

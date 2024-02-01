@@ -1,5 +1,4 @@
-﻿using BO;
-using DalApi;
+﻿using DalApi;
 using System.Reflection;
 
 namespace BlImplementation;
@@ -54,19 +53,18 @@ internal static class Tools
 			Alias = task.Alias,
 			Description = task.Description,
 			CreatedAtDate = task.CreatedAtDate,
-			// TODO: Status-done
+			// TODO: Status
 			// Dependencies: see below
 			// TODO: Milestone
 			RequiredEffortTime = task.RequiredEffortTime ?? default,
 			StartDate = task.StartDate ?? default,
 			ScheduledDate = task.ScheduledDate ?? default,
-			// TODO: ForecastDate-will be updated after all tasks are made
-			//DeadlineDate = task.DeadLineDate ?? default,
+			// TODO: ForecastDate,
 			CompleteDate = task.CompleteDate ?? default,
 			Deliverables = task.Deliverables ?? "",
 			Remarks = task.Remarks ?? "",
 			// Engineer: see below
-			Copmlexity = (BO.EngineerExperience)task.Complexity!
+			Complexity = (BO.EngineerExperience)task.Complexity!
 		};
 
 		// find all dependencies of the task
@@ -75,31 +73,18 @@ internal static class Tools
 			.Select(d =>
 			{
 				DO.Task t = dal.Task.Read((int)d!.DependsOnTask!) ?? throw new BO.BlDoesNotExistException($"Task with id {d.DependsOnTask} doesn't exist");
-				BO.Status stat = BO.Status.Unscheduled;
-				if(t.ScheduledDate is not null&& t.StartDate is null) stat = BO.Status.Scheduled;
-				if(t.StartDate is not null &&t.CompleteDate is null) stat = BO.Status.OnTrack;
-				if(t.CompleteDate is not null) stat = BO.Status.Done;
 				return new BO.TaskInList()
 				{
 					Id = t.Id,
 					Alias = t.Alias,
 					Description = t.Description,
-					Status = stat
+					// TODO: Status
 				};
 			}).ToList();
 
 		// find the engineer assigned to the task
 		DO.Engineer? eng = dal.Engineer.Read((int)task.EngineerId!) ?? throw new BO.BlDoesNotExistException($"Engineer with id {task.EngineerId} doesn't exist");
 		boTask.Engineer = new BO.EngineerInTask() { Id = eng.Id, Name = eng.Name };
-
-		//initialize status
-		if (task.ScheduledDate is null) boTask.Status = BO.Status.Unscheduled;
-		else// if there is schdeduled date
-		{
-			if ( task.StartDate is null) boTask.Status= BO.Status.Scheduled;
-			if(task.StartDate is not null&& task.CompleteDate is null)boTask.Status= BO.Status.OnTrack;
-			if (task.CompleteDate is not null) boTask.Status = BO.Status.Done;
-		}
 
 		return boTask;
 	}
@@ -110,8 +95,8 @@ internal static class Tools
 	public static DO.Task ToDOTask(this BO.Task task)
 	{
 		return new DO.Task(task.Id, task.Alias, task.Description, task.CreatedAtDate,
-						task.RequiredEffortTime, false, (DO.EngineerExperience)task.Copmlexity!, task.StartDate,
-						task.ScheduledDate,null, task.CompleteDate, task.Deliverables, task.Remarks,
+						task.RequiredEffortTime, false, (DO.EngineerExperience)task.Complexity!, task.StartDate,
+						task.ScheduledDate, task.DeadlineDate, task.CompleteDate, task.Deliverables, task.Remarks,
 						task.Engineer!.Id, true);
 	}
 
