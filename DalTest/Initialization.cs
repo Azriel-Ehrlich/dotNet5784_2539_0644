@@ -10,74 +10,74 @@ public static class Initialization
     private static readonly Random s_rand = new();
     private static readonly int MIN_ID = 20000000, MAX_ID = 40000000;
 
-    /*
+	/*
 	 * our project is to build a spaceship and conduct a reasearch on Mars
 	 */
 
-    // For now we save in tuples the data we want to insert into the database.
-    // In the future we will probably read the data from a file.
+	// For now we save in tuples the data we want to insert into the database.
+	// In the future we will probably read the data from a file.
 
-    // our tasks:
-    private static readonly Task[] TASKS = {
+	// our tasks:
+	private static readonly Task[] TASKS = {
 		// Initiating the mission planning process
-		new Task(0, "Mission Planning", "Plan the mission to Mars", DateTime.Now.AddYears(-3), TimeSpan.FromDays(365 * 3), false, EngineerExperience.Expert, null, new DateTime(2027, 1, 1), null, null, "Mission plan details", null, 0),
+		new Task(0, "Mission Planning", "Plan the mission to Mars", DateTime.Now.AddYears(-4), TimeSpan.FromDays(365 * 3), false, EngineerExperience.Expert, null, null, null, null, "Mission plan details", null, null),
 		
 		// Choosing the crew for the mission
-		new Task(0, "Crew Selection", "Select a qualified crew for the mission", DateTime.Now.AddYears(-2), TimeSpan.FromDays(365 * 2), false, EngineerExperience.Expert, null, new DateTime(2028, 1, 1), null, null, "Crew selection criteria", null, 0),
+		new Task(0, "Crew Selection", "Select a qualified crew for the mission", DateTime.Now.AddYears(-2), TimeSpan.FromDays(365 * 2), false, EngineerExperience.Expert, null, null, null, null, "Crew selection criteria", null, null),
 		
 		// Creating the design for the spacecraft
-		new Task(0, "Spacecraft Design", "Design the spacecraft for the mission", DateTime.Now.AddYears(-1), TimeSpan.FromDays(365), false, EngineerExperience.Intermediate, null, new DateTime(2029, 1, 1), null, null, "Spacecraft design specifications", null, 0),
+		new Task(0, "Spacecraft Design", "Design the spacecraft for the mission", DateTime.Now.AddYears(-1), TimeSpan.FromDays(365), false, EngineerExperience.Intermediate, null, null, null, null, "Spacecraft design specifications", null, null),
 		
 		// Working on the launch system
-		new Task(0, "Launch System Development", "Develop the launch system for the spacecraft", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Beginner, null, new DateTime(2030, 1, 1), null, null, "Launch system development plan", null, 0),
+		new Task(0, "Launch System Development", "Develop the launch system for the spacecraft", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Beginner, null, null, null, null, "Launch system development plan", null, null),
 		
 		// Planning for orbital insertion
-		new Task(0, "Orbital Insertion Planning", "Plan the orbital insertion phase of the mission", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Expert, null, new DateTime(2031, 1, 1), null, null, "Orbital insertion plan", null, 0),
+		new Task(0, "Orbital Insertion Planning", "Plan the orbital insertion phase of the mission", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Expert, null, null, null, null, "Orbital insertion plan", null,null),
 		
 		// Designing the habitat for Mars surface
-		new Task(0, "Surface Habitat Design", "Design the habitat for the Mars surface", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Intermediate, null, new DateTime(2032, 1, 1), null, null, "Surface habitat design details", null, 0),
+		new Task(0, "Surface Habitat Design", "Design the habitat for the Mars surface", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Intermediate, null, null, null, null, "Surface habitat design details", null, null),
 		
 		// Planning for mission supplies and resources
-		new Task(0, "Supply and Resource Planning", "Plan the supply and resource management for the mission", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Beginner, null, new DateTime(2033, 1, 1), null, null, "Supply and resource planning details", null, 0),
+		new Task(0, "Supply and Resource Planning", "Plan the supply and resource management for the mission", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Beginner, null, null, null, null, "Supply and resource planning details", null, null),
 		
 		// Creating communication systems
-		new Task(0, "Communication Systems", "Develop communication systems for the mission", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Expert, null, new DateTime(2034, 1, 1), null, null, "Communication systems specifications", null, 0),
+		new Task(0, "Communication Systems", "Develop communication systems for the mission", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Expert, null, null, null, null, "Communication systems specifications", null, null),
 		
 		// Planning for Mars entry and landing
-		new Task(0, "Mars Entry and Landing", "Plan the entry and landing on Mars", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Intermediate, null, new DateTime(2035, 1, 1), null, null, "Mars entry and landing plan", null, 0),
+		new Task(0, "Mars Entry and Landing", "Plan the entry and landing on Mars", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Intermediate, null, null, null, null, "Mars entry and landing plan", null, null),
 		
 		// Creating equipment for surface exploration
-		new Task(0, "Surface Exploration Equipment", "Develop equipment for surface exploration", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Beginner, null, new DateTime(2036, 1, 1), null, null, "Surface exploration equipment details", null, 0),
+		new Task(0, "Surface Exploration Equipment", "Develop equipment for surface exploration", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Beginner, null, null, null, null, "Surface exploration equipment details", null, null),
 		
 		// Planning for environmental monitoring
-		new Task(0, "Environmental Monitoring", "Plan environmental monitoring for the mission", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Expert, null, new DateTime(2037, 1, 1), null, null, "Environmental monitoring plan", null, 0),
+		new Task(0, "Environmental Monitoring", "Plan environmental monitoring for the mission", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Expert, null, null, null, null, "Environmental monitoring plan", null, null),
 		
 		// Creating emergency response plans
-		new Task(0, "Emergency Response Planning", "Develop plans for emergency responses", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Intermediate, null, new DateTime(2038, 1, 1), null, null, "Emergency response planning details", null, 0),
+		new Task(0, "Emergency Response Planning", "Develop plans for emergency responses", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Intermediate, null, null, null, null, "Emergency response planning details", null, null),
 		
 		// Planning for crew health and medical support
-		new Task(0, "Crew Health and Medical Planning", "Plan for crew health and medical needs", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Beginner, null, new DateTime(2039, 1, 1), null, null, "Crew health and medical planning details", null, 0),
+		new Task(0, "Crew Health and Medical Planning", "Plan for crew health and medical needs", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Beginner, null, null, null, null, "Crew health and medical planning details", null, null),
 		
 		// Creating ascent vehicle design
-		new Task(0, "Mars Ascent Vehicle Design", "Design the ascent vehicle for returning from Mars", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Expert, null, new DateTime(2040, 1, 1), null, null, "Mars ascent vehicle design details", null, 0),
+		new Task(0, "Mars Ascent Vehicle Design", "Design the ascent vehicle for returning from Mars", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Expert, null, null, null, null, "Mars ascent vehicle design details", null, null),
 		
 		// Planning for the return journey
-		new Task(0, "Return Journey Planning", "Plan the journey back to Earth", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Intermediate, null, new DateTime(2041, 1, 1), null, null, "Return journey planning details", null, 0),
+		new Task(0, "Return Journey Planning", "Plan the journey back to Earth", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Intermediate, null, null, null, null, "Return journey planning details", null, null),
 		
 		// Collecting and analyzing samples
-		new Task(0, "Sample Collection and Analysis", "Collect and analyze surface samples", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Beginner, null, new DateTime(2042, 1, 1), null, null, "Sample collection and analysis details", null, 0),
+		new Task(0, "Sample Collection and Analysis", "Collect and analyze surface samples", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Beginner, null, null, null, null, "Sample collection and analysis details", null, null),
 		
 		// Planning for crew well-being
-		new Task(0, "Crew Exercise and Well-being", "Plan for crew exercise and well-being", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Expert, null, new DateTime(2043, 1, 1), null, null, "Crew exercise and well-being plan", null, 0),
+		new Task(0, "Crew Exercise and Well-being", "Plan for crew exercise and well-being", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Expert, null, null, null, null, "Crew exercise and well-being plan", null, null),
 		
 		// Establishing communication with Earth
-		new Task(0, "Communication with Earth", "Establish communication with Earth", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Intermediate, null, new DateTime(2044, 1, 1), null, null, "Communication with Earth plan", null, 0),
+		new Task(0, "Communication with Earth", "Establish communication with Earth", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Intermediate, null, null	, null, null, "Communication with Earth plan", null, null),
 		
 		// Engaging with the public and outreach
-		new Task(0, "Public Relations and Outreach", "Engage in public relations and outreach activities", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Beginner, null, new DateTime(2045, 1, 1), null, null, "Public relations and outreach plan", null, 0),
+		new Task(0, "Public Relations and Outreach", "Engage in public relations and outreach activities", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Beginner, null, null, null, null, "Public relations and outreach plan", null, null),
 		
 		// Analyzing mission outcomes
-		new Task(0, "Post-Mission Analysis", "Conduct post-mission analysis", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Expert, null, new DateTime(2046, 1, 1), null, null, "Post-mission analysis details", null, 0)
+		new Task(0, "Post-Mission Analysis", "Conduct post-mission analysis", DateTime.Now, TimeSpan.FromDays(365), false, EngineerExperience.Expert, null, null, null, null, "Post-mission analysis details", null, null)
     };
 
     // our amazing team:

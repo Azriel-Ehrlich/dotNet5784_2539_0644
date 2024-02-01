@@ -20,8 +20,9 @@ public enum Status
 public enum MainChoices
 {
 	Exit,
-	Engineer,
 	Task,
+	Engineer,
+	Schedule
 }
 
 public enum SubMenuChoices

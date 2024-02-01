@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 
 namespace BlImplementation;
-
+using BO;
 internal class EngineerImplementation : BlApi.IEngineer
 {
 	private DalApi.IDal _dal = DalApi.Factory.Get;
@@ -89,6 +89,9 @@ internal class EngineerImplementation : BlApi.IEngineer
 	public void Update(BO.Engineer engineer)
 	{
 		checkEngineer(engineer);
+		DO.Engineer check = _dal.Engineer.Read(engineer.Id)!;
+		if (check.Level > (DO.EngineerExperience)engineer.Level)
+			throw new BO.BlInvalidParameterException("Engineer's level cannot be decreased");
 
 		try
 		{

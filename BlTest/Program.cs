@@ -2,7 +2,7 @@
 
 using BlApi;
 using BO;
-
+using System.Numerics;
 
 internal class Program
 {
@@ -35,20 +35,37 @@ internal class Program
 
         init();
 
-        Console.WriteLine("Please enter all the tasks:");
-        createTasks();
+        // Console.WriteLine("Please enter all the tasks:");
+        // createTasks();
+        Console.ForegroundColor = ConsoleColor.Cyan;
+            MainChoices choice;
 
-        Console.WriteLine("Insert schedueled starting dates for all the tasks:");
-        readDates();
-
-        Console.WriteLine("Enter all engineers:");
-        createEngineers();
-
-        Console.WriteLine("And now select which engineer is assigned to which task:");
-        assignEngineersToTasks();
-
-        Console.WriteLine("congratulations! you have successfully inserted all the data to the database");
-        Console.WriteLine("Have a nice day and celebrate with delicious cake :)");
+        do
+        {
+            Console.WriteLine("press 0 to exit the system");
+            Console.WriteLine("press 1 to enter the task manu");
+            Console.WriteLine("press 2 to enter the engineer manu");
+            Console.WriteLine("press 3 to schedule the project");
+            choice = (MainChoices)readInt();
+            switch (choice)
+            {
+                case MainChoices.Exit:
+                    break;
+                case MainChoices.Task:
+                  //TODO: crud for task
+                    break;
+                case MainChoices.Engineer:
+                   //TODO: crud for engineer
+                    break;
+                case MainChoices.Schedule:
+                   //TODO: schedule the project
+                    break;
+                default:
+                    Console.WriteLine("Invalid input, please try again.");
+                    break;
+            }
+        } while (choice!=MainChoices.Exit);
+        
 
         Console.ForegroundColor = ConsoleColor.White; // reset the color
     }
@@ -72,21 +89,27 @@ internal class Program
     static void readDates()
     {
         Console.WriteLine("Enter the scheduled start date of the project");
-        DateTime projStart=readDateTime();
-       bl.Task.UpdateScheduledDate(0,projStart); // update the scheduled date of the project
-        foreach (var task in bl.Task!.ReadAll())
+        DateTime projStart = readDateTime();
+        foreach (var t in bl.Task.ReadAll(t => t.Dependencies is  null))
         {
-            Console.WriteLine($"Task's alias: {task.Alias}");
-            Console.Write("Enter the scheduled date of the task: "); DateTime scheduledDate = readDateTime();
+            DateTime? date = bl.SuggestedDate(t,projStart);
+            if (date is null) throw new BlCannotUpdateException("The task cann't be updated");
+            Console.WriteLine($"for the task {t.Id}, {t.Alias} the scheduled starting date is- {date}");
+            bl.Task.UpdateScheduledDate(t.Id, (DateTime)date);
 
-            DateTime? forecastDate = scheduledDate + task.RequiredEffortTime;
-            task.ScheduledDate = scheduledDate;
-            task.ForecastDate = forecastDate;
-            
-
-            bl.Task!.Update(task);
         }
+        foreach (var t in bl.Task.ReadAll(t => t.Dependencies is not null))
+        {
+            DateTime? date = bl.SuggestedDate(t, projStart);
+            if (date is null) throw new BlCannotUpdateException("The task cann't be updated");
+            Console.WriteLine($"for the task {t.Id}, {t.Alias} the scheduled starting date is- {date}");
+            bl.Task.UpdateScheduledDate(t.Id, (DateTime)date);
+        }
+        //TODO: save the start date of the project in the database
+
     }
+
+    
 
     /// <summary> reads all engineers from the user and inserts them to the database </summary>
     static void createEngineers()
