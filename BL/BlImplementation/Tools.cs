@@ -86,6 +86,15 @@ internal static class Tools
 		DO.Engineer? eng = dal.Engineer.Read((int)task.EngineerId!) ?? throw new BO.BlDoesNotExistException($"Engineer with id {task.EngineerId} doesn't exist");
 		boTask.Engineer = new BO.EngineerInTask() { Id = eng.Id, Name = eng.Name };
 
+		//initialize status
+		if (task.ScheduledDate is null) boTask.Status = BO.Status.Unscheduled;
+		else // if there is schdeduled date
+		{
+			if (task.StartDate is null) boTask.Status = BO.Status.Scheduled;
+			if (task.StartDate is not null && task.CompleteDate is null) boTask.Status = BO.Status.OnTrack;
+			if (task.CompleteDate is not null) boTask.Status = BO.Status.Done;
+		}
+
 		return boTask;
 	}
 
@@ -96,7 +105,7 @@ internal static class Tools
 	{
 		return new DO.Task(task.Id, task.Alias, task.Description, task.CreatedAtDate,
 						task.RequiredEffortTime, false, (DO.EngineerExperience)task.Complexity!, task.StartDate,
-						task.ScheduledDate, task.DeadlineDate, task.CompleteDate, task.Deliverables, task.Remarks,
+						task.ScheduledDate, null, task.CompleteDate, task.Deliverables, task.Remarks,
 						task.Engineer!.Id, true);
 	}
 

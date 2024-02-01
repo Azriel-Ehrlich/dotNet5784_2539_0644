@@ -11,6 +11,14 @@ internal class Program
 
 	static void Main(string[] args)
 	{
+		// ascii art for BO. we are so cool :D
+		Console.ForegroundColor = ConsoleColor.Blue;
+		Console.WriteLine(@"  _____ _          ___  ___    _____       _   
+ |_   _| |_  ___  | _ )/ _ \  |_   _|__ __| |_ 
+   | | | ' \/ -_) | _ \ (_) |   | |/ -_|_-<  _|
+   |_| |_||_\___| |___/\___/    |_|\___/__/\__|
+");
+
 		Console.ForegroundColor = ConsoleColor.Cyan;
 		Console.WriteLine("Welcome to the missions managing manu");
 		Console.WriteLine("Our mission is to send a spaceship to space");
@@ -312,28 +320,28 @@ internal class Program
 
 		Console.Write("what is the id of the Engineer who assigned to do the Task: ");
 		int engineerId = readInt();
-		Engineer? eng = bl.Engineer!.ReadEngineer(engineerId) ?? throw new BlDoesNotExistException("the Engineer does not exist");
+		Engineer eng = bl.Engineer!.ReadEngineer(engineerId) ?? throw new BlDoesNotExistException("the Engineer does not exist");
+		EngineerInTask engineerInTask = new EngineerInTask() { Id = eng.Id, Name = eng.Name };
 
 		Console.WriteLine("enter start date");
 		DateTime startDate = readDateTime();
 
-		Console.WriteLine("enter deadline");
-		DateTime deadLine = readDateTime();
-		
 		Console.WriteLine("enter scheduled date");
 		DateTime scheduledDate = readDateTime();
-		
+
 		Console.WriteLine("enter forecast date");
 		DateTime forecastDate = readDateTime();
-		
+
 		Console.WriteLine("enter complete date");
 		DateTime completeDate = readDateTime();
-		
+
 		Console.Write("enter the complexity of the task (0-4): ");
 		EngineerExperience complexity = (EngineerExperience)readInt();
-		
-		TimeSpan requiredEffortTime = deadLine - startDate;
 
+		Console.WriteLine("enter the required effort time of the task");
+		TimeSpan requiredEffortTime;
+		if (!TimeSpan.TryParse(Console.ReadLine(), out requiredEffortTime))
+			throw new BlInvalidInputException();
 
 		return new Task()
 		{
@@ -345,7 +353,7 @@ internal class Program
 			ForecastDate = forecastDate,
 			CompleteDate = completeDate,
 			Complexity = complexity,
-			Engineer = eng
+			Engineer = engineerInTask
 		};
 	}
 	/// <summary> Creates a new task and adds it to the database. </summary>
@@ -390,10 +398,12 @@ internal class Program
 			description = oldTask.Description;
 
 		Console.Write("what is the id of the Engineer who assigned to do the Task: ");
-		int? engineerId = oldTask.EngineerId;
+		int engineerId = oldTask.Engineer!.Id;
 		string? inputText = Console.ReadLine();
 		if (inputText != null && inputText != "")
 			engineerId = toInt(inputText);
+		Engineer eng = bl.Engineer!.ReadEngineer(engineerId) ?? throw new BlDoesNotExistException("the Engineer does not exist");
+		EngineerInTask engineerInTask = new EngineerInTask() { Id = eng.Id, Name = eng.Name };
 
 		DateTime? startDate = oldTask.StartDate;
 		Console.Write("enter start date: ");
@@ -401,26 +411,29 @@ internal class Program
 		if (inputText != null && inputText != "")
 			startDate = DateTime.Parse(inputText);
 
-		DateTime? deadLine = oldTask.StartDate;
-		Console.Write("enter deadLine: ");
+		DateTime? scheduledDate = oldTask.ScheduledDate;
+		Console.Write("enter scheduled date: ");
 		inputText = Console.ReadLine();
 		if (inputText != null && inputText != "")
-			deadLine = DateTime.Parse(inputText);
+			scheduledDate = DateTime.Parse(inputText);
 
-		TimeSpan? requiredEffortTime = deadLine - startDate;
-
-		/*
-		Console.Write("is this task is a milestone? ");
-		bool isMilestone = oldTask.IsMilestone;
+		DateTime? forecastDate = oldTask.ForecastDate;
+		Console.Write("enter forecast date: ");
 		inputText = Console.ReadLine();
 		if (inputText != null && inputText != "")
-		{
-			bool tmp;
-			if (!bool.TryParse(inputText, out tmp))
-				throw new DalInvalidInputException();
-			isMilestone = tmp;
-		}
-		*/
+			forecastDate = DateTime.Parse(inputText);
+
+		DateTime? completeDate = oldTask.CompleteDate;
+		Console.Write("enter complete date: ");
+		inputText = Console.ReadLine();
+		if (inputText != null && inputText != "")
+			completeDate = DateTime.Parse(inputText);
+
+		TimeSpan? requiredEffortTime = oldTask.RequiredEffortTime;
+		Console.Write("enter the required effort time of the task: ");
+		inputText = Console.ReadLine();
+		if (inputText != null && inputText != "")
+			requiredEffortTime = TimeSpan.Parse(inputText);
 
 		Console.Write("enter the complexity of the task (0-4): ");
 		EngineerExperience? complexity = oldTask.Complexity;
@@ -433,9 +446,21 @@ internal class Program
 			complexity = (EngineerExperience)tmp;
 		}
 
-		bl.Task!.Update(new Task(id, alias, description, DateTime.Now,
-			requiredEffortTime, isMilestone, complexity, startDate,
-			null, deadLine, null, "", "", engineerId));
+		Task updatedTask = new Task()
+		{
+			Id = id,
+			Alias = alias,
+			Description = description,
+			RequiredEffortTime = requiredEffortTime,
+			StartDate = startDate,
+			ScheduledDate = scheduledDate,
+			ForecastDate = forecastDate,
+			CompleteDate = completeDate,
+			Complexity = complexity,
+			Engineer = engineerInTask
+		};
+
+		bl.Task!.Update(updatedTask);
 	}
 	/// <summary> Deletes a task from the database. </summary>
 	static void deleteTask()
@@ -444,7 +469,6 @@ internal class Program
 		int id = readInt();
 		bl.Task!.Delete(id);
 	}
-
 	/// <summary> Updates the scheduled date of a task in the database. </summary>
 	static void updateScheduledDate()
 	{
