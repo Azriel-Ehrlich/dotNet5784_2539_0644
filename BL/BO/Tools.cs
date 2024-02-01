@@ -1,7 +1,7 @@
 ﻿using DalApi;
 using System.Reflection;
 
-namespace BlImplementation;
+namespace BO;
 
 
 /// <summary> This class contains extension methods for casting between DO and BO. </summary>
@@ -53,13 +53,13 @@ internal static class Tools
 			Alias = task.Alias,
 			Description = task.Description,
 			CreatedAtDate = task.CreatedAtDate,
-			// TODO: Status
+			// TODO: Status-done
 			// Dependencies: see below
 			// TODO: Milestone
 			RequiredEffortTime = task.RequiredEffortTime ?? default,
 			StartDate = task.StartDate ?? default,
 			ScheduledDate = task.ScheduledDate ?? default,
-			// TODO: ForecastDate,
+			// TODO: ForecastDate-done
 			CompleteDate = task.CompleteDate ?? default,
 			Deliverables = task.Deliverables ?? "",
 			Remarks = task.Remarks ?? "",
@@ -73,12 +73,16 @@ internal static class Tools
 			.Select(d =>
 			{
 				DO.Task t = dal.Task.Read((int)d!.DependsOnTask!) ?? throw new BO.BlDoesNotExistException($"Task with id {d.DependsOnTask} doesn't exist");
+				Status status = Status.Unscheduled;
+				if(t.ScheduledDate is not null&&t.StartDate is null) status = Status.Scheduled;
+				if(t.StartDate is not null&&t.CompleteDate is null) status = Status.OnTrack;
+				if(t.CompleteDate is not null) status = Status.Done;
 				return new BO.TaskInList()
 				{
 					Id = t.Id,
 					Alias = t.Alias,
 					Description = t.Description,
-					// TODO: Status
+					Status = status
 				};
 			}).ToList();
 
@@ -94,6 +98,7 @@ internal static class Tools
 			if (task.StartDate is not null && task.CompleteDate is null) boTask.Status = BO.Status.OnTrack;
 			if (task.CompleteDate is not null) boTask.Status = BO.Status.Done;
 		}
+		if(task.ScheduledDate is not null) boTask.ForecastDate = (DateTime)task.ScheduledDate + task.RequiredEffortTime;
 
 		return boTask;
 	}

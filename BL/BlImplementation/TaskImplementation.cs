@@ -1,5 +1,5 @@
 ﻿namespace BlImplementation;
-
+using BO;
 
 internal class TaskImplementation : BlApi.ITask
 {
@@ -103,8 +103,10 @@ internal class TaskImplementation : BlApi.ITask
                                       where t.DependentTask == id
                                       select _dal.Task.Read((int)t.DependsOnTask!);
         if ((from t in check where t.ScheduledDate == null select t).Any()) throw new BO.BlCannotUpdateException("The task cann't be updated");
-        if ((from t in check where (t.ScheduledDate + t.RequiredEffortTime) > date select t).Any()) throw new BO.BlCannotUpdateException("The task cann't be updated");
-        _dal.Task.Update(tas with { ScheduledDate = date ,});
+        if ((from t in check where (t.ScheduledDate + t.RequiredEffortTime) > date||
+             ((t.StartDate+t.RequiredEffortTime)>date&&t.StartDate is not null) select t).Any())
+            throw new BO.BlCannotUpdateException("The task cann't be updated");
+        _dal.Task.Update(tas with { ScheduledDate = date });
     }
     //funcion to suggest date for task 
      
