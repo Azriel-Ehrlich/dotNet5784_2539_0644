@@ -17,3 +17,10 @@ public enum Status
 	InJeopardy,
 	Done
 }
+
+public enum MainChoices
+{
+	Exit,
+	Engineer,
+	Task,
+}

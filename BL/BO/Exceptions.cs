@@ -37,9 +37,17 @@ public class BlNullPropertyException : Exception
 {
 	public BlNullPropertyException(string? message) : base(message) { }
 }
+
 /// <summary> exception for when the BL object cannot be updated </summary>
 [Serializable]
 public class BlCannotUpdateException : Exception
 {
 	public BlCannotUpdateException(string? message) : base(message) { }
+}
+
+/// <summary> exception for when a dal has invalid input for test program </summary>
+[Serializable]
+public class BlInvalidInputException : Exception
+{
+	public BlInvalidInputException(string? message = "invalid input") : base(message) { }
 }
