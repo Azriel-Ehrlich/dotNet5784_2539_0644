@@ -72,7 +72,7 @@ internal class TaskImplementation : BlApi.ITask
     }
 
     /// <inheritdoc/>
-    public IEnumerable<BO.Task> ReadAll(Func<BO.Task, bool>? filter = null)
+    public IEnumerable<BO.TaskInList> ReadAll(Func<BO.Task, bool>? filter = null)
     {
         IEnumerable<DO.Task?> res;
 
@@ -81,7 +81,8 @@ internal class TaskImplementation : BlApi.ITask
         else
             res = _dal.Task.ReadAll(t => filter(t.ToBOTask(_dal)));
 
-        return res.Where(t => t is not null).Select(t => t!.ToBOTask(_dal));
+        IEnumerable<BO.Task> conv= res.Where(t => t is not null).Select(t => t!.ToBOTask(_dal));
+        return from t in conv select (new BO.TaskInList() { Id=t.Id,Description=t.Description,Alias=t.Alias,Status=t.Status});
     }
 
     /// <inheritdoc/>

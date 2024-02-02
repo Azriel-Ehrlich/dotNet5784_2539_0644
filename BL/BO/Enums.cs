@@ -35,3 +35,9 @@ public enum SubMenuChoices
 	Delete,
 	UpdateScheduledDate // used only for tasks
 }
+public enum ProjectStatus
+{
+	plan,
+	schedule,
+	execute
+}

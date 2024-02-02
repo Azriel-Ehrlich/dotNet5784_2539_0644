@@ -6,11 +6,12 @@ public interface IBl
 {
     public IEngineer Engineer { get; }
     public ITask Task { get; }
-    public DateTime? SuggestedDate(BO.Task? task, DateTime startProj)
+    public DateTime? SuggestedDate(BO.TaskInList? task, DateTime startProj)
     {
+        BO.Task? tas= Task.Read(task!.Id);
         DateTime? date = startProj;
-        if (task!.Dependencies is null) return date;
-        foreach (var dep in task!.Dependencies!)
+        if (tas!.Dependencies is null) return date;
+        foreach (var dep in tas!.Dependencies!)
         {
             BO.Task? depTask = Task.Read(dep.Id);
             if (depTask!.ScheduledDate is null) throw new BlCannotUpdateException("The task cann't be updated");

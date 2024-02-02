@@ -7,6 +7,7 @@ using System.Numerics;
 internal class Program
 {
     static IBl bl = new BlImplementation.Bl();
+    static ProjectStatus status= ProjectStatus.plan;
 
     /*
 	 How this program works:
@@ -16,7 +17,7 @@ internal class Program
 		4) engineers to the database
 		5) decide which engineer is assigned to which task
 	 */
-
+    
 
     static void Main(string[] args)
     {
@@ -34,12 +35,10 @@ internal class Program
         Console.WriteLine("--------------------------------------------");
 
         init();
-
         // Console.WriteLine("Please enter all the tasks:");
         // createTasks();
-        Console.ForegroundColor = ConsoleColor.Cyan;
-            MainChoices choice;
-
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        MainChoices choice;
         do
         {
             Console.WriteLine("press 0 to exit the system");
@@ -52,20 +51,21 @@ internal class Program
                 case MainChoices.Exit:
                     break;
                 case MainChoices.Task:
-                  //TODO: crud for task
+                    //TODO: crud for task
                     break;
                 case MainChoices.Engineer:
-                   //TODO: crud for engineer
+                    //TODO: crud for engineer
                     break;
                 case MainChoices.Schedule:
-                   //TODO: schedule the project
+                   status = ProjectStatus.schedule;
+                    readDates();
                     break;
                 default:
                     Console.WriteLine("Invalid input, please try again.");
                     break;
             }
-        } while (choice!=MainChoices.Exit);
-        
+        } while (choice != MainChoices.Exit);
+
 
         Console.ForegroundColor = ConsoleColor.White; // reset the color
     }
@@ -74,7 +74,7 @@ internal class Program
     static void createTasks()
     {
         bool readMore = true;
-        while (readMore)
+        while (readMore is not false)
         {
             createNewTask();
 
@@ -90,13 +90,13 @@ internal class Program
     {
         Console.WriteLine("Enter the scheduled start date of the project");
         DateTime projStart = readDateTime();
-        foreach (var t in bl.Task.ReadAll(t => t.Dependencies is  null))
+        foreach (var t in bl.Task.ReadAll(t => t.Dependencies is null))
         {
-            DateTime? date = bl.SuggestedDate(t,projStart);
+            DateTime? date = bl.SuggestedDate(t, projStart);
             if (date is null) throw new BlCannotUpdateException("The task cann't be updated");
             Console.WriteLine($"for the task {t.Id}, {t.Alias} the scheduled starting date is- {date}");
             bl.Task.UpdateScheduledDate(t.Id, (DateTime)date);
-
+            status = ProjectStatus.execute;
         }
         foreach (var t in bl.Task.ReadAll(t => t.Dependencies is not null))
         {
@@ -109,13 +109,13 @@ internal class Program
 
     }
 
-    
+
 
     /// <summary> reads all engineers from the user and inserts them to the database </summary>
     static void createEngineers()
     {
         bool readMore = true;
-        while (readMore)
+        while (readMore is not false)
         {
             createNewEngineer();
 
@@ -127,30 +127,30 @@ internal class Program
     }
 
     /// <summary> assign engineers to tasks </summary>
-    static void assignEngineersToTasks()
-    {
-        Console.WriteLine("Your engineers:");
-        foreach (var eng in bl.Engineer!.ReadAll())
-            Console.WriteLine($"> {eng.Id}: {eng.Name}, {eng.Level}");
+    //static void assignEngineersToTasks()
+    //{
+    //    Console.WriteLine("Your engineers:");
+    //    foreach (var eng in bl.Engineer!.ReadAll())
+    //        Console.WriteLine($"> {eng.Id}: {eng.Name}, {eng.Level}");
 
-        Console.WriteLine("Your tasks:");
-        foreach (var task in bl.Task!.ReadAll())
-        {
-            Console.WriteLine($"Current task: {task.Alias}");
-            Console.Write("Enter the id of the engineer assigned to the task: ");
-            int engId;
-            Engineer? eng = null;
-            while (eng is null)
-            {
-                engId = readInt();
-                eng = bl.Engineer!.ReadEngineer(engId);
-                if (eng is null)
-                    Console.WriteLine("The engineer does not exist");
-            }
-            task.Engineer = new EngineerInTask() { Id = eng.Id, Name = eng.Name };
-            bl.Task!.Update(task);
-        }
-    }
+    //    Console.WriteLine("Your tasks:");
+    //    foreach (var task in bl.Task!.ReadAll())
+    //    {
+    //        Console.WriteLine($"Current task: {task.Alias}");
+    //        Console.Write("Enter the id of the engineer assigned to the task: ");
+    //        int engId;
+    //        Engineer? eng = null;
+    //        while (eng is null)
+    //        {
+    //            engId = readInt();
+    //            eng = bl.Engineer!.ReadEngineer(engId);
+    //            if (eng is null)
+    //                Console.WriteLine("The engineer does not exist");
+    //        }
+    //        task.Engineer = new EngineerInTask() { Id = eng.Id, Name = eng.Name };
+    //        bl.Task!.Update(task);
+    //    }
+    //}
 
 
     // the next functions are same to DalTest/Program.cs. maybe we should have put them in a different file
@@ -263,7 +263,7 @@ internal class Program
         EngineerExperience level = (EngineerExperience)readInt();
 
         // we do not need read the tasks of the engineer because he has no tasks yet
-
+        
         bl.Engineer!.Create(new Engineer
         {
             Id = id,
@@ -292,7 +292,7 @@ internal class Program
             throw new BlInvalidInputException();
 
         List<TaskInList> deps = new List<TaskInList>();
-        IEnumerable<Task> previousTasks = bl.Task!.ReadAll();
+        IEnumerable<Task> previousTasks = bl.Task!.ReadAll().Select(t => bl.Task.Read(t.Id)!);
         if (previousTasks.Count() > 1) // read dependencies only if there is at least 1 task
         {
             Console.Write("Is this task dependent on other tasks? (Y/N) ");

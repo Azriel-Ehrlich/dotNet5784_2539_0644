@@ -20,7 +20,7 @@ public interface ITask
 	/// <summary> Read all tasks </summary>
 	/// <param name="filter"> A filter to apply to the tasks </param>
 	/// <returns> All tasks that pass the filter </returns>
-	public IEnumerable<BO.Task> ReadAll(Func<BO.Task, bool>? filter = null);
+	public IEnumerable<BO.TaskInList> ReadAll(Func<BO.Task, bool>? filter = null);
 
 	/// <summary> Update a task </summary>
 	/// <param name="task"> The task to update </param>
