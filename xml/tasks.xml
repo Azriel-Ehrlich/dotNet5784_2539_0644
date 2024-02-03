@@ -236,7 +236,7 @@
     <RequiredEffortTime>P1095D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Expert</Complexity>
-    <ScheduledDate>2024-12-12T00:00:00</ScheduledDate>
+    <ScheduledDate>2025-01-26T00:00:00</ScheduledDate>
     <Deliverables>Mission plan details</Deliverables>
     <Active>true</Active>
   </Task>

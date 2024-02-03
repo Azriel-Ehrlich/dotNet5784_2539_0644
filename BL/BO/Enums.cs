@@ -33,11 +33,21 @@ public enum SubMenuChoices
 	ReadAll,
 	Update,
 	Delete,
-	UpdateScheduledDate // used only for tasks
 }
 public enum ProjectStatus
 {
 	plan,
 	schedule,
 	execute
+}
+public enum TaskUpdate
+{
+    Alias=1,
+	Description,
+	Engineer,
+	Remraks,
+	Deliverable,
+	Dependencies,
+	RequiredTimeEffort,
+	Comlexity
 }

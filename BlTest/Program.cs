@@ -2,12 +2,13 @@
 
 using BlApi;
 using BO;
+using System.Diagnostics;
 using System.Numerics;
 
 internal class Program
 {
     static IBl bl = new BlImplementation.Bl();
-    static ProjectStatus status= ProjectStatus.plan;
+    static ProjectStatus status = ProjectStatus.plan;
 
     /*
 	 How this program works:
@@ -17,7 +18,7 @@ internal class Program
 		4) engineers to the database
 		5) decide which engineer is assigned to which task
 	 */
-    
+
 
     static void Main(string[] args)
     {
@@ -51,13 +52,13 @@ internal class Program
                 case MainChoices.Exit:
                     break;
                 case MainChoices.Task:
-                    //TODO: crud for task
+                    taskManu();
                     break;
                 case MainChoices.Engineer:
-                    //TODO: crud for engineer
+                    engineerManu();//TODO: implement this function
                     break;
                 case MainChoices.Schedule:
-                   status = ProjectStatus.schedule;
+                    status = ProjectStatus.schedule;
                     readDates();
                     break;
                 default:
@@ -68,6 +69,183 @@ internal class Program
 
 
         Console.ForegroundColor = ConsoleColor.White; // reset the color
+    }
+
+    private static void engineerManu()
+    {
+        throw new NotImplementedException();
+    }
+
+    private static void taskManu()
+    {
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("Welcome to task manu");
+        SubMenuChoices choice;
+        do
+        {
+            Console.WriteLine("press 0 to exit");
+            Console.WriteLine("press 1 to create a new task");
+            Console.WriteLine("press 2 to read a task");
+            Console.WriteLine("press 3 to read all tasks");
+            Console.WriteLine("press 4 to update a task");
+            Console.WriteLine("press 5 to delete a task");
+            choice = (SubMenuChoices)readInt();
+            switch (choice)
+            {
+                case SubMenuChoices.Exit:
+                    break;
+                case SubMenuChoices.Create:
+                    if (status == ProjectStatus.plan)
+                        createTasks();
+                    else Console.WriteLine("You can't create new tasks because the schedule is already set");
+                    break;
+                case SubMenuChoices.Read:
+                    Console.WriteLine("Enter the id of the task you want to read");
+                    int id = readInt();
+                    Task? task = bl.Task.Read(id);
+                    if (task is null)
+                        Console.WriteLine("The task does not exist");
+                    else
+                        Console.WriteLine(task);
+                    break;
+                case SubMenuChoices.ReadAll:
+                    foreach (var t in bl.Task.ReadAll())
+                        Console.WriteLine(t);
+                    break;
+                case SubMenuChoices.Update:
+                    TaskUpdate();
+                    break;
+                case SubMenuChoices.Delete:
+                    if (status == ProjectStatus.plan)
+                    {
+                        Console.WriteLine("Enter the id of the task you want to delete");
+                        id = readInt();
+                        BO.Task? t = bl.Task.Read(id);
+                        if (t is null)
+                        {
+                            Console.WriteLine("The task does not exist");
+                            break;
+                        }
+                        if (t.Engineer is not null)
+                        {
+                            BO.Engineer? e = bl.Engineer.ReadEngineer(t.Engineer.Id);
+                            if (e is not null)
+                            {
+                                e.Task = null;
+                                bl.Engineer.Update(e);
+                            }
+                        }
+                        bl.Task.Delete(id);
+                    }
+                    else Console.WriteLine("You can't delete tasks because the schedule is already set");
+                    break;
+                default:
+                    Console.WriteLine("Invalid input, please try again.");
+                    break;
+            }
+        } while (choice != SubMenuChoices.Exit);
+
+
+    }
+
+    private static void TaskUpdate()
+    {
+        Console.WriteLine("What is the id of the task you want to update?");
+        int id = readInt();
+        Task? task = bl.Task.Read(id);
+        if (task is null)
+        {
+            Console.WriteLine("The task does not exist");
+            return;
+        }
+        Console.WriteLine("What do you want to update?");
+        Console.WriteLine("1- Alias");
+        Console.WriteLine("2- Description");
+        Console.WriteLine("3- Engineer");
+        Console.WriteLine("4- Remarks");
+        Console.WriteLine("5- Deliverable");
+        if (status == ProjectStatus.plan)
+        {
+            Console.WriteLine("6- Dependencies");
+            Console.WriteLine("7- RequiredEffortTime");
+            Console.WriteLine("8- Complexity");
+        }
+        TaskUpdate choice = (TaskUpdate)readInt();
+        switch (choice)
+        {
+            case BO.TaskUpdate.Alias:
+                Console.WriteLine("Enter the new alias");
+                task.Alias = Console.ReadLine()!;
+                break;
+            case BO.TaskUpdate.Description:
+                Console.WriteLine("Enter the new description");
+                task.Description = Console.ReadLine()!;
+                break;
+            case BO.TaskUpdate.Engineer:
+                Console.WriteLine("Enter the id of the new engineer");
+                int engId = readInt();
+                Engineer? eng = bl.Engineer.ReadEngineer(engId);
+                eng!.Task = new TaskInEngineer() { Id = task.Id, Alias = task.Alias };
+                break;
+            case BO.TaskUpdate.Remraks:
+                Console.WriteLine("Enter the new remarks");
+                task.Remarks = Console.ReadLine()!;
+                break;
+            case BO.TaskUpdate.Deliverable:
+                Console.WriteLine("Enter the new deliverable");
+                task.Deliverables = Console.ReadLine()!;
+                break;
+            case BO.TaskUpdate.Dependencies:
+                if (status == ProjectStatus.plan)
+                {
+                    Console.WriteLine("Enter the new dependencies");
+                    List<TaskInList> deps = new List<TaskInList>();
+                    IEnumerable<Task> previousTasks = bl.Task.ReadAll().Select(t => bl.Task.Read(t.Id)!);
+                    if (previousTasks.Count() > 1) // read dependencies only if there is at least 1 task
+                    {
+
+                        // print previous tasks
+                        foreach (var t in previousTasks)
+                            Console.WriteLine($"> {t.Id}: {t.Alias}");
+
+                        // read dependencies
+                        bool readMore = true;
+                        while (readMore is true)
+                        {
+                            Console.Write("enter the id of the task this task is dependent on: ");
+                            int idd = readInt();
+                            Task? t = bl.Task!.Read(idd);
+                            if (t == null)
+                                Console.WriteLine("the task does not exist");
+                            else
+                                deps.Add(new TaskInList() { Id = t.Id, Alias = t.Alias, Description = t.Description });
+
+                            Console.Write("Do you want to enter another dependency? (Y/N) ");
+                            string? ans = Console.ReadLine();
+                            if (ans != "y" && ans != "Y")
+                                readMore = false;
+
+
+                        }
+                    }
+                    task.Dependencies = deps;
+                }
+                break;
+            case BO.TaskUpdate.RequiredTimeEffort:
+                Console.WriteLine("Enter the new required effort time");
+                TimeSpan requiredEffortTime;
+                if (!TimeSpan.TryParse(Console.ReadLine(), out requiredEffortTime))
+                    throw new BlInvalidInputException();
+                task.RequiredEffortTime = requiredEffortTime;
+                break;
+            case BO.TaskUpdate.Comlexity:
+                Console.WriteLine("Enter the new complexity");
+                EngineerExperience complexity = (EngineerExperience)readInt();
+                task.Complexity = complexity;
+                break;
+
+        }
+        bl.Task.Update(task);
     }
 
     /// <summary> reads all task from  the user and inserts them to the database </summary>
@@ -104,6 +282,7 @@ internal class Program
             if (date is null) throw new BlCannotUpdateException("The task cann't be updated");
             Console.WriteLine($"for the task {t.Id}, {t.Alias} the scheduled starting date is- {date}");
             bl.Task.UpdateScheduledDate(t.Id, (DateTime)date);
+            status = ProjectStatus.execute;
         }
         //TODO: save the start date of the project in the database
 
@@ -263,7 +442,7 @@ internal class Program
         EngineerExperience level = (EngineerExperience)readInt();
 
         // we do not need read the tasks of the engineer because he has no tasks yet
-        
+
         bl.Engineer!.Create(new Engineer
         {
             Id = id,
@@ -333,4 +512,5 @@ internal class Program
             Dependencies = deps
         });
     }
+
 }

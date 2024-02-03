@@ -17,7 +17,7 @@ public class Engineer
 	public required string Name { init; get; }
 	public EngineerExperience Level { set; get; }
 	public bool Active { set; get; }
-	public List<BO.TaskInEngineer>? Task { set; get; }
+	public BO.TaskInEngineer? Task { set; get; }
 
 
 	public override string ToString() => this.ToStringProperty();
