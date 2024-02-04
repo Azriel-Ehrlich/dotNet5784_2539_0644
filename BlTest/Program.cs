@@ -627,7 +627,7 @@ internal class Program
 		Console.Write("enter the complexity of the task (0-4): ");
 		EngineerExperience complexity = (EngineerExperience)readInt();
 
-		Console.WriteLine("enter the required effort time of the task (days)");
+		Console.Write("enter the required effort time of the task (days): ");
 		TimeSpan requiredEffortTime;
 		if (!TimeSpan.TryParse(Console.ReadLine(), out requiredEffortTime))
 			throw new BlInvalidInputException();

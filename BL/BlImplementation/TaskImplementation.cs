@@ -24,23 +24,27 @@ internal class TaskImplementation : BlApi.ITask
 						  select t).FirstOrDefault();
 		if (check is not null) throw new BO.BlAlreadyExistsException("The task already exist");
 
+		int newId = _dal.Task.Create(task.ToDOTask() with { CreatedAtDate = DateTime.Now });
+
 		if (task.Dependencies is not null)
 		{
 			// find the dependencies and create them in the DAL
 			// (we save `deps` so the complier doesn't yell at us)
+			/*
 			var deps = from t in task.Dependencies
 					   where _dal.Task.Read(t.Id) is not null
-					   select _dal.Dependency.Create(
-						   new DO.Dependency()
-						   {
-							   DependentTask = task.Id,
-							   DependsOnTask = t.Id
-						   });
+					   select _dal.Dependency.Create(new DO.Dependency(newId, t.Id));
+			*/
+			// TODO: thats not works using linq, use foreach instead
+			foreach (var t in task.Dependencies)
+			{
+				if (_dal.Task.Read(t.Id) is not null)
+				{
+					_dal.Dependency.Create(new DO.Dependency(newId, t.Id));
+				}
+			}
 		}
-		return _dal.Task.Create(task.ToDOTask() with
-		{
-			CreatedAtDate = DateTime.Now
-		});
+		return newId;
 	}
 
 	/// <inheritdoc/>
