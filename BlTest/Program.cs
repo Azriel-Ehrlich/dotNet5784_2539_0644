@@ -338,9 +338,11 @@ internal class Program
 			Console.WriteLine("7- RequiredEffortTime");
 			Console.WriteLine("8- Complexity");
 			Console.WriteLine("9- StartDate");
+			Console.WriteLine("10- CompleteTask");
 		}
 		TaskUpdate choice = (TaskUpdate)readInt();
-		switch (choice)
+		Engineer? eng = null;
+        switch (choice)
 		{
 			case BO.TaskUpdate.Alias:
 				Console.WriteLine("Enter the new alias");
@@ -353,7 +355,7 @@ internal class Program
 			case BO.TaskUpdate.Engineer:
 				Console.WriteLine("Enter the id of the new engineer");
 				int engId = readInt();
-				Engineer? eng = bl.Engineer.Read(engId);
+				eng = bl.Engineer.Read(engId);
 				eng!.Task = new TaskInEngineer() { Id = task.Id, Alias = task.Alias };
 				break;
 			case BO.TaskUpdate.Remraks:
@@ -393,8 +395,6 @@ internal class Program
 							string? ans = Console.ReadLine();
 							if (ans != "y" && ans != "Y")
 								readMore = false;
-
-
 						}
 					}
 					task.Dependencies = deps;
@@ -416,7 +416,23 @@ internal class Program
 				Console.WriteLine("Enter the new start date");
 				task.StartDate = readDateTime();
 				break;
-			default:
+
+			case BO.TaskUpdate.CompleteTask:
+				Console.WriteLine("The task is done. Celebrate with donuts or coffee or whatever you like");
+				task.CompleteDate = DateTime.Now;
+				task.Status = Status.Done;
+                // we know that the Update method will not throw an exception because
+                // we already checked the dependencies so we can update the engineer:
+				if (task.Engineer is not null)
+				{
+					eng = bl.Engineer.Read(task.Engineer.Id);
+                    eng!.Task = null;
+                    bl.Engineer.Update(eng);
+                }
+
+                break;
+
+            default:
 				Console.WriteLine("nothing to update...");
 				break;
 		}
@@ -477,35 +493,6 @@ internal class Program
 				readMore = false;
 		}
 	}
-
-	/// <summary> assign engineers to tasks </summary>
-	//static void assignEngineersToTasks()
-	//{
-	//    Console.WriteLine("Your engineers:");
-	//    foreach (var eng in bl.Engineer!.ReadAll())
-	//        Console.WriteLine($"> {eng.Id}: {eng.Name}, {eng.Level}");
-
-	//    Console.WriteLine("Your tasks:");
-	//    foreach (var task in bl.Task!.ReadAll())
-	//    {
-	//        Console.WriteLine($"Current task: {task.Alias}");
-	//        Console.Write("Enter the id of the engineer assigned to the task: ");
-	//        int engId;
-	//        Engineer? eng = null;
-	//        while (eng is null)
-	//        {
-	//            engId = readInt();
-	//            eng = bl.Engineer!.ReadEngineer(engId);
-	//            if (eng is null)
-	//                Console.WriteLine("The engineer does not exist");
-	//        }
-	//        task.Engineer = new EngineerInTask() { Id = eng.Id, Name = eng.Name };
-	//        bl.Task!.Update(task);
-	//    }
-	//}
-
-
-	// the next functions are same to DalTest/Program.cs. maybe we should have put them in a different file
 
 	/// <summary> Asks the user if he wants to create initial data and creates it if he does. </summary>
 	private static void init()

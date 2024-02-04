@@ -50,5 +50,6 @@ public enum TaskUpdate
 	Dependencies,
 	RequiredTimeEffort,
 	Comlexity,
-	StartDate
+	StartDate,
+	CompleteTask,
 }
