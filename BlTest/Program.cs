@@ -58,6 +58,8 @@ internal class Program
 						engineerManu();
 						break;
 					case MainChoices.Schedule:
+						if (status != ProjectStatus.plan)
+							throw new BlCannotUpdateException("The project is already scheduled");
 						status = ProjectStatus.schedule;
 						readDates();
 						break;
