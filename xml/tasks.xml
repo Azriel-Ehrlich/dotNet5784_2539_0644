@@ -8,7 +8,7 @@
     <RequiredEffortTime>P730D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Expert</Complexity>
-    <ScheduledDate>2027-12-12T00:00:00</ScheduledDate>
+    <ScheduledDate>2028-01-26T00:00:00</ScheduledDate>
     <Deliverables>Crew selection criteria</Deliverables>
     <Active>true</Active>
   </Task>
@@ -20,7 +20,7 @@
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Intermediate</Complexity>
-    <ScheduledDate>2029-12-11T00:00:00</ScheduledDate>
+    <ScheduledDate>2030-01-25T00:00:00</ScheduledDate>
     <Deliverables>Spacecraft design specifications</Deliverables>
     <Active>true</Active>
   </Task>
@@ -32,7 +32,7 @@
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Beginner</Complexity>
-    <ScheduledDate>2030-12-11T00:00:00</ScheduledDate>
+    <ScheduledDate>2031-01-25T00:00:00</ScheduledDate>
     <Deliverables>Launch system development plan</Deliverables>
     <Active>true</Active>
   </Task>
@@ -44,7 +44,7 @@
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Expert</Complexity>
-    <ScheduledDate>2031-12-11T00:00:00</ScheduledDate>
+    <ScheduledDate>2032-01-25T00:00:00</ScheduledDate>
     <Deliverables>Orbital insertion plan</Deliverables>
     <Active>true</Active>
   </Task>
@@ -56,7 +56,7 @@
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Intermediate</Complexity>
-    <ScheduledDate>2032-12-10T00:00:00</ScheduledDate>
+    <ScheduledDate>2033-01-24T00:00:00</ScheduledDate>
     <Deliverables>Surface habitat design details</Deliverables>
     <Active>true</Active>
   </Task>
@@ -68,7 +68,7 @@
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Beginner</Complexity>
-    <ScheduledDate>2033-12-10T00:00:00</ScheduledDate>
+    <ScheduledDate>2034-01-24T00:00:00</ScheduledDate>
     <Deliverables>Supply and resource planning details</Deliverables>
     <Active>true</Active>
   </Task>
@@ -80,7 +80,7 @@
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Expert</Complexity>
-    <ScheduledDate>2034-12-10T00:00:00</ScheduledDate>
+    <ScheduledDate>2035-01-24T00:00:00</ScheduledDate>
     <Deliverables>Communication systems specifications</Deliverables>
     <Active>true</Active>
   </Task>
@@ -92,7 +92,7 @@
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Intermediate</Complexity>
-    <ScheduledDate>2035-12-10T00:00:00</ScheduledDate>
+    <ScheduledDate>2036-01-24T00:00:00</ScheduledDate>
     <Deliverables>Mars entry and landing plan</Deliverables>
     <Active>true</Active>
   </Task>
@@ -104,7 +104,7 @@
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Beginner</Complexity>
-    <ScheduledDate>2036-12-09T00:00:00</ScheduledDate>
+    <ScheduledDate>2037-01-23T00:00:00</ScheduledDate>
     <Deliverables>Surface exploration equipment details</Deliverables>
     <Active>true</Active>
   </Task>
@@ -116,7 +116,7 @@
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Expert</Complexity>
-    <ScheduledDate>2037-12-09T00:00:00</ScheduledDate>
+    <ScheduledDate>2038-01-23T00:00:00</ScheduledDate>
     <Deliverables>Environmental monitoring plan</Deliverables>
     <Active>true</Active>
   </Task>
@@ -128,7 +128,7 @@
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Intermediate</Complexity>
-    <ScheduledDate>2038-12-09T00:00:00</ScheduledDate>
+    <ScheduledDate>2039-01-23T00:00:00</ScheduledDate>
     <Deliverables>Emergency response planning details</Deliverables>
     <Active>true</Active>
   </Task>
@@ -140,7 +140,7 @@
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Beginner</Complexity>
-    <ScheduledDate>2039-12-09T00:00:00</ScheduledDate>
+    <ScheduledDate>2040-01-23T00:00:00</ScheduledDate>
     <Deliverables>Crew health and medical planning details</Deliverables>
     <Active>true</Active>
   </Task>
@@ -152,7 +152,7 @@
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Expert</Complexity>
-    <ScheduledDate>2040-12-08T00:00:00</ScheduledDate>
+    <ScheduledDate>2041-01-22T00:00:00</ScheduledDate>
     <Deliverables>Mars ascent vehicle design details</Deliverables>
     <Active>true</Active>
   </Task>
@@ -164,7 +164,7 @@
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Intermediate</Complexity>
-    <ScheduledDate>2041-12-08T00:00:00</ScheduledDate>
+    <ScheduledDate>2042-01-22T00:00:00</ScheduledDate>
     <Deliverables>Return journey planning details</Deliverables>
     <Active>true</Active>
   </Task>
@@ -176,7 +176,7 @@
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Beginner</Complexity>
-    <ScheduledDate>2042-12-08T00:00:00</ScheduledDate>
+    <ScheduledDate>2043-01-22T00:00:00</ScheduledDate>
     <Deliverables>Sample collection and analysis details</Deliverables>
     <Active>true</Active>
   </Task>
@@ -188,7 +188,7 @@
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Expert</Complexity>
-    <ScheduledDate>2043-12-08T00:00:00</ScheduledDate>
+    <ScheduledDate>2044-01-22T00:00:00</ScheduledDate>
     <Deliverables>Crew exercise and well-being plan</Deliverables>
     <Active>true</Active>
   </Task>
@@ -200,7 +200,7 @@
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Intermediate</Complexity>
-    <ScheduledDate>2044-12-07T00:00:00</ScheduledDate>
+    <ScheduledDate>2045-01-21T00:00:00</ScheduledDate>
     <Deliverables>Communication with Earth plan</Deliverables>
     <Active>true</Active>
   </Task>
@@ -212,7 +212,7 @@
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Beginner</Complexity>
-    <ScheduledDate>2045-12-07T00:00:00</ScheduledDate>
+    <ScheduledDate>2046-01-21T00:00:00</ScheduledDate>
     <Deliverables>Public relations and outreach plan</Deliverables>
     <Active>true</Active>
   </Task>
@@ -224,7 +224,7 @@
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Expert</Complexity>
-    <ScheduledDate>2046-12-07T00:00:00</ScheduledDate>
+    <ScheduledDate>2047-01-21T00:00:00</ScheduledDate>
     <Deliverables>Post-mission analysis details</Deliverables>
     <Active>true</Active>
   </Task>
@@ -236,7 +236,7 @@
     <RequiredEffortTime>P1095D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Expert</Complexity>
-    <ScheduledDate>2025-01-26T00:00:00</ScheduledDate>
+    <ScheduledDate>2024-12-12T00:00:00</ScheduledDate>
     <Deliverables>Mission plan details</Deliverables>
     <Active>true</Active>
   </Task>

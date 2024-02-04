@@ -27,7 +27,7 @@ internal static class Tools
 		boEng.Task = dal.Task.ReadAll(t => t.EngineerId == engineer.Id)
 			.Where(t => t is not null)
 			.Select(t => new BO.TaskInEngineer() { Id = t!.Id, Alias = t.Alias })
-			.ToList();
+			.FirstOrDefault();
 
 		return boEng;
 	}
