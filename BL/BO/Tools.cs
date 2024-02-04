@@ -113,7 +113,8 @@ internal static class Tools
 		return new DO.Task(task.Id, task.Alias, task.Description, task.CreatedAtDate,
 						task.RequiredEffortTime, false, (DO.EngineerExperience)task.Complexity!, task.StartDate,
 						task.ScheduledDate, null, task.CompleteDate, task.Deliverables, task.Remarks,
-						task.Engineer!.Id, true);
+task.Engineer is not null && task.Engineer.Id != 0 ?
+						task.Engineer.Id : null, true);
 	}
 
 

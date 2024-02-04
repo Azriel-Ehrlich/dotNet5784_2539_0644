@@ -342,7 +342,7 @@ internal class Program
 		}
 		TaskUpdate choice = (TaskUpdate)readInt();
 		Engineer? eng = null;
-        switch (choice)
+		switch (choice)
 		{
 			case BO.TaskUpdate.Alias:
 				Console.WriteLine("Enter the new alias");
@@ -421,18 +421,18 @@ internal class Program
 				Console.WriteLine("The task is done. Celebrate with donuts or coffee or whatever you like");
 				task.CompleteDate = DateTime.Now;
 				task.Status = Status.Done;
-                // we know that the Update method will not throw an exception because
-                // we already checked the dependencies so we can update the engineer:
+				// we know that the Update method will not throw an exception because
+				// we already checked the dependencies so we can update the engineer:
 				if (task.Engineer is not null)
 				{
 					eng = bl.Engineer.Read(task.Engineer.Id);
-                    eng!.Task = null;
-                    bl.Engineer.Update(eng);
-                }
+					eng!.Task = null;
+					bl.Engineer.Update(eng);
+				}
 
-                break;
+				break;
 
-            default:
+			default:
 				Console.WriteLine("nothing to update...");
 				break;
 		}
@@ -625,14 +625,14 @@ internal class Program
 		Console.Write("enter the complexity of the task (0-4): ");
 		EngineerExperience complexity = (EngineerExperience)readInt();
 
-		Console.WriteLine("enter the required effort time of the task");
+		Console.WriteLine("enter the required effort time of the task (days)");
 		TimeSpan requiredEffortTime;
 		if (!TimeSpan.TryParse(Console.ReadLine(), out requiredEffortTime))
 			throw new BlInvalidInputException();
 
 		List<TaskInList> deps = new List<TaskInList>();
 		IEnumerable<Task> previousTasks = bl.Task!.ReadAll().Select(t => bl.Task.Read(t.Id)!);
-		if (previousTasks.Count() > 1) // read dependencies only if there is at least 1 task
+		if (previousTasks.Count() > 0) // read dependencies only if there is at least 1 task
 		{
 			Console.Write("Is this task dependent on other tasks? (Y/N) ");
 			string? ans = Console.ReadLine();

@@ -12,9 +12,9 @@ internal class EngineerImplementation : BlApi.IEngineer
 	void checkEngineer(BO.Engineer engineer)
 	{
 		// check validate of engineer:
-		if (engineer.Id < 0) throw new BO.BlInvalidParameterException("Id must be positive");
+		if (engineer.Id <= 0) throw new BO.BlInvalidParameterException("Id must be positive");
 		if (string.IsNullOrEmpty(engineer.Name)) throw new BO.BlInvalidParameterException("Name cannot be empty");
-		if (engineer.Cost < 0) throw new BO.BlInvalidParameterException("Our engineers are not slaves");
+		if (engineer.Cost <= 0) throw new BO.BlInvalidParameterException("Our engineers are not slaves");
 		if (string.IsNullOrEmpty(engineer.Email)) throw new BO.BlInvalidParameterException("Email cannot be empty");
 		// check if the email is valid using Regex:
 		if (!new Regex(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$").IsMatch(engineer.Email))
