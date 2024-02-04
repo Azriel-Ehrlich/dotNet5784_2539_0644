@@ -74,9 +74,9 @@ internal static class Tools
 			{
 				DO.Task t = dal.Task.Read((int)d!.DependsOnTask!) ?? throw new BO.BlDoesNotExistException($"Task with id {d.DependsOnTask} doesn't exist");
 				Status status = Status.Unscheduled;
-				if(t.ScheduledDate is not null&&t.StartDate is null) status = Status.Scheduled;
-				if(t.StartDate is not null&&t.CompleteDate is null) status = Status.OnTrack;
-				if(t.CompleteDate is not null) status = Status.Done;
+				if (t.ScheduledDate is not null && t.StartDate is null) status = Status.Scheduled;
+				if (t.StartDate is not null && t.CompleteDate is null) status = Status.OnTrack;
+				if (t.CompleteDate is not null) status = Status.Done;
 				return new BO.TaskInList()
 				{
 					Id = t.Id,
@@ -100,7 +100,7 @@ internal static class Tools
 			if (task.StartDate is not null && task.CompleteDate is null) boTask.Status = BO.Status.OnTrack;
 			if (task.CompleteDate is not null) boTask.Status = BO.Status.Done;
 		}
-		if(task.ScheduledDate is not null) boTask.ForecastDate = (DateTime)task.ScheduledDate + task.RequiredEffortTime;
+		if (task.ScheduledDate is not null) boTask.ForecastDate = (DateTime)task.ScheduledDate + task.RequiredEffortTime;
 
 		return boTask;
 	}

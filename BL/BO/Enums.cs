@@ -49,5 +49,6 @@ public enum TaskUpdate
 	Deliverable,
 	Dependencies,
 	RequiredTimeEffort,
-	Comlexity
+	Comlexity,
+	StartDate
 }

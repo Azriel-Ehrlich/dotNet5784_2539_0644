@@ -17,4 +17,6 @@ sealed internal class DalList : IDal
 	public IDependency Dependency => new DependencyImplementation();
 
 	public void Reset() { }
+
+	public void SaveScheduledDate() { }
 }

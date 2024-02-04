@@ -73,6 +73,9 @@ internal class Program
 			}
 		} while (choice != MainChoices.Exit);
 
+		// save the start date of the project in the database
+		bl.SaveScheduledDate();
+
 		Console.ForegroundColor = ConsoleColor.White; // reset the color
 	}
 
@@ -159,7 +162,7 @@ internal class Program
 		foreach (var e in bl.Engineer.ReadAll())
 			Console.WriteLine(e);
 
-        Console.Write("enter the id number of the Engineer: ");
+		Console.Write("enter the id number of the Engineer: ");
 		int id = readInt();
 
 		BO.Engineer oldEng = bl.Engineer.Read(id) ?? throw new BlDoesNotExistException("the Engineer does not exist");
@@ -334,6 +337,7 @@ internal class Program
 			Console.WriteLine("6- Dependencies");
 			Console.WriteLine("7- RequiredEffortTime");
 			Console.WriteLine("8- Complexity");
+			Console.WriteLine("9- StartDate");
 		}
 		TaskUpdate choice = (TaskUpdate)readInt();
 		switch (choice)
@@ -405,10 +409,16 @@ internal class Program
 				break;
 			case BO.TaskUpdate.Comlexity:
 				Console.WriteLine("Enter the new complexity");
-				EngineerExperience complexity = (EngineerExperience)readInt();
-				task.Complexity = complexity;
+				task.Complexity = (EngineerExperience)readInt();
 				break;
 
+			case BO.TaskUpdate.StartDate:
+				Console.WriteLine("Enter the new start date");
+				task.StartDate = readDateTime();
+				break;
+			default:
+				Console.WriteLine("nothing to update...");
+				break;
 		}
 		bl.Task.Update(task);
 	}
@@ -449,8 +459,6 @@ internal class Program
 			bl.Task.UpdateScheduledDate(t.Id, (DateTime)date);
 			status = ProjectStatus.execute;
 		}
-		//TODO: save the start date of the project in the database
-
 	}
 
 
@@ -677,5 +685,4 @@ internal class Program
 			Dependencies = deps
 		});
 	}
-
 }

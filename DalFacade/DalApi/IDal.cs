@@ -8,4 +8,7 @@ public interface IDal
 
 	/// <summary> Reset the entire database </summary>
 	abstract void Reset();
+
+	/// <summary> Saves the start and end date of the project </summary>
+	abstract void SaveScheduledDate();
 }

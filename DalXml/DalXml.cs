@@ -22,6 +22,35 @@ sealed internal class DalXml : IDal
 		XMLTools.SaveListToXMLElement(new XElement("ArrayOfTask"), TaskImplementation.s_tasks_xml);
 		XMLTools.SaveListToXMLElement(new XElement("ArrayOfEngineer"), EngineerImplementation.s_engineers_xml);
 		XMLTools.SaveListToXMLElement(new XElement("ArrayOfDependency"), DependencyImplementation.s_dependencies_xml);
-		XMLTools.SaveListToXMLElement(new XElement("config", new XElement("NextTaskId", 0), new XElement("NextDependencyId", 0)), Config.s_data_config_xml);
+
+		XMLTools.SaveListToXMLElement(
+			new XElement("config",
+				new XElement("NextTaskId", 0),
+				new XElement("NextDependencyId", 0),
+				new XElement("ScheduledStartDate", DateTime.MinValue)
+			), Config.s_data_config_xml);
+	}
+
+	/// <inheritdoc/>
+	public void SaveScheduledDate()
+	{
+		// get the earliest start date
+		IEnumerable<DO.Task?> tasks = Task.ReadAll()
+			.Where(t => t is null || t.StartDate is not null);
+
+		DateTime start = DateTime.MinValue;
+		if (tasks.Any())
+			start = tasks.Min(t => t!.StartDate!.Value);
+
+		// save with the global config file
+		XElement config = XMLTools.LoadListFromXMLElement(Config.s_data_config_xml);
+
+		XElement? scheduledStartDate = config.Element("ScheduledStartDate");
+		if (scheduledStartDate is not null)
+			scheduledStartDate.Value = start.ToString();
+		else
+			config.Add(new XElement("ScheduledStartDate", start));
+
+		XMLTools.SaveListToXMLElement(config, Config.s_data_config_xml);
 	}
 }
