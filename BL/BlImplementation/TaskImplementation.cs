@@ -90,7 +90,7 @@ internal class TaskImplementation : BlApi.ITask
 	public void Update(BO.Task task)
 	{
 		DO.Task? check = (from t in _dal.Task.ReadAll()
-						  where t.Alias == task.Alias
+						  where t.Id == task.Id
 						  select t).FirstOrDefault();
 		if (check is null) throw new BO.BlDoesNotExistException("The task doesn't exist");
 
@@ -108,11 +108,12 @@ internal class TaskImplementation : BlApi.ITask
 					if (checkDepBO is null) continue;
 
 					if (
-						(checkDepBO.StartDate is not null && checkDepBO.StartDate < task.StartDate) ||
-						(checkDepBO.CompleteDate is not null && checkDepBO.CompleteDate < task.StartDate) ||
-						(checkDepBO.ForecastDate is not null && checkDepBO.ForecastDate < task.StartDate)
+						(checkDepBO.StartDate is not null && checkDepBO.StartDate > task.StartDate) ||// check if the dependent task start after the task
+						(checkDepBO.CompleteDate is not null && checkDepBO.CompleteDate > task.StartDate) ||// check if the dependent task complete after the task
+						(checkDepBO.ForecastDate is not null && checkDepBO.ForecastDate > task.StartDate)// check if the dependent task forecast after the task
 						)
 						throw new BlCannotUpdateException("Dependent task cann't start before the task");
+					_dal.Dependency.Update(new DO.Dependency(task.Id, dep.Id));
 				}
 			}
 		}

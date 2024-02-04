@@ -53,3 +53,12 @@ public enum TaskUpdate
 	StartDate,
 	CompleteTask,
 }
+
+public enum EngineerUpdate
+{
+    Email=1,
+    cost,
+    Name,
+    ExperienceLevel,
+    Task,
+}

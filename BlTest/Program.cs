@@ -170,80 +170,95 @@ internal class Program
 		BO.Engineer oldEng = bl.Engineer.Read(id) ?? throw new BlDoesNotExistException("the Engineer does not exist");
 
 		string? inputText;
-
-		Console.Write("enter the email of the Engineer: ");
-		string? email = Console.ReadLine();
-		if (email == null || email == "")
-			email = oldEng.Email;
-
-		Console.Write("enter the amount of money per hour the Engineer gets: ");
-		double cost = oldEng.Cost;
-		inputText = Console.ReadLine();
-		if (inputText != null && inputText != "")
+		EngineerUpdate choice;
+        Console.WriteLine("to update the email press 1");
+        Console.WriteLine("to update the cost press 2");
+        Console.WriteLine("to update the name press 3");
+		Console.WriteLine("to update the level press 4");
+        Console.WriteLine("to assign a task press 5");
+		choice = (EngineerUpdate)readInt();
+		switch (choice)
 		{
-			if (!double.TryParse(inputText, out cost))
-				throw new BlInvalidInputException();
-		}
-
-		Console.Write("enter the full name of the Engineer: ");
-		string? name = Console.ReadLine();
-		if (name == null || name == "")
-			name = oldEng.Name;
-
-		Console.Write("enter the level of the Engineer (0-4): ");
-		EngineerExperience level = oldEng.Level;
-		inputText = Console.ReadLine();
-		if (inputText != null && inputText != "")
-		{
-			int tmp = toInt(inputText);
-			if (tmp < 0 || tmp > 4)
-				throw new BlInvalidInputException();
-			level = (EngineerExperience)tmp;
-		}
-
-		TaskInEngineer? taskInEngineer = null;
-		Console.Write("Do you want to assign a task to work on? Y/N ");
-		inputText = Console.ReadLine();
-		if (inputText == "Y" || inputText == "y")
-		{
-			Console.WriteLine("This is the list of tasks you can assign to:");
-			List<int> validIds = new();
-			Task task;
-			foreach (var t in bl.Task.ReadAll(t => t.Engineer is null))
-			{
-				task = bl.Task.Read(t.Id);
-				if (task.Complexity <= level)
+			case BO.EngineerUpdate.Email:
+				Console.Write("enter the email of the Engineer: ");
+				string? email = Console.ReadLine();
+				if (email == null || email == "")
+					email = oldEng.Email;
+				break;
+			case BO.EngineerUpdate.cost:
+				Console.Write("enter the amount of money per hour the Engineer gets: ");
+				double cost = oldEng.Cost;
+				inputText = Console.ReadLine();
+				if (inputText != null && inputText != "")
 				{
-					Console.WriteLine($"> {t.Id}: {t.Alias}");
-					validIds.Add(t.Id);
+					if (!double.TryParse(inputText, out cost))
+						throw new BlInvalidInputException();
+					oldEng.Cost = cost;
 				}
-			}
+				break;
+			case BO.EngineerUpdate.Name:
 
-			Console.Write("Enter the id of the task you want to assign to yourself: ");
+				Console.Write("enter the full name of the Engineer: ");
+				string? name = Console.ReadLine();
+				if (name == null || name == "")
+					name = oldEng.Name;
+				else
+                    oldEng.Name = name;
+				break;
+			case BO.EngineerUpdate.ExperienceLevel:
+				Console.Write("enter the level of the Engineer (0-4): ");
+				EngineerExperience level = oldEng.Level;
+				inputText = Console.ReadLine();
+				if (inputText != null && inputText != "")
+				{
+					int tmp = toInt(inputText);
+					if (tmp < 0 || tmp > 4)
+						throw new BlInvalidInputException();
+					level = (EngineerExperience)tmp;
+					oldEng.Level = level;
+				}
+				break;
+			case BO.EngineerUpdate.Task:
+				Console.Write("Do you want to assign a task to work on? Y/N ");
+				inputText = Console.ReadLine();
+				if (inputText == "Y" || inputText == "y")
+				{
+					Console.WriteLine("This is the list of tasks you can assign to:");
+					List<int> validIds = new();
+					Task task;
+					foreach (var t in bl.Task.ReadAll(t => t.Engineer is null))
+					{
+						task = bl.Task.Read(t.Id);
+						if (task.Complexity <= oldEng.Level)
+						{
+							Console.WriteLine($"> {t.Id}: {t.Alias}");
+							validIds.Add(t.Id);
+						}
+					}
 
-			int taskId = readInt();
-			while (!validIds.Contains(taskId))
-			{
-				Console.WriteLine("Calm down, bro, you can't do it! please choose another task");
-				taskId = readInt();
-			}
+					Console.Write("Enter the id of the task you want to assign to yourself: ");
 
-			task = bl.Task.Read(taskId);
-			task.Engineer = new EngineerInTask() { Id = id, Name = name };
-			bl.Task.Update(task);
+					int taskId = readInt();
+					while (!validIds.Contains(taskId))
+					{
+						Console.WriteLine("Calm down, bro, you can't do it! please choose another task");
+						taskId = readInt();
+					}
 
-			taskInEngineer = new TaskInEngineer() { Id = task.Id, Alias = task.Alias };
+					task = bl.Task.Read(taskId);
+					task.Engineer = new EngineerInTask() { Id = id, Name = oldEng.Name };
+					bl.Task.Update(task);
+
+					oldEng.Task = new TaskInEngineer() { Id = task.Id, Alias = task.Alias };
+				}
+				break;
+
+			default:
+				Console.WriteLine("nothing to update...");
+				break;
 		}
 
-		bl.Engineer.Update(new Engineer
-		{
-			Id = id,
-			Email = email,
-			Cost = cost,
-			Name = name,
-			Level = level,
-			Task = taskInEngineer
-		});
+		bl.Engineer.Update(oldEng);
 	}
 
 	private static void taskManu()
@@ -349,24 +364,31 @@ internal class Program
 			case BO.TaskUpdate.Alias:
 				Console.WriteLine("Enter the new alias");
 				task.Alias = Console.ReadLine()!;
+				bl.Task.Update(task);
 				break;
 			case BO.TaskUpdate.Description:
 				Console.WriteLine("Enter the new description");
 				task.Description = Console.ReadLine()!;
+				bl.Task.Update(task);
 				break;
 			case BO.TaskUpdate.Engineer:
 				Console.WriteLine("Enter the id of the new engineer");
 				int engId = readInt();
 				eng = bl.Engineer.Read(engId);
 				eng!.Task = new TaskInEngineer() { Id = task.Id, Alias = task.Alias };
+				bl.Engineer.Update(eng);
+				task.Engineer = new EngineerInTask() { Id = eng.Id, Name = eng.Name };
+				bl.Task.Update(task);
 				break;
 			case BO.TaskUpdate.Remraks:
 				Console.WriteLine("Enter the new remarks");
 				task.Remarks = Console.ReadLine()!;
+				bl.Task.Update(task);
 				break;
 			case BO.TaskUpdate.Deliverable:
 				Console.WriteLine("Enter the new deliverable");
 				task.Deliverables = Console.ReadLine()!;
+				 bl.Task.Update(task);
 				break;
 			case BO.TaskUpdate.Dependencies:
 				if (status == ProjectStatus.plan)
@@ -374,7 +396,7 @@ internal class Program
 					Console.WriteLine("Enter the new dependencies");
 					List<TaskInList> deps = new List<TaskInList>();
 					IEnumerable<Task> previousTasks = bl.Task.ReadAll().Select(t => bl.Task.Read(t.Id)!);
-					if (previousTasks.Count() > 1) // read dependencies only if there is at least 1 task
+					if (previousTasks.Count() > 0) // read dependencies only if there is at least 1 task
 					{
 
 						// print previous tasks
@@ -400,6 +422,7 @@ internal class Program
 						}
 					}
 					task.Dependencies = deps;
+					bl.Task.Update(task);
 				}
 				break;
 			case BO.TaskUpdate.RequiredTimeEffort:
@@ -408,16 +431,22 @@ internal class Program
 				if (!TimeSpan.TryParse(Console.ReadLine(), out requiredEffortTime))
 					throw new BlInvalidInputException();
 				task.RequiredEffortTime = requiredEffortTime;
-				break;
+                bl.Task.Update(task);
+
+                break;
 			case BO.TaskUpdate.Comlexity:
 				Console.WriteLine("Enter the new complexity");
 				task.Complexity = (EngineerExperience)readInt();
-				break;
+                bl.Task.Update(task);
+
+                break;
 
 			case BO.TaskUpdate.StartDate:
 				Console.WriteLine("Enter the new start date");
 				task.StartDate = readDateTime();
-				break;
+                bl.Task.Update(task);
+
+                break;
 
 			case BO.TaskUpdate.CompleteTask:
 				Console.WriteLine("The task is done. Celebrate with donuts or coffee or whatever you like");
@@ -431,7 +460,7 @@ internal class Program
 					eng!.Task = null;
 					bl.Engineer.Update(eng);
 				}
-
+				bl.Task.Update(task);				 
 				break;
 
 			default:
