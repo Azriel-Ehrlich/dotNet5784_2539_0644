@@ -10,7 +10,7 @@ public interface IEngineer
 	/// <summary> Read an engineer </summary>
 	/// <param name="id"> The id of the engineer to read </param>
 	/// <returns> The engineer with the given id </returns>
-	public BO.Engineer? ReadEngineer(int id);
+	public BO.Engineer Read(int id);
 
 	/// <summary> Read all engineers </summary>
 	/// <param name="filter"> A filter to apply to the engineers </param>

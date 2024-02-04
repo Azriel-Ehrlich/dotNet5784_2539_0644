@@ -50,10 +50,6 @@ internal class EngineerImplementation : BlApi.IEngineer
 	/// <inheritdoc/>
 	public void Delete(int id)
 	{
-		// check if the engineer is assigned to any tasks
-		if (_dal.Task.ReadAll(t => t.EngineerId == id).Any(t => t is not null && t!.Active))
-			throw new BO.BlCannotDeleteException($"Engineer with id {id} is still assigned to a task");
-
 		try
 		{
 			// we can delete the engineer
@@ -79,7 +75,7 @@ internal class EngineerImplementation : BlApi.IEngineer
 	}
 
 	/// <inheritdoc/>
-	public BO.Engineer ReadEngineer(int id)
+	public BO.Engineer Read(int id)
 	{
 		DO.Engineer res = _dal.Engineer.Read(id) ?? throw new BO.BlDoesNotExistException($"Engineer with id {id} doesn't exist");
 		return res.ToBOEngineer(_dal);

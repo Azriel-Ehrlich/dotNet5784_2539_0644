@@ -17,14 +17,6 @@
     <Active>true</Active>
   </Engineer>
   <Engineer>
-    <Id>32827200</Id>
-    <Email>brandon@gmail.com</Email>
-    <Cost>200</Cost>
-    <Name>Brandon</Name>
-    <Level>Advanced</Level>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
     <Id>24725565</Id>
     <Email>nati@gmail.com</Email>
     <Cost>150</Cost>
@@ -38,6 +30,14 @@
     <Cost>60</Cost>
     <Name>Elizabeth</Name>
     <Level>Beginner</Level>
+    <Active>true</Active>
+  </Engineer>
+  <Engineer>
+    <Id>32827200</Id>
+    <Email>brandon@gmail.com</Email>
+    <Cost>500972.4</Cost>
+    <Name>Cool-Brandon</Name>
+    <Level>Advanced</Level>
     <Active>true</Active>
   </Engineer>
 </ArrayOfEngineer>

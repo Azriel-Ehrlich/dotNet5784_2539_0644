@@ -15,7 +15,7 @@ public interface ITask
 	/// <summary> Read a task </summary>
 	/// <param name="id"> The id of the task to read </param>
 	/// <returns> The task with the given id </returns>
-	public BO.Task? Read(int id);
+	public BO.Task Read(int id);
 
 	/// <summary> Read all tasks </summary>
 	/// <param name="filter"> A filter to apply to the tasks </param>

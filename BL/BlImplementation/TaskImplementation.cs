@@ -46,9 +46,6 @@ internal class TaskImplementation : BlApi.ITask
     /// <inheritdoc/>
     public void Delete(int id)
     {
-        // check if task exist
-        DO.Task task = _dal.Task.Read(id) ?? throw new BO.BlDoesNotExistException("The task doesn't exist");
-
         // check if there is another task teat depends on this task
         DO.Dependency? check = (from t in _dal.Dependency.ReadAll()
                                 where t.DependsOnTask == id
@@ -65,10 +62,10 @@ internal class TaskImplementation : BlApi.ITask
         }
     }
     /// <inheritdoc/>
-    public BO.Task? Read(int id)
+    public BO.Task Read(int id)
     {
-        DO.Task? task = _dal.Task.Read(id);
-        return task is null ? null : task.ToBOTask(_dal);
+        DO.Task task = _dal.Task.Read(id) ?? throw new BO.BlDoesNotExistException("The task doesn't exist");
+        return task.ToBOTask(_dal);
     }
 
     /// <inheritdoc/>
