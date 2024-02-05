@@ -139,6 +139,6 @@ internal class TaskImplementation : BlApi.ITask
 		{
 			throw new BO.BlCannotUpdateException($"The task {tas.Id} cann't be updated");
 		}
-		_dal.Task.Update(tas with { ScheduledDate = date });
+		_dal.Task.Update(tas with { ScheduledDate = date ,ForecastDate=date+tas.RequiredTimeEffort});
 	}
 }
