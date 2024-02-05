@@ -57,10 +57,10 @@ internal static class Tools
 			// Dependencies: see below
 			// TODO: Milestone
 			RequiredEffortTime = task.RequiredEffortTime ?? default,
-			StartDate = task.StartDate ?? default,
-			ScheduledDate = task.ScheduledDate ?? default,
+			StartDate = task.StartDate ?? null,
+			ScheduledDate = task.ScheduledDate ?? null,
 			// TODO: ForecastDate-done
-			CompleteDate = task.CompleteDate ?? default,
+			CompleteDate = task.CompleteDate ?? null,
 			Deliverables = task.Deliverables ?? "",
 			Remarks = task.Remarks ?? "",
 			// Engineer: see below
