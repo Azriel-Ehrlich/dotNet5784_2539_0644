@@ -1,12 +1,42 @@
-﻿<Window x:Class="PL.Engineer.EngineerList"
+﻿<Window x:Class="PL.Engineer.EngineerListWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
-        Title="EngineerList" Height="450" Width="800">
+        Title="EngineerList" Height="640" Width="800"
+         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+
+    <!--Extrnal Grid-->
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="500*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <!--Internal, Upper Grid-->
+        <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Label" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Grid.Column="0"/>
+            <ComboBox ItemsSource="{Binding Source={StaticResource EngineerExpirienceCollectionKey}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                      Grid.Column="1" SelectedValue="{Binding LevelCategory, Mode=TwoWay}" SelectionChanged="ChangeToSelectedLevel"/>
+
+        </Grid>
+        <!---the list of elements-->
+        <ListView Margin="5" Grid.Row="1" ItemsSource="{Binding Path=EngineerList}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <!--the button to add new Engineer-->
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100"/>
     </Grid>
+
 </Window>

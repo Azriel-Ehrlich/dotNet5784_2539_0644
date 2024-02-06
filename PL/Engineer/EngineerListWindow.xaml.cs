@@ -17,11 +17,34 @@ namespace PL.Engineer
     /// <summary>
     /// Interaction logic for EngineerList.xaml
     /// </summary>
-    public partial class EngineerList : Window
+    public partial class EngineerListWindow : Window
     {
-        public EngineerList()
+        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+        public EngineerListWindow()
         {
             InitializeComponent();
+            EngineerList = s_bl?.Engineer.ReadAll()!;
+        }
+        /// <summary>
+        ///  for the list of engineers in the window 
+        /// </summary>
+        public IEnumerable<BO.Engineer> EngineerList
+        {
+            get { return (IEnumerable<BO.Engineer>)GetValue(EngineerListProperty); }// return the value of the property
+            set { SetValue(EngineerListProperty, value); }// set the value of the property
+        }
+
+        // Using a DependencyProperty as the backing store for EngineerList.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty EngineerListProperty =
+            DependencyProperty.Register("EngineerList", 
+                typeof(IEnumerable<BO.Engineer>), 
+                typeof(EngineerListWindow), new PropertyMetadata(null));
+
+        public BO.EngineerExperience LevelCategory { get; set; } = BO.EngineerExperience.All;
+
+        private void ChangeToSelectedLevel(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
