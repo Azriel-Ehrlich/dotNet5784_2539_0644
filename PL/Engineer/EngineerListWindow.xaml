@@ -27,7 +27,7 @@
 
         </Grid>
         <!---the list of elements-->
-        <ListView Margin="5" Grid.Row="1" ItemsSource="{Binding Path=EngineerList}">
+        <ListView Margin="5" Grid.Row="1" ItemsSource="{Binding Path=EngineerList}" MouseDoubleClick="UpdateEngineer">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
@@ -36,7 +36,7 @@
         </ListView>
 
         <!--the button to add new Engineer-->
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100"/>
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="AddEngineer"/>
     </Grid>
 
 </Window>

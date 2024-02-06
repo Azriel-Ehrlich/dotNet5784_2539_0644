@@ -11,7 +11,7 @@ namespace BO;
 /// <param name="Active">Engineer's state</param>
 public class Engineer
 {
-	public int Id { init; get; }
+	public int Id { set; get; }
 	public required string Email { set; get; }
 	public double Cost { set; get; }
 	public required string Name { set; get; }

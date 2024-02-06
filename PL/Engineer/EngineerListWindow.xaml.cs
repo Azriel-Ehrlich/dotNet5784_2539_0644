@@ -36,15 +36,33 @@ namespace PL.Engineer
 
         // Using a DependencyProperty as the backing store for EngineerList.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty EngineerListProperty =
-            DependencyProperty.Register("EngineerList", 
-                typeof(IEnumerable<BO.Engineer>), 
+            DependencyProperty.Register("EngineerList",
+                typeof(IEnumerable<BO.Engineer>),
                 typeof(EngineerListWindow), new PropertyMetadata(null));
 
         public BO.EngineerExperience LevelCategory { get; set; } = BO.EngineerExperience.All;
 
         private void ChangeToSelectedLevel(object sender, SelectionChangedEventArgs e)
         {
+            EngineerList = (LevelCategory == BO.EngineerExperience.All) ?
+            s_bl?.Engineer.ReadAll()! : s_bl?.Engineer.ReadAll(item => item.Level == LevelCategory)!;
 
+        }
+
+        private void AddEngineer(object sender, RoutedEventArgs e)
+        {
+            new EngineerWindow().ShowDialog();
+        }
+
+        private void UpdateEngineer(object sender, MouseButtonEventArgs e)
+        {
+
+            BO.Engineer? eng = (sender as ListView)?.SelectedItem as BO.Engineer;
+            if (eng != null)
+            {
+                new EngineerWindow(eng.Id).ShowDialog();
+                EngineerList = s_bl?.Engineer.ReadAll()!;
+            }
         }
     }
 }
