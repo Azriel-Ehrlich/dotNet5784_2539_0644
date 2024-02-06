@@ -81,6 +81,7 @@ internal class Program
 		Console.ForegroundColor = ConsoleColor.White; // reset the color
 	}
 
+	/// <summary> Engineer menu and all the options </summary>
 	private static void engineerManu()
 	{
 		Console.ForegroundColor = ConsoleColor.Green;
@@ -158,6 +159,7 @@ internal class Program
 		} while (choice != SubMenuChoices.Exit);
 	}
 
+	/// <summary> Read the id of the engineer and update the engineer according to the user input </summary>
 	private static void EngineerUpdate()
 	{
 		Console.WriteLine("which engineer do you want to update?");
@@ -261,6 +263,7 @@ internal class Program
 		bl.Engineer.Update(oldEng);
 	}
 
+	/// <summary> Task menu and all the options </summary>
 	private static void taskManu()
 	{
 		Console.ForegroundColor = ConsoleColor.Green;
@@ -333,6 +336,7 @@ internal class Program
 
 	}
 
+	/// <summary> Read the id of the task and update the task according to the user input </summary>
 	private static void TaskUpdate()
 	{
 		Console.WriteLine("What is the id of the task you want to update?");
@@ -490,6 +494,7 @@ internal class Program
 	{
 		Console.WriteLine("Enter the scheduled start date of the project");
 		DateTime projStart = readDateTime();
+		// initialize the start date of the project of tasks that have no dependencies
 		foreach (var t in bl.Task.ReadAll(t => t.Dependencies is null))
 		{
 			DateTime? date = bl.SuggestedDate(t, projStart);
@@ -498,6 +503,7 @@ internal class Program
 			bl.Task.UpdateScheduledDate(t.Id, (DateTime)date);
 			status = ProjectStatus.execute;
 		}
+		// initialize all other tasks
 		foreach (var t in bl.Task.ReadAll(t => t.Dependencies is not null))
 		{
 			DateTime? date = bl.SuggestedDate(t, projStart);
@@ -507,7 +513,6 @@ internal class Program
 			status = ProjectStatus.execute;
 		}
 	}
-
 
 
 	/// <summary> reads all engineers from the user and inserts them to the database </summary>
