@@ -36,11 +36,11 @@ sealed internal class DalXml : IDal
 	{
 		// get the earliest start date
 		IEnumerable<DO.Task?> tasks = Task.ReadAll()
-			.Where(t => t is null || t.StartDate is not null);
+			.Where(t => t is null || t.ScheduledDate is not null);
 
 		DateTime start = DateTime.MinValue;
 		if (tasks.Any())
-			start = tasks.Min(t => t!.StartDate!.Value);
+			start = tasks.Min(t => t!.ScheduledDate!.Value);
 
 		// save with the global config file
 		XElement config = XMLTools.LoadListFromXMLElement(Config.s_data_config_xml);
