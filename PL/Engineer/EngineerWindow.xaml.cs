@@ -36,23 +36,27 @@ namespace PL.Engineer
         {
             try
             {
-                if (CurrentEngineer.Id == 0)
+                s_bl.Engineer.Read(CurrentEngineer.Id);
+                s_bl.Engineer.Update(CurrentEngineer);
+                MessageBox.Show("Engineer updated successfully");
+            }
+            catch (BO.BlDoesNotExistException )
+            {
+                try
                 {
                     s_bl.Engineer.Create(CurrentEngineer);
                     MessageBox.Show("Engineer added successfully");
-                    this.Close();
                 }
-                else
+                catch(BO.BlInvalidParameterException ex1)
                 {
-                    s_bl.Engineer.Update(CurrentEngineer);
-                    MessageBox.Show("Engineer updated successfully");
-                    this.Close();
+                    MessageBox.Show(ex1.Message);
                 }
             }
-            catch (Exception ex)
+            catch(BO.BlInvalidParameterException ex)
             {
                 MessageBox.Show(ex.Message);
             }
+
         }
     }
 }

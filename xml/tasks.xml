@@ -4,7 +4,7 @@
     <Id>0</Id>
     <Alias>Mission Planning</Alias>
     <Description>Plan the mission to Mars</Description>
-    <CreatedAtDate>2020-02-07T01:46:20.3440506+02:00</CreatedAtDate>
+    <CreatedAtDate>2020-02-07T13:04:00.6916996+02:00</CreatedAtDate>
     <RequiredEffortTime>P1095D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Expert</Complexity>
@@ -16,7 +16,7 @@
     <Id>1</Id>
     <Alias>Crew Selection</Alias>
     <Description>Select a qualified crew for the mission</Description>
-    <CreatedAtDate>2022-02-07T01:46:20.3441525+02:00</CreatedAtDate>
+    <CreatedAtDate>2022-02-07T13:04:00.6918269+02:00</CreatedAtDate>
     <RequiredEffortTime>P730D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Expert</Complexity>
@@ -28,7 +28,7 @@
     <Id>2</Id>
     <Alias>Spacecraft Design</Alias>
     <Description>Design the spacecraft for the mission</Description>
-    <CreatedAtDate>2023-02-07T01:46:20.344153+02:00</CreatedAtDate>
+    <CreatedAtDate>2023-02-07T13:04:00.6918276+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Intermediate</Complexity>
@@ -40,7 +40,7 @@
     <Id>3</Id>
     <Alias>Launch System Development</Alias>
     <Description>Develop the launch system for the spacecraft</Description>
-    <CreatedAtDate>2024-02-07T01:46:20.3441548+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-07T13:04:00.6918279+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Beginner</Complexity>
@@ -52,7 +52,7 @@
     <Id>4</Id>
     <Alias>Orbital Insertion Planning</Alias>
     <Description>Plan the orbital insertion phase of the mission</Description>
-    <CreatedAtDate>2024-02-07T01:46:20.344155+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-07T13:04:00.6918281+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Expert</Complexity>
@@ -64,7 +64,7 @@
     <Id>5</Id>
     <Alias>Surface Habitat Design</Alias>
     <Description>Design the habitat for the Mars surface</Description>
-    <CreatedAtDate>2024-02-07T01:46:20.3441552+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-07T13:04:00.6918316+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Intermediate</Complexity>
@@ -76,7 +76,7 @@
     <Id>6</Id>
     <Alias>Supply and Resource Planning</Alias>
     <Description>Plan the supply and resource management for the mission</Description>
-    <CreatedAtDate>2024-02-07T01:46:20.3441553+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-07T13:04:00.6918318+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Beginner</Complexity>
@@ -88,7 +88,7 @@
     <Id>7</Id>
     <Alias>Communication Systems</Alias>
     <Description>Develop communication systems for the mission</Description>
-    <CreatedAtDate>2024-02-07T01:46:20.3441555+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-07T13:04:00.6918319+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Expert</Complexity>
@@ -100,7 +100,7 @@
     <Id>8</Id>
     <Alias>Mars Entry and Landing</Alias>
     <Description>Plan the entry and landing on Mars</Description>
-    <CreatedAtDate>2024-02-07T01:46:20.3441556+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-07T13:04:00.6918321+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Intermediate</Complexity>
@@ -112,7 +112,7 @@
     <Id>9</Id>
     <Alias>Surface Exploration Equipment</Alias>
     <Description>Develop equipment for surface exploration</Description>
-    <CreatedAtDate>2024-02-07T01:46:20.3441573+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-07T13:04:00.6918323+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Beginner</Complexity>
@@ -124,7 +124,7 @@
     <Id>10</Id>
     <Alias>Environmental Monitoring</Alias>
     <Description>Plan environmental monitoring for the mission</Description>
-    <CreatedAtDate>2024-02-07T01:46:20.3441574+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-07T13:04:00.6918325+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Expert</Complexity>
@@ -136,7 +136,7 @@
     <Id>11</Id>
     <Alias>Emergency Response Planning</Alias>
     <Description>Develop plans for emergency responses</Description>
-    <CreatedAtDate>2024-02-07T01:46:20.3441576+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-07T13:04:00.6918326+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Intermediate</Complexity>
@@ -148,7 +148,7 @@
     <Id>12</Id>
     <Alias>Crew Health and Medical Planning</Alias>
     <Description>Plan for crew health and medical needs</Description>
-    <CreatedAtDate>2024-02-07T01:46:20.3441577+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-07T13:04:00.6918345+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Beginner</Complexity>
@@ -160,7 +160,7 @@
     <Id>13</Id>
     <Alias>Mars Ascent Vehicle Design</Alias>
     <Description>Design the ascent vehicle for returning from Mars</Description>
-    <CreatedAtDate>2024-02-07T01:46:20.3441579+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-07T13:04:00.6918348+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Expert</Complexity>
@@ -172,7 +172,7 @@
     <Id>14</Id>
     <Alias>Return Journey Planning</Alias>
     <Description>Plan the journey back to Earth</Description>
-    <CreatedAtDate>2024-02-07T01:46:20.3441581+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-07T13:04:00.691835+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Intermediate</Complexity>
@@ -184,7 +184,7 @@
     <Id>15</Id>
     <Alias>Sample Collection and Analysis</Alias>
     <Description>Collect and analyze surface samples</Description>
-    <CreatedAtDate>2024-02-07T01:46:20.3441582+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-07T13:04:00.6918352+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Beginner</Complexity>
@@ -196,7 +196,7 @@
     <Id>16</Id>
     <Alias>Crew Exercise and Well-being</Alias>
     <Description>Plan for crew exercise and well-being</Description>
-    <CreatedAtDate>2024-02-07T01:46:20.344161+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-07T13:04:00.6918353+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Expert</Complexity>
@@ -208,7 +208,7 @@
     <Id>17</Id>
     <Alias>Communication with Earth</Alias>
     <Description>Establish communication with Earth</Description>
-    <CreatedAtDate>2024-02-07T01:46:20.3441612+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-07T13:04:00.6918355+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Intermediate</Complexity>
@@ -220,7 +220,7 @@
     <Id>18</Id>
     <Alias>Public Relations and Outreach</Alias>
     <Description>Engage in public relations and outreach activities</Description>
-    <CreatedAtDate>2024-02-07T01:46:20.3441613+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-07T13:04:00.6918374+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Beginner</Complexity>
@@ -232,7 +232,7 @@
     <Id>19</Id>
     <Alias>Post-Mission Analysis</Alias>
     <Description>Conduct post-mission analysis</Description>
-    <CreatedAtDate>2024-02-07T01:46:20.3441615+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-07T13:04:00.6918596+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Expert</Complexity>
