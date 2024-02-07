@@ -48,7 +48,8 @@
         <Label Content="Id" HorizontalAlignment="Left" Margin="84,30,0,0" VerticalAlignment="Top"/>
         <TextBox Style="{StaticResource TextBox style}" Margin="282,23,0,0"
                  Text="{Binding Path= Id,Mode=TwoWay, NotifyOnValidationError=true, 
-                        ValidatesOnExceptions=true}" VerticalAlignment="Top"/>
+                        ValidatesOnExceptions=true}" VerticalAlignment="Top"
+                 IsEnabled="{Binding Path=Id,Converter={StaticResource ConvertIdToBoolKey} }"/>
         <Label Content="Email" HorizontalAlignment="Left" Margin="71,98,0,0" VerticalAlignment="Top"/>
         <TextBox Style="{StaticResource TextBox style}" Margin="280,78,0,0" VerticalAlignment="Top" 
                  Text="{Binding Path= Email, Mode=TwoWay, NotifyOnValidationError=true,
