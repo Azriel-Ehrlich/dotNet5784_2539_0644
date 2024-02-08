@@ -4,13 +4,36 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        mc:Ignorable="d" Background="MistyRose"
+        Title="The Coolest Program Everrr" Height="500" Width="600">
     <Grid>
-        <!--button for the EngineerList-->
-        <Button Content="List of Engineers" HorizontalAlignment="Left" Margin="580,234,0,0" VerticalAlignment="Top" Height="62" Width="124" Click="ListOfEngineers" FontSize="18"/>
-        <!--button for initialing the data-->
-        <Button Content="Initial the data" HorizontalAlignment="Left" Margin="368,234,0,0" VerticalAlignment="Top" Height="62" Width="124" RenderTransformOrigin="1.278,-0.491" Click="InintalData" FontSize="18"/>
+        <!-- use stack and wrap panel so it easy to order items -->
+        <StackPanel>
+            <!-- amazign title -->
+            <TextBlock Text="Welcome to the Tasks &amp; Engineers Management System" 
+                   TextWrapping="Wrap" FontFamily="Consolas"
+                   Margin="20,20,0,0" VerticalAlignment="Top" Height="100" FontSize="40" FontWeight="DemiBold"
+                   Foreground="#FF0A0A0A"/>
+            <Label Content="By AH and EA" FontFamily="Consolas" Margin="50,0,0,0"/>
+            <Separator Height="5" Opacity="0"/>
 
+            <StackPanel>
+                <!-- add image from link -->
+                <Image Source="https://static.vecteezy.com/system/resources/previews/026/975/650/large_2x/spaceship-next-generation-robotic-spaceship-leaving-the-earth-futuristic-robot-satellite-technology-space-exploration-space-travel-outer-space-spacecraft-futuristic-science-fiction-ai-generated-free-photo.jpeg" Height="200" />
+                <Label Content="our spaceship, where we usualy work" Margin="50,0,0,0"/>
+            </StackPanel>
+
+            <Separator Height="5" Opacity="0"/>
+
+            <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <!--button for the EngineerList-->
+                <Button Content="List of Engineers" Height="50" Width="200" Click="ListOfEngineers" FontSize="20"/>
+
+                <Separator Width="80" Opacity="0"/>
+
+                <!--button for initialing the data-->
+                <Button Content="Initial the data" Height="50" Width="200" Click="InintalData" FontSize="20"/>
+            </WrapPanel>
+        </StackPanel>
     </Grid>
 </Window>

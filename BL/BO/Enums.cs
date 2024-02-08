@@ -6,8 +6,7 @@ public enum EngineerExperience
 	AdvancedBeginner,
 	Intermediate,
 	Advanced,
-	Expert,
-	
+	Expert
 }
 
 public enum Status
@@ -35,15 +34,17 @@ public enum SubMenuChoices
 	Update,
 	Delete,
 }
+
 public enum ProjectStatus
 {
 	plan,
 	schedule,
 	execute
 }
+
 public enum TaskUpdate
 {
-    Alias=1,
+	Alias = 1,
 	Description,
 	Engineer,
 	Remraks,
@@ -52,23 +53,24 @@ public enum TaskUpdate
 	RequiredTimeEffort,
 	Comlexity,
 	StartDate,
-	CompleteTask,
+	CompleteTask
 }
 
 public enum EngineerUpdate
 {
-    Email=1,
-    cost,
-    Name,
-    ExperienceLevel,
-    Task,
+	Email = 1,
+	cost,
+	Name,
+	ExperienceLevel,
+	Task
 }
+
 public enum EngineerExperienceWithAll
 {
-    Beginner,
-    AdvancedBeginner,
-    Intermediate,
-    Advanced,
-    Expert,
-    All
+	Beginner,
+	AdvancedBeginner,
+	Intermediate,
+	Advanced,
+	Expert,
+	All
 }

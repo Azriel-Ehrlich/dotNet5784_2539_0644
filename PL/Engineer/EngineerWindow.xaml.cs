@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
 
 namespace PL.Engineer
 {
@@ -10,18 +9,6 @@ namespace PL.Engineer
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
-        public EngineerWindow(int Id=0)
-        {
-            InitializeComponent();
-            if (Id != 0)
-            {
-                CurrentEngineer = s_bl.Engineer.Read(Id);
-            }
-             else CurrentEngineer = new BO.Engineer() { Email = "", Name = "" };
-        }
-
-
-
         public BO.Engineer CurrentEngineer
         {
             get { return (BO.Engineer)GetValue(CurrentEngineerProperty); }
@@ -29,34 +16,51 @@ namespace PL.Engineer
         }
 
         // Using a DependencyProperty as the backing store for CurrentEngineer.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CurrentEngineerProperty =
-            DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(null));
+        public static readonly DependencyProperty CurrentEngineerProperty = DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(null));
+
+
+        public EngineerWindow(int Id = 0)
+        {
+            InitializeComponent();
+            CurrentEngineer = (Id != 0) ? s_bl.Engineer.Read(Id) : new BO.Engineer() { Email = "", Name = "" };
+        }
 
         private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                s_bl.Engineer.Read(CurrentEngineer.Id);
-                s_bl.Engineer.Update(CurrentEngineer);
-                MessageBox.Show("Engineer updated successfully");
-            }
-            catch (BO.BlDoesNotExistException )
-            {
-                try
+                if (doesEngineerExist(CurrentEngineer.Id))
+                {
+                    s_bl.Engineer.Update(CurrentEngineer);
+                    MessageBox.Show("Engineer updated successfully", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
                 {
                     s_bl.Engineer.Create(CurrentEngineer);
-                    MessageBox.Show("Engineer added successfully");
-                }
-                catch(BO.BlInvalidParameterException ex1)
-                {
-                    MessageBox.Show(ex1.Message);
+                    MessageBox.Show("Engineer added successfully", "", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
-            catch(BO.BlInvalidParameterException ex)
+            catch (Exception ex) when (ex is BO.BlInvalidParameterException || ex is BO.BlDoesNotExistException)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unknown error:\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
 
+        bool doesEngineerExist(int id)
+        {
+            try
+            {
+                s_bl.Engineer.Read(id);
+                return true;
+            }
+            catch (BO.BlDoesNotExistException)
+            {
+                return false;
+            }
         }
     }
 }

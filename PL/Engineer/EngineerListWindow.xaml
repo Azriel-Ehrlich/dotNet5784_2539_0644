@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
-        Title="EngineerList" Height="640" Width="800"
-         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+        Title="Engineers List" Height="640" Width="800" Background="DarkSeaGreen"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
 
     <!--Extrnal Grid-->
     <Grid>
@@ -21,13 +21,14 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Label Content="Select Engineer" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Grid.Column="0"/>
-            <ComboBox ItemsSource="{Binding Source={StaticResource EngineerExpirienceCollectionKey}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+            <Label Content="Select Engineer" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="0"
+                   FontSize="20" Height="40"/>
+            <ComboBox FontSize="20" Height="40" Margin="0,10,10,0"
+                      ItemsSource="{Binding Source={StaticResource EngineerExpirienceCollectionKey}}" 
                       Grid.Column="1" SelectedValue="{Binding LevelCategory, Mode=TwoWay}" SelectionChanged="ChangeToSelectedLevel"/>
-
         </Grid>
         <!---the list of elements-->
-        <ListView Margin="5" Grid.Row="1" ItemsSource="{Binding Path=EngineerList}" MouseDoubleClick="UpdateEngineer">
+        <ListView Background="PaleTurquoise" Margin="10" Grid.Row="1" ItemsSource="{Binding Path=EngineerList}" MouseDoubleClick="UpdateEngineer">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
@@ -36,7 +37,6 @@
         </ListView>
 
         <!--the button to add new Engineer-->
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="AddEngineer"/>
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="30" Width="200" Click="AddEngineer"/>
     </Grid>
-
 </Window>
