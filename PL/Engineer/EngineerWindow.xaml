@@ -5,11 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
-        Title="EngineerWindow" Height="640" Width="800"
+        Title="EngineerWindow" Height="300" Width="400" Background="LightBlue"
      DataContext="{Binding CurrentEngineer, RelativeSource={RelativeSource Self}, Mode=TwoWay}">
 
+    <!--
     <Window.Resources>
-        <!-- the style of the buttons-->
+        -->
+    <!-- the style of the buttons-->
+    <!--
         <Style x:Key="ComboBox style"  TargetType="ComboBox">
 
             <Setter Property="FontSize" Value="20"/>
@@ -73,4 +76,78 @@
                 Click="btnAddUpdate_Click"/>
 
     </Grid>
+    -->
+
+    <Window.Resources>
+        <Style x:Key="stTextBlock" TargetType="TextBlock">
+            <Setter Property="Width" Value="70"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="20,0,0,0"/>
+        </Style>
+        <Style x:Key="stTextBox" TargetType="TextBox">
+            <Setter Property="Width" Value="240"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+    </Window.Resources>
+
+    <StackPanel>
+        <WrapPanel>
+            <!-- TODO: make amazing title -->
+            <TextBlock Text="Engineer Data:" />
+        </WrapPanel>
+        <Separator Opacity="0" />
+        
+        <WrapPanel>
+            <TextBlock Style="{StaticResource stTextBlock}"
+                Text="Id" />
+            <TextBox
+                Style="{StaticResource stTextBox}"
+                Text="{Binding Path=Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                IsEnabled="{Binding Path=Id,Converter={StaticResource ConvertIdToBoolKey} }"/>
+        </WrapPanel>
+        <Separator Opacity="0" />
+
+        <WrapPanel>
+            <TextBlock Style="{StaticResource stTextBlock}" 
+                Text="Email" />
+            <TextBox 
+                Style="{StaticResource stTextBox}"
+                Text="{Binding Path=Email, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+        </WrapPanel>
+        <Separator Opacity="0" />
+
+        <WrapPanel>
+            <TextBlock  Style="{StaticResource stTextBlock}"
+                Text="Cost" />
+            <TextBox 
+                Style="{StaticResource stTextBox}"
+                     Text="{Binding Path=Cost, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+        </WrapPanel>
+        <Separator Opacity="0" />
+
+        <WrapPanel>
+            <TextBlock Style="{StaticResource stTextBlock}"
+                Text="Name" />
+            <TextBox
+                Style="{StaticResource stTextBox}"
+                Text="{Binding Path=Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+        </WrapPanel>
+        <Separator Opacity="0" />
+
+        <WrapPanel>
+            <TextBlock Style="{StaticResource stTextBlock}"
+                Text="Level" />
+            <ComboBox
+                Width="240" Height="30" FontSize="20"
+                ItemsSource="{Binding Source={StaticResource EngineerExpirienceCollectionKey}}"
+                SelectedValue="{Binding Path=Level, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+        </WrapPanel>
+        <Separator Opacity="0" Height="20"/>
+
+        <Button Width="240" Height="30" FontSize="20"
+                Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}"
+                Click="btnAddUpdate_Click"/>
+    </StackPanel>
 </Window>
