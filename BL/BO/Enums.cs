@@ -7,7 +7,7 @@ public enum EngineerExperience
 	Intermediate,
 	Advanced,
 	Expert,
-	All
+	
 }
 
 public enum Status
@@ -62,4 +62,13 @@ public enum EngineerUpdate
     Name,
     ExperienceLevel,
     Task,
+}
+public enum EngineerExperienceWithAll
+{
+    Beginner,
+    AdvancedBeginner,
+    Intermediate,
+    Advanced,
+    Expert,
+    All
 }
