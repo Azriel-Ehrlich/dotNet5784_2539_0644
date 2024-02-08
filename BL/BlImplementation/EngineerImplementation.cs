@@ -12,7 +12,7 @@ internal class EngineerImplementation : BlApi.IEngineer
 	void checkEngineer(BO.Engineer engineer)
 	{
 		// check validate of engineer:
-		if (engineer.Id <= 0) throw new BO.BlInvalidParameterException("Id must be positive");
+		if (engineer.Id < 100000000||engineer.Id>999999999) throw new BO.BlInvalidParameterException("Id is not valid 9 digit positive number");
 		if (string.IsNullOrEmpty(engineer.Name)) throw new BO.BlInvalidParameterException("Name cannot be empty");
 		if (engineer.Cost <= 0) throw new BO.BlInvalidParameterException("Our engineers are not slaves");
 		if (string.IsNullOrEmpty(engineer.Email)) throw new BO.BlInvalidParameterException("Email cannot be empty");

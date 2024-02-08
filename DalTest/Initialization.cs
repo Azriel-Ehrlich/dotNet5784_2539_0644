@@ -8,7 +8,7 @@ public static class Initialization
 {
     private static IDal? s_dal;
     private static readonly Random s_rand = new();
-    private static readonly int MIN_ID = 20000000, MAX_ID = 40000000;
+    private static readonly int MIN_ID = 200000000, MAX_ID = 400000000;
 
 	/*
 	 * our project is to build a spaceship and conduct a reasearch on Mars

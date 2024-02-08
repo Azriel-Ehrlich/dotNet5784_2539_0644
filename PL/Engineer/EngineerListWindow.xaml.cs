@@ -40,12 +40,12 @@ namespace PL.Engineer
                 typeof(IEnumerable<BO.Engineer>),
                 typeof(EngineerListWindow), new PropertyMetadata(null));
 
-        public BO.EngineerExperience LevelCategory { get; set; } = BO.EngineerExperience.All;
+        public BO.EngineerExperienceWithAll LevelCategory { get; set; } = BO.EngineerExperienceWithAll.All;
 
         private void ChangeToSelectedLevel(object sender, SelectionChangedEventArgs e)
         {
-            EngineerList = (LevelCategory == BO.EngineerExperience.All) ?
-            s_bl?.Engineer.ReadAll()! : s_bl?.Engineer.ReadAll(item => item.Level == LevelCategory)!;
+            EngineerList = (LevelCategory == BO.EngineerExperienceWithAll.All) ?
+            s_bl?.Engineer.ReadAll()! : s_bl?.Engineer.ReadAll(item => item.Level == (BO.EngineerExperience)LevelCategory)!;
 
         }
 
