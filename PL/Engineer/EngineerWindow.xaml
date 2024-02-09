@@ -45,6 +45,7 @@
                 Style="{StaticResource stTextBox}"
                 Text="{Binding Path=Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
                 IsEnabled="{Binding Path=Id, Converter={StaticResource ConvertIdToBoolKey} }"/>
+            <!-- bind the `IsEnabled` to `isAdd`, not `CurrentEngineer.Id` -->
         </WrapPanel>
         <Separator Opacity="0" />
 

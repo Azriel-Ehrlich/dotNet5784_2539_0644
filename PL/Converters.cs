@@ -34,8 +34,7 @@ public class ConvertIdToBool : IValueConverter
 
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        int id = (int)value;
-        return CanChangeID || (id < 200000000 || 400000000 < id);
+        return CanChangeID;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
