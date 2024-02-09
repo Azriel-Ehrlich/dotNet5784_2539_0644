@@ -31,63 +31,50 @@
 
     <StackPanel>
         <WrapPanel>
-            <!-- TODO: make amazing title -->
-            <TextBlock 
-                Style="{StaticResource stTextBlock-Title}"
-                Text="Engineer Data" />
+            <!-- [not] amazing title -->
+            <TextBlock Style="{StaticResource stTextBlock-Title}" Text="Engineer Data" />
         </WrapPanel>
         <Separator Opacity="0" />
         
         <WrapPanel>
-            <TextBlock Style="{StaticResource stTextBlock}"
-                Text="Id" />
-            <TextBox
-                Style="{StaticResource stTextBox}"
-                Text="{Binding Path=Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                IsEnabled="{Binding Path=Id, Converter={StaticResource ConvertIdToBoolKey} }"/>
-            <!-- bind the `IsEnabled` to `isAdd`, not `CurrentEngineer.Id` -->
+            <TextBlock Style="{StaticResource stTextBlock}" Text="Id" />
+            <TextBox Style="{StaticResource stTextBox}"
+                     Text="{Binding Path=Engineer.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                     IsEnabled="{Binding Path=isNewEngineer}"/>
         </WrapPanel>
         <Separator Opacity="0" />
 
         <WrapPanel>
-            <TextBlock Style="{StaticResource stTextBlock}" 
-                Text="Email" />
-            <TextBox 
-                Style="{StaticResource stTextBox}"
-                Text="{Binding Path=Email, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+            <TextBlock Style="{StaticResource stTextBlock}"  Text="Email" />
+            <TextBox Style="{StaticResource stTextBox}"
+                     Text="{Binding Path=Engineer.Email, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
         </WrapPanel>
         <Separator Opacity="0" />
 
         <WrapPanel>
-            <TextBlock  Style="{StaticResource stTextBlock}"
-                Text="Cost" />
-            <TextBox 
-                Style="{StaticResource stTextBox}"
-                     Text="{Binding Path=Cost, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+            <TextBlock Style="{StaticResource stTextBlock}" Text="Cost" />
+            <TextBox Style="{StaticResource stTextBox}"
+                     Text="{Binding Path=Engineer.Cost, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
         </WrapPanel>
         <Separator Opacity="0" />
 
         <WrapPanel>
-            <TextBlock Style="{StaticResource stTextBlock}"
-                Text="Name" />
-            <TextBox
-                Style="{StaticResource stTextBox}"
-                Text="{Binding Path=Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+            <TextBlock Style="{StaticResource stTextBlock}" Text="Name" />
+            <TextBox Style="{StaticResource stTextBox}"
+                     Text="{Binding Path=Engineer.Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
         </WrapPanel>
         <Separator Opacity="0" />
 
         <WrapPanel>
-            <TextBlock Style="{StaticResource stTextBlock}"
-                Text="Level" />
-            <ComboBox
-                Width="240" Height="30" FontSize="20"
-                ItemsSource="{Binding Source={StaticResource EngineerExpirieneWithoutAllCollectionKey}}"
-                SelectedValue="{Binding Path=Level, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+            <TextBlock Style="{StaticResource stTextBlock}" Text="Level" />
+            <ComboBox Width="240" Height="30" FontSize="20"
+                      ItemsSource="{Binding Source={StaticResource EngineerExpirieneWithoutAllCollectionKey}}"
+                      SelectedValue="{Binding Path=Engineer.Level, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
         </WrapPanel>
         <Separator Opacity="0" Height="30"/>
 
         <Button Width="240" Height="30" FontSize="20"
-                Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}"
+                Content="{Binding Path=Engineer.Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}"
                 Click="btnAddUpdate_Click"/>
     </StackPanel>
 </Window>

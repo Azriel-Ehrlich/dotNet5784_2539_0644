@@ -9,37 +9,46 @@ namespace PL.Engineer
 	{
 		static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
-		public BO.Engineer CurrentEngineer
+		public class CurrentEngineerType // for binding
 		{
-			get { return (BO.Engineer)GetValue(CurrentEngineerProperty); }
+			public BO.Engineer Engineer { get; set; }
+			public bool isNewEngineer { set; get; } // save the state: create new or update engineer
+
+			public CurrentEngineerType(int id)
+			{
+				isNewEngineer = (id == 0);
+				Engineer = isNewEngineer ? new BO.Engineer() { Email = "", Name = "" } : s_bl.Engineer.Read(id);
+			}
+		}
+
+		public CurrentEngineerType CurrentEngineer
+		{
+			get { return (CurrentEngineerType)GetValue(CurrentEngineerProperty); }
 			set { SetValue(CurrentEngineerProperty, value); }
 		}
 
-		// Using a DependencyProperty as the backing store for CurrentEngineer.  This enables animation, styling, binding, etc...
-		public static readonly DependencyProperty CurrentEngineerProperty = DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(null));
+		// Using a DependencyProperty as the backing store for CurrentEngineer. This enables animation, styling, binding, etc...
+		public static readonly DependencyProperty CurrentEngineerProperty = DependencyProperty.Register("CurrentEngineer", typeof(CurrentEngineerType), typeof(EngineerWindow), new PropertyMetadata(null));
 
-		readonly bool isAdd; // save the state: add or update engineer
 
 		public EngineerWindow(int Id = 0)
 		{
 			InitializeComponent();
-			CurrentEngineer = (Id != 0) ? s_bl.Engineer.Read(Id) : new BO.Engineer() { Email = "", Name = "" };
-			isAdd = (Id == 0);
-			ConvertIdToBool.CanChangeID = isAdd;
+			CurrentEngineer = new(Id);
 		}
 
 		private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
 		{
 			try
 			{
-				if (isAdd)
+				if (CurrentEngineer.isNewEngineer)
 				{
-					s_bl.Engineer.Create(CurrentEngineer);
+					s_bl.Engineer.Create(CurrentEngineer.Engineer);
 					MessageBox.Show("Engineer added successfully", "", MessageBoxButton.OK, MessageBoxImage.Information);
 				}
 				else
 				{
-					s_bl.Engineer.Update(CurrentEngineer);
+					s_bl.Engineer.Update(CurrentEngineer.Engineer);
 					MessageBox.Show("Engineer updated successfully", "", MessageBoxButton.OK, MessageBoxImage.Information);
 				}
 

@@ -23,9 +23,9 @@
             </Grid.ColumnDefinitions>
             <Label Content="Select Engineer" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="0"
                    FontSize="20" Height="40"/>
-            <ComboBox FontSize="20" Height="40" Margin="0,10,10,0"
+            <ComboBox FontSize="20" Height="40" Margin="0,10,10,0" Grid.Column="1" 
                       ItemsSource="{Binding Source={StaticResource EngineerExpirienceCollectionKey}}" 
-                      Grid.Column="1" SelectedValue="{Binding LevelCategory, Mode=TwoWay}" SelectionChanged="ChangeToSelectedLevel"/>
+                      SelectedValue="{Binding LevelCategory, Mode=TwoWay}" SelectionChanged="ChangeToSelectedLevel"/>
         </Grid>
         <!---the list of elements-->
         <ListView Background="PaleTurquoise" Margin="10" Grid.Row="1" ItemsSource="{Binding Path=EngineerList}" MouseDoubleClick="UpdateEngineer">
