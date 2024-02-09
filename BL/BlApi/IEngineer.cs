@@ -12,6 +12,22 @@ public interface IEngineer
 	/// <returns> The engineer with the given id </returns>
 	public BO.Engineer Read(int id);
 
+	/// <summary> Check if an engineer exists </summary>
+	/// <param name="id"> The id of the engineer to check for </param>
+	/// <returns> True if the engineer exists, false otherwise </returns>
+	public bool DoesEngineerExist(int id)
+	{
+		try
+		{
+			Read(id);
+			return true;
+		}
+		catch (BO.BlDoesNotExistException)
+		{
+			return false;
+		}
+	}
+
 	/// <summary> Read all engineers </summary>
 	/// <param name="filter"> A filter to apply to the engineers </param>
 	/// <returns> All engineers that pass the filter </returns>

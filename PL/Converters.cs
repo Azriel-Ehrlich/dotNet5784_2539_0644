@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using BlApi;
+using System.Globalization;
 using System.Windows.Data;
 
 namespace PL;
@@ -8,15 +9,15 @@ namespace PL;
 /// </summary>
 internal class ConvertIdToContent : IValueConverter
 {
-	public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-	{
-		return (int)value == 0 ? "Add" : "Update";
-	}
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return (int)value == 0 ? "Add" : "Update";
+    }
 
-	public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-	{
-		throw new NotImplementedException();
-	}
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
 }
 
 /// <summary>
@@ -26,14 +27,19 @@ internal class ConvertIdToContent : IValueConverter
 /// </summary>
 public class ConvertIdToBool : IValueConverter
 {
-	public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-	{
-		int id = (int)value;
-		return id < 200000000 || 400000000 < id;
-	}
+	// static variable to know if we can change the id or not.
+	// maybe we do the same result using the XAML and binding
+	// the id to the button, but we dont know how yet
+	public static bool CanChangeID = false;
 
-	public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-	{
-		throw new NotImplementedException();
-	}
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        int id = (int)value;
+        return CanChangeID || (id < 200000000 || 400000000 < id);
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
 }

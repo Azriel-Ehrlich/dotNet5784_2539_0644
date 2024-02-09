@@ -85,7 +85,9 @@ internal class EngineerImplementation : BlApi.IEngineer
 	public void Update(BO.Engineer engineer)
 	{
 		checkEngineer(engineer);
-		DO.Engineer check = _dal.Engineer.Read(engineer.Id)!;
+		DO.Engineer? check = _dal.Engineer.Read(engineer.Id);
+		if (check is null)
+			throw new BO.BlDoesNotExistException($"Engineer with id {engineer.Id} doesn't exist");
 		if (check.Level > (DO.EngineerExperience)engineer.Level)
 			throw new BO.BlInvalidParameterException("Engineer's level cannot be decreased");
 
