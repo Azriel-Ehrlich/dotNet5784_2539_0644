@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d" Background="MistyRose"
-        Title="The Coolest Program Everrr" Height="500" Width="600">
+        Title="The Coolest Program Everrr" Height="600" Width="800">
     <Window.Resources>
         <Style x:Key="stButton" TargetType="Button">
             <Setter Property="Width" Value="200"/>
@@ -35,13 +35,19 @@
             <Separator Height="5" Opacity="0"/>
 
             <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <!--button for the EngineerList-->
-                <Button Style="{StaticResource stButton}" Content="List of Engineers" Click="ListOfEngineers"/>
+                <Button Style="{StaticResource stButton}" Content="Manager" Click="ManagerMenu"/>
+                <Separator Width="20" Opacity="0"/>
+                <Button Style="{StaticResource stButton}" Content="Engineer" Click="EngineerMenu"/>
+            </WrapPanel>
 
-                <Separator Width="80" Opacity="0"/>
+            <Separator Height="10"/>
 
-                <!--button for initialing the data-->
-                <Button Style="{StaticResource stButton}" Content="Initial the data" Click="InintalData"/>
+            <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <!--button for initializing the data-->
+                <Button Style="{StaticResource stButton}" Content="Initialize Data" Click="InintalData"/>
+                <Separator Width="20" Opacity="0"/>
+                <!--button for reset the data-->
+                <Button Style="{StaticResource stButton}" Content="Reset" Click="ResetData"/>
             </WrapPanel>
         </StackPanel>
     </Grid>

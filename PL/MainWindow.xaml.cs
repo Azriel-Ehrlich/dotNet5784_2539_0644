@@ -14,17 +14,39 @@ public partial class MainWindow : Window
 
     private void ListOfEngineers(object sender, RoutedEventArgs e)
     {
-        new Engineer.EngineerListWindow().Show();
     }
 
     private void InintalData(object sender, RoutedEventArgs e)
     {
-        var ans = MessageBox.Show("are you sure you want to initial the data?", "Note", MessageBoxButton.YesNo);
+        var ans = MessageBox.Show("Are you sure you want to initial the data?", "Note", MessageBoxButton.YesNo);
 
         if (ans == MessageBoxResult.Yes)
         {
             DalTest.Initialization.Do();
-            MessageBox.Show("Data has been initialized");
+            MessageBox.Show("Data has been initialized successfully");
         }
     }
+    
+    private void ResetData(object sender, RoutedEventArgs e)
+    {
+        var ans = MessageBox.Show("Are you sure you want to reset all data?", "Note", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+        if (ans == MessageBoxResult.Yes)
+        {
+            DalTest.Initialization.Reset();
+            MessageBox.Show("Data has been reset successfully");
+        }
+    }
+
+	private void ManagerMenu(object sender, RoutedEventArgs e)
+    {
+        //MessageBox.Show("Not implemented yet");
+        new Manager.ManagerWindow().Show();
+    }
+    
+    private void EngineerMenu(object sender, RoutedEventArgs e)
+    {
+        MessageBox.Show("Not implemented yet");
+    }
+
 }

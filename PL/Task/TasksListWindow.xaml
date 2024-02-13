@@ -1,14 +1,12 @@
-﻿<Window x:Class="PL.Engineer.EngineerListWindow"
+﻿<Window x:Class="PL.Task.TasksListWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PL.Engineer"
+        xmlns:local="clr-namespace:PL.Task"
         mc:Ignorable="d"
-        Title="Engineers List" Height="640" Width="800" Background="DarkSeaGreen"
+        Title="Tasks List" Height="640" Width="800" Background="DarkSeaGreen"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
-
-    <!--Extrnal Grid-->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>
@@ -21,14 +19,14 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Label Content="Select Engineer" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="0"
-                   FontSize="20" Height="40"/>
+            <Label Content="Select Task" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="0"
+                FontSize="20" Height="40"/>
             <ComboBox FontSize="20" Height="40" Margin="0,10,10,0" Grid.Column="1" 
-                      ItemsSource="{Binding Source={StaticResource EngineerExpirienceCollectionKey}}" 
-                      SelectedValue="{Binding LevelCategory, Mode=TwoWay}" SelectionChanged="ChangeToSelectedLevel"/>
+                   ItemsSource="{Binding Source={StaticResource EngineerExpirienceCollectionKey}}" 
+                   SelectedValue="{Binding LevelCategory, Mode=TwoWay}" SelectionChanged="ChangeToSelectedLevel"/>
         </Grid>
         <!---the list of elements-->
-        <ListView Background="PaleTurquoise" Margin="10" Grid.Row="1" ItemsSource="{Binding Path=EngineersList}" MouseDoubleClick="UpdateEngineer">
+        <ListView Background="PaleTurquoise" Margin="10" Grid.Row="1" ItemsSource="{Binding Path=TasksList}" MouseDoubleClick="UpdateTask">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
@@ -37,6 +35,6 @@
         </ListView>
 
         <!--the button to add new Engineer-->
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="30" Width="200" Click="AddEngineer"/>
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="30" Width="200" Click="AddTask"/>
     </Grid>
 </Window>

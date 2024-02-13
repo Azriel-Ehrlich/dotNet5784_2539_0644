@@ -162,14 +162,9 @@ public static class Initialization
     }
 
     /// <summary> Initialize the DAL </summary>
-    /// <param name="dalTask">Implementation of <see cref="ITask"/> </param>
-    /// <param name="dalEngineer">Implementation of <see cref="IEngineer"/> </param>
-    /// <param name="dalDependency">Implementation of <see cref="IDependency"/> </param>
     /// <exception cref="NullReferenceException">Thrown when one of the parameters is null</exception>
-   // public static void Do(IDal? dal)//stage2
     public static void Do()
     {
-        //s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!");//stage2
         s_dal = DalApi.Factory.Get;
 
 		if (s_dal is null)
@@ -182,4 +177,11 @@ public static class Initialization
         createTasks();
         createDependencies();
     }
+
+	/// <summary> Reset the DAL </summary>
+	public static void Reset()
+	{
+		s_dal = DalApi.Factory.Get;
+		s_dal.Reset();
+	}
 }

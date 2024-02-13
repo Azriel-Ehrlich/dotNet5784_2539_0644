@@ -16,7 +16,7 @@ namespace PL.Engineer
         }
 
         /// <summary> for the list of engineers in the window </summary>
-        public IEnumerable<BO.Engineer> EngineerList
+        public IEnumerable<BO.Engineer> EngineersList
         {
             get { return (IEnumerable<BO.Engineer>)GetValue(EngineerListProperty); }// return the value of the property
             set { SetValue(EngineerListProperty, value); }// set the value of the property
@@ -33,7 +33,7 @@ namespace PL.Engineer
         /// <summary> update the list of engineers in the window according to the selected level </summary>
         void UpdateEngineerList()
         {
-            EngineerList = ((LevelCategory == BO.EngineerExperienceWithAll.All) ? s_bl?.Engineer.ReadAll()!
+            EngineersList = ((LevelCategory == BO.EngineerExperienceWithAll.All) ? s_bl?.Engineer.ReadAll()!
                : s_bl?.Engineer.ReadAll(item => item.Level == (BO.EngineerExperience)LevelCategory)!)
                .OrderBy(e => e.Id); // sort by ID so it will be easier to find the engineer in the list as a human
         }
@@ -45,7 +45,7 @@ namespace PL.Engineer
 
         private void AddEngineer(object sender, RoutedEventArgs e)
         {
-            new EngineerWindow().ShowDialog();
+            new EngineerDataInputWindow().ShowDialog();
             UpdateEngineerList();
         }
 
@@ -53,7 +53,7 @@ namespace PL.Engineer
         {
             if ((sender as ListView)?.SelectedItem is BO.Engineer eng)
             {
-                new EngineerWindow(eng.Id).ShowDialog();
+                new EngineerDataInputWindow(eng.Id).ShowDialog();
                 UpdateEngineerList();
             }
         }

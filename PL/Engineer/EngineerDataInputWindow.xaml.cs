@@ -5,7 +5,7 @@ namespace PL.Engineer
 	/// <summary>
 	/// Interaction logic for EngineerWindow.xaml
 	/// </summary>
-	public partial class EngineerWindow : Window
+	public partial class EngineerDataInputWindow : Window
 	{
 		static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
@@ -28,10 +28,10 @@ namespace PL.Engineer
 		}
 
 		// Using a DependencyProperty as the backing store for CurrentEngineer. This enables animation, styling, binding, etc...
-		public static readonly DependencyProperty CurrentEngineerProperty = DependencyProperty.Register("CurrentEngineer", typeof(CurrentEngineerType), typeof(EngineerWindow), new PropertyMetadata(null));
+		public static readonly DependencyProperty CurrentEngineerProperty = DependencyProperty.Register("CurrentEngineer", typeof(CurrentEngineerType), typeof(EngineerDataInputWindow), new PropertyMetadata(null));
 
 
-		public EngineerWindow(int Id = 0)
+		public EngineerDataInputWindow(int Id = 0)
 		{
 			InitializeComponent();
 			CurrentEngineer = new(Id);
