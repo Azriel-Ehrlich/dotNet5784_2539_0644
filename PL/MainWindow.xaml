@@ -6,6 +6,14 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d" Background="MistyRose"
         Title="The Coolest Program Everrr" Height="500" Width="600">
+    <Window.Resources>
+        <Style x:Key="stButton" TargetType="Button">
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+    </Window.Resources>
+
     <Grid>
         <!-- use stack and wrap panel so it easy to order items -->
         <StackPanel>
@@ -19,7 +27,8 @@
 
             <StackPanel>
                 <!-- add image from link -->
-                <Image Source="imgs/spaceship.jpeg" Height="200" />
+                <!--<Image Source="../imgs/spaceship.jpeg" Height="200" />-->
+                <Image Source="https://static.vecteezy.com/system/resources/previews/026/975/650/large_2x/spaceship-next-generation-robotic-spaceship-leaving-the-earth-futuristic-robot-satellite-technology-space-exploration-space-travel-outer-space-spacecraft-futuristic-science-fiction-ai-generated-free-photo.jpeg" Height="200" />
                 <Label Content="our spaceship, where we usualy work" Margin="50,0,0,0"/>
             </StackPanel>
 
@@ -27,12 +36,12 @@
 
             <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                 <!--button for the EngineerList-->
-                <Button Content="List of Engineers" Height="50" Width="200" Click="ListOfEngineers" FontSize="20"/>
+                <Button Style="{StaticResource stButton}" Content="List of Engineers" Click="ListOfEngineers"/>
 
                 <Separator Width="80" Opacity="0"/>
 
                 <!--button for initialing the data-->
-                <Button Content="Initial the data" Height="50" Width="200" Click="InintalData" FontSize="20"/>
+                <Button Style="{StaticResource stButton}" Content="Initial the data" Click="InintalData"/>
             </WrapPanel>
         </StackPanel>
     </Grid>
