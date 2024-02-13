@@ -14,8 +14,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="spaceship.jpeg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
     <ProjectReference Include="..\DalTest\DalTest.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="spaceship.jpeg" />
   </ItemGroup>
 
 </Project>

@@ -27,8 +27,8 @@
 
             <StackPanel>
                 <!-- add image from link -->
-                <!--<Image Source="../imgs/spaceship.jpeg" Height="200" />-->
-                <Image Source="https://static.vecteezy.com/system/resources/previews/026/975/650/large_2x/spaceship-next-generation-robotic-spaceship-leaving-the-earth-futuristic-robot-satellite-technology-space-exploration-space-travel-outer-space-spacecraft-futuristic-science-fiction-ai-generated-free-photo.jpeg" Height="200" />
+                <Image Source="/spaceship.jpeg" Height="200" />
+                <!--<Image Source="https://static.vecteezy.com/system/resources/previews/026/975/650/large_2x/spaceship-next-generation-robotic-spaceship-leaving-the-earth-futuristic-robot-satellite-technology-space-exploration-space-travel-outer-space-spacecraft-futuristic-science-fiction-ai-generated-free-photo.jpeg" Height="200" />-->
                 <Label Content="our spaceship, where we usualy work" Margin="50,0,0,0"/>
             </StackPanel>
 
