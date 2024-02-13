@@ -16,7 +16,7 @@ namespace PL.Engineer
 
 			public CurrentEngineerType(int id)
 			{
-				isNewEngineer = (id == 0);
+				isNewEngineer = (id == -1);
 				Engineer = isNewEngineer ? new BO.Engineer() { Email = "", Name = "" } : s_bl.Engineer.Read(id);
 			}
 		}
@@ -31,7 +31,7 @@ namespace PL.Engineer
 		public static readonly DependencyProperty CurrentEngineerProperty = DependencyProperty.Register("CurrentEngineer", typeof(CurrentEngineerType), typeof(EngineerDataInputWindow), new PropertyMetadata(null));
 
 
-		public EngineerDataInputWindow(int Id = 0)
+		public EngineerDataInputWindow(int Id = -1)
 		{
 			InitializeComponent();
 			CurrentEngineer = new(Id);

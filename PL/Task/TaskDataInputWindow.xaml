@@ -5,8 +5,85 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Task"
         mc:Ignorable="d"
-        Title="TaskDataInputWindow" Height="450" Width="800">
-    <Grid>
+        Title="EngineerWindow" Height="370" Width="500" Background="LightBlue"
+        DataContext="{Binding CurrentTask, RelativeSource={RelativeSource Self}, Mode=TwoWay}">
+    <Window.Resources>
+        <Style x:Key="stTextBlock-Title" TargetType="TextBlock">
+            <Setter Property="Width" Value="300"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="20,0,0,0"/>
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="stTextBlock" TargetType="TextBlock">
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="20,0,0,0"/>
+        </Style>
+        <Style x:Key="stTextBox" TargetType="TextBox">
+            <Setter Property="Width" Value="340"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+    </Window.Resources>
+
+    <StackPanel>
+        <WrapPanel>
+            <!-- [not] amazing title -->
+            <TextBlock Style="{StaticResource stTextBlock-Title}" Text="Task Data" />
+        </WrapPanel>
+        <Separator Opacity="0" />
+
+        <WrapPanel>
+            <TextBlock Style="{StaticResource stTextBlock}" Text="Id" />
+            <TextBox Style="{StaticResource stTextBox}"
+                 Text="{Binding Path=Task.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                 IsEnabled="{Binding Path=isNewTask}"/>
+        </WrapPanel>
+        <Separator Opacity="0" />
+
+        <WrapPanel>
+            <TextBlock Style="{StaticResource stTextBlock}" Text="Alias" />
+            <TextBox Style="{StaticResource stTextBox}"
+                 Text="{Binding Path=Task.Alias, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+        </WrapPanel>
+        <Separator Opacity="0" />
+
+        <WrapPanel>
+            <TextBlock Style="{StaticResource stTextBlock}" Text="Description" />
+            <TextBox Style="{StaticResource stTextBox}"
+                 Text="{Binding Path=Task.Description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+        </WrapPanel>
+        <Separator Opacity="0" />
+
+        <WrapPanel>
+            <TextBlock Style="{StaticResource stTextBlock}" Text="Remarks" />
+            <TextBox Style="{StaticResource stTextBox}"
+                 Text="{Binding Path=Task.Remarks, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+        </WrapPanel>
+        <Separator Opacity="0" />
         
-    </Grid>
+        <WrapPanel>
+            <TextBlock Style="{StaticResource stTextBlock}" Text="Engineer ID" />
+            <TextBox Style="{StaticResource stTextBox}"
+                 Text="{Binding Path=Task.Engineer.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+        </WrapPanel>
+        <Separator Opacity="0" />
+
+        <WrapPanel>
+            <TextBlock Style="{StaticResource stTextBlock}" Text="Complexity" />
+            <ComboBox Width="340" Height="30" FontSize="20"
+                  ItemsSource="{Binding Source={StaticResource EngineerExpirieneWithoutAllCollectionKey}}"
+                  SelectedValue="{Binding Path=Task.Complexity, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+        </WrapPanel>
+        <Separator Opacity="0" Height="30"/>
+
+        <!-- TODO: read dates -->
+        
+        <Button Width="240" Height="30" FontSize="20"
+            Content="{Binding Path=Task.Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}"
+            Click="btnAddUpdate_Click"/>
+    </StackPanel>
 </Window>

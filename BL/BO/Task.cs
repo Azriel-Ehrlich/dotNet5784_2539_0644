@@ -1,6 +1,4 @@
-﻿using BlImplementation;
-
-namespace BO;
+﻿namespace BO;
 
 /// <summary> This class represents task. </summary>
 /// <param name="Id">Task's unique id</param>
@@ -9,7 +7,6 @@ namespace BO;
 /// <param name="CreatedAtDate">Date when the task was added to the system</param>
 /// <param name="Status">Task's status</param>
 /// <param name="Dependencies">relevant only before schedule is built</param>
-/// <param name="Milestone">calculated when building schedule, populated if there is milestone in dependency, relevant only after schedule is built</param>
 /// <param name="RequiredEffortTime">how many men-days needed for the task</param>
 /// <param name="StartDate">the real start date</param>
 /// <param name="ScheduledDate">the planned start date</param>
@@ -28,7 +25,6 @@ public class Task
 	public DateTime CreatedAtDate { init; get; }
 	public Status Status { set; get; }
 	public List<TaskInList>? Dependencies { set; get; }
-	//public MilestoneInTask? Milestone { set; get; }
 	public TimeSpan? RequiredEffortTime { set; get; }
 	public DateTime? StartDate { set; get; }
 	public DateTime? ScheduledDate { set; get; }

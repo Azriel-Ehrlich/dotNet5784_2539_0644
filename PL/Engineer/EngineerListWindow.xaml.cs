@@ -24,7 +24,7 @@ namespace PL.Engineer
 
         // Using a DependencyProperty as the backing store for EngineerList. This enables animation, styling, binding, etc...
         public static readonly DependencyProperty EngineerListProperty =
-            DependencyProperty.Register("EngineerList",
+            DependencyProperty.Register("EngineersList",
                 typeof(IEnumerable<BO.Engineer>),
                 typeof(EngineerListWindow), new PropertyMetadata(null));
 

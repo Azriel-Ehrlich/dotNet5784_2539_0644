@@ -48,8 +48,7 @@ namespace PL.Task
 			TasksList = (
 				(LevelCategory == BO.EngineerExperienceWithAll.All) ? s_bl?.Task.ReadAll()!
 			   : s_bl?.Task.ReadAll(item => item.Complexity is not null && item.Complexity == (BO.EngineerExperience?)LevelCategory)!
-			   )
-			   .OrderBy(e => e.Id); // sort by ID so it will be easier to find the engineer in the list as a human
+			   ).OrderBy(e => e.Id); // sort by ID so it will be easier to find the engineer in the list as a human
 		}
 
 		private void ChangeToSelectedLevel(object sender, SelectionChangedEventArgs e)
