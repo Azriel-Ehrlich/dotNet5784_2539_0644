@@ -12,17 +12,53 @@
             <Setter Property="Height" Value="50"/>
             <Setter Property="FontSize" Value="20"/>
         </Style>
-        <Style x:Key="stTextBlock" TargetType="TextBlock">
+        <Style x:Key="stTextBlock_Title" TargetType="TextBlock">
             <Setter Property="FontSize" Value="30"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
         </Style>
+
+        <Style x:Key="stTextBlock_Message" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
+        <!-- add style of star to buttons: -->
+        <ControlTemplate x:Key="StarToggleButton" TargetType="{x:Type ToggleButton}">
+            <Canvas Width="76" Height="76"
+                    Clip="F1 M 0,0L 76,0L 76,76L 0,76L 0,0">
+                <Path x:Name="ButtonPath"
+                      Width="41.166"
+                      Height="38"
+                      Canvas.Left="17.416"
+                      Canvas.Top="18"
+                      Data="F1 M 17.416,32.25L 32.910,32.25L 38,18L 43.089,32.25L 58.583,32.25L 45.679,41.494L 51.458,56L 38,48.083L 26.125,56L 30.597,41.710L 17.416,32.25 Z "
+                      Fill="Transparent"
+                      Stroke="Black"
+                      StrokeThickness="2"
+                      Stretch="Fill"/>
+            </Canvas>
+            <!-- When checked, fill with Yellow -->
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsChecked" Value="true">
+                    <Setter TargetName="ButtonPath" Property="Fill" Value="Yellow"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
     </Window.Resources>
-    
+
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Text="Manager Winow" Style="{StaticResource stTextBlock}" />
+            <TextBlock Text="Manager Window" Style="{StaticResource stTextBlock_Title}" />
+
+            <Separator Height="3" Opacity="0" />
+
+            <RadioButton Template="{DynamicResource StarToggleButton}"/>
+            <TextBlock Text="Mark this star will make you cool" Style="{StaticResource stTextBlock_Message}" />
+
             <Separator Height="100" Opacity="0" />
+
             <WrapPanel>
                 <Button Content="Engineers" Style="{StaticResource stButton}" Click="ShowEngineersList" />
                 <Separator Width="20" Opacity="0" />
