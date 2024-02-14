@@ -6,10 +6,28 @@ internal class TaskImplementation : BlApi.ITask
 {
 	private DalApi.IDal _dal = DalApi.Factory.Get;
 
+	/// <summary> Check if the task is valid. </summary>
+	/// <param name="task"> The task to check. </param>
+	/// <exception cref="BO.BlInvalidParameterException"></exception>
+	/// <exception cref="BO.BlDoesNotExistException"></exception>
 	void checkTask(BO.Task task)
 	{
-		if (task.Id < 0) throw new BO.BlInvalidParameterException("Id cannot be negative");
-		if (string.IsNullOrEmpty(task.Alias)) throw new BO.BlInvalidParameterException("Alias cannot be empty");
+		if (task.Id < 0)
+			throw new BO.BlInvalidParameterException("Id cannot be negative");
+
+		if (string.IsNullOrEmpty(task.Alias))
+			throw new BO.BlInvalidParameterException("Alias cannot be empty");
+
+		if (task.Engineer is not null && task.Engineer.Id > 0)
+		{
+			DO.Engineer? eng = _dal.Engineer.Read(task.Engineer.Id);
+			if (eng is null)
+				throw new BO.BlDoesNotExistException($"Engineer with id={task.Engineer.Id} doesn't exist");
+
+			// TODO: check complexity
+		//	if (task.Complexity is not null && eng.Level < (DO.EngineerExperience)task.Complexity)
+		//		throw new BO.BlInvalidParameterException("The complexity of the task must be less than or equal to the level of the engineer");
+		}
 	}
 
 
@@ -22,7 +40,8 @@ internal class TaskImplementation : BlApi.ITask
 		DO.Task? check = (from t in _dal.Task.ReadAll()
 						  where t.Alias == task.Alias
 						  select t).FirstOrDefault();
-		if (check is not null) throw new BO.BlAlreadyExistsException("The task already exist");
+		if (check is not null)
+			throw new BO.BlAlreadyExistsException("The task already exist");
 
 		int newId = _dal.Task.Create(task.ToDOTask() with { CreatedAtDate = DateTime.Now });
 
@@ -35,7 +54,7 @@ internal class TaskImplementation : BlApi.ITask
 					   where _dal.Task.Read(t.Id) is not null
 					   select _dal.Dependency.Create(new DO.Dependency(newId, t.Id));
 			*/
-			// TODO: thats not works using linq, use foreach instead
+			// NOTE: thats not works using linq, use foreach instead
 			foreach (var t in task.Dependencies)
 			{
 				if (_dal.Task.Read(t.Id) is not null)
@@ -89,6 +108,8 @@ internal class TaskImplementation : BlApi.ITask
 	/// <inheritdoc/>
 	public void Update(BO.Task task)
 	{
+		checkTask(task);
+
 		DO.Task? check = (from t in _dal.Task.ReadAll()
 						  where t.Id == task.Id
 						  select t).FirstOrDefault();

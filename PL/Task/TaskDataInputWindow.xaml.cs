@@ -44,7 +44,7 @@ namespace PL.Task
 			set { SetValue(CurrentTaskProperty, value); }
 		}
 
-		// Using a DependencyProperty as the backing store for CurrentEngineer. This enables animation, styling, binding, etc...
+		// Using a DependencyProperty as the backing store for CurrentTask. This enables animation, styling, binding, etc...
 		public static readonly DependencyProperty CurrentTaskProperty = DependencyProperty.Register("CurrentTask", typeof(CurrentTaskType), typeof(TaskDataInputWindow), new PropertyMetadata(null));
 
 
@@ -63,15 +63,15 @@ namespace PL.Task
 				if (CurrentTask.isNewTask)
 				{
 					s_bl.Task.Create(CurrentTask.Task);
-					MessageBox.Show("Engineer added successfully", "", MessageBoxButton.OK, MessageBoxImage.Information);
+					MessageBox.Show("Task added successfully", "", MessageBoxButton.OK, MessageBoxImage.Information);
 				}
 				else
 				{
 					s_bl.Task.Update(CurrentTask.Task);
-					MessageBox.Show("Engineer updated successfully", "", MessageBoxButton.OK, MessageBoxImage.Information);
+					MessageBox.Show("Task updated successfully", "", MessageBoxButton.OK, MessageBoxImage.Information);
 				}
 
-				this.Close(); // close window after adding or updating the engineer
+				this.Close(); // close window after adding or updating the Task
 			}
 			catch (Exception ex) when (
 				ex is BO.BlAlreadyExistsException ||
