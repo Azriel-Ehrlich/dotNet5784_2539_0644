@@ -11,6 +11,12 @@ internal static class DataSource
 		internal const int startDependencyId = 0;
 		private static int nextDependencyId = startDependencyId;
 		internal static int NextDependencyId { get => nextDependencyId++; }
+
+		public static void Reset()
+		{
+			nextTaskId = startTaskId;
+			nextDependencyId = startDependencyId;
+		}
 	}
 
 	internal static List<DO.Dependency> Dependencies { get; } = new();

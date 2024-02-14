@@ -16,7 +16,14 @@ sealed internal class DalList : IDal
 
 	public IDependency Dependency => new DependencyImplementation();
 
-	public void Reset() { }
+	/// <summary> Reset all lists to empty </summary>
+	public void Reset()
+	{
+		DataSource.Engineers.Clear();
+		DataSource.Tasks.Clear();
+		DataSource.Dependencies.Clear();
+		DataSource.Config.Reset();
+	}
 
 	public void SaveScheduledDate() { }
 }

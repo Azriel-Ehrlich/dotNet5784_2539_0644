@@ -7,22 +7,21 @@ namespace PL;
 /// </summary>
 public partial class MainWindow : Window
 {
+	BlApi.IBl s_bl = BlApi.Factory.Get();
+
+
     public MainWindow()
     {
         InitializeComponent();
     }
 
-    private void ListOfEngineers(object sender, RoutedEventArgs e)
-    {
-    }
-
     private void InintalData(object sender, RoutedEventArgs e)
     {
-        var ans = MessageBox.Show("Are you sure you want to initial the data?", "Note", MessageBoxButton.YesNo);
+        var ans = MessageBox.Show("Are you sure you want to initial the data?", "Note", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
         if (ans == MessageBoxResult.Yes)
         {
-            DalTest.Initialization.Do();
+            s_bl.InitializeDB();
             MessageBox.Show("Data has been initialized successfully");
         }
     }
@@ -33,14 +32,13 @@ public partial class MainWindow : Window
 
         if (ans == MessageBoxResult.Yes)
         {
-            DalTest.Initialization.Reset();
+            s_bl.ResetDB();
             MessageBox.Show("Data has been reset successfully");
         }
     }
 
 	private void ManagerMenu(object sender, RoutedEventArgs e)
     {
-        //MessageBox.Show("Not implemented yet");
         new Manager.ManagerWindow().Show();
     }
     
@@ -48,5 +46,4 @@ public partial class MainWindow : Window
     {
         MessageBox.Show("Not implemented yet");
     }
-
 }

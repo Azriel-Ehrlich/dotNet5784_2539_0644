@@ -8,7 +8,7 @@ internal class ConvertIdToContent : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return (int)value == 0 ? "Add" : "Update";
+        return (int)value == -1 ? "Add" : "Update";
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

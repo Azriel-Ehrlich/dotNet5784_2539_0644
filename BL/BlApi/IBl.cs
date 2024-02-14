@@ -7,6 +7,10 @@ public interface IBl
     public IEngineer Engineer { get; }
     public ITask Task { get; }
 
+    public void InitializeDB() => DalTest.Initialization.Do();
+    public void ResetDB() => DalTest.Initialization.Reset();
+
+
     /// <summary> Suggest a date for a task </summary>
     /// <param name="task"> The task to suggest a date for </param>
     /// <param name="startProj"> The start date of the project </param>

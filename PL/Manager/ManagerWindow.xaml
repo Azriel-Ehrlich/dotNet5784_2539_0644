@@ -54,7 +54,7 @@
 
             <Separator Height="3" Opacity="0" />
 
-            <RadioButton Template="{DynamicResource StarToggleButton}"/>
+            <CheckBox Template="{StaticResource StarToggleButton}"/>
             <TextBlock Text="Mark this star will make you cool" Style="{StaticResource stTextBlock_Message}" />
 
             <Separator Height="100" Opacity="0" />

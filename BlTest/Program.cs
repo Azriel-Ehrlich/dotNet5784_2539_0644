@@ -544,7 +544,7 @@ internal class Program
 		{
 			Console.ForegroundColor = ConsoleColor.Yellow;
 			Console.WriteLine("Creating initial data...");
-			DalTest.Initialization.Do(); // initialize the data
+			bl.InitializeDB(); // initialize the data
 		}
 	}
 
