@@ -13,7 +13,7 @@
             <Setter Property="Height" Value="30"/>
             <Setter Property="FontSize" Value="20"/>
             <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Margin" Value="20,0,0,0"/>
+            <Setter Property="Margin" Value="50,0,0,0"/>
             <Setter Property="TextAlignment" Value="Center" />
         </Style>
         <Style x:Key="stTextBlock" TargetType="TextBlock">
@@ -78,22 +78,12 @@
         </WrapPanel>
         <Separator Opacity="0" />
 
-        <WrapPanel>
-            <TextBlock Style="{StaticResource stTextBlock}" Text="Task ID" />
-            <StackPanel>
-                <!-- AH: Thanks to Sagiv about this cool idea :) -->
-                <!-- AH: TODO: use converter -->
-                <TextBox Style="{StaticResource stTextBox}"
-                         Text="{Binding Path=Engineer.Task.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
-                <TextBlock Style="{StaticResource stWideTextBlock}" 
-                           Text="{Binding Path=Engineer.Task.Alias, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
-            </StackPanel>
-        </WrapPanel>
+  
 
         <Separator Opacity="0" Height="30"/>
-
         <Button Width="240" Height="30" FontSize="20"
-                Content="{Binding Path=Engineer.Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}"
+                Margin="20,0,0,0"
+                Content="{Binding Engineer.Id, Converter={StaticResource ConverIdToContentKey}, Mode=OneTime}"
                 Click="btnAddUpdate_Click"/>
     </StackPanel>
 </Window>
