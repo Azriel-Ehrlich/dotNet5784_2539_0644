@@ -7,43 +7,49 @@ namespace PL;
 /// </summary>
 public partial class MainWindow : Window
 {
-	BlApi.IBl s_bl = BlApi.Factory.Get();
+	static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
+	public class ClockType // for binding
+	{
+		public DateTime Clock { get; set; }
+		public ClockType()
+		{
+			Clock = s_bl.Clock;
+		}
+	}
+
+	public ClockType Clock
+	{
+		get { return (ClockType)GetValue(ClockProperty); }
+		set { SetValue(ClockProperty, value); }
+	}
+
+	// Using a DependencyProperty as the backing store for CurrentEngineer. This enables animation, styling, binding, etc...
+	public static readonly DependencyProperty ClockProperty = DependencyProperty.Register("Clock", typeof(ClockType), typeof(MainWindow), new PropertyMetadata(null));
 
 
-    public MainWindow()
+	public MainWindow()
     {
         InitializeComponent();
-    }
-
-    private void InintalData(object sender, RoutedEventArgs e)
-    {
-        var ans = MessageBox.Show("Are you sure you want to initial the data?", "Note", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-        if (ans == MessageBoxResult.Yes)
-        {
-            s_bl.InitializeDB();
-            MessageBox.Show("Data has been initialized successfully");
-        }
-    }
-    
-    private void ResetData(object sender, RoutedEventArgs e)
-    {
-        var ans = MessageBox.Show("Are you sure you want to reset all data?", "Note", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-
-        if (ans == MessageBoxResult.Yes)
-        {
-            s_bl.ResetDB();
-            MessageBox.Show("Data has been reset successfully");
-        }
-    }
+		Clock = new();
+	}
 
 	private void ManagerMenu(object sender, RoutedEventArgs e)
     {
         new Manager.ManagerWindow().Show();
     }
-    
-    private void EngineerMenu(object sender, RoutedEventArgs e)
-    {
-        MessageBox.Show("Not implemented yet");
-    }
+
+	private void EngineerMenu(object sender, RoutedEventArgs e)
+	{
+		new Engineer.EngineerWindow().Show();
+	}
+
+	private void ClockAddHour(object sender, RoutedEventArgs e)
+	{
+		s_bl.AddHours(1);
+	}
+	private void ClockAddDay(object sender, RoutedEventArgs e)
+	{
+		s_bl.AddDays(1);
+	}
 }

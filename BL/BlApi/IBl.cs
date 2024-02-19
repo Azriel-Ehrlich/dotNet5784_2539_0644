@@ -7,8 +7,8 @@ public interface IBl
     public IEngineer Engineer { get; }
     public ITask Task { get; }
 
-    public void InitializeDB() => DalTest.Initialization.Do();
-    public void ResetDB() => DalTest.Initialization.Reset();
+    public void InitializeDB();
+    public void ResetDB();
 
 
     /// <summary> Suggest a date for a task </summary>
@@ -16,28 +16,17 @@ public interface IBl
     /// <param name="startProj"> The start date of the project </param>
     /// <returns> The suggested date for the task </returns>
     /// <exception cref="BlCannotUpdateException"> The task cann't be updated </exception>
-    public DateTime? SuggestedDate(BO.TaskInList? task, DateTime startProj)
-    {
-        BO.Task tas = Task.Read(task!.Id);
-        DateTime? date = startProj;
-        if (tas!.Dependencies is null) return date;
-        foreach (var dep in tas!.Dependencies!)
-        {
-            BO.Task depTask = Task.Read(dep.Id);
-            if (depTask!.ScheduledDate is null) throw new BlCannotUpdateException("The task cann't be updated");
-            DateTime? depSDate = depTask.ScheduledDate + depTask.RequiredEffortTime;
-            DateTime? depTDate = depTask.StartDate + depTask.RequiredEffortTime;
-            if (depSDate > date)
-                date = depSDate;
-            if (depTDate > date && depTDate is not null)
-                date = depTDate;
-        }
-        return date;
-    }
+    public DateTime? SuggestedDate(BO.TaskInList? task, DateTime startProj);
 
-	/// <summary> Saves the start and end date of the project </summary>
-	public void SaveScheduledDate()
-    {
-        DalApi.Factory.Get.SaveScheduledDate();
-	}
+    /// <summary> Saves the start and end date of the project </summary>
+    public void SaveScheduledDate();
+
+
+#region Clock Object
+    public DateTime Clock { get; }
+
+    public void InitClock();
+    public void AddHours(int hours);
+    public void AddDays(int days);
+#endregion
 }

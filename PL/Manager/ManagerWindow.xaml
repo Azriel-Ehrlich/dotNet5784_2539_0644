@@ -64,6 +64,20 @@
                 <Separator Width="20" Opacity="0" />
                 <Button Content="Tasks" Style="{StaticResource stButton}" Click="ShowTasksList" />
             </WrapPanel>
+
+            <Separator Height="10"/>
+
+            <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <!--button for initializing the data-->
+                <Button Style="{StaticResource stButton}" Content="Initialize Data" Click="InintalData"/>
+                <Separator Width="20" Opacity="0"/>
+                <!--button for reset the data-->
+                <Button Style="{StaticResource stButton}" Content="Reset" Click="ResetData"/>
+                
+                <Separator Width="20" Opacity="0"/>
+                <!--button for Suggested Date-->
+                <Button Style="{StaticResource stButton}" Content="Suggested Date" Click="SuggestedDate"/>
+            </WrapPanel>
         </StackPanel>
     </Grid>
 </Window>

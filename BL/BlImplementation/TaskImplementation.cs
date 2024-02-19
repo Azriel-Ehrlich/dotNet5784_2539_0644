@@ -30,6 +30,9 @@ internal class TaskImplementation : BlApi.ITask
 		}
 	}
 
+	private readonly Bl _bl;
+	internal TaskImplementation(Bl bl) => _bl = bl;
+
 
 	/// <inheritdoc/>
 	public int Create(BO.Task task)
@@ -43,7 +46,7 @@ internal class TaskImplementation : BlApi.ITask
 		if (check is not null)
 			throw new BO.BlAlreadyExistsException("The task already exist");
 
-		int newId = _dal.Task.Create(task.ToDOTask() with { CreatedAtDate = DateTime.Now });
+		int newId = _dal.Task.Create(task.ToDOTask() with { CreatedAtDate = _bl.Clock });
 
 		if (task.Dependencies is not null)
 		{

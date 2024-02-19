@@ -19,7 +19,10 @@ namespace PL.Manager
     /// </summary>
     public partial class ManagerWindow : Window
     {
-        public ManagerWindow()
+		BlApi.IBl s_bl = BlApi.Factory.Get();
+
+
+		public ManagerWindow()
         {
             InitializeComponent();
         }
@@ -32,6 +35,39 @@ namespace PL.Manager
 		private void ShowTasksList(object sender, RoutedEventArgs e)
 		{
             new Task.TasksListWindow().Show();
+		}
+
+		private void InintalData(object sender, RoutedEventArgs e)
+		{
+			var ans = MessageBox.Show("Are you sure you want to initial the data?", "Note", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+			if (ans == MessageBoxResult.Yes)
+			{
+				s_bl.InitializeDB();
+				MessageBox.Show("Data has been initialized successfully");
+			}
+		}
+
+		private void ResetData(object sender, RoutedEventArgs e)
+		{
+			var ans = MessageBox.Show("Are you sure you want to reset all data?", "Note", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+			if (ans == MessageBoxResult.Yes)
+			{
+				s_bl.ResetDB();
+				MessageBox.Show("Data has been reset successfully");
+			}
+		}
+	
+		private void SuggestedDate(object sender, RoutedEventArgs e)
+		{
+			var ans = MessageBox.Show("Are you sure?", "Note - SuggestedDate", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+			if (ans == MessageBoxResult.Yes)
+			{
+			//	s_bl.SuggestedDate();
+				MessageBox.Show("TODO: SuggestedDate does not impleted");
+			}
 		}
 	}
 }

@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d" Background="MistyRose"
-        Title="The Coolest Program Everrr" Height="550" Width="800">
+        Title="The Coolest Program Everrr" Height="550" Width="800"
+        DataContext="{Binding Clock, RelativeSource={RelativeSource Self}, Mode=TwoWay}">
     <Window.Resources>
         <Style x:Key="stButton" TargetType="Button">
             <Setter Property="Width" Value="200"/>
@@ -34,20 +35,21 @@
 
             <Separator Height="5" Opacity="0"/>
 
+            <WrapPanel>
+                <TextBlock Width="240"
+                           Text="{Binding Path=Clock, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+                <Separator Width="10" Opacity="0"/>
+                <Button Content="add hour" Click="ClockAddHour"/>
+                <Separator Width="10" Opacity="0"/>
+                <Button Content="add day" Click="ClockAddDay"/>
+            </WrapPanel>
+            
+            <Separator Height="5" Opacity="0"/>
+
             <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Button Style="{StaticResource stButton}" Content="Manager" Click="ManagerMenu"/>
                 <Separator Width="20" Opacity="0"/>
                 <Button Style="{StaticResource stButton}" Content="Engineer" Click="EngineerMenu"/>
-            </WrapPanel>
-
-            <Separator Height="10"/>
-
-            <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <!--button for initializing the data-->
-                <Button Style="{StaticResource stButton}" Content="Initialize Data" Click="InintalData"/>
-                <Separator Width="20" Opacity="0"/>
-                <!--button for reset the data-->
-                <Button Style="{StaticResource stButton}" Content="Reset" Click="ResetData"/>
             </WrapPanel>
         </StackPanel>
     </Grid>

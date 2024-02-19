@@ -73,17 +73,9 @@ namespace PL.Task
 
 				this.Close(); // close window after adding or updating the Task
 			}
-			catch (Exception ex) when (
-				ex is BO.BlAlreadyExistsException ||
-				ex is BO.BlDoesNotExistException ||
-				ex is BO.BlInvalidParameterException
-				)
-			{
-				MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-			}
 			catch (Exception ex)
 			{
-				MessageBox.Show("Unknown error:\n" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+				MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 			}
 		}
 	}

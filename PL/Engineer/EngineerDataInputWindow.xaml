@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d" ResizeMode="NoResize"
         Title="EngineerWindow" Height="400" Width="400" Background="LightBlue"
-     DataContext="{Binding CurrentEngineer, RelativeSource={RelativeSource Self}, Mode=TwoWay}">
+        DataContext="{Binding CurrentEngineer, RelativeSource={RelativeSource Self}, Mode=TwoWay}">
     <Window.Resources>
         <Style x:Key="stTextBlock-Title" TargetType="TextBlock">
             <Setter Property="Width" Value="300"/>
