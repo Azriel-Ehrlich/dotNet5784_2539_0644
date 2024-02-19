@@ -28,7 +28,7 @@ namespace PL.Engineer
 			public CurrentEngineerType(int id)
 			{
 				Engineer = s_bl.Engineer.Read(id);
-				TasksList = s_bl.Task.ReadAll(item => item.Complexity >= Engineer.Level);
+				TasksList = s_bl.Task.ReadAll(item => item.Complexity <= Engineer.Level);
 			}
 		}
 
@@ -39,7 +39,7 @@ namespace PL.Engineer
 		}
 
 		// Using a DependencyProperty as the backing store for CurrentEngineer. This enables animation, styling, binding, etc...
-		public static readonly DependencyProperty CurrentEngineerProperty = DependencyProperty.Register("CurrentEngineer", typeof(CurrentEngineerType), typeof(EngineerDataInputWindow), new PropertyMetadata(null));
+		public static readonly DependencyProperty CurrentEngineerProperty = DependencyProperty.Register("CurrentEngineer", typeof(CurrentEngineerType), typeof(EngineerWindow), new PropertyMetadata(null));
 
 
 		public EngineerWindow()
@@ -54,37 +54,3 @@ namespace PL.Engineer
 		}
 	}
 }
-
-/*
-add list at end 
-
-
-<Grid Background="DarkCyan">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="40*"/>
-                    <RowDefinition Height="500*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <!--Internal, Upper Grid-->
-                <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Content="Select New Task" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="0" FontSize="20" Height="40"/>
-                </Grid>
-                <!---the list of elements-->
-                <ListView Background="PaleTurquoise" Margin="10" Grid.Row="1" ItemsSource="{Binding Path=TasksList}" MouseDoubleClick="UpdateTask">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-
-            </Grid>
- 
- 
- 
- 
- */

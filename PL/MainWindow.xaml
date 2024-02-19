@@ -35,15 +35,21 @@
 
             <Separator Height="5" Opacity="0"/>
 
-            <WrapPanel>
-                <TextBlock Width="240"
-                           Text="{Binding Path=Clock, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
-                <Separator Width="10" Opacity="0"/>
-                <Button Content="add hour" Click="ClockAddHour"/>
-                <Separator Width="10" Opacity="0"/>
-                <Button Content="add day" Click="ClockAddDay"/>
-            </WrapPanel>
-            
+            <StackPanel HorizontalAlignment="Center">
+                <TextBlock Width="120" 
+                           Text="{Binding Path=Clock, StringFormat=yyyy/MM/dd ; HH:mm:ss, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+                <!-- add buttons to increase and decrease the time -->
+                <WrapPanel>
+                    <Button Content="inc hour" Click="ClockIncHour"/>
+                    <Separator Width="10" Opacity="0"/>
+                    <Button Content="dec hour" Click="ClockDecHour"/>
+                    <Separator Width="10" Opacity="0"/>
+                    <Button Content="inc day" Click="ClockIncDay"/>
+                    <Separator Width="10" Opacity="0"/>
+                    <Button Content="dec day" Click="ClockDecDay"/>
+                </WrapPanel>
+            </StackPanel>
+
             <Separator Height="5" Opacity="0"/>
 
             <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">

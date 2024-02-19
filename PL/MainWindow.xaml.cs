@@ -12,10 +12,6 @@ public partial class MainWindow : Window
 	public class ClockType // for binding
 	{
 		public DateTime Clock { get; set; }
-		public ClockType()
-		{
-			Clock = s_bl.Clock;
-		}
 	}
 
 	public ClockType Clock
@@ -25,31 +21,36 @@ public partial class MainWindow : Window
 	}
 
 	// Using a DependencyProperty as the backing store for CurrentEngineer. This enables animation, styling, binding, etc...
-	public static readonly DependencyProperty ClockProperty = DependencyProperty.Register("Clock", typeof(ClockType), typeof(MainWindow), new PropertyMetadata(null));
+	public static readonly DependencyProperty ClockProperty =
+		DependencyProperty.Register("Clock",
+			typeof(ClockType), typeof(MainWindow),
+			new PropertyMetadata(null));
 
+
+	void UpdateClock()
+	{
+		Clock = new() { Clock = s_bl.Clock };
+	}
 
 	public MainWindow()
-    {
-        InitializeComponent();
-		Clock = new();
+	{
+		InitializeComponent();
+		s_bl.InitClock();
+		UpdateClock();
 	}
 
 	private void ManagerMenu(object sender, RoutedEventArgs e)
-    {
-        new Manager.ManagerWindow().Show();
-    }
+	{
+		new Manager.ManagerWindow().Show();
+	}
 
 	private void EngineerMenu(object sender, RoutedEventArgs e)
 	{
 		new Engineer.EngineerWindow().Show();
 	}
 
-	private void ClockAddHour(object sender, RoutedEventArgs e)
-	{
-		s_bl.AddHours(1);
-	}
-	private void ClockAddDay(object sender, RoutedEventArgs e)
-	{
-		s_bl.AddDays(1);
-	}
+	private void ClockIncHour(object sender, RoutedEventArgs e) { s_bl.AddHours(1); UpdateClock(); }
+	private void ClockDecHour(object sender, RoutedEventArgs e) { s_bl.AddHours(-1); UpdateClock(); }
+	private void ClockIncDay(object sender, RoutedEventArgs e) { s_bl.AddDays(1); UpdateClock(); }
+	private void ClockDecDay(object sender, RoutedEventArgs e) { s_bl.AddDays(-1); UpdateClock(); }
 }
