@@ -17,35 +17,32 @@ namespace PL.Engineer
 	/// <summary> Interaction logic for EngineerWindow.xaml </summary>
 	public partial class EngineerWindow : Window
 	{
-
 		static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
-		public class CurrentEngineerType // for binding
-		{
-			public BO.Engineer Engineer { get; set; }
-			public IEnumerable<BO.TaskInList> TasksList { get; set; }
 
-			public CurrentEngineerType(int id)
-			{
-				Engineer = s_bl.Engineer.Read(id);
-				TasksList = s_bl.Task.ReadAll(item => item.Complexity <= Engineer.Level);
-			}
+		public BO.Engineer Engineer
+		{
+			get { return (BO.Engineer)GetValue(EngineerProperty); }
+			set { SetValue(EngineerProperty, value); }
 		}
 
-		public CurrentEngineerType CurrentEngineer
+		public IEnumerable<BO.TaskInList> TasksList
 		{
-			get { return (CurrentEngineerType)GetValue(CurrentEngineerProperty); }
-			set { SetValue(CurrentEngineerProperty, value); }
+			get { return (IEnumerable<BO.TaskInList>)GetValue(TasksListProperty); }
+			set { SetValue(TasksListProperty, value); }
 		}
 
 		// Using a DependencyProperty as the backing store for CurrentEngineer. This enables animation, styling, binding, etc...
-		public static readonly DependencyProperty CurrentEngineerProperty = DependencyProperty.Register("CurrentEngineer", typeof(CurrentEngineerType), typeof(EngineerWindow), new PropertyMetadata(null));
+		public static readonly DependencyProperty EngineerProperty = DependencyProperty.Register("Engineer", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(null));
+		public static readonly DependencyProperty TasksListProperty = DependencyProperty.Register("TasksList", typeof(IEnumerable<BO.TaskInList>), typeof(EngineerWindow), new PropertyMetadata(null));
 
 
-		public EngineerWindow()
+		public EngineerWindow(int id)
 		{
 			InitializeComponent();
-			CurrentEngineer = new(248845367);
+
+			Engineer = s_bl.Engineer.Read(id);
+			TasksList = s_bl.Task.ReadAll(item => item.Complexity <= Engineer.Level);
 		}
 
 		private void UpdateTask(object sender, MouseButtonEventArgs e)

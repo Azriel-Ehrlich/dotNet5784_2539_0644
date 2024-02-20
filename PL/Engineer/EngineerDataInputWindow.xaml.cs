@@ -18,7 +18,7 @@ namespace PL.Engineer
 			public CurrentEngineerType(int id)
 			{
 				isNewEngineer = (id == -1);
-				Engineer = isNewEngineer ? new BO.Engineer() {Id=-1, Email = "", Name = "" } : s_bl.Engineer.Read(id);
+				Engineer = isNewEngineer ? new BO.Engineer() { Id = -1, Email = "", Name = "" } : s_bl.Engineer.Read(id);
 			}
 		}
 

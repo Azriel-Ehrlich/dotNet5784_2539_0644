@@ -35,10 +35,8 @@ namespace PL.Task
 			set { SetValue(TasksListProperty, value); }// set the value of the property
 		}
 
-		public static readonly DependencyProperty TasksListProperty =
-			DependencyProperty.Register("TasksList",
-				typeof(IEnumerable<BO.TaskInList>),
-				typeof(TasksListWindow), new PropertyMetadata(null));
+		public static readonly DependencyProperty TasksListProperty = DependencyProperty.Register(
+			"TasksList", typeof(IEnumerable<BO.TaskInList>), typeof(TasksListWindow), new PropertyMetadata(null));
 
 		public BO.EngineerExperienceWithAll LevelCategory { get; set; } = BO.EngineerExperienceWithAll.All;
 

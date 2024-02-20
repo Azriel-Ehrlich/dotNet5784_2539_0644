@@ -9,36 +9,26 @@ public partial class MainWindow : Window
 {
 	static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
-	public class ClockType // for binding
-	{
-		public DateTime Clock { get; set; }
-	}
-
-	// TODO: rename to CurrentTime.
 	// TODO: bind DateTime directly.
-	public ClockType Clock
+	public DateTime CurrentTime
 	{
-		get { return (ClockType)GetValue(ClockProperty); }
-		set { SetValue(ClockProperty, value); }
+		get { return (DateTime)GetValue(CurrentTimeProperty); }
+		set { SetValue(CurrentTimeProperty, value); }
 	}
 
-	// Using a DependencyProperty as the backing store for CurrentEngineer. This enables animation, styling, binding, etc...
-	public static readonly DependencyProperty ClockProperty =
-		DependencyProperty.Register("Clock",
-			typeof(ClockType), typeof(MainWindow),
-			new PropertyMetadata(null));
+	public static readonly DependencyProperty CurrentTimeProperty = DependencyProperty.Register(
+		"CurrentTime", typeof(DateTime), typeof(MainWindow), new PropertyMetadata(null));
 
-
-	void UpdateClock()
+	void UpdateTime()
 	{
-		Clock = new() { Clock = s_bl.Clock };
+		CurrentTime = s_bl.Clock;
 	}
 
 	public MainWindow()
 	{
 		InitializeComponent();
 		s_bl.InitClock();
-		UpdateClock();
+		UpdateTime();
 	}
 
 	private void ManagerMenu(object sender, RoutedEventArgs e)
@@ -48,11 +38,11 @@ public partial class MainWindow : Window
 
 	private void EngineerMenu(object sender, RoutedEventArgs e)
 	{
-		new Engineer.EngineerWindow().Show();
+		new Engineer.SelectEngineerWindow().ShowDialog();
 	}
 
-	private void ClockIncHour(object sender, RoutedEventArgs e) { s_bl.AddHours(1); UpdateClock(); }
-	private void ClockDecHour(object sender, RoutedEventArgs e) { s_bl.AddHours(-1); UpdateClock(); }
-	private void ClockIncDay(object sender, RoutedEventArgs e) { s_bl.AddDays(1); UpdateClock(); }
-	private void ClockDecDay(object sender, RoutedEventArgs e) { s_bl.AddDays(-1); UpdateClock(); }
+	private void ClockIncHour(object sender, RoutedEventArgs e) { s_bl.AddHours(1); UpdateTime(); }
+	private void ClockDecHour(object sender, RoutedEventArgs e) { s_bl.AddHours(-1); UpdateTime(); }
+	private void ClockIncDay(object sender, RoutedEventArgs e) { s_bl.AddDays(1); UpdateTime(); }
+	private void ClockDecDay(object sender, RoutedEventArgs e) { s_bl.AddDays(-1); UpdateTime(); }
 }
