@@ -8,46 +8,48 @@
         Title="EngineerWindow" Height="450" Width="800"
          DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid Margin="20,20,20,20">
-        <StackPanel>
-            <TextBlock Text="Engineer Window :)" FontSize="30"/>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <TextBlock Text="Engineer Window :)" FontSize="30"/>
 
-            <WrapPanel>
-                <TextBlock Text="Name:" Width="120" FontSize="20"/>
-                <TextBlock Text="{Binding Engineer.Name, Mode=OneWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Width="120" FontSize="20"/>
-            </WrapPanel>
-            <WrapPanel>
-                <TextBlock Text="Current Task:" Width="120" FontSize="20"/>
-                <TextBlock Text="{Binding Engineer.Task}" Width="120" FontSize="20"/>
-            </WrapPanel>
+                <WrapPanel>
+                    <TextBlock Text="Name:" Width="120" FontSize="20"/>
+                    <TextBlock Text="{Binding Engineer.Name, Mode=OneWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Width="120" FontSize="20"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <TextBlock Text="Current Task:" Width="120" FontSize="20"/>
+                    <TextBlock Text="{Binding Engineer.Task}" Width="120" FontSize="20"/>
+                </WrapPanel>
 
-            <Separator Height="10" />
+                <Separator Height="10" />
 
-            <!-- tasks' list. copied from "TasksListWindow.xaml" -->
-            <Grid Background="DarkCyan">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="40*"/>
-                    <RowDefinition Height="500*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <!--Internal, Upper Grid-->
-                <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Content="Select New Task" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="0" FontSize="20" Height="40"/>
+                <!-- tasks' list. copied from "TasksListWindow.xaml" -->
+                <Grid Background="DarkCyan">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40*"/>
+                        <RowDefinition Height="500*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!--Internal, Upper Grid-->
+                    <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Select New Task" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="0" FontSize="20" Height="40"/>
+                    </Grid>
+                    <!---the list of elements-->
+                    <ListView Background="PaleTurquoise" Margin="10" Grid.Row="1" ItemsSource="{Binding TasksList}" MouseDoubleClick="UpdateTask">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
                 </Grid>
-                <!---the list of elements-->
-                <ListView Background="PaleTurquoise" Margin="10" Grid.Row="1" ItemsSource="{Binding TasksList}" MouseDoubleClick="UpdateTask">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
 
-            </Grid>
-
-        </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Window>

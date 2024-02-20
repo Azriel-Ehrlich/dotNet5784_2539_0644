@@ -36,8 +36,7 @@ namespace PL.Engineer
 		{
 			try
 			{
-				EngineerId = 248845367; // TODO: just for testing !!!
-				BlApi.Factory.Get().Engineer.Read(EngineerId); // check if exists
+                BlApi.Factory.Get().Engineer.Read(EngineerId); // check if exists
 				new Engineer.EngineerWindow(EngineerId).Show();
 				this.Close();
 			}
