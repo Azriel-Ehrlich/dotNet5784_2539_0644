@@ -14,6 +14,8 @@ public partial class MainWindow : Window
 		public DateTime Clock { get; set; }
 	}
 
+	// TODO: rename to CurrentTime.
+	// TODO: bind DateTime directly.
 	public ClockType Clock
 	{
 		get { return (ClockType)GetValue(ClockProperty); }
