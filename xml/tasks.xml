@@ -1,42 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfTask xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Task>
-    <Id>0</Id>
-    <Alias>Mission Planning</Alias>
-    <Description>Plan the mission to Mars</Description>
-    <CreatedAtDate>2020-02-15T10:53:46.6466898+02:00</CreatedAtDate>
-    <RequiredEffortTime>P1095D</RequiredEffortTime>
-    <IsMilestone>false</IsMilestone>
-    <Complexity>Expert</Complexity>
-    <ScheduledDate xsi:nil="true" />
-    <Deliverables>Mission plan details</Deliverables>
-    <Active>true</Active>
-  </Task>
-  <Task>
-    <Id>1</Id>
-    <Alias>Crew Selection</Alias>
-    <Description>Select a qualified crew for the mission</Description>
-    <CreatedAtDate>2022-02-15T10:53:46.6467409+02:00</CreatedAtDate>
-    <RequiredEffortTime>P730D</RequiredEffortTime>
-    <IsMilestone>false</IsMilestone>
-    <Complexity>Expert</Complexity>
-    <ScheduledDate xsi:nil="true" />
-    <Deliverables>Crew selection criteria</Deliverables>
-    <Active>true</Active>
-  </Task>
-  <Task>
-    <Id>2</Id>
-    <Alias>Spacecraft Design</Alias>
-    <Description>Design the spacecraft for the mission</Description>
-    <CreatedAtDate>2023-02-15T10:53:46.6467415+02:00</CreatedAtDate>
-    <RequiredEffortTime>P365D</RequiredEffortTime>
-    <IsMilestone>false</IsMilestone>
-    <Complexity>Intermediate</Complexity>
-    <ScheduledDate xsi:nil="true" />
-    <Deliverables>Spacecraft design specifications</Deliverables>
-    <Active>true</Active>
-  </Task>
-  <Task>
     <Id>3</Id>
     <Alias>Launch System Development</Alias>
     <Description>Develop the launch system for the spacecraft</Description>
@@ -238,6 +202,42 @@
     <Complexity>Expert</Complexity>
     <ScheduledDate xsi:nil="true" />
     <Deliverables>Post-mission analysis details</Deliverables>
+    <Active>true</Active>
+  </Task>
+  <Task>
+    <Id>0</Id>
+    <Alias>Mission Planning</Alias>
+    <Description>Plan the mission to Mars</Description>
+    <CreatedAtDate>2020-02-15T10:53:46.6466898+02:00</CreatedAtDate>
+    <RequiredEffortTime>P1095D</RequiredEffortTime>
+    <IsMilestone>false</IsMilestone>
+    <Complexity>Expert</Complexity>
+    <ScheduledDate xsi:nil="true" />
+    <Deliverables>Mission plan details</Deliverables>
+    <Active>true</Active>
+  </Task>
+  <Task>
+    <Id>2</Id>
+    <Alias>Spacecraft Design</Alias>
+    <Description>Design the spacecraft for the mission</Description>
+    <CreatedAtDate>2023-02-15T10:53:46.6467415+02:00</CreatedAtDate>
+    <RequiredEffortTime>P365D</RequiredEffortTime>
+    <IsMilestone>false</IsMilestone>
+    <Complexity>Intermediate</Complexity>
+    <ScheduledDate xsi:nil="true" />
+    <Deliverables>Spacecraft design specifications</Deliverables>
+    <Active>true</Active>
+  </Task>
+  <Task>
+    <Id>1</Id>
+    <Alias>Crew Selection</Alias>
+    <Description>Select a qualified crew for the mission</Description>
+    <CreatedAtDate>2022-02-15T10:53:46.6467409+02:00</CreatedAtDate>
+    <RequiredEffortTime>P730D</RequiredEffortTime>
+    <IsMilestone>false</IsMilestone>
+    <Complexity>Expert</Complexity>
+    <ScheduledDate xsi:nil="true" />
+    <Deliverables>Crew selection criteria</Deliverables>
     <Active>true</Active>
   </Task>
 </ArrayOfTask>

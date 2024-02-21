@@ -32,6 +32,12 @@
             <Setter Property="Height" Value="30"/>
             <Setter Property="FontSize" Value="20"/>
         </Style>
+        <Style x:Key="stButton" TargetType="Button">
+            <Setter Property="Width" Value="240"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="20,0,0,0"/>
+        </Style>
     </Window.Resources>
 
     <StackPanel>
@@ -95,24 +101,21 @@
         <Separator Opacity="0" />
 
         <WrapPanel>
-            <TextBlock Style="{StaticResource stTextBlock}" Text="Scheduled Date" />
-            <DatePicker Style="{StaticResource stDatePicker}"
-                        Text="{Binding Path=Task.ScheduledDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
-        </WrapPanel>
-        <Separator Opacity="0" />
-
-        <WrapPanel>
             <TextBlock Style="{StaticResource stTextBlock}" Text="Required Effort Time" />
             <TextBox Style="{StaticResource stTextBox}"
                      Text="{Binding Path=Task.RequiredEffortTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+        </WrapPanel>
+        <Separator Opacity="0" />
+        
+        <WrapPanel>
+            <Button Content="Add Dependencies" Click="AddDependencies" Style="{StaticResource stButton}"/>
         </WrapPanel>
         <Separator Opacity="0" />
 
 
         <Separator Opacity="0" Height="30"/>
 
-        <Button Width="240" Height="30" FontSize="20"
-            Content="{Binding Path=Task.Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}"
-            Click="btnAddUpdate_Click"/>
+        <Button Style="{StaticResource stButton}" Click="btnAddUpdate_Click"
+            Content="{Binding Path=Task.Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}"/>
     </StackPanel>
 </Window>

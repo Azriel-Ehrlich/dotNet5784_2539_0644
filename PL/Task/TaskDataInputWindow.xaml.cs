@@ -69,6 +69,7 @@ namespace PL.Task
 				else
 				{
 					s_bl.Task.Update(CurrentTask.Task);
+					// TODO: use this "s_bl.SuggestedDate"
 					MessageBox.Show("Task updated successfully", "", MessageBoxButton.OK, MessageBoxImage.Information);
 				}
 
@@ -79,5 +80,10 @@ namespace PL.Task
 				MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 			}
 		}
-	}
+
+        private void AddDependencies(object sender, RoutedEventArgs e)
+        {
+			new DependenciesWindow(CurrentTask.Task.Id).ShowDialog();
+        }
+    }
 }
