@@ -9,6 +9,8 @@ namespace BO;
 /// <param name="Name">Engineer's full-name</param>
 /// <param name="Level">Engineer's Experience</param>
 /// <param name="Active">Engineer's state</param>
+/// param  name="Task">Engineer's current task</param>
+/// </summary>
 public class Engineer
 {
 	public int Id { set; get; }

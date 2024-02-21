@@ -5,6 +5,7 @@ using BO;
 internal class EngineerImplementation : BlApi.IEngineer
 {
 	private DalApi.IDal _dal = DalApi.Factory.Get;
+	private BlApi.IBl _bl = BlApi.Factory.Get();
 
 
 	// TODO: because we chack the input here, we should remove it from DAL
@@ -44,15 +45,21 @@ internal class EngineerImplementation : BlApi.IEngineer
 	/// <param name="engineer"> The engineer to update the task for </param>
 	void updateTask(BO.Engineer engineer)
 	{
-		// unassign the old task
-		BO.Task oldTask = BlApi.Factory.Get().Task.Read(engineer.Id)!;
-		oldTask.Engineer = null;
-		_dal.Task.Update(oldTask.ToDOTask());
-
-		// assign the new task
-		if (engineer.Task is not null)
+        // check if the engineer doesn't have any other mission
+        BO.Engineer oldEng = _bl.Engineer.Read(engineer.Id);
+		if (oldEng.Task is not null)
 		{
-			BO.Task newTask = BlApi.Factory.Get().Task.Read(engineer.Task.Id)!;
+			BO.Task oldTask = _bl.Task.Read(oldEng.Task.Id);
+			if (oldTask.Status != Status.Done)
+				throw new BlCannotUpdateException("the engineer has another mission");
+			oldTask.Engineer = null;
+			_dal.Task.Update(oldTask.ToDOTask());
+		}
+
+        // assign the new task
+        if (engineer.Task is not null)
+		{
+			BO.Task newTask = _bl.Task.Read(engineer.Task.Id)!;
 			newTask.Engineer = new EngineerInTask() { Id = engineer.Id, Name = engineer.Name };
 			_dal.Task.Update(newTask.ToDOTask());
 		}
@@ -62,6 +69,7 @@ internal class EngineerImplementation : BlApi.IEngineer
 	public int Create(BO.Engineer engineer)
 	{
 		checkEngineer(engineer);
+
 		try
 		{
 			updateTask(engineer);
@@ -111,11 +119,12 @@ internal class EngineerImplementation : BlApi.IEngineer
 	/// <inheritdoc/>
 	public void Update(BO.Engineer engineer)
 	{
-		checkEngineer(engineer);
-		DO.Engineer check = _dal.Engineer.Read(engineer.Id) ?? throw new BO.BlDoesNotExistException($"Engineer with id {engineer.Id} doesn't exist");
-		if (check.Level > (DO.EngineerExperience)engineer.Level)
-			throw new BO.BlInvalidParameterException("Engineer's level cannot be decreased");
+        DO.Engineer check = _dal.Engineer.Read(engineer.Id) ?? throw new BO.BlDoesNotExistException($"Engineer with id {engineer.Id} doesn't exist");
+        if (check.Level > (DO.EngineerExperience)engineer.Level)
+            throw new BO.BlInvalidParameterException("Engineer's level cannot be decreased");
 
+        checkEngineer(engineer);
+		
 		try
 		{
 			updateTask(engineer);

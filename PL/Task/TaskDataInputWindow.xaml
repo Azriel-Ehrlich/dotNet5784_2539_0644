@@ -46,7 +46,7 @@
             <TextBlock Style="{StaticResource stTextBlock}" Text="Id" />
             <TextBox Style="{StaticResource stTextBox}"
                  Text="{Binding Path=Task.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                 IsEnabled="{Binding Path=isNewTask}"/>
+                 IsEnabled="False"/>
         </WrapPanel>
         <Separator Opacity="0" />
 

@@ -17,6 +17,7 @@ namespace PL.Task
 {
 	/// <summary>
 	/// Interaction logic for TaskDataInputWindow.xaml
+	/// This window allow us get task's data from the user with awesome GUI
 	/// </summary>
 	public partial class TaskDataInputWindow : Window
 	{

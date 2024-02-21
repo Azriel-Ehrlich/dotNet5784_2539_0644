@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlApi;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,8 @@ namespace PL.Engineer
 	/// <summary> Select engineer (by ID) and open EngineerWindow </summary>
 	public partial class SelectEngineerWindow : Window
 	{
+		private readonly IBl _bl = BlApi.Factory.Get();
+
 		public int EngineerId
 		{
 			get { return (int)GetValue(IdProperty); }
@@ -36,7 +39,7 @@ namespace PL.Engineer
 		{
 			try
 			{
-                BlApi.Factory.Get().Engineer.Read(EngineerId); // check if exists
+				_bl.Engineer.Read(EngineerId); // check if exists
 				new Engineer.EngineerWindow(EngineerId).Show();
 				this.Close();
 			}
