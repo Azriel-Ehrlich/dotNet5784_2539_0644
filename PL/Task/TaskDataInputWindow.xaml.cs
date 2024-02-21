@@ -84,6 +84,8 @@ namespace PL.Task
         private void AddDependencies(object sender, RoutedEventArgs e)
         {
 			new DependenciesWindow(CurrentTask.Task.Id).ShowDialog();
+			CurrentTask.Task= s_bl.Task.Read(CurrentTask.Task.Id);
+
         }
     }
 }
