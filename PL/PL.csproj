@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <None Remove="spaceship.jpeg" />
+    <None Remove="Task\minipPicture.gif" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +29,7 @@
 
   <ItemGroup>
     <Resource Include="spaceship.jpeg" />
+    <Resource Include="Task\minipPicture.gif" />
   </ItemGroup>
 
 </Project>
