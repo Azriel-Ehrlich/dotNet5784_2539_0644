@@ -111,24 +111,7 @@ public static class Initialization
 		new Dependency(18, 17), // Public Relations and Outreach depends on Communication with Earth
 		new Dependency(19, 18), // Post-Mission Analysis depends on Public Relations and Outreach
 		new Dependency(10, 5),  // Emergency Response Planning depends on Surface Habitat Design
-		new Dependency(11, 10), // Crew Health and Medical Planning depends on Emergency Response Planning
-		new Dependency(12, 11), // Mars Ascent Vehicle Design depends on Crew Health and Medical Planning
-		new Dependency(13, 12), // Return Journey Planning depends on Mars Ascent Vehicle Design
-		new Dependency(14, 13), // Sample Collection and Analysis depends on Return Journey Planning
-		new Dependency(15, 14), // Crew Exercise and Well-being depends on Sample Collection and Analysis
-		new Dependency(16, 15), // Communication with Earth depends on Crew Exercise and Well-being
-		new Dependency(17, 16), // Public Relations and Outreach depends on Communication with Earth
-		new Dependency(18, 17), // Post-Mission Analysis depends on Public Relations and Outreach
 		new Dependency(5, 2),  // Surface Habitat Design depends on Spacecraft Design
-		new Dependency(6, 5),  // Supply and Resource Planning depends on Surface Habitat Design
-		new Dependency(7, 6),  // Communication Systems depends on Supply and Resource Planning
-		new Dependency(8, 7),  // Mars Entry and Landing depends on Communication Systems
-		new Dependency(9, 8),  // Surface Exploration Equipment depends on Mars Entry and Landing
-		new Dependency(10, 9), // Environmental Monitoring depends on Surface Exploration Equipment
-		new Dependency(11, 10),// Emergency Response Planning depends on Environmental Monitoring
-		new Dependency(12, 11),// Crew Health and Medical Planning depends on Emergency Response Planning
-		new Dependency(13, 12),// Mars Ascent Vehicle Design depends on Crew Health and Medical Planning
-		new Dependency(14, 13) // Return Journey Planning depends on Mars Ascent Vehicle Design
 	};
 
     /// <summary> Create the list of the engineers </summary>

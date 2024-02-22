@@ -1,4 +1,5 @@
-﻿using PL.Engineer;
+﻿using BO;
+using PL.Engineer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,10 +56,13 @@ namespace PL.Task
             CurrentTask = BO.TaskInList.FromTask(task);
         }
 
-        private void AddDependency(object sender, RoutedEventArgs e)
+		private void AddDependency(object sender, RoutedEventArgs e)
         {
             try
             {
+                if (IdTextBox == CurrentTask.Id)
+                    throw new InvalidOperationException("You can't add the task as a dependency to itself");
+
                 BO.Task task = s_bl.Task.Read(CurrentTask.Id);
                 if (task.Dependencies is null)
                     task.Dependencies = new();
