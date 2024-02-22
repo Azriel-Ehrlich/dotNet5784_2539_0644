@@ -32,6 +32,11 @@
             <Setter Property="Height" Value="30"/>
             <Setter Property="FontSize" Value="20"/>
         </Style>
+        <Style x:Key="stDateBlock" TargetType="TextBlock">
+            <Setter Property="Width" Value="340"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
         <Style x:Key="stButton" TargetType="Button">
             <Setter Property="Width" Value="240"/>
             <Setter Property="Height" Value="30"/>
@@ -92,7 +97,7 @@
         </WrapPanel>
         <Separator Opacity="0" />
 
-        <!-- TODO: read dates -->
+        <!-- display dates -->
         <WrapPanel>
             <TextBlock Style="{StaticResource stTextBlock}" Text="Start Date" />
             <DatePicker Style="{StaticResource stDatePicker}"
@@ -104,6 +109,22 @@
             <TextBlock Style="{StaticResource stTextBlock}" Text="Required Effort Time" />
             <TextBox Style="{StaticResource stTextBox}"
                      Text="{Binding Path=Task.RequiredEffortTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+        </WrapPanel>
+        <Separator Opacity="0" />
+
+        <WrapPanel>
+            <TextBlock Style="{StaticResource stTextBlock}" Text="Scheduled Date" />
+            <TextBlock Style="{StaticResource stDateBlock}" Text="{Binding Path=Task.ScheduledDate, Mode=OneWay}" />
+        </WrapPanel>
+        <Separator Opacity="0" />
+        <WrapPanel>
+            <TextBlock Style="{StaticResource stTextBlock}" Text="Complete Date" />
+            <TextBlock Style="{StaticResource stDateBlock}" Text="{Binding Path=Task.CompleteDate, Mode=OneWay}" />
+        </WrapPanel>
+        <Separator Opacity="0" />
+        <WrapPanel>
+            <TextBlock Style="{StaticResource stTextBlock}" Text="Forecast Date" />
+            <TextBlock Style="{StaticResource stDateBlock}" Text="{Binding Path=Task.ForecastDate, Mode=OneWay}" />
         </WrapPanel>
         <Separator Opacity="0" />
 
