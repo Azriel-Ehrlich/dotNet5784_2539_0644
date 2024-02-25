@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL.Task
+namespace PL.Manager
 {
     /// <summary>
     /// Interaction logic for SuggestedDate.xaml

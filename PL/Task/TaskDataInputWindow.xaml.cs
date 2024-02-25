@@ -29,17 +29,19 @@ namespace PL.Task
             public bool IsChecked { get; set; }
         }
 
+        //public bool isNewTask { set; get; } // save the state: create new or update engineer
+
+
         public class CurrentTaskType // for binding
         {
             public IEnumerable<BO.TaskInList> AllTasks { get; set; }
 
             public BO.Task Task { get; set; }
-            public bool isNewTask { set; get; } // save the state: create new or update engineer
 
             public CurrentTaskType(int id)
             {
-                isNewTask = (id == -1);
-                Task = isNewTask ? new BO.Task() { Id = id, Alias = "", Description = "" } : s_bl.Task.Read(id);
+                Task = (id != ConstantValues.NO_ID) ? s_bl.Task.Read(id)
+                    : new BO.Task() { Id = id, Alias = "", Description = "" };
                 if (Task.Engineer is null)
                 {
                     Task.Engineer = new BO.EngineerInTask() { Name = "" };
@@ -70,6 +72,7 @@ namespace PL.Task
         public TaskDataInputWindow(int Id = -1)
         {
             InitializeComponent();
+            //isNewTask = (Id == ConstantValues.NO_ID);
             CurrentTask = new(Id);
         }
 
@@ -77,7 +80,7 @@ namespace PL.Task
         {
             try
             {
-                if (CurrentTask.isNewTask)
+                if (CurrentTask.Task.Id == ConstantValues.NO_ID)
                 {
                     s_bl.Task.Create(CurrentTask.Task);
                     MessageBox.Show("Task added successfully", "", MessageBoxButton.OK, MessageBoxImage.Information);
