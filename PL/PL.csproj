@@ -14,10 +14,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Manager\SuggestedDate.xaml.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <None Remove="Manager\minipPicture.gif" />
     <None Remove="spaceship.jpeg" />
     <None Remove="Task\minipPicture.gif" />
   </ItemGroup>
@@ -32,8 +29,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Manager\minipPicture.gif" />
     <Resource Include="spaceship.jpeg" />
-    <Resource Include="Task\minipPicture.gif" />
   </ItemGroup>
 
 </Project>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d" ResizeMode="NoResize"
-        Title="EngineerWindow" Height="400" Width="400" Background="LightBlue"
+        Title="Engineer Data Window" Height="400" Width="400" Background="LightBlue"
         DataContext="{Binding CurrentEngineer, RelativeSource={RelativeSource Self}, Mode=TwoWay}">
     <Window.Resources>
         <Style x:Key="stTextBlock-Title" TargetType="TextBlock">
@@ -44,29 +44,29 @@
         <WrapPanel>
             <TextBlock Style="{StaticResource stTextBlock}" Text="Id" />
             <TextBox Style="{StaticResource stTextBox}"
-                     Text="{Binding Path=Engineer.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                     IsEnabled="{Binding Path=isNewEngineer}"/>
+                     Text="{Binding Path=Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                     IsEnabled="{Binding Path=Id, Converter={StaticResource ConvertIdToEnableKey}, Mode=OneTime}"/>
         </WrapPanel>
         <Separator Opacity="0" />
 
         <WrapPanel>
             <TextBlock Style="{StaticResource stTextBlock}" Text="Email" />
             <TextBox Style="{StaticResource stTextBox}"
-                     Text="{Binding Path=Engineer.Email, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                     Text="{Binding Path=Email, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
         </WrapPanel>
         <Separator Opacity="0" />
 
         <WrapPanel>
             <TextBlock Style="{StaticResource stTextBlock}" Text="Cost" />
             <TextBox Style="{StaticResource stTextBox}"
-                     Text="{Binding Path=Engineer.Cost, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+                     Text="{Binding Path=Cost, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
         </WrapPanel>
         <Separator Opacity="0" />
 
         <WrapPanel>
             <TextBlock Style="{StaticResource stTextBlock}" Text="Name" />
             <TextBox Style="{StaticResource stTextBox}"
-                     Text="{Binding Path=Engineer.Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+                     Text="{Binding Path=Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
         </WrapPanel>
         <Separator Opacity="0" />
 
@@ -74,16 +74,12 @@
             <TextBlock Style="{StaticResource stTextBlock}" Text="Level" />
             <ComboBox Width="240" Height="30" FontSize="20"
                       ItemsSource="{Binding Source={StaticResource EngineerExpirieneWithoutAllCollectionKey}}"
-                      SelectedValue="{Binding Path=Engineer.Level, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                      SelectedValue="{Binding Path=Level, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
         </WrapPanel>
         <Separator Opacity="0" />
 
-  
-
         <Separator Opacity="0" Height="30"/>
-        <Button Width="240" Height="30" FontSize="20"
-                Margin="20,0,0,0"
-                Content="{Binding Engineer.Id, Converter={StaticResource ConverIdToContentKey}, Mode=OneTime}"
-                Click="btnAddUpdate_Click"/>
+        <Button Width="240" Height="30" FontSize="20" Margin="20,0,0,0" Click="btnAddUpdate_Click"
+                Content="{Binding Id, Converter={StaticResource ConverIdToContentKey}, Mode=OneTime}"/>
     </StackPanel>
 </Window>

@@ -65,6 +65,7 @@ namespace PL.Manager
 
 			if (ans == MessageBoxResult.Yes)
 			{
+				new SuggestedDate().Show();
 			//	s_bl.SuggestedDate();
 				MessageBox.Show("TODO: SuggestedDate does not impleted");
 			}

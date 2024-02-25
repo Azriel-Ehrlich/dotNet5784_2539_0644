@@ -15,3 +15,9 @@ internal class EngineerExpirieneWithoutAllCollection : IEnumerable
 
 	public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
 }
+
+/// <summary> class to store all the constant values </summary>
+internal class ConstantValues
+{
+	public static readonly int NO_ID = -1;
+}
