@@ -2,5 +2,5 @@
 <config>
   <NextTaskId>20</NextTaskId>
   <NextDependencyId>21</NextDependencyId>
-  <ScheduledStartDate>0001-01-01T00:00:00</ScheduledStartDate>
+  <ScheduledStartDate>01/01/0001 00:00:00</ScheduledStartDate>
 </config>

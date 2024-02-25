@@ -1,13 +1,15 @@
-﻿<Window x:Class="PL.Manager.SuggestedDate"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Manager"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml" x:Class="PL.Manager.SuggestedDate"
         mc:Ignorable="d"
-        Title="SuggestedDate" Height="450" Width="800">
+        Title="SuggestedDate" Height="450" Width="800"
+    DataContext="{Binding StartProj, Mode=TwoWay, RelativeSource={RelativeSource Mode=self}}">
     <Window.Background>
-        <ImageBrush ImageSource="/Manager/minipPicture.gif"></ImageBrush>
+        <ImageBrush ImageSource="/Manager/minipPicture.gif"/>
     </Window.Background>
 
 
@@ -24,6 +26,8 @@
 
         <!-- DatePicker -->
         <DatePicker Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" FontSize="80" Background="#FFAC3E3E" Foreground="#FF131313" 
-                />
+            Text="{Binding StartProj}"  />
+        <Button Content="Confirm" HorizontalAlignment="Left" Margin="514,297,0,0" Grid.Row="1" VerticalAlignment="Top" Height="67" Width="262"
+                FontSize="20" Click="ScheudledDate_Button"/>
     </Grid>
 </Window>
