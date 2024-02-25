@@ -53,14 +53,13 @@ internal static class Tools
 			Alias = task.Alias,
 			Description = task.Description,
 			CreatedAtDate = task.CreatedAtDate,
-			// TODO: Status-done
-			// Dependencies: see below
-			// TODO: Milestone
-			RequiredEffortTime = task.RequiredEffortTime ?? default,
+            // Status: see below
+            // Dependencies: see below
+            RequiredEffortTime = task.RequiredEffortTime ?? default,
 			StartDate = task.StartDate ?? null,
 			ScheduledDate = task.ScheduledDate ?? null,
-			// TODO: ForecastDate-done
-			CompleteDate = task.CompleteDate ?? null,
+            // ForecastDate: see below
+            CompleteDate = task.CompleteDate ?? null,
 			Deliverables = task.Deliverables ?? "",
 			Remarks = task.Remarks ?? "",
 			// Engineer: see below

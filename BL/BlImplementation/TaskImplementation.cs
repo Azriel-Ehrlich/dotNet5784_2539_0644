@@ -23,10 +23,6 @@ internal class TaskImplementation : BlApi.ITask
 			DO.Engineer? eng = _dal.Engineer.Read(task.Engineer.Id);
 			if (eng is null)
 				throw new BO.BlDoesNotExistException($"Engineer with id={task.Engineer.Id} doesn't exist");
-
-			// TODO: check complexity
-			//	if (task.Complexity is not null && eng.Level < (DO.EngineerExperience)task.Complexity)
-			//		throw new BO.BlInvalidParameterException("The complexity of the task must be less than or equal to the level of the engineer");
 		}
 	}
 
@@ -51,13 +47,6 @@ internal class TaskImplementation : BlApi.ITask
 		if (task.Dependencies is not null)
 		{
 			// find the dependencies and create them in the DAL
-			// (we save `deps` so the complier doesn't yell at us)
-			/*
-            var deps = from t in task.Dependencies
-                       where _dal.Task.Read(t.Id) is not null
-                       select _dal.Dependency.Create(new DO.Dependency(newId, t.Id));
-            */
-			// NOTE: thats not works using linq, use foreach instead
 			foreach (var t in task.Dependencies)
 			{
 				if (_dal.Task.Read(t.Id) is not null)
@@ -134,7 +123,7 @@ internal class TaskImplementation : BlApi.ITask
 				{
 					// check if the new dependency is already in the list
 					if (deps.Contains(j))
-						throw new BO.BlCannotUpdateException("Cyclic dependency");
+						throw new BO.BlCannotUpdateException("Circular dependency");
 
 					// add the dependencies of the dependent task
 					deps.Add(j);

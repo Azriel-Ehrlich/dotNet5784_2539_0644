@@ -31,7 +31,7 @@ namespace PL.Task
             public CurrentTaskType(int id)
             {
                 isNewTask = (id == -1);
-                Task = isNewTask ? new BO.Task() { Alias = "", Description = "" } : s_bl.Task.Read(id);
+                Task = isNewTask ? new BO.Task() { Id = id, Alias = "", Description = "" } : s_bl.Task.Read(id);
                 if (Task.Engineer is null)
                 {
                     Task.Engineer = new BO.EngineerInTask() { Name = "" };
@@ -55,8 +55,6 @@ namespace PL.Task
             CurrentTask = new(Id);
         }
 
-        //  TODO: read dates
-
         private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -69,7 +67,6 @@ namespace PL.Task
                 else
                 {
                     s_bl.Task.Update(CurrentTask.Task);
-                    // TODO: use this "s_bl.SuggestedDate"
                     MessageBox.Show("Task updated successfully", "", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
 

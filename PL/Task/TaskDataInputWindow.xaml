@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Task"
         mc:Ignorable="d" ResizeMode="NoResize"
-        Title="EngineerWindow" Height="650" Width="640" Background="LightBlue"
+        Title="EngineerWindow" MinHeight="650" Width="640" Background="LightBlue"
+        SizeToContent="Height"
         DataContext="{Binding CurrentTask, RelativeSource={RelativeSource Self}, Mode=TwoWay}">
     <Window.Resources>
         <Style x:Key="stTextBlock-Title" TargetType="TextBlock">
@@ -41,7 +42,24 @@
             <Setter Property="Width" Value="240"/>
             <Setter Property="Height" Value="30"/>
             <Setter Property="FontSize" Value="20"/>
+        </Style>
+        <!--
+        When create new task we can't add new dependencies 
+        TODO: handle this issue in code behind
+        -->
+        <Style x:Key="stDepsButton" TargetType="Button">
+            <Setter Property="Width" Value="240"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="20"/>
             <Setter Property="Margin" Value="20,0,0,0"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding isNewTask}" Value="True">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding isNewTask}" Value="False">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
     </Window.Resources>
 
@@ -114,30 +132,32 @@
 
         <WrapPanel>
             <TextBlock Style="{StaticResource stTextBlock}" Text="Scheduled Date" />
-            <TextBlock Style="{StaticResource stDateBlock}" Text="{Binding Path=Task.ScheduledDate, Mode=OneWay}" />
+            <TextBox Style="{StaticResource stTextBox}" Text="{Binding Path=Task.ScheduledDate, Mode=OneWay}"
+                     IsEnabled="False"/>
         </WrapPanel>
         <Separator Opacity="0" />
         <WrapPanel>
             <TextBlock Style="{StaticResource stTextBlock}" Text="Complete Date" />
-            <TextBlock Style="{StaticResource stDateBlock}" Text="{Binding Path=Task.CompleteDate, Mode=OneWay}" />
+            <TextBox Style="{StaticResource stTextBox}" Text="{Binding Path=Task.CompleteDate, Mode=TwoWay}" />
         </WrapPanel>
         <Separator Opacity="0" />
         <WrapPanel>
             <TextBlock Style="{StaticResource stTextBlock}" Text="Forecast Date" />
-            <TextBlock Style="{StaticResource stDateBlock}" Text="{Binding Path=Task.ForecastDate, Mode=OneWay}" />
+            <TextBox Style="{StaticResource stTextBox}" Text="{Binding Path=Task.ForecastDate, Mode=OneWay}"
+                     IsEnabled="False"/>
         </WrapPanel>
         <Separator Opacity="0" />
 
         <WrapPanel>
-            <Button Content="Add Dependencies" Click="AddDependencies" Style="{StaticResource stButton}"/>
+            <Button Content="Add Dependencies" Click="AddDependencies" Style="{StaticResource stDepsButton}"/>
         </WrapPanel>
         <Separator Opacity="0" Height="30" />
-            <WrapPanel>
-                
-                <TextBlock Style="{StaticResource stTextBlock-Title}" Text="Dependencies" />
-            </WrapPanel>
-            <Separator Opacity="0" />
-            <!--dataGrid of dependencies-->
+        <WrapPanel>
+
+            <TextBlock Style="{StaticResource stTextBlock-Title}" Text="Dependencies" />
+        </WrapPanel>
+        <Separator Opacity="0" />
+        <!--dataGrid of dependencies-->
         <DataGrid ItemsSource="{Binding Path=Task.Dependencies, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
           AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" >
             <DataGrid.Columns>
@@ -155,14 +175,12 @@
             </DataGrid.Columns>
         </DataGrid>
 
+        <Separator Opacity="0" Height="30" />
 
-
-        <Separator Opacity="0" Height="30" />    
-        
         <Separator Opacity="0" />
 
         <Button Style="{StaticResource stButton}" Click="btnAddUpdate_Click"
             Content="{Binding Path=Task.Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}"/>
-        
+
     </StackPanel>
 </Window>

@@ -1,18 +1,4 @@
-﻿using BO;
-using PL.Engineer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 
 namespace PL.Task
 {
@@ -35,7 +21,7 @@ namespace PL.Task
             get { return (BO.TaskInList)GetValue(CurrentTaskProperty); }
             set { SetValue(CurrentTaskProperty, value); }
         }
-        
+
         public IEnumerable<BO.TaskInList> Dependencies
         {
             get { return (IEnumerable<BO.TaskInList>)GetValue(DependenciesProperty); }
@@ -56,7 +42,7 @@ namespace PL.Task
             CurrentTask = BO.TaskInList.FromTask(task);
         }
 
-		private void AddDependency(object sender, RoutedEventArgs e)
+        private void AddDependency(object sender, RoutedEventArgs e)
         {
             try
             {

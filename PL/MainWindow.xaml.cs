@@ -9,7 +9,6 @@ public partial class MainWindow : Window
 {
 	static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
-	// TODO: bind DateTime directly.
 	public DateTime CurrentTime
 	{
 		get { return (DateTime)GetValue(CurrentTimeProperty); }
