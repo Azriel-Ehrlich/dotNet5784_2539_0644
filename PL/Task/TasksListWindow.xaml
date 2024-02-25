@@ -25,11 +25,39 @@
                    ItemsSource="{Binding Source={StaticResource EngineerExpirienceCollectionKey}}" 
                    SelectedValue="{Binding LevelCategory, Mode=TwoWay}" SelectionChanged="ChangeToSelectedLevel"/>
         </Grid>
-        <!---the list of elements-->
+
+        <!--the list of elements-->
         <ListView Background="PaleTurquoise" Margin="10" Grid.Row="1" ItemsSource="{Binding Path=TasksList}" MouseDoubleClick="UpdateTask">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=Id}" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding Path=Id}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Alias" DisplayMemberBinding="{Binding Alias}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding Path=Alias}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Path=Description}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding Path=Description}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Path=Status}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding Path=Status}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
