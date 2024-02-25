@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Task"
         mc:Ignorable="d" ResizeMode="NoResize"
-        Title="EngineerWindow" MinHeight="650" Width="640" Background="LightBlue"
+        Title="Task Window" MinHeight="650" Width="1200" Background="LightBlue"
         SizeToContent="Height"
         DataContext="{Binding CurrentTask, RelativeSource={RelativeSource Self}, Mode=TwoWay}">
     <Window.Resources>
@@ -42,145 +42,128 @@
             <Setter Property="Width" Value="240"/>
             <Setter Property="Height" Value="30"/>
             <Setter Property="FontSize" Value="20"/>
-        </Style>
-        <!--
-        When create new task we can't add new dependencies 
-        TODO: handle this issue in code behind
-        -->
-        <Style x:Key="stDepsButton" TargetType="Button">
-            <Setter Property="Width" Value="240"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="Margin" Value="20,0,0,0"/>
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding isNewTask}" Value="True">
-                    <Setter Property="Visibility" Value="Hidden"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding isNewTask}" Value="False">
-                    <Setter Property="Visibility" Value="Visible"/>
-                </DataTrigger>
-            </Style.Triggers>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
         </Style>
     </Window.Resources>
 
-    <StackPanel>
-        <WrapPanel>
-            <!-- [not] amazing title -->
-            <TextBlock Style="{StaticResource stTextBlock-Title}" Text="Task Data" />
-        </WrapPanel>
-        <Separator Opacity="0" />
+    <WrapPanel>
 
-        <WrapPanel>
-            <!-- TODO: when add new task we should not set id. it automaticly in DAL -->
-            <TextBlock Style="{StaticResource stTextBlock}" Text="Id" />
-            <TextBox Style="{StaticResource stTextBox}"
+        <StackPanel>
+            <WrapPanel>
+                <!-- [not] amazing title -->
+                <TextBlock Style="{StaticResource stTextBlock-Title}" Text="Task Data" />
+            </WrapPanel>
+            <Separator Opacity="0" />
+
+            <WrapPanel>
+                <!-- TODO: when add new task we should not set id. it automaticly in DAL -->
+                <TextBlock Style="{StaticResource stTextBlock}" Text="Id" />
+                <TextBox Style="{StaticResource stTextBox}"
                  Text="{Binding Path=Task.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
                  IsEnabled="False"/>
-        </WrapPanel>
-        <Separator Opacity="0" />
+            </WrapPanel>
+            <Separator Opacity="0" />
 
-        <WrapPanel>
-            <TextBlock Style="{StaticResource stTextBlock}" Text="Alias" />
-            <TextBox Style="{StaticResource stTextBox}"
+            <WrapPanel>
+                <TextBlock Style="{StaticResource stTextBlock}" Text="Alias" />
+                <TextBox Style="{StaticResource stTextBox}"
                  Text="{Binding Path=Task.Alias, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
-        </WrapPanel>
-        <Separator Opacity="0" />
+            </WrapPanel>
+            <Separator Opacity="0" />
 
-        <WrapPanel>
-            <TextBlock Style="{StaticResource stTextBlock}" Text="Description" />
-            <TextBox Style="{StaticResource stTextBox}"
+            <WrapPanel>
+                <TextBlock Style="{StaticResource stTextBlock}" Text="Description" />
+                <TextBox Style="{StaticResource stTextBox}"
                  Text="{Binding Path=Task.Description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
-        </WrapPanel>
-        <Separator Opacity="0" />
+            </WrapPanel>
+            <Separator Opacity="0" />
 
-        <WrapPanel>
-            <TextBlock Style="{StaticResource stTextBlock}" Text="Remarks" />
-            <TextBox Style="{StaticResource stTextBox}"
+            <WrapPanel>
+                <TextBlock Style="{StaticResource stTextBlock}" Text="Remarks" />
+                <TextBox Style="{StaticResource stTextBox}"
                  Text="{Binding Path=Task.Remarks, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
-        </WrapPanel>
-        <Separator Opacity="0" />
+            </WrapPanel>
+            <Separator Opacity="0" />
 
-        <WrapPanel>
-            <TextBlock Style="{StaticResource stTextBlock}" Text="Engineer ID" />
-            <TextBox Style="{StaticResource stTextBox}"
+            <WrapPanel>
+                <TextBlock Style="{StaticResource stTextBlock}" Text="Engineer ID" />
+                <TextBox Style="{StaticResource stTextBox}"
                  Text="{Binding Path=Task.Engineer.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
-        </WrapPanel>
-        <Separator Opacity="0" />
+            </WrapPanel>
+            <Separator Opacity="0" />
 
-        <WrapPanel>
-            <TextBlock Style="{StaticResource stTextBlock}" Text="Complexity" />
-            <ComboBox Width="340" Height="30" FontSize="20"
+            <WrapPanel>
+                <TextBlock Style="{StaticResource stTextBlock}" Text="Complexity" />
+                <ComboBox Width="340" Height="30" FontSize="20"
                   ItemsSource="{Binding Source={StaticResource EngineerExpirieneWithoutAllCollectionKey}}"
                   SelectedValue="{Binding Path=Task.Complexity, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
-        </WrapPanel>
-        <Separator Opacity="0" />
+            </WrapPanel>
+            <Separator Opacity="0" />
 
-        <!-- display dates -->
-        <WrapPanel>
-            <TextBlock Style="{StaticResource stTextBlock}" Text="Start Date" />
-            <DatePicker Style="{StaticResource stDatePicker}"
+            <!-- display dates -->
+            <WrapPanel>
+                <TextBlock Style="{StaticResource stTextBlock}" Text="Start Date" />
+                <DatePicker Style="{StaticResource stDatePicker}"
                         Text="{Binding Path=Task.StartDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
-        </WrapPanel>
-        <Separator Opacity="0" />
+            </WrapPanel>
+            <Separator Opacity="0" />
 
-        <WrapPanel>
-            <TextBlock Style="{StaticResource stTextBlock}" Text="Required Effort Time" />
-            <TextBox Style="{StaticResource stTextBox}"
+            <WrapPanel>
+                <TextBlock Style="{StaticResource stTextBlock}" Text="Required Effort Time" />
+                <TextBox Style="{StaticResource stTextBox}"
                      Text="{Binding Path=Task.RequiredEffortTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
-        </WrapPanel>
-        <Separator Opacity="0" />
+            </WrapPanel>
+            <Separator Opacity="0" />
 
-        <WrapPanel>
-            <TextBlock Style="{StaticResource stTextBlock}" Text="Scheduled Date" />
-            <TextBox Style="{StaticResource stTextBox}" Text="{Binding Path=Task.ScheduledDate, Mode=OneWay}"
+            <WrapPanel>
+                <TextBlock Style="{StaticResource stTextBlock}" Text="Scheduled Date" />
+                <TextBox Style="{StaticResource stTextBox}" Text="{Binding Path=Task.ScheduledDate, Mode=OneWay}"
                      IsEnabled="False"/>
-        </WrapPanel>
-        <Separator Opacity="0" />
-        <WrapPanel>
-            <TextBlock Style="{StaticResource stTextBlock}" Text="Complete Date" />
-            <TextBox Style="{StaticResource stTextBox}" Text="{Binding Path=Task.CompleteDate, Mode=TwoWay}" />
-        </WrapPanel>
-        <Separator Opacity="0" />
-        <WrapPanel>
-            <TextBlock Style="{StaticResource stTextBlock}" Text="Forecast Date" />
-            <TextBox Style="{StaticResource stTextBox}" Text="{Binding Path=Task.ForecastDate, Mode=OneWay}"
+            </WrapPanel>
+            <Separator Opacity="0" />
+            <WrapPanel>
+                <TextBlock Style="{StaticResource stTextBlock}" Text="Complete Date" />
+                <TextBox Style="{StaticResource stTextBox}" Text="{Binding Path=Task.CompleteDate, Mode=TwoWay}" />
+            </WrapPanel>
+            <Separator Opacity="0" />
+            <WrapPanel>
+                <TextBlock Style="{StaticResource stTextBlock}" Text="Forecast Date" />
+                <TextBox Style="{StaticResource stTextBox}" Text="{Binding Path=Task.ForecastDate, Mode=OneWay}"
                      IsEnabled="False"/>
-        </WrapPanel>
-        <Separator Opacity="0" />
+            </WrapPanel>
 
-        <WrapPanel>
-            <Button Content="Add Dependencies" Click="AddDependencies" Style="{StaticResource stDepsButton}"/>
-        </WrapPanel>
-        <Separator Opacity="0" Height="30" />
-        <WrapPanel>
+            <Separator Opacity="0" Height="30" />
+
+            <Button Style="{StaticResource stButton}" Click="btnAddUpdate_Click"
+                    Content="{Binding Path=Task.Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}"/>
+
+        </StackPanel>
+
+        <Separator Width="10" Opacity="0" />
+
+        <StackPanel>
 
             <TextBlock Style="{StaticResource stTextBlock-Title}" Text="Dependencies" />
-        </WrapPanel>
-        <Separator Opacity="0" />
-        <!--dataGrid of dependencies-->
-        <DataGrid ItemsSource="{Binding Path=Task.Dependencies, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-          AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" >
-            <DataGrid.Columns>
-                <!-- Define a template column with a checkbox -->
-                <DataGridTemplateColumn Header="Select">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <CheckBox IsChecked="{Binding IsSelected}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="100" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Alias" Binding="{Binding Alias}" Width="200" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="300" IsReadOnly="True"/>
-            </DataGrid.Columns>
-        </DataGrid>
+            <Separator Opacity="0" />
+            <!--dataGrid of dependencies-->
+            <DataGrid ItemsSource="{Binding Path=AllTasks, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+  AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" Width="500">
+                <DataGrid.Columns>
+                    <!-- Define a template column with a checkbox -->
+                    <DataGridTemplateColumn Header="Select">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox Checked="AddDependency" Unchecked="RemoveDependency" IsChecked="{Binding IsChecked}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="50" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Alias" Binding="{Binding Alias}" Width="200" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="200" IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
 
-        <Separator Opacity="0" Height="30" />
+    </WrapPanel>
 
-        <Separator Opacity="0" />
-
-        <Button Style="{StaticResource stButton}" Click="btnAddUpdate_Click"
-            Content="{Binding Path=Task.Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}"/>
-
-    </StackPanel>
 </Window>

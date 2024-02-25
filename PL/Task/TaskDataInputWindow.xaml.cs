@@ -11,6 +11,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace PL.Task
@@ -23,8 +24,15 @@ namespace PL.Task
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
+        public class TaskInDepList : BO.TaskInList
+        {
+            public bool IsChecked { get; set; }
+        }
+
         public class CurrentTaskType // for binding
         {
+            public IEnumerable<BO.TaskInList> AllTasks { get; set; }
+
             public BO.Task Task { get; set; }
             public bool isNewTask { set; get; } // save the state: create new or update engineer
 
@@ -36,6 +44,16 @@ namespace PL.Task
                 {
                     Task.Engineer = new BO.EngineerInTask() { Name = "" };
                 }
+
+                AllTasks = s_bl.Task.ReadAll().OrderBy(t => t.Id).Select(t =>
+                new TaskInDepList()
+                {
+                    Id = t.Id,
+                    Description = t.Description,
+                    Alias = t.Alias,
+                    Status = t.Status,
+                    IsChecked = Task.Dependencies?.Any(d => d.Id == t.Id) ?? false
+                });
             }
         }
 
@@ -78,10 +96,17 @@ namespace PL.Task
             }
         }
 
-        private void AddDependencies(object sender, RoutedEventArgs e)
+        private void AddDependency(object sender, RoutedEventArgs e)
         {
-            new DependenciesWindow(CurrentTask.Task.Id).ShowDialog();
-            CurrentTask = new CurrentTaskType(CurrentTask.Task.Id);
+            BO.TaskInList task = ((sender as CheckBox)!.DataContext as BO.TaskInList)!;
+            CurrentTask.Task.Dependencies ??= new();
+            CurrentTask.Task.Dependencies.Add(task);
+        }
+        private void RemoveDependency(object sender, RoutedEventArgs e)
+        {
+            BO.TaskInList task = ((sender as CheckBox)!.DataContext as BO.TaskInList)!;
+            CurrentTask.Task.Dependencies ??= new();
+            CurrentTask.Task.Dependencies.Remove(task);
         }
     }
 }
