@@ -28,44 +28,14 @@
         </Grid>
 
         <!--the list of elements-->
-        <ListView Background="PaleTurquoise" Margin="10" Grid.Row="1" ItemsSource="{Binding Path=EngineersList}" MouseDoubleClick="UpdateEngineer">
+        <ListView Margin="10" Grid.Row="1" ItemsSource="{Binding Path=EngineersList}" MouseDoubleClick="UpdateEngineer">
             <ListView.View>
                 <GridView >
-                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=Id}" >
-                        <GridViewColumn.CellTemplate >
-                            <DataTemplate>
-                                <TextBlock TextWrapping="Wrap" Text="{Binding Path=Id}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Path=Name}">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock TextWrapping="Wrap" Text="{Binding Path=Name}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Path=Email}">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock TextWrapping="Wrap" Text="{Binding Path=Email}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Level" DisplayMemberBinding="{Binding Path=Level}">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock TextWrapping="Wrap" Text="{Binding Path=Level}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Cost" DisplayMemberBinding="{Binding Path=Cost}">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock TextWrapping="Wrap" Text="{Binding Path=Cost}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                    <GridViewColumn Header="Id"    DisplayMemberBinding="{Binding Path=Id}"    />
+                    <GridViewColumn Header="Name"  DisplayMemberBinding="{Binding Path=Name}"  />
+                    <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Path=Email}" />
+                    <GridViewColumn Header="Level" DisplayMemberBinding="{Binding Path=Level}" />
+                    <GridViewColumn Header="Cost"  DisplayMemberBinding="{Binding Path=Cost}"  />
                 </GridView>
             </ListView.View>
         </ListView>

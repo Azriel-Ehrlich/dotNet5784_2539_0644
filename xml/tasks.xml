@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfTask xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Task>
-    <Id>0</Id>
-    <Alias>Mission Planning</Alias>
-    <Description>Plan the mission to Mars</Description>
-    <CreatedAtDate>2020-02-26T14:02:26.7203688+02:00</CreatedAtDate>
-    <RequiredEffortTime>P1095D</RequiredEffortTime>
-    <IsMilestone>false</IsMilestone>
-    <Complexity>Expert</Complexity>
-    <ScheduledDate>2024-02-26T14:34:45.1464834+02:00</ScheduledDate>
-    <Deliverables>Mission plan details</Deliverables>
-    <Active>true</Active>
-  </Task>
-  <Task>
     <Id>1</Id>
     <Alias>Crew Selection</Alias>
     <Description>Select a qualified crew for the mission</Description>
@@ -238,6 +226,18 @@
     <Complexity>Expert</Complexity>
     <ScheduledDate>2046-02-20T14:34:45.1464834+02:00</ScheduledDate>
     <Deliverables>Post-mission analysis details</Deliverables>
+    <Active>true</Active>
+  </Task>
+  <Task>
+    <Id>0</Id>
+    <Alias>Mission Planning</Alias>
+    <Description>Plan the mission to Mars</Description>
+    <CreatedAtDate>2020-02-26T14:02:26.7203688+02:00</CreatedAtDate>
+    <RequiredEffortTime>P1095D</RequiredEffortTime>
+    <IsMilestone>false</IsMilestone>
+    <Complexity>Expert</Complexity>
+    <ScheduledDate>2024-02-26T14:34:45.1464834+02:00</ScheduledDate>
+    <Deliverables>Mission plan details</Deliverables>
     <Active>true</Active>
   </Task>
 </ArrayOfTask>

@@ -27,37 +27,13 @@
         </Grid>
 
         <!--the list of elements-->
-        <ListView Background="PaleTurquoise" Margin="10" Grid.Row="1" ItemsSource="{Binding Path=TasksList}" MouseDoubleClick="UpdateTask">
+        <ListView Margin="10" Grid.Row="1" ItemsSource="{Binding Path=TasksList}" MouseDoubleClick="UpdateTask">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=Id}" >
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock TextWrapping="Wrap" Text="{Binding Path=Id}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Alias" DisplayMemberBinding="{Binding Alias}">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock TextWrapping="Wrap" Text="{Binding Path=Alias}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Path=Description}">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock TextWrapping="Wrap" Text="{Binding Path=Description}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Path=Status}">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock TextWrapping="Wrap" Text="{Binding Path=Status}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=Id}" />
+                    <GridViewColumn Header="Alias" DisplayMemberBinding="{Binding Alias}"/>
+                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Path=Description}"/>
+                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Path=Status}"/>
                 </GridView>
             </ListView.View>
         </ListView>

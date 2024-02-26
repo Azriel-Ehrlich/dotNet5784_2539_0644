@@ -42,13 +42,14 @@
                     <ListView Background="PaleTurquoise" Margin="10" Grid.Row="1" ItemsSource="{Binding TasksList}" MouseDoubleClick="UpdateTask">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn/>
+                                <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=Id}" />
+                                <GridViewColumn Header="Alias" DisplayMemberBinding="{Binding Path=Alias}" />
+                                <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Path=Description}" />
+                                <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Path=Status}" />
                             </GridView>
                         </ListView.View>
                     </ListView>
-
                 </Grid>
-
             </StackPanel>
         </ScrollViewer>
     </Grid>

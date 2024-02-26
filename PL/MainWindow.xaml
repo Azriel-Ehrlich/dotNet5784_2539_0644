@@ -13,6 +13,12 @@
             <Setter Property="Height" Value="50"/>
             <Setter Property="FontSize" Value="20"/>
         </Style>
+        
+        <Style x:Key="stTimeButton" TargetType="Button">
+            <Setter Property="Width" Value="60"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
     </Window.Resources>
 
     <Grid>
@@ -36,17 +42,18 @@
             <Separator Height="5" Opacity="0"/>
 
             <StackPanel HorizontalAlignment="Center">
-                <TextBlock Width="120" 
-                           Text="{Binding Path=CurrentTime, StringFormat=yyyy/MM/dd ; HH:mm:ss, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
                 <!-- add buttons to increase and decrease the time -->
                 <WrapPanel>
-                    <Button Content="inc hour" Click="ClockIncHour"/>
+                    <Button Content="dec day" Style="{StaticResource stTimeButton}" Click="ClockDecDay"/>
                     <Separator Width="10" Opacity="0"/>
-                    <Button Content="dec hour" Click="ClockDecHour"/>
+                    <Button Content="dec hour" Style="{StaticResource stTimeButton}" Click="ClockDecHour"/>
                     <Separator Width="10" Opacity="0"/>
-                    <Button Content="inc day" Click="ClockIncDay"/>
+                    <TextBlock Style="{StaticResource stTextBlock}"
+                               Text="{Binding Path=CurrentTime, StringFormat=yyyy/MM/dd ; HH:mm:ss, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
                     <Separator Width="10" Opacity="0"/>
-                    <Button Content="dec day" Click="ClockDecDay"/>
+                    <Button Content="inc hour" Style="{StaticResource stTimeButton}" Click="ClockIncHour"/>
+                    <Separator Width="10" Opacity="0"/>
+                    <Button Content="inc day" Style="{StaticResource stTimeButton}" Click="ClockIncDay"/>
                 </WrapPanel>
             </StackPanel>
 
