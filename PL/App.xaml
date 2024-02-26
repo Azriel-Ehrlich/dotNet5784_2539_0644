@@ -4,33 +4,74 @@
              xmlns:local="clr-namespace:PL"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        
+        <!-- Resources -->
         <local:EngineerExpirieneCollection x:Key="EngineerExpirienceCollectionKey" />
         <local:ConvertIdToContent x:Key="ConverIdToContentKey"/>
         <local:ConvertIdToEnable x:Key="ConvertIdToEnableKey"/>
         <local:EngineerExpirieneWithoutAllCollection x:Key="EngineerExpirieneWithoutAllCollectionKey" />
 
+        <!-- Styles -->
         <Style TargetType="GridViewColumnHeader" >
             <Setter Property="Background" Value="#6464f8"/>
             <Setter Property="Foreground" Value="White"/>
         </Style>
 
-
         <Style TargetType="ListViewItem" >
-
             <Setter Property="Background" Value="White"/>
             <Setter Property="BorderBrush" Value="#DCDCDC"/>
             <Setter Property="BorderThickness" Value="0 0 0 1"/>
             <Setter Property="Height" Value="30" />
             <Setter Property="Margin" Value="0,2,0,2" />
-
-            <Style.Triggers >
+            <Style.Triggers>
                 <Trigger Property="ItemsControl.AlternationIndex" Value="0">
                     <Setter Property="Background" Value="#F5F5F5"/>
                 </Trigger>
             </Style.Triggers>
+        </Style>
 
+        <Style x:Key="stTextBlock" TargetType="TextBlock">
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+        <Style x:Key="stTextBox" TargetType="TextBox">
+            <Setter Property="Width" Value="340"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+
+        <Style x:Key="stComboBox" TargetType="ComboBox">
+            <Setter Property="Width" Value="340"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+
+        <Style x:Key="stTextBlock-Title" TargetType="TextBlock">
+            <Setter Property="Width" Value="300"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+
+        <Style x:Key="stDatePicker" TargetType="DatePicker">
+            <Setter Property="Width" Value="340"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+
+        <Style x:Key="stDateBlock" TargetType="TextBlock">
+            <Setter Property="Width" Value="340"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="20"/>
         </Style>
         
+        <Style x:Key="stButton" TargetType="Button">
+            <Setter Property="Width" Value="240"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
     </Application.Resources>
-
 </Application>

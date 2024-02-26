@@ -52,32 +52,28 @@
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Text="Manager Window" Style="{StaticResource stTextBlock_Title}" />
 
-            <Separator Height="3" Opacity="0" />
-
             <CheckBox Template="{StaticResource StarToggleButton}"/>
             <TextBlock Text="Mark this star will make you cool" Style="{StaticResource stTextBlock_Message}" />
 
             <Separator Height="100" Opacity="0" />
 
-            <WrapPanel>
+            <WrapPanel HorizontalAlignment="Center">
                 <Button Content="Engineers" Style="{StaticResource stButton}" Click="ShowEngineersList" />
                 <Separator Width="20" Opacity="0" />
                 <Button Content="Tasks" Style="{StaticResource stButton}" Click="ShowTasksList" />
+                <Separator Width="20" Opacity="0"/>
+                <Button Content="Suggested Date" Style="{StaticResource stButton}" Click="SuggestedDate"/>
             </WrapPanel>
 
             <Separator Height="10"/>
 
             <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                 <!--button for initializing the data-->
-                <Button Style="{StaticResource stButton}" Content="Initialize Data" Click="InintalData"/>
+                <Button Content="Initialize Data" Style="{StaticResource stButton}" Click="InintalData"/>
                 <Separator Width="20" Opacity="0"/>
                 <!--button for reset the data-->
-                <Button Style="{StaticResource stButton}" Content="Reset" Click="ResetData"/>
-                
-                <Separator Width="20" Opacity="0"/>
-                <!--button for Suggested Date-->
-                <Button Style="{StaticResource stButton}" Content="Suggested Date" Click="SuggestedDate"/>
-            </WrapPanel>
+                <Button Content="Reset" Style="{StaticResource stButton}" Click="ResetData"/>
+              </WrapPanel>
         </StackPanel>
     </Grid>
 </Window>

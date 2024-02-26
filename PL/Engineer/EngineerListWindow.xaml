@@ -7,29 +7,28 @@
         mc:Ignorable="d"
         Title="Engineers List" Height="640" Width="800" Background="DarkSeaGreen"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-   <Grid>
-    <Grid.RowDefinitions>
-        <RowDefinition Height="Auto"/>
-        <RowDefinition Height="*"/>
-        <RowDefinition Height="Auto"/>
-    </Grid.RowDefinitions>
-
-    <!--Internal, Upper Grid-->
-    <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Label Content="Select Engineer" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="0"
+        <!--Internal, Upper Grid-->
+        <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Select Engineer" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="0"
                FontSize="20" Height="40"/>
-        <ComboBox FontSize="20" Height="40" Margin="0,10,10,0" Grid.Column="1" 
+            <ComboBox FontSize="20" Height="40" Margin="0,10,10,0" Grid.Column="1" 
                   ItemsSource="{Binding Source={StaticResource EngineerExpirienceCollectionKey}}" 
                   SelectedValue="{Binding LevelCategory, Mode=TwoWay}" SelectionChanged="ChangeToSelectedLevel"/>
-    </Grid>
+        </Grid>
 
-    <!--the list of elements-->
-    <ListView Background="PaleTurquoise" Margin="10" Grid.Row="1" ItemsSource="{Binding Path=EngineersList}" MouseDoubleClick="UpdateEngineer">
+        <!--the list of elements-->
+        <ListView Background="PaleTurquoise" Margin="10" Grid.Row="1" ItemsSource="{Binding Path=EngineersList}" MouseDoubleClick="UpdateEngineer">
             <ListView.View>
                 <GridView >
                     <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=Id}" >
@@ -72,6 +71,6 @@
         </ListView>
 
         <!--the button to add new Engineer-->
-    <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="30" Width="200" Click="AddEngineer"/>
-</Grid>
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="30" Width="200" Click="AddEngineer"/>
+    </Grid>
 </Window>

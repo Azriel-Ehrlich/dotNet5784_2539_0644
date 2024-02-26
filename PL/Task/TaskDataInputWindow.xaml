@@ -7,47 +7,9 @@
         mc:Ignorable="d" SizeToContent="Height"
         Title="Task Data Window" MinHeight="650" Width="1100" Background="LightBlue"
         DataContext="{Binding CurrentTask, RelativeSource={RelativeSource Self}}">
-    <Window.Resources>
-        <Style x:Key="stTextBlock-Title" TargetType="TextBlock">
-            <Setter Property="Width" Value="300"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Margin" Value="20,0,0,0"/>
-            <Setter Property="TextAlignment" Value="Center" />
-        </Style>
-        <Style x:Key="stTextBlock" TargetType="TextBlock">
-            <Setter Property="Width" Value="200"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="Margin" Value="20,0,0,0"/>
-        </Style>
-        <Style x:Key="stTextBox" TargetType="TextBox">
-            <Setter Property="Width" Value="340"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="FontSize" Value="20"/>
-        </Style>
-        <Style x:Key="stDatePicker" TargetType="DatePicker">
-            <Setter Property="Width" Value="340"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="FontSize" Value="20"/>
-        </Style>
-        <Style x:Key="stDateBlock" TargetType="TextBlock">
-            <Setter Property="Width" Value="340"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="FontSize" Value="20"/>
-        </Style>
-        <Style x:Key="stButton" TargetType="Button">
-            <Setter Property="Width" Value="240"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-        </Style>
-    </Window.Resources>
-
     <WrapPanel>
         <!-- Display task data -->
-        <StackPanel>
+        <StackPanel Margin="20,0,0,0">
             <WrapPanel>
                 <!-- [not] amazing title -->
                 <TextBlock Style="{StaticResource stTextBlock-Title}" Text="Task Data" />
