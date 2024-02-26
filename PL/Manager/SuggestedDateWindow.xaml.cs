@@ -14,10 +14,10 @@ using System.Windows.Shapes;
 
 namespace PL.Manager
 {
-    /// <summary>
-    /// Interaction logic for SuggestedDate.xaml
-    /// </summary>
-    public partial class SuggestedDate : Window
+	/// <summary>
+	/// Interaction logic for SuggestedDateWindow.xaml
+	/// </summary>
+	public partial class SuggestedDateWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
@@ -30,38 +30,27 @@ namespace PL.Manager
 
         // Using a DependencyProperty as the backing store for StartProj.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty StartProjProperty =
-            DependencyProperty.Register("StartProj", typeof(DateTime), typeof(SuggestedDate), new PropertyMetadata(null));
+            DependencyProperty.Register("StartProj", typeof(DateTime), typeof(SuggestedDateWindow), new PropertyMetadata(null));
 
 
-
-        public SuggestedDate()
+        public SuggestedDateWindow()
         {
             InitializeComponent();
-        }
+            StartProj = s_bl.Clock;
+		}
 
         private void ScheudledDate_Button(object sender, RoutedEventArgs e)
         {
             try
             {
-                foreach (var t in s_bl.Task.ReadAll(t => t.Dependencies is null))
-                {
-                    s_bl.Task.UpdateScheduledDate(t.Id, StartProj);
-
-                }
-                foreach (var t in s_bl.Task.ReadAll(t => t.Dependencies is not null))
-                {
-                    DateTime? date = s_bl.SuggestedDate(t, StartProj);
-                    if (date is not null)
-                    {
-                        s_bl.Task.UpdateScheduledDate(t.Id, date.Value);
-                    }
-                }
+                s_bl.MakeSuggestedDates(StartProj);
                 s_bl.SaveScheduledDate();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            MessageBox.Show("Suggested date added successfully", "", MessageBoxButton.OK, MessageBoxImage.Information);
             this.Close();
         }
     }

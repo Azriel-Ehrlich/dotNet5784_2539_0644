@@ -33,6 +33,23 @@ sealed public class Bl : IBl
 	}
 
 	/// <inheritdoc/>
+	public void MakeSuggestedDates(DateTime startProj)
+	{
+		foreach (var t in Task.ReadAll(t => t.Dependencies is null))
+		{
+			Task.UpdateScheduledDate(t.Id, startProj);
+		}
+		foreach (var t in Task.ReadAll(t => t.Dependencies is not null))
+		{
+			DateTime? date = SuggestedDate(t, startProj);
+			if (date is not null)
+			{
+				Task.UpdateScheduledDate(t.Id, date.Value);
+			}
+		}
+	}
+
+	/// <inheritdoc/>
 	public void SaveScheduledDate()
 	{
 		DalApi.Factory.Get.SaveScheduledDate();

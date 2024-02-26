@@ -18,6 +18,10 @@ public interface IBl
 	/// <exception cref="BlCannotUpdateException"> The task cann't be updated </exception>
 	public DateTime? SuggestedDate(BO.TaskInList? task, DateTime startProj);
 
+	/// <summary> Calculates the suggested dates for all the tasks in the project </summary>
+	/// <param name="startProj"> The start date of the project </param>
+	public void MakeSuggestedDates(DateTime startProj);
+
 	/// <summary> Saves the start and end date of the project </summary>
 	public void SaveScheduledDate();
 

@@ -4,10 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Manager"
-        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml" x:Class="PL.Manager.SuggestedDate"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml" x:Class="PL.Manager.SuggestedDateWindow"
         mc:Ignorable="d"
-        Title="SuggestedDate" Height="450" Width="800"
-    DataContext="{Binding StartProj, Mode=TwoWay, RelativeSource={RelativeSource Mode=self}}">
+        Title="SuggestedDateWindow" Height="450" Width="800"
+    DataContext="{Binding RelativeSource={RelativeSource Mode=self}}">
     <Window.Background>
         <ImageBrush ImageSource="/Manager/minipPicture.gif"/>
     </Window.Background>

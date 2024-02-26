@@ -14,18 +14,18 @@ using System.Windows.Shapes;
 
 namespace PL.Manager
 {
-    /// <summary>
-    /// Interaction logic for ManagerWindow.xaml
-    /// </summary>
-    public partial class ManagerWindow : Window
-    {
+	/// <summary>
+	/// Interaction logic for ManagerWindow.xaml
+	/// </summary>
+	public partial class ManagerWindow : Window
+	{
 		BlApi.IBl s_bl = BlApi.Factory.Get();
 
 
 		public ManagerWindow()
-        {
-            InitializeComponent();
-        }
+		{
+			InitializeComponent();
+		}
 
 		private void ShowEngineersList(object sender, RoutedEventArgs e)
 		{
@@ -34,7 +34,7 @@ namespace PL.Manager
 
 		private void ShowTasksList(object sender, RoutedEventArgs e)
 		{
-            new Task.TasksListWindow().Show();
+			new Task.TasksListWindow().Show();
 		}
 
 		private void InintalData(object sender, RoutedEventArgs e)
@@ -58,17 +58,10 @@ namespace PL.Manager
 				MessageBox.Show("Data has been reset successfully");
 			}
 		}
-	
+
 		private void SuggestedDate(object sender, RoutedEventArgs e)
 		{
-			var ans = MessageBox.Show("Are you sure?", "Note - SuggestedDate", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-
-			if (ans == MessageBoxResult.Yes)
-			{
-				new SuggestedDate().Show();
-			//	s_bl.SuggestedDate();
-				MessageBox.Show("TODO: SuggestedDate does not impleted");
-			}
+			new SuggestedDateWindow().Show();
 		}
 	}
 }
