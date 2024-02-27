@@ -25,7 +25,7 @@ internal static class Tools
 
 		// find all tasks that the engineer is assigned to
 		boEng.Task = dal.Task.ReadAll(t => t.EngineerId == engineer.Id)
-			.Where(t => t is not null)
+			.Where(t => t is not null && t.ToBOTask(dal).Status != BO.Status.Done)
 			.Select(t => new BO.TaskInEngineer() { Id = t!.Id, Alias = t.Alias })
 			.FirstOrDefault();
 
@@ -53,13 +53,13 @@ internal static class Tools
 			Alias = task.Alias,
 			Description = task.Description,
 			CreatedAtDate = task.CreatedAtDate,
-            // Status: see below
-            // Dependencies: see below
-            RequiredEffortTime = task.RequiredEffortTime ?? default,
+			// Status: see below
+			// Dependencies: see below
+			RequiredEffortTime = task.RequiredEffortTime ?? default,
 			StartDate = task.StartDate ?? null,
 			ScheduledDate = task.ScheduledDate ?? null,
-            // ForecastDate: see below
-            CompleteDate = task.CompleteDate ?? null,
+			// ForecastDate: see below
+			CompleteDate = task.CompleteDate ?? null,
 			Deliverables = task.Deliverables ?? "",
 			Remarks = task.Remarks ?? "",
 			// Engineer: see below

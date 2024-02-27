@@ -22,6 +22,9 @@ public interface IBl
 	/// <param name="startProj"> The start date of the project </param>
 	public void MakeSuggestedDates(DateTime startProj);
 
+	/// <summary> returns if we scheduled the project </summary>
+	public bool IsProjectScheduled();
+
 	/// <summary> Saves the start and end date of the project </summary>
 	public void SaveScheduledDate();
 

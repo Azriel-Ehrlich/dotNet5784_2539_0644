@@ -164,7 +164,6 @@ internal class TaskImplementation : BlApi.ITask
             if (task.Dependencies.Count() > test.Count())
             {
                 CheckCyclicDependency(task); // In case of cyclic dependency, exception will be thrown
-
             }
 
             // delete all old dependencies
@@ -196,8 +195,50 @@ internal class TaskImplementation : BlApi.ITask
         _dal.Task.Update(task.ToDOTask());
     }
 
-    /// <inheritdoc/>
-    public void UpdateScheduledDate(int id, DateTime date)
+	/// <inheritdoc/>
+	public void StartTask(int taskId, int engId)
+    {
+        if (!_bl.IsProjectScheduled()) // DO NOT START ANY TASK IF WE DO NOT SCHEDULED OUR PROJECT!
+			throw new BlCannotUpdateException("You can't start task before scheduled project");
+
+		BO.Task task = Read(taskId);
+
+		if (task.Engineer != null)
+			throw new BlCannotUpdateException("another engineer already assign to this task");
+
+        // check dependencies if we can start:
+        if (task.Dependencies is not null)
+        {
+            foreach (var t in task.Dependencies)
+            {
+                if (t.Status != Status.Done)
+                    throw new BlCannotUpdateException("You must finish task's dependencies first.");
+            }
+        }
+
+		task.StartDate = _bl.Clock;
+        BO.Engineer eng = _bl.Engineer.Read(engId);
+        task.Engineer = new EngineerInTask() { Id = engId, Name = eng.Name };
+        Update(task);
+	}
+
+	/// <inheritdoc/>
+	public void FinishTask(int id)
+    {
+        BO.Task task = Read(id);
+
+        if (task.StartDate == null)
+            throw new BlCannotUpdateException("you need start task to finish it");
+
+        if (task.Engineer == null)
+            throw new BlCannotUpdateException("you need assign engineer to task to finish it");
+
+        task.CompleteDate = _bl.Clock;
+        Update(task);
+    }
+
+	/// <inheritdoc/>
+	public void UpdateScheduledDate(int id, DateTime date)
     {
         DO.Task? tas = _dal.Task.Read(id);
         if (tas is null) throw new BO.BlDoesNotExistException("The task doesn't exist");

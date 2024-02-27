@@ -124,7 +124,7 @@ internal class EngineerImplementation : BlApi.IEngineer
         
         try
         {
-            updateTask(engineer);
+            //updateTask(engineer); // TODO: check if we need this
 
             _dal.Engineer.Update(engineer.ToDOEngineer());
         }

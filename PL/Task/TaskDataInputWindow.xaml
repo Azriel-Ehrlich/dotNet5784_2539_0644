@@ -39,8 +39,8 @@
 
             <WrapPanel>
                 <TextBlock Style="{StaticResource stTextBlock}" Text="Engineer ID" />
-                <TextBox Style="{StaticResource stTextBox}"
-                 Text="{Binding Path=Task.Engineer.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+                <TextBox Style="{StaticResource stTextBox}" IsEnabled="False"
+                         Text="{Binding Path=Task.Engineer.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
             </WrapPanel>
             <Separator Opacity="0" />
 
@@ -55,7 +55,7 @@
             <!-- display dates -->
             <WrapPanel>
                 <TextBlock Style="{StaticResource stTextBlock}" Text="Start Date" />
-                <DatePicker Style="{StaticResource stDatePicker}"
+                <DatePicker Style="{StaticResource stDatePicker}" IsEnabled="False"
                         Text="{Binding Path=Task.StartDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
             </WrapPanel>
             <Separator Opacity="0" />
@@ -75,7 +75,7 @@
             <Separator Opacity="0" />
             <WrapPanel>
                 <TextBlock Style="{StaticResource stTextBlock}" Text="Complete Date" />
-                <DatePicker Style="{StaticResource stDatePicker}"
+                <DatePicker Style="{StaticResource stDatePicker}" IsEnabled="False"
                             Text="{Binding Path=Task.CompleteDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
             </WrapPanel>
             <Separator Opacity="0" />

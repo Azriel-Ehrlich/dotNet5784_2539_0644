@@ -82,11 +82,11 @@ public static class Initialization
 
     // our amazing team:
     private static readonly Engineer[] ENGINEERS = {
-        new Engineer(0, "alan@gmail.com", 80, "Alan", EngineerExperience.AdvancedBeginner), // engineer of building the spaceship
-		new Engineer(0, "mic@gmail.com", 300, "Michael", EngineerExperience.Expert), // engineer of the flight route
-		new Engineer(0, "brandon@gmail.com", 200, "Brandon", EngineerExperience.Advanced), // space explorer
-		new Engineer(0, "nati@gmail.com", 150, "Natalie", EngineerExperience.Intermediate), // astronaut
-		new Engineer(0, "elizabeth123@gmail.com", 60, "Elizabeth", EngineerExperience.Beginner) // logistics manager
+        new Engineer(385168384, "alan@gmail.com", 80, "Alan", EngineerExperience.AdvancedBeginner), // engineer of building the spaceship
+		new Engineer(234566019, "mic@gmail.com", 300, "Michael", EngineerExperience.Expert), // engineer of the flight route
+		new Engineer(220359006, "brandon@gmail.com", 200, "Brandon", EngineerExperience.Advanced), // space explorer
+		new Engineer(272137229, "nati@gmail.com", 150, "Natalie", EngineerExperience.Intermediate), // astronaut
+		new Engineer(371400813, "elizabeth123@gmail.com", 60, "Elizabeth", EngineerExperience.Beginner) // logistics manager
 	};
 
     // the dependencies between the tasks:
@@ -120,9 +120,13 @@ public static class Initialization
         int id;
         foreach (var eng in ENGINEERS)
         {
+			/*
             do id = s_rand.Next(MIN_ID, MAX_ID + 1);
             while (s_dal!.Engineer.Read(id) != null);
             s_dal.Engineer.Create(eng with { Id = id });
+			*/
+
+			s_dal!.Engineer.Create(eng); // do not use random id. its annoying when AH is debugging.
         }
     }
 

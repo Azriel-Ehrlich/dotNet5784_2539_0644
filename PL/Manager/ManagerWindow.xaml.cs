@@ -61,7 +61,10 @@ namespace PL.Manager
 
 		private void SuggestedDate(object sender, RoutedEventArgs e)
 		{
-			new SuggestedDateWindow().Show();
+			if (s_bl.IsProjectScheduled())
+				MessageBox.Show("You already scheduled the project");
+			else
+				new SuggestedDateWindow().Show();
 		}
 	}
 }

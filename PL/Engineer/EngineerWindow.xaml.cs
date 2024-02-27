@@ -42,22 +42,16 @@ namespace PL.Engineer
             InitializeComponent();
 
             Engineer = s_bl.Engineer.Read(id);
-            TasksList = s_bl.Task.ReadAll(item => item.Complexity <= Engineer.Level);
+            TasksList = s_bl.Task.ReadAll(t => t.Engineer == null && t.Complexity <= Engineer.Level);
         }
 
         private void UpdateTask(object sender, MouseButtonEventArgs e)
         {
             if ((sender as ListView)!.SelectedItem is BO.TaskInList task)
             {
-                Engineer.Task = new BO.TaskInEngineer
-                {
-                    Id = task.Id,
-                    Alias = task.Alias
-                };
-
                 try
                 {
-                    s_bl.Engineer.Update(Engineer);
+                    s_bl.Task.StartTask(task.Id, Engineer.Id);
                     MessageBox.Show($"{Engineer.Name}'s task update succesfully", "", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
@@ -68,5 +62,27 @@ namespace PL.Engineer
                 Engineer = s_bl.Engineer.Read(Engineer.Id); // update in screen
             }
         }
-    }
+
+		private void FinishTask(object sender, RoutedEventArgs e)
+		{
+            if (Engineer.Task == null)
+            {
+                MessageBox.Show("First you need to get a new task");
+                return;
+            }
+
+            var ans = MessageBox.Show("Are you sure you finished your task?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (ans == MessageBoxResult.No)
+                return;
+
+            try
+            {
+                s_bl.Task.FinishTask(Engineer.Task.Id);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+		}
+	}
 }

@@ -33,6 +33,18 @@ sealed public class Bl : IBl
 	}
 
 	/// <inheritdoc/>
+	public bool IsProjectScheduled()
+	{
+		foreach (var task in Task.ReadAll())
+		{
+			if (task.Status == Status.Unscheduled)
+				return false;
+		}
+		return true;
+	}
+
+
+	/// <inheritdoc/>
 	public void MakeSuggestedDates(DateTime startProj)
 	{
 		foreach (var t in Task.ReadAll(t => t.Dependencies is null))

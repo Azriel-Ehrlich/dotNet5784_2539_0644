@@ -26,6 +26,15 @@ public interface ITask
 	/// <param name="task"> The task to update </param>
 	public void Update(BO.Task task);
 
+	/// <summary> Set the task as finished </summary>
+	/// <param name="taskId">the id of the task we want to start</param>
+	/// <param name="engId">the id of engineer who work on task</param>
+	public void StartTask(int taskId, int engId);
+	
+	/// <summary> Set the task as finished </summary>
+	/// <param name="id">the id of the task we want to finish</param>
+	public void FinishTask(int id);
+
 	/// <summary> Update the date of a task </summary>
 	/// <param name="id"> The id of the task to update </param>
 	/// <param name="date"> The new date of the task </param>
