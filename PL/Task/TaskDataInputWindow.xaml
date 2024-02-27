@@ -9,7 +9,7 @@
         DataContext="{Binding CurrentTask, RelativeSource={RelativeSource Self}}">
     <WrapPanel>
         <!-- Display task data -->
-        <StackPanel Margin="20,0,0,0">
+        <StackPanel Margin="20,20,20,20">
             <WrapPanel>
                 <!-- [not] amazing title -->
                 <TextBlock Style="{StaticResource stTextBlock-Title}" Text="Task Data" />
@@ -75,12 +75,20 @@
             <Separator Opacity="0" />
             <WrapPanel>
                 <TextBlock Style="{StaticResource stTextBlock}" Text="Complete Date" />
-                <TextBox Style="{StaticResource stTextBox}" Text="{Binding Path=Task.CompleteDate, Mode=TwoWay}" />
+                <DatePicker Style="{StaticResource stDatePicker}"
+                            Text="{Binding Path=Task.CompleteDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
             </WrapPanel>
             <Separator Opacity="0" />
             <WrapPanel>
                 <TextBlock Style="{StaticResource stTextBlock}" Text="Forecast Date" />
                 <TextBox Style="{StaticResource stTextBox}" Text="{Binding Path=Task.ForecastDate, Mode=OneWay}"
+                     IsEnabled="False"/>
+            </WrapPanel>
+            
+            <Separator Opacity="0" />
+            <WrapPanel>
+                <TextBlock Style="{StaticResource stTextBlock}" Text="Status" />
+                <TextBox Style="{StaticResource stTextBox}" Text="{Binding Path=Task.Status, Mode=OneWay}"
                      IsEnabled="False"/>
             </WrapPanel>
 

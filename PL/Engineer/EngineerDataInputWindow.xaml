@@ -7,7 +7,7 @@
         mc:Ignorable="d" ResizeMode="NoResize"
         Title="Engineer Data Window" Height="400" Width="600" Background="LightBlue"
         DataContext="{Binding CurrentEngineer, RelativeSource={RelativeSource Self}, Mode=TwoWay}">
-    <StackPanel Margin="20,0,0,0">
+    <StackPanel Margin="20,20,20,20">
         <WrapPanel>
             <!-- [not] amazing title -->
             <TextBlock Style="{StaticResource stTextBlock-Title}" Text="Engineer Data" />
