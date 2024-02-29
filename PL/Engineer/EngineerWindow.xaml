@@ -46,7 +46,7 @@
                         <Label Content="Select New Task" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="0" FontSize="20" Height="40"/>
                     </Grid>
                     <!---the list of elements-->
-                    <ListView Background="PaleTurquoise" Margin="10" Grid.Row="1" ItemsSource="{Binding TasksList}" MouseDoubleClick="UpdateTask">
+                    <ListView Background="PaleTurquoise" Margin="10" Grid.Row="1" ItemsSource="{Binding TasksList}" MouseDoubleClick="SelectTask">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=Id}" />

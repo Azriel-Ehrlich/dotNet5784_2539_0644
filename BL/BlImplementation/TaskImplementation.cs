@@ -182,12 +182,14 @@ internal class TaskImplementation : BlApi.ITask
                 BO.Task? checkDepBO = checkDep.ToBOTask(_dal);
                 if (checkDepBO is null) continue;
 
+                /*
                 if (
                     (checkDepBO.StartDate is not null && checkDepBO.StartDate > task.StartDate) ||// check if the dependent task start after the task
                     (checkDepBO.CompleteDate is not null && checkDepBO.CompleteDate > task.StartDate) ||// check if the dependent task complete after the task
                     (checkDepBO.ForecastDate is not null && checkDepBO.ForecastDate > task.StartDate)// check if the dependent task forecast after the task
                     )
                     throw new BlCannotUpdateException("Dependent task cann't start before the task");
+               */
                 _dal.Dependency.Create(new DO.Dependency(task.Id, dep.Id));
             }
         }
@@ -205,6 +207,10 @@ internal class TaskImplementation : BlApi.ITask
 
 		if (task.Engineer != null)
 			throw new BlCannotUpdateException("another engineer already assign to this task");
+
+        // check if engineer is available:
+        if (_bl.Engineer.Read(engId).Task is not null)
+			throw new BlCannotUpdateException("Engineer is busy at this time");
 
         // check dependencies if we can start:
         if (task.Dependencies is not null)

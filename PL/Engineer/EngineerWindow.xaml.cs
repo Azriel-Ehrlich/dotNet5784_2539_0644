@@ -40,12 +40,19 @@ namespace PL.Engineer
         public EngineerWindow(int id)
         {
             InitializeComponent();
-
-            Engineer = s_bl.Engineer.Read(id);
-            TasksList = s_bl.Task.ReadAll(t => t.Engineer == null && t.Complexity <= Engineer.Level);
+            Engineer = new() { Id = id, Email = "", Name = "" };
+            UpdateFields();
         }
 
-        private void UpdateTask(object sender, MouseButtonEventArgs e)
+
+        /// <summary> update the fields of the window after changes </summary>
+        void UpdateFields()
+        {
+			Engineer = s_bl.Engineer.Read(Engineer.Id);
+			TasksList = s_bl.Task.ReadAll(t => t.Engineer == null && t.Complexity <= Engineer.Level);
+		}
+
+		private void SelectTask(object sender, MouseButtonEventArgs e)
         {
             if ((sender as ListView)!.SelectedItem is BO.TaskInList task)
             {
@@ -58,8 +65,8 @@ namespace PL.Engineer
                 {
                     MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-             
-                Engineer = s_bl.Engineer.Read(Engineer.Id); // update in screen
+
+                UpdateFields();
             }
         }
 
@@ -78,11 +85,13 @@ namespace PL.Engineer
             try
             {
                 s_bl.Task.FinishTask(Engineer.Task.Id);
-            }
+			}
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
+            UpdateFields();
 		}
 	}
 }
