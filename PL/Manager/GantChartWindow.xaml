@@ -7,20 +7,17 @@
         mc:Ignorable="d"
         Title="GantChartWindow" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
-    <Grid>
-        <Canvas>
-            <!-- Bind Rectangle items to Task data -->
-            <ItemsControl ItemsSource="{Binding TasksList}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Rectangle Fill="{Binding Status, Converter={StaticResource StatusToColorConverterKey}}"
-                                   Height="30"
-                                   Width="Auto"
-                                   Canvas.Left="{Binding Left}"
-                                   Canvas.Top="50"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </Canvas>
+    <Grid Background="#A0A0A0">
+        <!-- Bind Rectangle items to Task data -->
+        <ItemsControl ItemsSource="{Binding TasksList}" HorizontalAlignment="Left">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Rectangle Fill="{Binding Status, Converter={StaticResource StatusToColorConverterKey}}"
+                               Width="{Binding Id, Converter={StaticResource TaskIdToWidth}}"
+                               Margin="{Binding Id, Converter={StaticResource TaskIdToMargin}}"
+                               Height="30" Stroke="Black" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </Window>

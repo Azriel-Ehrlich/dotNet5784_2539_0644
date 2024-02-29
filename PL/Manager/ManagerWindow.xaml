@@ -73,6 +73,9 @@
                 <Separator Width="20" Opacity="0"/>
                 <!--button for reset the data-->
                 <Button Content="Reset" Style="{StaticResource stButton}" Click="ResetData"/>
+
+                <Separator Width="20" Opacity="0"/>
+                <Button Content="Gantt Chart" Style="{StaticResource stButton}" Click="OpenGantChart"/>
               </WrapPanel>
         </StackPanel>
     </Grid>

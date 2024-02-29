@@ -11,6 +11,8 @@
         <local:ConvertIdToEnable x:Key="ConvertIdToEnableKey"/>
         <local:EngineerExpirieneWithoutAllCollection x:Key="EngineerExpirieneWithoutAllCollectionKey" />
         <local:StatusToColorConverter x:Key="StatusToColorConverterKey"/>
+        <local:TaskIdToMargin x:Key="TaskIdToMargin"/>
+        <local:TaskIdToWidth x:Key="TaskIdToWidth"/>
 
         <!-- Styles -->
         <Style TargetType="GridViewColumnHeader" >

@@ -28,7 +28,7 @@ public partial class MainWindow : Window
 		InitializeComponent();
 		s_bl.InitClock();
 		UpdateTime();
-		new Manager.GantChartWindow().Show();
+		new Manager.GantChartWindow().Show(); // TODO: delete after debug
 	}
 
 	private void ManagerMenu(object sender, RoutedEventArgs e)

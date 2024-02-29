@@ -27,7 +27,7 @@ sealed internal class DalXml : IDal
 			new XElement("config",
 				new XElement("NextTaskId", 0),
 				new XElement("NextDependencyId", 0),
-				new XElement("ScheduledStartDate", DateTime.MinValue)
+				new XElement("ScheduledStartDate", null)
 			), Config.s_data_config_xml);
 	}
 

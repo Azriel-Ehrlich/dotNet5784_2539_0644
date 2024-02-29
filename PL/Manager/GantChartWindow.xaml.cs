@@ -31,17 +31,10 @@ namespace PL.Manager
         public static readonly DependencyProperty TasksListProperty =
             DependencyProperty.Register("TasksList", typeof(IEnumerable<BO.TaskInList>), typeof(GantChartWindow), new PropertyMetadata(null));
 
-
-
-
-
-
         public GantChartWindow()
         {
             InitializeComponent();
-            TasksList = s_bl.Task.ReadAll();
+            TasksList = s_bl.Task.ReadAll().OrderBy(t => s_bl.Task.Read(t.Id).ScheduledDate);
         }
-
-
     }
 }
