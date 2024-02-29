@@ -5,17 +5,49 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Manager"
         mc:Ignorable="d"
-        Title="GantChartWindow" Height="450" Width="800"
+        Title="GantChartWindow" Height="auto" Width="800" MinHeight="640"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
     <Grid Background="#A0A0A0">
         <!-- Bind Rectangle items to Task data -->
         <ItemsControl ItemsSource="{Binding TasksList}" HorizontalAlignment="Left">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Rectangle Fill="{Binding Status, Converter={StaticResource StatusToColorConverterKey}}"
-                               Width="{Binding Id, Converter={StaticResource TaskIdToWidth}}"
-                               Margin="{Binding Id, Converter={StaticResource TaskIdToMargin}}"
-                               Height="30" Stroke="Black" />
+                    <!-- Container for Rectangle and overlay panel -->
+                    <Grid>
+                        <!-- Rectangle representing the task -->
+                        <Rectangle Fill="{Binding Status, Converter={StaticResource StatusToColorConverterKey}}"
+                                   Width="{Binding Id, Converter={StaticResource TaskIdToWidth}}"
+                                   Margin="{Binding Id, Converter={StaticResource TaskIdToMargin}}"
+                                   Height="30" Stroke="Black">
+                            <Rectangle.Style>
+                                <Style TargetType="Rectangle">
+                                    <!-- Trigger to show overlay on mouse enter -->
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Tag" Value="Visible" />
+                                        </Trigger>
+                                        <!-- Trigger to hide overlay on mouse leave -->
+                                        <Trigger Property="IsMouseOver" Value="False">
+                                            <Setter Property="Tag" Value="Collapsed" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Rectangle.Style>
+                        </Rectangle>
+                        <!-- Overlay Panel for Task Data -->
+                        <Grid Background="White" Opacity="0" Visibility="{Binding Tag, RelativeSource={RelativeSource AncestorType=Rectangle}}">
+                            <StackPanel>
+                                <!-- Task Data -->
+                                <TextBlock FontWeight="Bold" Text="{Binding Description}" />
+                                <!-- Add more task fields as needed -->
+                            </StackPanel>
+                        </Grid>
+                        <!-- Display Id and Alias outside overlay panel -->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="5">
+                            <TextBlock Text="{Binding Id}" Margin="0 0 10 0"/>
+                            <TextBlock Text="{Binding Alias}" />
+                        </StackPanel>
+                    </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
