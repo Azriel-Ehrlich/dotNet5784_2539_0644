@@ -1,11 +1,12 @@
-﻿<Window x:Class="PL.Manager.GantChartWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PL.Manager"
-        mc:Ignorable="d"
-        Title="GantChartWindow" Height="auto" Width="800" MinHeight="640"
+﻿<Window x:Class="PL.Manager.GantChartWindow" 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:local="clr-namespace:PL.Manager" 
+        mc:Ignorable="d" 
+        Title="GantChartWindow" 
+        Height="auto" Width="800" MinHeight="640" 
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
     <Grid Background="#A0A0A0">
         <!-- Bind Rectangle items to Task data -->
@@ -14,40 +15,36 @@
                 <DataTemplate>
                     <!-- Container for Rectangle and overlay panel -->
                     <Grid>
+                        <!-- Display ID -->
+                        <TextBlock Text="{Binding Id}" VerticalAlignment="Center" Margin="5,0,0,0" />
                         <!-- Rectangle representing the task -->
-                        <Rectangle Fill="{Binding Status, Converter={StaticResource StatusToColorConverterKey}}"
-                                   Width="{Binding Id, Converter={StaticResource TaskIdToWidth}}"
-                                   Margin="{Binding Id, Converter={StaticResource TaskIdToMargin}}"
-                                   Height="30" Stroke="Black">
-                            <Rectangle.Style>
-                                <Style TargetType="Rectangle">
-                                    <!-- Trigger to show overlay on mouse enter -->
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Tag" Value="Visible" />
-                                        </Trigger>
-                                        <!-- Trigger to hide overlay on mouse leave -->
-                                        <Trigger Property="IsMouseOver" Value="False">
-                                            <Setter Property="Tag" Value="Collapsed" />
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Rectangle.Style>
-                        </Rectangle>
+                        <Rectangle Fill="{Binding Status, Converter={StaticResource StatusToColorConverterKey}}" 
+                                   Width="{Binding Id, Converter={StaticResource TaskIdToWidth}}" 
+                                   Margin="{Binding Id, Converter={StaticResource TaskIdToMargin}}" 
+                                   Height="30" Stroke="Black" />
                         <!-- Overlay Panel for Task Data -->
-                        <Grid Background="White" Opacity="0" Visibility="{Binding Tag, RelativeSource={RelativeSource AncestorType=Rectangle}}">
+                        <Grid x:Name="OverlayPanel" Background="White" Opacity="0" Visibility="Collapsed" VerticalAlignment="Center" Margin="10,0,0,0">
                             <StackPanel>
                                 <!-- Task Data -->
-                                <TextBlock FontWeight="Bold" Text="{Binding Description}" />
+                                <TextBlock FontWeight="Bold" Text="{Binding Alias}" />
+                                <TextBlock Text="{Binding Description}" />
                                 <!-- Add more task fields as needed -->
                             </StackPanel>
                         </Grid>
-                        <!-- Display Id and Alias outside overlay panel -->
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="5">
-                            <TextBlock Text="{Binding Id}" Margin="0 0 10 0"/>
-                            <TextBlock Text="{Binding Alias}" />
-                        </StackPanel>
                     </Grid>
+                    <!-- Triggers to show/hide overlay panel -->
+                    <DataTemplate.Triggers>
+                        <!-- Trigger to show overlay on mouse enter -->
+                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
+                            <Setter TargetName="OverlayPanel" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="OverlayPanel" Property="Opacity" Value="0.9" />
+                        </DataTrigger>
+                        <!-- Trigger to hide overlay on mouse leave -->
+                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="False">
+                            <Setter TargetName="OverlayPanel" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="OverlayPanel" Property="Opacity" Value="0" />
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
