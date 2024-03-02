@@ -13,6 +13,7 @@
         <local:StatusToColorConverter x:Key="StatusToColorConverterKey"/>
         <local:TaskIdToMargin x:Key="TaskIdToMargin"/>
         <local:TaskIdToWidth x:Key="TaskIdToWidth"/>
+        <local:ConvertStatusToEnable x:Key="ConvertStatusToEnableKey"/>
 
         <!-- Styles -->
         <Style TargetType="GridViewColumnHeader" >

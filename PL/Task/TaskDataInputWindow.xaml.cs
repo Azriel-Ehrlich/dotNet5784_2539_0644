@@ -111,5 +111,7 @@ namespace PL.Task
             CurrentTask.Task.Dependencies ??= new();
             CurrentTask.Task.Dependencies.Remove(task);
         }
+
+       
     }
 }

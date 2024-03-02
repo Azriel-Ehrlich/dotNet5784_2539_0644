@@ -115,3 +115,19 @@ public class TaskIdToMargin : IValueConverter{
 		throw new NotImplementedException();
 	}
 }
+/// <summary>
+/// convert the status to enable of the button
+/// </summary>
+public class ConvertStatusToEnable : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+	{
+            return (BO.Status)value == BO.Status.Unscheduled;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+	{
+        throw new NotImplementedException();
+    }
+}
+

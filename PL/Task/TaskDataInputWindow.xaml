@@ -48,7 +48,8 @@
                 <TextBlock Style="{StaticResource stTextBlock}" Text="Complexity" />
                 <ComboBox Style="{StaticResource stComboBox}"
                           ItemsSource="{Binding Source={StaticResource EngineerExpirieneWithoutAllCollectionKey}}"
-                          SelectedValue="{Binding Path=Task.Complexity, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                          SelectedValue="{Binding Path=Task.Complexity, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                          IsEnabled="{Binding Task.Status, Converter={StaticResource ConvertStatusToEnableKey}}"/>
             </WrapPanel>
             <Separator Opacity="0" />
 
@@ -63,7 +64,8 @@
             <WrapPanel>
                 <TextBlock Style="{StaticResource stTextBlock}" Text="Required Effort Time" />
                 <TextBox Style="{StaticResource stTextBox}"
-                     Text="{Binding Path=Task.RequiredEffortTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+                     Text="{Binding Path=Task.RequiredEffortTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+                         IsEnabled="{Binding Task.Status , Mode=OneWay,Converter={StaticResource ConvertStatusToEnableKey}}"/>
             </WrapPanel>
             <Separator Opacity="0" />
 
@@ -113,8 +115,9 @@
                     <DataGridTemplateColumn Header="Select" CanUserResize="False">
                         <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <CheckBox Checked="AddDependency" Unchecked="RemoveDependency" IsChecked="{Binding IsChecked}" />
-                                </DataTemplate>
+                                <CheckBox Checked="AddDependency" Unchecked="RemoveDependency" IsChecked="{Binding IsChecked}"/>
+
+                            </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <!--<DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="50" IsReadOnly="True"/>-->

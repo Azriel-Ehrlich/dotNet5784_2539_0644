@@ -56,6 +56,11 @@ namespace PL.Task
 
 		private void AddTask(object sender, RoutedEventArgs e)
 		{
+			if(TasksList.Any(t => t.Status !=BO.Status.Unscheduled))
+			{
+				MessageBox.Show("You can't add a new task after the schdule date");
+                return;
+            }
 			new TaskDataInputWindow().ShowDialog();
 			UpdateTasksList();
 		}
