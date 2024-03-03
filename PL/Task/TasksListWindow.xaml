@@ -39,6 +39,7 @@
         </ListView>
 
         <!--the button to add new Engineer-->
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="30" Width="200" Click="AddTask"/>
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="30" Width="200" Click="AddTask"
+                Visibility="{Binding TasksList.Status,Converter={StaticResource ConvertStatusToVisibilityKey}}"/>
     </Grid>
 </Window>

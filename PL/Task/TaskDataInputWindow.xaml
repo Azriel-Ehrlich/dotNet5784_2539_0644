@@ -96,8 +96,11 @@
 
             <Separator Opacity="0" Height="30" />
 
-            <Button Style="{StaticResource stButton}" Click="btnAddUpdate_Click"
+            <Button Style="{StaticResource stButton}" Click="AddOrUpdateTask"
                     Content="{Binding Path=Task.Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}"/>
+            <Separator Opacity="0" Height="30" />
+            <Button Style="{StaticResource stButton}" Click="Delete_Task" Content="Delete"
+                 Visibility="{Binding Task.Status,Converter={StaticResource ConvertStatusToVisibilityKey}}"   />
 
         </StackPanel>
 
@@ -115,7 +118,8 @@
                     <DataGridTemplateColumn Header="Select" CanUserResize="False">
                         <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                <CheckBox Checked="AddDependency" Unchecked="RemoveDependency" IsChecked="{Binding IsChecked}"/>
+                                <CheckBox Checked="AddDependency" Unchecked="RemoveDependency" IsChecked="{Binding IsChecked}"
+                                          IsEnabled="{Binding Status,Converter={StaticResource ConvertStatusToEnableKey}}"/>
 
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>

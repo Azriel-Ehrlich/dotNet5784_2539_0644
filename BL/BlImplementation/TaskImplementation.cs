@@ -63,6 +63,9 @@ internal class TaskImplementation : BlApi.ITask
     /// <inheritdoc/>
     public void Delete(int id)
     {
+        if (_bl.IsProjectScheduled()) // DO NOT DELETE ANY TASK IF WE DO NOT SCHEDULED OUR PROJECT!
+            throw new BlCannotDeleteException("You can't delete task after scheduled project");
+
         // check if there is another task teat depends on this task
         DO.Dependency? check = (from t in _dal.Dependency.ReadAll()
                                 where t.DependsOnTask == id
