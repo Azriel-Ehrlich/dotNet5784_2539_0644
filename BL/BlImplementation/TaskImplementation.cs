@@ -84,6 +84,15 @@ internal class TaskImplementation : BlApi.ITask
 			throw new BO.BlDoesNotExistException(ex.Message);
 		}
 	}
+
+	/// <inheritdoc/>
+	public void Restore(int id)
+	{
+		BO.Task task = Read(id);
+		task.IsActive = true;
+		Update(task);
+	}
+
 	/// <inheritdoc/>
 	public BO.Task Read(int id)
 	{

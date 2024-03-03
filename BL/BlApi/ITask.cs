@@ -10,6 +10,10 @@ public interface ITask
 	/// <summary> Delete a task </summary>
 	/// <param name="id"> The id of the task to delete </param>
 	public void Delete(int id);
+	
+	/// <summary> Restore a task </summary>
+	/// <param name="id"> The id of the task to restore </param>
+	public void Restore(int id);
 
 
 	/// <summary> Read a task </summary>
