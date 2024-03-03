@@ -9,42 +9,31 @@
         Height="auto" Width="800" MinHeight="640" 
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
     <Grid Background="#A0A0A0">
+        <TextBlock Text="Gant Chart" HorizontalAlignment="Center" VerticalAlignment="Top" Style="{StaticResource stTextBlock-Title}"/>
         <!-- Bind Rectangle items to Task data -->
         <ItemsControl ItemsSource="{Binding TasksList}" HorizontalAlignment="Left">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <!-- Container for Rectangle and overlay panel -->
-                    <Grid>
+                    <Canvas>
                         <!-- Display ID -->
-                        <TextBlock Text="{Binding Id}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                        <TextBlock 
+                            Canvas.Top="{Binding Id, Converter={StaticResource TaskIdToTop}}"
+                            Text="{Binding Id}" VerticalAlignment="Center" Margin="5,0,0,0" />
                         <!-- Rectangle representing the task -->
-                        <Rectangle Fill="{Binding Status, Converter={StaticResource StatusToColorConverterKey}}" 
-                                   Width="{Binding Id, Converter={StaticResource TaskIdToWidth}}" 
-                                   Margin="{Binding Id, Converter={StaticResource TaskIdToMargin}}" 
-                                   Height="30" Stroke="Black" />
-                        <!-- Overlay Panel for Task Data -->
-                        <Grid x:Name="OverlayPanel" Background="White" Opacity="0" Visibility="Collapsed" VerticalAlignment="Center" Margin="10,0,0,0">
-                            <StackPanel>
-                                <!-- Task Data -->
-                                <TextBlock FontWeight="Bold" Text="{Binding Alias}" />
-                                <TextBlock Text="{Binding Description}" />
-                                <!-- Add more task fields as needed -->
-                            </StackPanel>
-                        </Grid>
-                    </Grid>
-                    <!-- Triggers to show/hide overlay panel -->
-                    <DataTemplate.Triggers>
-                        <!-- Trigger to show overlay on mouse enter -->
-                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
-                            <Setter TargetName="OverlayPanel" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="OverlayPanel" Property="Opacity" Value="0.9" />
-                        </DataTrigger>
-                        <!-- Trigger to hide overlay on mouse leave -->
-                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="False">
-                            <Setter TargetName="OverlayPanel" Property="Visibility" Value="Collapsed" />
-                            <Setter TargetName="OverlayPanel" Property="Opacity" Value="0" />
-                        </DataTrigger>
-                    </DataTemplate.Triggers>
+                        <Rectangle
+                            Fill="{Binding Status, Converter={StaticResource StatusToColorConverterKey}}" 
+                            Width="{Binding Id, Converter={StaticResource TaskIdToWidth}}" 
+                            Canvas.Left="{Binding Id, Converter={StaticResource TaskIdToLeft}}" 
+                            Canvas.Top="{Binding Id, Converter={StaticResource TaskIdToTop}}"
+                            Height="30" Stroke="Black"
+                            Margin="30,0,0,0">
+
+                            <Rectangle.ToolTip>
+                                <TextBlock Text="{Binding Id, Converter={StaticResource TaskIdToString}}" />
+                            </Rectangle.ToolTip>
+                        </Rectangle>
+                    </Canvas>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
