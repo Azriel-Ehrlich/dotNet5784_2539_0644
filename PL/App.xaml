@@ -11,10 +11,12 @@
         <local:ConvertIdToEnable x:Key="ConvertIdToEnableKey"/>
         <local:EngineerExpirieneWithoutAllCollection x:Key="EngineerExpirieneWithoutAllCollectionKey" />
         <local:StatusToColorConverter x:Key="StatusToColorConverterKey"/>
-        <local:TaskIdToMargin x:Key="TaskIdToMargin"/>
+        <local:TaskIdToLeft x:Key="TaskIdToLeft"/>
+        <local:TaskIdToTop x:Key="TaskIdToTop"/>
         <local:TaskIdToWidth x:Key="TaskIdToWidth"/>
         <local:ConvertStatusToEnable x:Key="ConvertStatusToEnableKey"/>
         <local:ConvertStatusToVisibility x:Key="ConvertStatusToVisibilityKey"/>
+        <local:TaskIdToString x:Key="TaskIdToString"/>
 
         <!-- Styles -->
         <Style TargetType="GridViewColumnHeader" >
@@ -25,7 +27,7 @@
         <Style TargetType="ListView">
             <Setter Property="Background" Value="PaleTurquoise"/>
         </Style>
-        
+
         <Style TargetType="ListViewItem" >
             <Setter Property="Background" Value="White"/>
             <Setter Property="BorderBrush" Value="#DCDCDC"/>
