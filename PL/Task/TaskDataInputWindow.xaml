@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PL.Task"
         mc:Ignorable="d" SizeToContent="Height"
         Title="Task Data Window" MinHeight="650" Width="1100" Background="LightBlue"
-        DataContext="{Binding CurrentTask, RelativeSource={RelativeSource Self}}">
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <WrapPanel>
         <!-- Display task data -->
         <StackPanel Margin="20,20,20,20">
@@ -18,28 +18,26 @@
 
             <WrapPanel>
                 <TextBlock Style="{StaticResource stTextBlock}" Text="Alias" />
-                <TextBox Style="{StaticResource stTextBox}"
-                 Text="{Binding Path=Task.Alias, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                <TextBox Style="{StaticResource stTextBox}" Text="{Binding Path=CurrentTask.Alias, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
             </WrapPanel>
             <Separator Opacity="0" />
 
             <WrapPanel>
                 <TextBlock Style="{StaticResource stTextBlock}" Text="Description" />
-                <TextBox Style="{StaticResource stTextBox}"
-                 Text="{Binding Path=Task.Description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+                <TextBox Style="{StaticResource stTextBox}" Text="{Binding Path=CurrentTask.Description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
             </WrapPanel>
             <Separator Opacity="0" />
 
             <WrapPanel>
                 <TextBlock Style="{StaticResource stTextBlock}" Text="Remarks" />
-                <TextBox Style="{StaticResource stTextBox}"
-                 Text="{Binding Path=Task.Remarks, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+                <TextBox Style="{StaticResource stTextBox}" Text="{Binding Path=CurrentTask.Remarks, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
             </WrapPanel>
             <Separator Opacity="0" />
 
             <WrapPanel>
-                <TextBlock Style="{StaticResource stTextBlock}" Text="Engineer ID" />
-                <TextBlock Style="{StaticResource stTextBlock}" Text="{Binding Path=Task.Engineer.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+                <TextBlock Style="{StaticResource stTextBlock}" Text="Required Effort Time" />
+                <TextBox Style="{StaticResource stTextBox}" Text="{Binding Path=CurrentTask.RequiredEffortTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+                         IsEnabled="{Binding CurrentTask.Status, Mode=OneWay,Converter={StaticResource ConvertStatusToEnableKey}}"/>
             </WrapPanel>
             <Separator Opacity="0" />
 
@@ -47,54 +45,52 @@
                 <TextBlock Style="{StaticResource stTextBlock}" Text="Complexity" />
                 <ComboBox Style="{StaticResource stComboBox}"
                           ItemsSource="{Binding Source={StaticResource EngineerExpirieneWithoutAllCollectionKey}}"
-                          SelectedValue="{Binding Path=Task.Complexity, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                          IsEnabled="{Binding Task.Status, Converter={StaticResource ConvertStatusToEnableKey}}"/>
+                          SelectedValue="{Binding Path=CurrentTask.Complexity, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                          IsEnabled="{Binding CurrentTask.Status, Converter={StaticResource ConvertStatusToEnableKey}}"/>
             </WrapPanel>
             <Separator Opacity="0" />
 
-            <!-- display dates -->
+            <WrapPanel>
+                <TextBlock Style="{StaticResource stTextBlock}" Text="Engineer ID" />
+                <TextBlock Style="{StaticResource stTextBlock}" Text="{Binding Path=CurrentTask.Engineer.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+            </WrapPanel>
+            <Separator Opacity="0" />
+
             <WrapPanel>
                 <TextBlock Style="{StaticResource stTextBlock}" Text="Start Date" />
-                <TextBlock Style="{StaticResource stTextBlock}" Text="{Binding Path=Task.StartDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
-            </WrapPanel>
-            <Separator Opacity="0" />
-
-            <WrapPanel>
-                <TextBlock Style="{StaticResource stTextBlock}" Text="Required Effort Time" />
-                <TextBox Style="{StaticResource stTextBox}"
-                     Text="{Binding Path=Task.RequiredEffortTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-                         IsEnabled="{Binding Task.Status , Mode=OneWay,Converter={StaticResource ConvertStatusToEnableKey}}"/>
+                <TextBlock Style="{StaticResource stTextBlock}" Text="{Binding Path=CurrentTask.StartDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
             </WrapPanel>
             <Separator Opacity="0" />
 
             <WrapPanel>
                 <TextBlock Style="{StaticResource stTextBlock}" Text="Scheduled Date" />
-                <TextBlock Style="{StaticResource stTextBlock}" Text="{Binding Path=Task.ScheduledDate, Mode=OneWay}" />
+                <TextBlock Style="{StaticResource stTextBlock}" Text="{Binding Path=CurrentTask.ScheduledDate, Mode=OneWay}" />
             </WrapPanel>
             <Separator Opacity="0" />
             <WrapPanel>
                 <TextBlock Style="{StaticResource stTextBlock}" Text="Complete Date" />
-                <TextBlock Style="{StaticResource stTextBlock}" Text="{Binding Path=Task.CompleteDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+                <TextBlock Style="{StaticResource stTextBlock}" Text="{Binding Path=CurrentTask.CompleteDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
             </WrapPanel>
             <Separator Opacity="0" />
             <WrapPanel>
                 <TextBlock Style="{StaticResource stTextBlock}" Text="Forecast Date" />
-                <TextBlock Style="{StaticResource stTextBlock}" Text="{Binding Path=Task.ForecastDate, Mode=OneWay}" />
+                <TextBlock Style="{StaticResource stTextBlock}" Text="{Binding Path=CurrentTask.ForecastDate, Mode=OneWay}" />
             </WrapPanel>
             
             <Separator Opacity="0" />
             <WrapPanel>
                 <TextBlock Style="{StaticResource stTextBlock}" Text="Status" />
-                <TextBlock Style="{StaticResource stTextBlock}" Text="{Binding Path=Task.Status, Mode=OneWay}" />
+                <TextBlock Style="{StaticResource stTextBlock}" Text="{Binding Path=CurrentTask.Status, Mode=OneWay}" />
             </WrapPanel>
 
             <Separator Opacity="0" Height="30" />
 
             <Button Style="{StaticResource stButton}" Click="AddOrUpdateTask"
-                    Content="{Binding Path=Task.Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}"/>
+                    Content="{Binding Path=CurrentTask.Id, Mode=OneWay, Converter={StaticResource ConverIdToContentKey}}"/>
             <Separator Opacity="0" Height="30" />
-            <Button Style="{StaticResource stButton}" Click="Delete_Task" Content="Delete"
-                 Visibility="{Binding Task.Status,Converter={StaticResource ConvertStatusToVisibilityKey}}"   />
+            <Button Style="{StaticResource stButton}" Click="ChangeTaskState" 
+                    Content="{Binding CurrentTask.IsActive, Mode=OneWay, Converter={StaticResource ConvertActiveToContent}}"
+                 Visibility="{Binding CurrentTask.Status, Converter={StaticResource ConvertStatusToVisibilityKey}}"   />
 
         </StackPanel>
 
@@ -117,7 +113,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <!--<DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="50" IsReadOnly="True"/>-->
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="50" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Alias" Binding="{Binding Alias}" Width="200" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="250" IsReadOnly="True"/>
                 </DataGrid.Columns>

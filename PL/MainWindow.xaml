@@ -44,16 +44,20 @@
             <StackPanel HorizontalAlignment="Center">
                 <!-- add buttons to increase and decrease the time -->
                 <WrapPanel>
+                    <TextBlock Style="{StaticResource stTextBlock}"
+                               Text="{Binding Path=CurrentTime, StringFormat=yyyy/MM/dd ; HH:mm:ss, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+                    <Separator Width="10" Opacity="0"/>
                     <Button Content="dec day" Style="{StaticResource stTimeButton}" Click="ClockDecDay"/>
                     <Separator Width="10" Opacity="0"/>
                     <Button Content="dec hour" Style="{StaticResource stTimeButton}" Click="ClockDecHour"/>
                     <Separator Width="10" Opacity="0"/>
-                    <TextBlock Style="{StaticResource stTextBlock}"
-                               Text="{Binding Path=CurrentTime, StringFormat=yyyy/MM/dd ; HH:mm:ss, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
-                    <Separator Width="10" Opacity="0"/>
                     <Button Content="inc hour" Style="{StaticResource stTimeButton}" Click="ClockIncHour"/>
                     <Separator Width="10" Opacity="0"/>
                     <Button Content="inc day" Style="{StaticResource stTimeButton}" Click="ClockIncDay"/>
+                    <Separator Width="10" Opacity="0"/>
+                    <Button Content="start clock" Style="{StaticResource stTimeButton}" Width="70" Click="StartClock"/>
+                    <Separator Width="10" Opacity="0"/>
+                    <Button Content="stop clock" Style="{StaticResource stTimeButton}" Width="70" Click="StopClock"/>
                 </WrapPanel>
             </StackPanel>
 

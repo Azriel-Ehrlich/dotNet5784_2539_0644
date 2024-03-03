@@ -20,15 +20,13 @@ namespace PL
         public static readonly DependencyProperty CurrentTimeProperty = DependencyProperty.Register(
             "CurrentTime", typeof(DateTime), typeof(MainWindow), new PropertyMetadata(null));
 
-        private DispatcherTimer timer;
+        private readonly DispatcherTimer timer;
 
         public MainWindow()
         {
             InitializeComponent();
-            
-           
-                s_bl.InitClock();
-            
+
+            s_bl.InitClock();
 
             // Start the timer
             timer = new DispatcherTimer();
@@ -66,5 +64,8 @@ namespace PL
         private void ClockDecHour(object sender, RoutedEventArgs e) { s_bl.AddHours(-1); UpdateTime(); }
         private void ClockIncDay(object sender, RoutedEventArgs e) { s_bl.AddDays(1); UpdateTime(); }
         private void ClockDecDay(object sender, RoutedEventArgs e) { s_bl.AddDays(-1); UpdateTime(); }
+
+        private void StartClock(object sender, RoutedEventArgs e) { timer.Start(); }
+        private void StopClock(object sender, RoutedEventArgs e) { timer.Stop(); }
     }
 }

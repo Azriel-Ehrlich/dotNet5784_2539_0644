@@ -195,3 +195,17 @@ public class ConvertBoolToVisibilityKey : IValueConverter
 		throw new NotImplementedException();
 	}
 }
+
+/// <summary> return button text according to the value (Delete/Restore) </summary>
+public class ConvertActiveToContent : IValueConverter
+{
+	public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+	{
+		return (bool)value ? "Delete" : "Restore";
+	}
+
+	public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+	{
+		throw new NotImplementedException();
+	}
+}

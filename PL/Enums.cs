@@ -2,9 +2,38 @@
 
 namespace PL;
 
+
+public enum EngineerExperienceWithAll
+{
+	Beginner,
+	AdvancedBeginner,
+	Intermediate,
+	Advanced,
+	Expert,
+	All
+}
+public enum EngineerExperienceWithAllAndDeletedTask
+{
+	Beginner,
+	AdvancedBeginner,
+	Intermediate,
+	Advanced,
+	Expert,
+	All,
+	DeletedTask
+}
+
+
 internal class EngineerExpirieneCollection : IEnumerable
 {
-	static readonly IEnumerable<BO.EngineerExperienceWithAll> s_enums = (Enum.GetValues(typeof(BO.EngineerExperienceWithAll)) as IEnumerable<BO.EngineerExperienceWithAll>)!;
+	static readonly IEnumerable<EngineerExperienceWithAll> s_enums = (Enum.GetValues(typeof(EngineerExperienceWithAll)) as IEnumerable<EngineerExperienceWithAll>)!;
+
+	public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
+}
+
+internal class EngineerExpirieneWithDeletedTaskCollection : IEnumerable
+{
+	static readonly IEnumerable<EngineerExperienceWithAllAndDeletedTask> s_enums = (Enum.GetValues(typeof(EngineerExperienceWithAllAndDeletedTask)) as IEnumerable<EngineerExperienceWithAllAndDeletedTask>)!;
 
 	public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
 }

@@ -29,61 +29,58 @@ namespace PL.Task
             public bool IsChecked { get; set; }
         }
 
-        public class CurrentTaskType // for binding
+            public IEnumerable<BO.TaskInList> AllTasks
+		{
+			get { return (IEnumerable<BO.TaskInList>)GetValue(AllTasksProperty); }
+			set { SetValue(AllTasksProperty, value); }
+		}
+
+        public BO.Task CurrentTask
         {
-            public IEnumerable<BO.TaskInList> AllTasks { get; set; }
-
-            public BO.Task Task { get; set; }
-
-            public CurrentTaskType(int id)
-            {
-                Task = (id != ConstantValues.NO_ID) ? s_bl.Task.Read(id)
-                    : new BO.Task() { Id = id, Alias = "", Description = "" };
-                if (Task.Engineer is null)
-                {
-                    Task.Engineer = new BO.EngineerInTask() { Name = "" };
-                }
-
-                AllTasks = s_bl.Task.ReadAll().OrderBy(t => t.Id).Select(t =>
-                new TaskInDepList()
-                {
-                    Id = t.Id,
-                    Description = t.Description,
-                    Alias = t.Alias,
-                    Status = t.Status,
-                    IsChecked = Task.Dependencies?.Any(d => d.Id == t.Id) ?? false
-                });
-            }
-        }
-
-        public CurrentTaskType CurrentTask
-        {
-            get { return (CurrentTaskType)GetValue(CurrentTaskProperty); }
+            get { return (BO.Task)GetValue(CurrentTaskProperty); }
             set { SetValue(CurrentTaskProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for CurrentTask. This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CurrentTaskProperty = DependencyProperty.Register("CurrentTask", typeof(CurrentTaskType), typeof(TaskDataInputWindow), new PropertyMetadata(null));
+        public static readonly DependencyProperty CurrentTaskProperty = DependencyProperty.Register("CurrentTask", typeof(BO.Task), typeof(TaskDataInputWindow), new PropertyMetadata(null));
+        public static readonly DependencyProperty AllTasksProperty = DependencyProperty.Register("AllTasks", typeof(IEnumerable<BO.TaskInList>), typeof(TaskDataInputWindow), new PropertyMetadata(null));
 
 
         public TaskDataInputWindow(int Id = -1)
         {
             InitializeComponent();
-            CurrentTask = new(Id);
+
+			CurrentTask = (Id != ConstantValues.NO_ID) ? s_bl.Task.Read(Id)
+					: new BO.Task() { Id = Id, Alias = "", Description = "" };
+			if (CurrentTask.Engineer is null)
+			{
+				CurrentTask.Engineer = new BO.EngineerInTask() { Name = "" };
+			}
+
+			AllTasks = s_bl.Task.ReadAll().OrderBy(t => t.Id).Select(t =>
+				new TaskInDepList()
+				{
+					Id = t.Id,
+					Description = t.Description,
+					Alias = t.Alias,
+					Status = t.Status,
+					IsChecked = CurrentTask.Dependencies?.Any(d => d.Id == t.Id) ?? false
+				});
+
         }
 
         private void AddOrUpdateTask(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (CurrentTask.Task.Id == ConstantValues.NO_ID)
+                if (CurrentTask.Id == ConstantValues.NO_ID)
                 {
-                    s_bl.Task.Create(CurrentTask.Task);
+                    s_bl.Task.Create(CurrentTask);
                     MessageBox.Show("Task added successfully", "", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
-                    s_bl.Task.Update(CurrentTask.Task);
+                    s_bl.Task.Update(CurrentTask);
                     MessageBox.Show("Task updated successfully", "", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
 
@@ -97,28 +94,49 @@ namespace PL.Task
 
         private void AddDependency(object sender, RoutedEventArgs e)
         {
-            BO.TaskInList task = ((sender as CheckBox)!.DataContext as BO.TaskInList)!;
-            CurrentTask.Task.Dependencies ??= new();
-            CurrentTask.Task.Dependencies.Add(task);
+            if (CurrentTask.IsActive)
+            {
+                BO.TaskInList task = ((sender as CheckBox)!.DataContext as BO.TaskInList)!;
+                CurrentTask.Dependencies ??= new();
+                CurrentTask.Dependencies.Add(task);
+            }
         }
         private void RemoveDependency(object sender, RoutedEventArgs e)
         {
-            BO.TaskInList task = ((sender as CheckBox)!.DataContext as BO.TaskInList)!;
-            CurrentTask.Task.Dependencies ??= new();
-            CurrentTask.Task.Dependencies.Remove(task);
+            if (CurrentTask.IsActive)
+            {
+                BO.TaskInList task = ((sender as CheckBox)!.DataContext as BO.TaskInList)!;
+                CurrentTask.Dependencies ??= new();
+                CurrentTask.Dependencies.Remove(task);
+            }
         }
 
-        private void Delete_Task(object sender, RoutedEventArgs e)
+        private void ChangeTaskState(object sender, RoutedEventArgs e)
         {
             try
             {
-                var result = MessageBox.Show("Are you sure you want to delete this Task?", "Delete Task", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if (result == MessageBoxResult.No)
+                if (CurrentTask.IsActive)
                 {
-                    return;
+                    var result = MessageBox.Show("Are you sure you want to delete this Task?", "Delete Task", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (result == MessageBoxResult.No)
+                    {
+                        return;
+                    }
+                    s_bl.Task.Delete(CurrentTask.Id);
+                    MessageBox.Show("Task deleted successfully", "", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-                s_bl.Task.Delete(CurrentTask.Task.Id);
-                MessageBox.Show("Task deleted successfully", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                else
+                {
+                    var result = MessageBox.Show("Are you sure you want to restore this Task?", "Restore Task", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (result == MessageBoxResult.No)
+                    {
+						return;
+					}
+                    CurrentTask.IsActive = true;
+					s_bl.Task.Update(CurrentTask);
+					MessageBox.Show("Task restored successfully", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+
                 this.Close(); // close window after deleting the Task
             }
             catch (Exception ex)
@@ -126,6 +144,5 @@ namespace PL.Task
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-     
     }
 }

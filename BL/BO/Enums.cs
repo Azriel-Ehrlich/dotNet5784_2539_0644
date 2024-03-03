@@ -64,13 +64,3 @@ public enum EngineerUpdate
 	ExperienceLevel,
 	Task
 }
-
-public enum EngineerExperienceWithAll
-{
-	Beginner,
-	AdvancedBeginner,
-	Intermediate,
-	Advanced,
-	Expert,
-	All
-}

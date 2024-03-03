@@ -16,34 +16,34 @@ using System.Windows.Shapes;
 
 namespace PL.Task
 {
-    /// <summary>
-    /// Interaction logic for TasksListWindow.xaml
-    /// </summary>
-    public partial class TasksListWindow : Window
-    {
-        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+	/// <summary>
+	/// Interaction logic for TasksListWindow.xaml
+	/// </summary>
+	public partial class TasksListWindow : Window
+	{
+		static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
 
-        /// <summary> for the list of engineers in the window </summary>
-        public IEnumerable<BO.TaskInList> TasksList
-        {
-            get { return (IEnumerable<BO.TaskInList>)GetValue(TasksListProperty); }// return the value of the property
-            set { SetValue(TasksListProperty, value); }// set the value of the property
-        }
+		/// <summary> for the list of engineers in the window </summary>
+		public IEnumerable<BO.TaskInList> TasksList
+		{
+			get { return (IEnumerable<BO.TaskInList>)GetValue(TasksListProperty); }// return the value of the property
+			set { SetValue(TasksListProperty, value); }// set the value of the property
+		}
 
-        public static readonly DependencyProperty TasksListProperty = DependencyProperty.Register(
-            "TasksList", typeof(IEnumerable<BO.TaskInList>), typeof(TasksListWindow), new PropertyMetadata(null));
+		public static readonly DependencyProperty TasksListProperty = DependencyProperty.Register(
+			"TasksList", typeof(IEnumerable<BO.TaskInList>), typeof(TasksListWindow), new PropertyMetadata(null));
 
-        public bool CanAddTasks
-        {
-            get { return (bool)GetValue(CanAddTasksProperty); }// return the value of the property
-            set { SetValue(CanAddTasksProperty, value); }// set the value of the property
-        }
+		public bool CanAddTasks
+		{
+			get { return (bool)GetValue(CanAddTasksProperty); }// return the value of the property
+			set { SetValue(CanAddTasksProperty, value); }// set the value of the property
+		}
 
-        public static readonly DependencyProperty CanAddTasksProperty = DependencyProperty.Register(
-            "CanAddTasks", typeof(bool), typeof(TasksListWindow), new PropertyMetadata(null));
+		public static readonly DependencyProperty CanAddTasksProperty = DependencyProperty.Register(
+			"CanAddTasks", typeof(bool), typeof(TasksListWindow), new PropertyMetadata(null));
 
-        public BO.EngineerExperienceWithAll LevelCategory { get; set; } = BO.EngineerExperienceWithAll.All;
+		public EngineerExperienceWithAllAndDeletedTask LevelCategory { get; set; } = EngineerExperienceWithAllAndDeletedTask.All;
 
 
 		public TasksListWindow()
@@ -55,43 +55,44 @@ namespace PL.Task
 
 		/// <summary> update the list of engineers in the window according to the selected level </summary>
 		void UpdateTasksList()
-        {
-            TasksList = (
-                (LevelCategory == BO.EngineerExperienceWithAll.All) ? s_bl?.Task.ReadAll()!
-               : s_bl?.Task.ReadAll(item => item.Complexity is not null && item.Complexity == (BO.EngineerExperience?)LevelCategory)!
-               ).OrderBy(e => e.Id); // sort by ID so it will be easier to find the engineer in the list as a human
-        }
+		{
+			TasksList = (
+				(LevelCategory == EngineerExperienceWithAllAndDeletedTask.All) ? s_bl?.Task.ReadAll(t => t.IsActive)!
+				: (LevelCategory == EngineerExperienceWithAllAndDeletedTask.DeletedTask) ? s_bl?.Task.ReadAll(t => !t.IsActive)!
+			   : s_bl?.Task.ReadAll(t => t.IsActive && t.Complexity is not null && t.Complexity == (BO.EngineerExperience?)LevelCategory)!
+			   ).OrderBy(e => e.Id); // sort by ID so it will be easier to find the engineer in the list as a human
+		}
 
-        private void ChangeToSelectedLevel(object sender, SelectionChangedEventArgs e)
-        {
-            UpdateTasksList();
-        }
+		private void ChangeToSelectedLevel(object sender, SelectionChangedEventArgs e)
+		{
+			UpdateTasksList();
+		}
 
-        private void AddTask(object sender, RoutedEventArgs e)
-        {
-            if (TasksList.Any(t => t.Status != BO.Status.Unscheduled))
-            {
-                MessageBox.Show("You can't add a new task after the schdule date");
-                return;
-            }
-            new TaskDataInputWindow().ShowDialog();
-            UpdateTasksList();
-        }
+		private void AddTask(object sender, RoutedEventArgs e)
+		{
+			if (TasksList.Any(t => t.Status != BO.Status.Unscheduled))
+			{
+				MessageBox.Show("You can't add a new task after the schdule date");
+				return;
+			}
+			new TaskDataInputWindow().ShowDialog();
+			UpdateTasksList();
+		}
 
-        private void UpdateTask(object sender, MouseButtonEventArgs e)
-        {
-            if ((sender as ListView)?.SelectedItem is BO.TaskInList task)
-            {
-                if (task is not null)
-                {
-                    try
-                    {
-                        new TaskDataInputWindow(task.Id).ShowDialog();
-                        UpdateTasksList();
-                    }
-                    catch (Exception) { }
-                }
-            }
-        }
-    }
+		private void UpdateTask(object sender, MouseButtonEventArgs e)
+		{
+			if ((sender as ListView)?.SelectedItem is BO.TaskInList task)
+			{
+				if (task is not null)
+				{
+					try
+					{
+						new TaskDataInputWindow(task.Id).ShowDialog();
+						UpdateTasksList();
+					}
+					catch (Exception) { }
+				}
+			}
+		}
+	}
 }

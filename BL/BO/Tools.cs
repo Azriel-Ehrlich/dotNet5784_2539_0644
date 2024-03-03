@@ -63,7 +63,8 @@ internal static class Tools
 			Deliverables = task.Deliverables ?? "",
 			Remarks = task.Remarks ?? "",
 			// Engineer: see below
-			Complexity = (BO.EngineerExperience)task.Complexity!
+			Complexity = (BO.EngineerExperience)task.Complexity!,
+			IsActive = task.Active
 		};
 
 		// find all dependencies of the task
@@ -112,7 +113,7 @@ internal static class Tools
 		return new DO.Task(task.Id, task.Alias, task.Description, task.CreatedAtDate,
 						task.RequiredEffortTime, false, (DO.EngineerExperience)task.Complexity!, task.StartDate,
 						task.ScheduledDate, null, task.CompleteDate, task.Deliverables, task.Remarks,
-						task.Engineer is not null && task.Engineer.Id != 0 ? task.Engineer.Id : null, true);
+						task.Engineer is not null && task.Engineer.Id != 0 ? task.Engineer.Id : null, task.IsActive);
 	}
 
 
@@ -127,7 +128,7 @@ internal static class Tools
 			return string.Empty;
 
 		// The simple way: return obj as json
-		//return JsonSerializer.Serialize(obj, new JsonSerializerOptions(){WriteIndented = true});
+		// return JsonSerializer.Serialize(obj, new JsonSerializerOptions(){WriteIndented = true});
 		// However, you said we must use reflection, so here we go:
 
 		Type type = obj.GetType();

@@ -35,6 +35,7 @@ public class Task
 	public EngineerInTask? Engineer { set; get; }
 	public EngineerExperience? Complexity { set; get; }
 
+	public bool IsActive { set; get; }
 
 	public override string ToString() => this.ToStringProperty();
 }
