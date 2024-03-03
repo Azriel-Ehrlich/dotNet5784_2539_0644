@@ -34,7 +34,8 @@ namespace PL.Manager
         public GantChartWindow()
         {
             InitializeComponent();
-            TasksList = s_bl.Task.ReadAll().OrderBy(t => s_bl.Task.Read(t.Id).ScheduledDate);
+            // update chart when back to window:
+            this.Activated += (s, e) => TasksList = s_bl.Task.ReadAll().OrderBy(t => s_bl.Task.Read(t.Id).ScheduledDate);
         }
     }
 }

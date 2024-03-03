@@ -4,70 +4,77 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
-        mc:Ignorable="d" Background="MistyRose"
-        Title="The Coolest Program Everrr" Height="550" Width="800"
+        mc:Ignorable="d" Background="#E5F5F3"
+        Title="The Coolest Program Everrr" Height="550" Width="550"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Window.Resources>
-        <Style x:Key="stButton" TargetType="Button">
-            <Setter Property="Width" Value="200"/>
-            <Setter Property="Height" Value="50"/>
-            <Setter Property="FontSize" Value="20"/>
+        <Style x:Key="ClockButtons" TargetType="Button">
+            <Setter Property="Margin" Value="2" />
+            <Setter Property="Padding" Value="5 2" />
+            <Setter Property="Background" Value="#B2EBF2" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Width" Value="70" />
+            <Setter Property="FontSize" Value="12" />
         </Style>
         
-        <Style x:Key="stTimeButton" TargetType="Button">
-            <Setter Property="Width" Value="60"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="FontSize" Value="14"/>
+        <Style x:Key="UsersButtons" TargetType="Button">
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="Padding" Value="5 2" />
+            <Setter Property="Background" Value="#4DB6AC" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Width" Value="100" />
+            <Setter Property="FontSize" Value="17" />
         </Style>
     </Window.Resources>
+    
+    <StackPanel>
+        <!-- Main Grid with soft blue-green background -->
+        <StackPanel.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#B2EBF2" Offset="0"/>
+                <GradientStop Color="#80DEEA" Offset="1"/>
+            </LinearGradientBrush>
+        </StackPanel.Background>
 
-    <Grid>
-        <!-- use stack and wrap panel so it easy to order items -->
+        <!-- Title and author section -->
+        <StackPanel Margin="0,20,0,0" HorizontalAlignment="Center">
+            <!-- Amazing title with soft blue-green color -->
+            <TextBlock Text="Welcome to the Tasks &amp; Engineers Management System"
+                       TextWrapping="Wrap"
+                       FontSize="30" FontWeight="Bold" Foreground="#004D40" Margin="0,0,0,10" />
+
+            <!-- Author label with subtle gray color -->
+            <Label Content="By AH and AE" Foreground="#757575" FontSize="15"/>
+        </StackPanel>
+
         <StackPanel>
-            <!-- amazign title -->
-            <TextBlock Text="Welcome to the Tasks &amp; Engineers Management System" 
-                   TextWrapping="Wrap" FontFamily="Consolas"
-                   Margin="20,20,0,0" VerticalAlignment="Top" Height="100" FontSize="40" FontWeight="DemiBold"
-                   Foreground="#FF0A0A0A"/>
-            <Label Content="By AH and AE" FontFamily="Consolas" Margin="50,0,0,0"/>
-            <Separator Height="5" Opacity="0"/>
+            <!-- add image from link -->
+            <Image Source="/spaceship.jpeg" Height="200" />
+            <!--<Image Source="https://static.vecteezy.com/system/resources/previews/026/975/650/large_2x/spaceship-next-generation-robotic-spaceship-leaving-the-earth-futuristic-robot-satellite-technology-space-exploration-space-travel-outer-space-spacecraft-futuristic-science-fiction-ai-generated-free-photo.jpeg" Height="200" />-->
+            <Label Content="our spaceship, where we usualy work" Margin="50,0,0,0"/>
+        </StackPanel>
 
-            <StackPanel>
-                <!-- add image from link -->
-                <Image Source="/spaceship.jpeg" Height="200" />
-                <!--<Image Source="https://static.vecteezy.com/system/resources/previews/026/975/650/large_2x/spaceship-next-generation-robotic-spaceship-leaving-the-earth-futuristic-robot-satellite-technology-space-exploration-space-travel-outer-space-spacecraft-futuristic-science-fiction-ai-generated-free-photo.jpeg" Height="200" />-->
-                <Label Content="our spaceship, where we usualy work" Margin="50,0,0,0"/>
-            </StackPanel>
+        <!-- Manager and Engineer buttons -->
+        <StackPanel Margin="0,3,0,0" HorizontalAlignment="Center" Orientation="Horizontal">
+            <Button Content="Manager" Click="ManagerMenu" Style="{StaticResource UsersButtons}" />
+            <Button Content="Engineer" Click="EngineerMenu" Style="{StaticResource UsersButtons}"/>
+        </StackPanel>
 
-            <Separator Height="5" Opacity="0"/>
+        <!-- Time manipulation buttons -->
+        <StackPanel Margin="0,3,0,0" Orientation="Vertical" HorizontalAlignment="Center">
+            <TextBlock Text="{Binding Path=CurrentTime, StringFormat=yyyy/MM/dd ; HH:mm:ss, Mode=TwoWay}"
+                       TextAlignment="Center" FontSize="16" Foreground="#004D40" VerticalAlignment="Center" Margin="0,0,20,0"/>
 
-            <StackPanel HorizontalAlignment="Center">
-                <!-- add buttons to increase and decrease the time -->
-                <WrapPanel>
-                    <TextBlock Style="{StaticResource stTextBlock}"
-                               Text="{Binding Path=CurrentTime, StringFormat=yyyy/MM/dd ; HH:mm:ss, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
-                    <Separator Width="10" Opacity="0"/>
-                    <Button Content="dec day" Style="{StaticResource stTimeButton}" Click="ClockDecDay"/>
-                    <Separator Width="10" Opacity="0"/>
-                    <Button Content="dec hour" Style="{StaticResource stTimeButton}" Click="ClockDecHour"/>
-                    <Separator Width="10" Opacity="0"/>
-                    <Button Content="inc hour" Style="{StaticResource stTimeButton}" Click="ClockIncHour"/>
-                    <Separator Width="10" Opacity="0"/>
-                    <Button Content="inc day" Style="{StaticResource stTimeButton}" Click="ClockIncDay"/>
-                    <Separator Width="10" Opacity="0"/>
-                    <Button Content="start clock" Style="{StaticResource stTimeButton}" Width="70" Click="StartClock"/>
-                    <Separator Width="10" Opacity="0"/>
-                    <Button Content="stop clock" Style="{StaticResource stTimeButton}" Width="70" Click="StopClock"/>
-                </WrapPanel>
-            </StackPanel>
-
-            <Separator Height="5" Opacity="0"/>
-
-            <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Button Style="{StaticResource stButton}" Content="Manager" Click="ManagerMenu"/>
-                <Separator Width="20" Opacity="0"/>
-                <Button Style="{StaticResource stButton}" Content="Engineer" Click="EngineerMenu"/>
+            <!-- Buttons with soft blue-green background -->
+            <WrapPanel>
+                <Button Content="dec day"   Click="ClockDecDay"  Style="{StaticResource ClockButtons}"/>
+                <Button Content="dec hour"  Click="ClockDecHour" Style="{StaticResource ClockButtons}"/>
+                <Button Content="inc hour"  Click="ClockIncHour" Style="{StaticResource ClockButtons}"/>
+                <Button Content="inc day"   Click="ClockIncDay"  Style="{StaticResource ClockButtons}"/>
+                <Button Content="start clock" Click="StartClock" Style="{StaticResource ClockButtons}"/>
+                <Button Content="stop clock"  Click="StopClock"  Style="{StaticResource ClockButtons}"/>
             </WrapPanel>
         </StackPanel>
-    </Grid>
+    </StackPanel>
 </Window>

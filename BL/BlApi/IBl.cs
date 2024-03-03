@@ -29,14 +29,21 @@ public interface IBl
 	public void SaveScheduledDate();
 
 
-	#region Clock Object
-	private static DateTime s_Clock = DateTime.Now.Date;
-	public DateTime Clock { get { return s_Clock; } private set { s_Clock = value; } }
+	#region Clock methods
+	public DateTime Clock { get; }
 
 	public void InitClock();
+
 	public void AddHours(int hours);
 	public void AddDays(int days);
 	public void AddMinutes(int minutes);
 	public void AddSeconds(int seconds);
+
+	/// <summary> Start the clock thread </summary>
+	/// <param name="onChange"> The action to do when the clock changes </param>
+	public void StartClockThread(Action onChange);
+
+	/// <summary> Stop the clock thread </summary>
+	public void StopClockThread();
 	#endregion
 }

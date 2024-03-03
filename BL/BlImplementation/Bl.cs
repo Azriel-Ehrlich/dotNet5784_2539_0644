@@ -70,12 +70,36 @@ sealed public class Bl : IBl
 
 	#region Clock Object
 
-	public DateTime Clock { get; set; }
+	static object s_Lock = new object(); // Lock for the clock
+	bool s_runClockThread = false;
+	static DateTime s_Clock = DateTime.Now.Date;
 
-	public void InitClock() => Clock = DateTime.Now;
-	public void AddHours(int hours) => Clock = Clock.AddHours(hours);
-	public void AddDays(int days) => Clock = Clock.AddDays(days);
-	public void AddMinutes(int minutes) => Clock = Clock.AddMinutes(minutes);
-	public void AddSeconds(int seconds) => Clock = Clock.AddSeconds(seconds);
+	public DateTime Clock
+	{
+		get { lock (s_Lock) { return s_Clock; } }
+		private set { lock (s_Lock) { s_Clock = value; } }
+	}
+
+	public void InitClock() { lock (s_Lock) { Clock = DateTime.Now; } }
+	public void AddHours(int hours) { lock (s_Lock) { Clock = Clock.AddHours(hours); } }
+	public void AddDays(int days) { lock (s_Lock) { Clock = Clock.AddDays(days); } }
+	public void AddMinutes(int minutes) { lock (s_Lock) { Clock = Clock.AddMinutes(minutes); } }
+	public void AddSeconds(int seconds) { lock (s_Lock) { Clock = Clock.AddSeconds(seconds); } }
+
+	public void StartClockThread(Action onChange)
+	{
+		new Thread(() =>
+		{
+			s_runClockThread = true;
+			while (s_runClockThread)
+			{
+				Thread.Sleep(1000);
+				AddMinutes(10);
+				AddSeconds(1);
+				onChange();
+			}
+		}).Start();
+	}
+	public void StopClockThread() { s_runClockThread = false; }
 	#endregion
 }

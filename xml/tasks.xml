@@ -1,62 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfTask xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Task>
-    <Id>0</Id>
-    <Alias>Mission Planning</Alias>
-    <Description>Plan the mission to Mars</Description>
-    <CreatedAtDate>2020-03-03T12:28:46.4081587+02:00</CreatedAtDate>
-    <RequiredEffortTime>P1095D</RequiredEffortTime>
-    <IsMilestone>false</IsMilestone>
-    <Complexity>Expert</Complexity>
-    <ScheduledDate xsi:nil="true" />
-    <Deliverables>Mission plan details</Deliverables>
-    <Active>true</Active>
-  </Task>
-  <Task>
-    <Id>1</Id>
-    <Alias>Crew Selection</Alias>
-    <Description>Select a qualified crew for the mission</Description>
-    <CreatedAtDate>2022-03-03T12:28:46.4083176+02:00</CreatedAtDate>
-    <RequiredEffortTime>P730D</RequiredEffortTime>
-    <IsMilestone>false</IsMilestone>
-    <Complexity>Expert</Complexity>
-    <ScheduledDate xsi:nil="true" />
-    <Deliverables>Crew selection criteria</Deliverables>
-    <Active>true</Active>
-  </Task>
-  <Task>
-    <Id>2</Id>
-    <Alias>Spacecraft Design</Alias>
-    <Description>Design the spacecraft for the mission</Description>
-    <CreatedAtDate>2023-03-03T12:28:46.4083204+02:00</CreatedAtDate>
-    <RequiredEffortTime>P365D</RequiredEffortTime>
-    <IsMilestone>false</IsMilestone>
-    <Complexity>Intermediate</Complexity>
-    <ScheduledDate xsi:nil="true" />
-    <Deliverables>Spacecraft design specifications</Deliverables>
-    <Active>true</Active>
-  </Task>
-  <Task>
-    <Id>3</Id>
-    <Alias>Launch System Development</Alias>
-    <Description>Develop the launch system for the spacecraft</Description>
-    <CreatedAtDate>2024-03-03T12:28:46.4083207+02:00</CreatedAtDate>
-    <RequiredEffortTime>P365D</RequiredEffortTime>
-    <IsMilestone>false</IsMilestone>
-    <Complexity>Beginner</Complexity>
-    <ScheduledDate xsi:nil="true" />
-    <Deliverables>Launch system development plan</Deliverables>
-    <Active>true</Active>
-  </Task>
-  <Task>
     <Id>4</Id>
     <Alias>Orbital Insertion Planning</Alias>
     <Description>Plan the orbital insertion phase of the mission</Description>
-    <CreatedAtDate>2024-03-03T12:28:46.4083234+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-03-03T20:52:09.2598336+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Expert</Complexity>
-    <ScheduledDate xsi:nil="true" />
+    <ScheduledDate>2031-03-02T13:30:51.4118932+02:00</ScheduledDate>
     <Deliverables>Orbital insertion plan</Deliverables>
     <Active>true</Active>
   </Task>
@@ -64,11 +16,11 @@
     <Id>5</Id>
     <Alias>Surface Habitat Design</Alias>
     <Description>Design the habitat for the Mars surface</Description>
-    <CreatedAtDate>2024-03-03T12:28:46.4083236+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-03-03T20:52:09.2598337+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Intermediate</Complexity>
-    <ScheduledDate xsi:nil="true" />
+    <ScheduledDate>2032-03-01T13:30:51.4118932+02:00</ScheduledDate>
     <Deliverables>Surface habitat design details</Deliverables>
     <Active>true</Active>
   </Task>
@@ -76,11 +28,11 @@
     <Id>6</Id>
     <Alias>Supply and Resource Planning</Alias>
     <Description>Plan the supply and resource management for the mission</Description>
-    <CreatedAtDate>2024-03-03T12:28:46.4083241+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-03-03T20:52:09.2598339+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Beginner</Complexity>
-    <ScheduledDate xsi:nil="true" />
+    <ScheduledDate>2033-03-01T13:30:51.4118932+02:00</ScheduledDate>
     <Deliverables>Supply and resource planning details</Deliverables>
     <Active>true</Active>
   </Task>
@@ -88,11 +40,11 @@
     <Id>7</Id>
     <Alias>Communication Systems</Alias>
     <Description>Develop communication systems for the mission</Description>
-    <CreatedAtDate>2024-03-03T12:28:46.4083245+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-03-03T20:52:09.2598347+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Expert</Complexity>
-    <ScheduledDate xsi:nil="true" />
+    <ScheduledDate>2034-03-01T13:30:51.4118932+02:00</ScheduledDate>
     <Deliverables>Communication systems specifications</Deliverables>
     <Active>true</Active>
   </Task>
@@ -100,11 +52,11 @@
     <Id>8</Id>
     <Alias>Mars Entry and Landing</Alias>
     <Description>Plan the entry and landing on Mars</Description>
-    <CreatedAtDate>2024-03-03T12:28:46.4083253+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-03-03T20:52:09.2598349+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Intermediate</Complexity>
-    <ScheduledDate xsi:nil="true" />
+    <ScheduledDate>2035-03-01T13:30:51.4118932+02:00</ScheduledDate>
     <Deliverables>Mars entry and landing plan</Deliverables>
     <Active>true</Active>
   </Task>
@@ -112,11 +64,11 @@
     <Id>9</Id>
     <Alias>Surface Exploration Equipment</Alias>
     <Description>Develop equipment for surface exploration</Description>
-    <CreatedAtDate>2024-03-03T12:28:46.4083255+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-03-03T20:52:09.259835+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Beginner</Complexity>
-    <ScheduledDate xsi:nil="true" />
+    <ScheduledDate>2036-02-29T13:30:51.4118932+02:00</ScheduledDate>
     <Deliverables>Surface exploration equipment details</Deliverables>
     <Active>true</Active>
   </Task>
@@ -124,11 +76,11 @@
     <Id>10</Id>
     <Alias>Environmental Monitoring</Alias>
     <Description>Plan environmental monitoring for the mission</Description>
-    <CreatedAtDate>2024-03-03T12:28:46.4083257+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-03-03T20:52:09.2598352+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Expert</Complexity>
-    <ScheduledDate xsi:nil="true" />
+    <ScheduledDate>2037-02-28T13:30:51.4118932+02:00</ScheduledDate>
     <Deliverables>Environmental monitoring plan</Deliverables>
     <Active>true</Active>
   </Task>
@@ -136,11 +88,11 @@
     <Id>11</Id>
     <Alias>Emergency Response Planning</Alias>
     <Description>Develop plans for emergency responses</Description>
-    <CreatedAtDate>2024-03-03T12:28:46.408326+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-03-03T20:52:09.2598354+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Intermediate</Complexity>
-    <ScheduledDate xsi:nil="true" />
+    <ScheduledDate>2038-02-28T13:30:51.4118932+02:00</ScheduledDate>
     <Deliverables>Emergency response planning details</Deliverables>
     <Active>true</Active>
   </Task>
@@ -148,11 +100,11 @@
     <Id>12</Id>
     <Alias>Crew Health and Medical Planning</Alias>
     <Description>Plan for crew health and medical needs</Description>
-    <CreatedAtDate>2024-03-03T12:28:46.4083279+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-03-03T20:52:09.2598355+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Beginner</Complexity>
-    <ScheduledDate xsi:nil="true" />
+    <ScheduledDate>2039-02-28T13:30:51.4118932+02:00</ScheduledDate>
     <Deliverables>Crew health and medical planning details</Deliverables>
     <Active>true</Active>
   </Task>
@@ -160,11 +112,11 @@
     <Id>13</Id>
     <Alias>Mars Ascent Vehicle Design</Alias>
     <Description>Design the ascent vehicle for returning from Mars</Description>
-    <CreatedAtDate>2024-03-03T12:28:46.4083283+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-03-03T20:52:09.2598357+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Expert</Complexity>
-    <ScheduledDate xsi:nil="true" />
+    <ScheduledDate>2040-02-28T13:30:51.4118932+02:00</ScheduledDate>
     <Deliverables>Mars ascent vehicle design details</Deliverables>
     <Active>true</Active>
   </Task>
@@ -172,11 +124,11 @@
     <Id>14</Id>
     <Alias>Return Journey Planning</Alias>
     <Description>Plan the journey back to Earth</Description>
-    <CreatedAtDate>2024-03-03T12:28:46.4083285+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-03-03T20:52:09.2598366+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Intermediate</Complexity>
-    <ScheduledDate xsi:nil="true" />
+    <ScheduledDate>2041-02-27T13:30:51.4118932+02:00</ScheduledDate>
     <Deliverables>Return journey planning details</Deliverables>
     <Active>true</Active>
   </Task>
@@ -184,11 +136,11 @@
     <Id>15</Id>
     <Alias>Sample Collection and Analysis</Alias>
     <Description>Collect and analyze surface samples</Description>
-    <CreatedAtDate>2024-03-03T12:28:46.4083292+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-03-03T20:52:09.2598368+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Beginner</Complexity>
-    <ScheduledDate xsi:nil="true" />
+    <ScheduledDate>2042-02-27T13:30:51.4118932+02:00</ScheduledDate>
     <Deliverables>Sample collection and analysis details</Deliverables>
     <Active>true</Active>
   </Task>
@@ -196,11 +148,11 @@
     <Id>16</Id>
     <Alias>Crew Exercise and Well-being</Alias>
     <Description>Plan for crew exercise and well-being</Description>
-    <CreatedAtDate>2024-03-03T12:28:46.4083294+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-03-03T20:52:09.2598369+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Expert</Complexity>
-    <ScheduledDate xsi:nil="true" />
+    <ScheduledDate>2043-02-27T13:30:51.4118932+02:00</ScheduledDate>
     <Deliverables>Crew exercise and well-being plan</Deliverables>
     <Active>true</Active>
   </Task>
@@ -208,48 +160,96 @@
     <Id>17</Id>
     <Alias>Communication with Earth</Alias>
     <Description>Establish communication with Earth</Description>
-    <CreatedAtDate>2024-03-03T12:28:46.4083296+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-03-03T20:52:09.2598371+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Intermediate</Complexity>
-    <ScheduledDate xsi:nil="true" />
+    <ScheduledDate>2044-02-27T13:30:51.4118932+02:00</ScheduledDate>
     <Deliverables>Communication with Earth plan</Deliverables>
+    <Active>true</Active>
+  </Task>
+  <Task>
+    <Id>18</Id>
+    <Alias>Public Relations and Outreach</Alias>
+    <Description>Engage in public relations and outreach activities</Description>
+    <CreatedAtDate>2024-03-03T20:52:09.2598372+02:00</CreatedAtDate>
+    <RequiredEffortTime>P365D</RequiredEffortTime>
+    <IsMilestone>false</IsMilestone>
+    <Complexity>Beginner</Complexity>
+    <ScheduledDate>2045-02-26T13:30:51.4118932+02:00</ScheduledDate>
+    <Deliverables>Public relations and outreach plan</Deliverables>
     <Active>true</Active>
   </Task>
   <Task>
     <Id>19</Id>
     <Alias>Post-Mission Analysis</Alias>
     <Description>Conduct post-mission analysis</Description>
-    <CreatedAtDate>2024-03-03T12:28:46.4083299+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-03-03T20:52:09.2598374+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Expert</Complexity>
-    <ScheduledDate xsi:nil="true" />
+    <ScheduledDate>2046-02-26T13:30:51.4118932+02:00</ScheduledDate>
     <Deliverables>Post-mission analysis details</Deliverables>
-    <Active>false</Active>
-  </Task>
-  <Task>
-    <Id>18</Id>
-    <Alias>Public Relations and Outreach</Alias>
-    <Description>Engage in public relations and outreach activities</Description>
-    <CreatedAtDate>2024-03-03T12:28:46.4083297+02:00</CreatedAtDate>
-    <RequiredEffortTime>P365D</RequiredEffortTime>
-    <IsMilestone>false</IsMilestone>
-    <Complexity>Beginner</Complexity>
-    <ScheduledDate xsi:nil="true" />
-    <Deliverables>Public relations and outreach plan</Deliverables>
     <Active>true</Active>
   </Task>
   <Task>
-    <Id>20</Id>
-    <Alias>nop</Alias>
-    <Description>nop</Description>
-    <CreatedAtDate>2024-03-03T12:28:46.4083299+02:00</CreatedAtDate>
+    <Id>0</Id>
+    <Alias>Mission Planning</Alias>
+    <Description>Plan the mission to Mars</Description>
+    <CreatedAtDate>2020-03-03T20:52:09.259741+02:00</CreatedAtDate>
+    <RequiredEffortTime>P1095D</RequiredEffortTime>
+    <IsMilestone>false</IsMilestone>
+    <Complexity>Expert</Complexity>
+    <StartDate>2024-03-03T13:30:51.4118932+02:00</StartDate>
+    <ScheduledDate>2024-03-03T13:30:51.4118932+02:00</ScheduledDate>
+    <CompleteDate>2024-03-03T13:30:51.4118932+02:00</CompleteDate>
+    <Deliverables>Mission plan details</Deliverables>
+    <EngineerId>234566019</EngineerId>
+    <Active>true</Active>
+  </Task>
+  <Task>
+    <Id>1</Id>
+    <Alias>Crew Selection</Alias>
+    <Description>Select a qualified crew for the mission</Description>
+    <CreatedAtDate>2022-03-03T20:52:09.2598328+02:00</CreatedAtDate>
+    <RequiredEffortTime>P730D</RequiredEffortTime>
+    <IsMilestone>false</IsMilestone>
+    <Complexity>Expert</Complexity>
+    <StartDate>2024-03-03T13:30:51.4118932+02:00</StartDate>
+    <ScheduledDate>2027-03-03T13:30:51.4118932+02:00</ScheduledDate>
+    <CompleteDate>2024-03-03T13:30:51.4118932+02:00</CompleteDate>
+    <Deliverables>Crew selection criteria</Deliverables>
+    <EngineerId>234566019</EngineerId>
+    <Active>true</Active>
+  </Task>
+  <Task>
+    <Id>2</Id>
+    <Alias>Spacecraft Design</Alias>
+    <Description>Design the spacecraft for the mission</Description>
+    <CreatedAtDate>2023-03-03T20:52:09.2598333+02:00</CreatedAtDate>
+    <RequiredEffortTime>P365D</RequiredEffortTime>
+    <IsMilestone>false</IsMilestone>
+    <Complexity>Intermediate</Complexity>
+    <StartDate>2024-03-03T13:30:51.4118932+02:00</StartDate>
+    <ScheduledDate>2029-03-02T13:30:51.4118932+02:00</ScheduledDate>
+    <CompleteDate>2024-03-03T13:30:51.4118932+02:00</CompleteDate>
+    <Deliverables>Spacecraft design specifications</Deliverables>
+    <EngineerId>234566019</EngineerId>
+    <Active>true</Active>
+  </Task>
+  <Task>
+    <Id>3</Id>
+    <Alias>Launch System Development</Alias>
+    <Description>Develop the launch system for the spacecraft</Description>
+    <CreatedAtDate>2024-03-03T20:52:09.2598335+02:00</CreatedAtDate>
     <RequiredEffortTime>P365D</RequiredEffortTime>
     <IsMilestone>false</IsMilestone>
     <Complexity>Beginner</Complexity>
-    <ScheduledDate xsi:nil="true" />
-    <Deliverables>nop</Deliverables>
-    <Active>false</Active>
+    <StartDate>2024-03-03T23:36:53.4892682+02:00</StartDate>
+    <ScheduledDate>2030-03-02T13:30:51.4118932+02:00</ScheduledDate>
+    <CompleteDate>2024-03-04T00:47:00.4892682+02:00</CompleteDate>
+    <Deliverables>Launch system development plan</Deliverables>
+    <EngineerId>234566019</EngineerId>
+    <Active>true</Active>
   </Task>
 </ArrayOfTask>
