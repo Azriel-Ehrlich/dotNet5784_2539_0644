@@ -75,5 +75,7 @@ sealed public class Bl : IBl
 	public void InitClock() => Clock = DateTime.Now;
 	public void AddHours(int hours) => Clock = Clock.AddHours(hours);
 	public void AddDays(int days) => Clock = Clock.AddDays(days);
+	public void AddMinutes(int minutes) => Clock = Clock.AddMinutes(minutes);
+	public void AddSeconds(int seconds) => Clock = Clock.AddSeconds(seconds);
 	#endregion
 }

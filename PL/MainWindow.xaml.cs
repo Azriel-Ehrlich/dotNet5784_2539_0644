@@ -42,7 +42,8 @@ namespace PL
         private void Timer_Tick(object sender, EventArgs e)
         {
             // Increase the time by 1 hour every second
-            s_bl.AddHours(1);
+            s_bl.AddMinutes(10);
+            s_bl.AddSeconds(1);
             UpdateTime();
         }
 

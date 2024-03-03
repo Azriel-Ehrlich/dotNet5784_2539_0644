@@ -36,5 +36,7 @@ public interface IBl
 	public void InitClock();
 	public void AddHours(int hours);
 	public void AddDays(int days);
+	public void AddMinutes(int minutes);
+	public void AddSeconds(int seconds);
 	#endregion
 }
