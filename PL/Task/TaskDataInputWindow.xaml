@@ -39,8 +39,7 @@
 
             <WrapPanel>
                 <TextBlock Style="{StaticResource stTextBlock}" Text="Engineer ID" />
-                <TextBox Style="{StaticResource stTextBox}" IsEnabled="False"
-                         Text="{Binding Path=Task.Engineer.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+                <TextBlock Style="{StaticResource stTextBlock}" Text="{Binding Path=Task.Engineer.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
             </WrapPanel>
             <Separator Opacity="0" />
 
@@ -56,8 +55,7 @@
             <!-- display dates -->
             <WrapPanel>
                 <TextBlock Style="{StaticResource stTextBlock}" Text="Start Date" />
-                <DatePicker Style="{StaticResource stDatePicker}" IsEnabled="False"
-                        Text="{Binding Path=Task.StartDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+                <TextBlock Style="{StaticResource stTextBlock}" Text="{Binding Path=Task.StartDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
             </WrapPanel>
             <Separator Opacity="0" />
 
@@ -71,27 +69,23 @@
 
             <WrapPanel>
                 <TextBlock Style="{StaticResource stTextBlock}" Text="Scheduled Date" />
-                <TextBox Style="{StaticResource stTextBox}" Text="{Binding Path=Task.ScheduledDate, Mode=OneWay}"
-                     IsEnabled="False"/>
+                <TextBlock Style="{StaticResource stTextBlock}" Text="{Binding Path=Task.ScheduledDate, Mode=OneWay}" />
             </WrapPanel>
             <Separator Opacity="0" />
             <WrapPanel>
                 <TextBlock Style="{StaticResource stTextBlock}" Text="Complete Date" />
-                <DatePicker Style="{StaticResource stDatePicker}" IsEnabled="False"
-                            Text="{Binding Path=Task.CompleteDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+                <TextBlock Style="{StaticResource stTextBlock}" Text="{Binding Path=Task.CompleteDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
             </WrapPanel>
             <Separator Opacity="0" />
             <WrapPanel>
                 <TextBlock Style="{StaticResource stTextBlock}" Text="Forecast Date" />
-                <TextBox Style="{StaticResource stTextBox}" Text="{Binding Path=Task.ForecastDate, Mode=OneWay}"
-                     IsEnabled="False"/>
+                <TextBlock Style="{StaticResource stTextBlock}" Text="{Binding Path=Task.ForecastDate, Mode=OneWay}" />
             </WrapPanel>
             
             <Separator Opacity="0" />
             <WrapPanel>
                 <TextBlock Style="{StaticResource stTextBlock}" Text="Status" />
-                <TextBox Style="{StaticResource stTextBox}" Text="{Binding Path=Task.Status, Mode=OneWay}"
-                     IsEnabled="False"/>
+                <TextBlock Style="{StaticResource stTextBlock}" Text="{Binding Path=Task.Status, Mode=OneWay}" />
             </WrapPanel>
 
             <Separator Opacity="0" Height="30" />
@@ -119,8 +113,7 @@
                         <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                 <CheckBox Checked="AddDependency" Unchecked="RemoveDependency" IsChecked="{Binding IsChecked}"
-                                          IsEnabled="{Binding Status,Converter={StaticResource ConvertStatusToEnableKey}}"/>
-
+                                          IsEnabled="{Binding Status, Converter={StaticResource ConvertStatusToEnableKey}}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

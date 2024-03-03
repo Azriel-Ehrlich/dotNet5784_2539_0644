@@ -17,6 +17,7 @@
         <local:ConvertStatusToEnable x:Key="ConvertStatusToEnableKey"/>
         <local:ConvertStatusToVisibility x:Key="ConvertStatusToVisibilityKey"/>
         <local:TaskIdToString x:Key="TaskIdToString"/>
+        <local:ConvertBoolToVisibilityKey x:Key="ConvertBoolToVisibilityKey"/>
 
         <!-- Styles -->
         <Style TargetType="GridViewColumnHeader" >

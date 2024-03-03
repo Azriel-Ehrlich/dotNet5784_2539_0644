@@ -29,9 +29,6 @@ namespace PL.Task
             public bool IsChecked { get; set; }
         }
 
-        //public bool isNewTask { set; get; } // save the state: create new or update engineer
-
-
         public class CurrentTaskType // for binding
         {
             public IEnumerable<BO.TaskInList> AllTasks { get; set; }
@@ -72,7 +69,6 @@ namespace PL.Task
         public TaskDataInputWindow(int Id = -1)
         {
             InitializeComponent();
-            //isNewTask = (Id == ConstantValues.NO_ID);
             CurrentTask = new(Id);
         }
 

@@ -167,12 +167,27 @@ public class ConvertStatusToEnable : IValueConverter
 		throw new NotImplementedException();
 	}
 }
+
 /// <summary> convert the status to visibility of the button </summary>
 public class ConvertStatusToVisibility : IValueConverter
 {
 	public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 	{
 		return (BO.Status)value == BO.Status.Unscheduled ? Visibility.Visible : Visibility.Collapsed;
+	}
+
+	public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+	{
+		throw new NotImplementedException();
+	}
+}
+
+/// <summary> convert boolean value to visibility of control </summary>
+public class ConvertBoolToVisibilityKey : IValueConverter
+{
+	public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+	{
+		return (bool)value ? Visibility.Visible : Visibility.Collapsed;
 	}
 
 	public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
