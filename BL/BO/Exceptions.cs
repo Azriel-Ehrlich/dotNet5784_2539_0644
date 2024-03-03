@@ -51,3 +51,10 @@ public class BlInvalidInputException : Exception
 {
 	public BlInvalidInputException(string? message = "invalid input") : base(message) { }
 }
+
+/// <summary> exception ehen cannot create a new object </summary>
+[Serializable]
+public class BlCannotCreateException : Exception
+{
+	public BlCannotCreateException(string? message) : base(message) { }
+}

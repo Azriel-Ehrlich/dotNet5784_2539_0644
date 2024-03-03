@@ -33,6 +33,9 @@ internal class TaskImplementation : BlApi.ITask
     /// <inheritdoc/>
     public int Create(BO.Task task)
     {
+        if (_bl.IsProjectScheduled()) // DO NOT CREATE ANY TASK IF WE DO NOT SCHEDULED OUR PROJECT!
+			throw new BO.BlCannotCreateException("You can't create task before scheduled project");
+
         checkTask(task);
 
         // check if task already exist by check it alias

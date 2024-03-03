@@ -34,9 +34,7 @@ internal class ConvertIdToEnable : IValueConverter
 		throw new NotImplementedException();
 	}
 }
-/// <summary>
-/// convert the date to x position in the gant chart
-/// </summary>
+/// <summary> convert the date to x position in the gant chart </summary>
 public class StatusToColorConverter : IValueConverter
 {
 	public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -126,7 +124,7 @@ public class TaskIdToTop : IValueConverter
 	public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 	{
 		int taskId = (int)value;
-		return (taskId +1)* 30;
+		return (taskId + 1) * 30;
 	}
 
 	public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -134,9 +132,29 @@ public class TaskIdToTop : IValueConverter
 		throw new NotImplementedException();
 	}
 }
-/// <summary>
-/// convert the status to enable of the button
-/// </summary>
+
+/// <summary> convert task id to full data of the task </summary>
+public class TaskIdToString : IValueConverter
+{
+	static readonly IBl _bl = BlApi.Factory.Get();
+
+	public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+	{
+		BO.Task task = _bl.Task.Read((int)value);
+		return $"Alias: {task.Alias}\n"
+			+ $"Description: {task.Description}\n"
+			+ $"Status: {task.Status}\n"
+			+ $"Scheduled Date: {task.ScheduledDate}\n"
+			+ $"Forecast Date: {task.ForecastDate}\n";
+	}
+
+	public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+	{
+		throw new NotImplementedException();
+	}
+}
+
+/// <summary> convert the status to enable of the button </summary>
 public class ConvertStatusToEnable : IValueConverter
 {
 	public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -146,27 +164,16 @@ public class ConvertStatusToEnable : IValueConverter
 
 	public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 	{
-        throw new NotImplementedException();
-    }
+		throw new NotImplementedException();
+	}
 }
-/// <summary>
-/// convert the status to visibility of the button
-/// </summary>
+/// <summary> convert the status to visibility of the button </summary>
 public class ConvertStatusToVisibility : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+	public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 	{
-        return (BO.Status)value == BO.Status.Unscheduled ? Visibility.Visible : Visibility.Collapsed;
-    }
-
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-	{
-        throw new NotImplementedException();
-    }
-}
-
-
-
+		return (BO.Status)value == BO.Status.Unscheduled ? Visibility.Visible : Visibility.Collapsed;
+	}
 
 	public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 	{
