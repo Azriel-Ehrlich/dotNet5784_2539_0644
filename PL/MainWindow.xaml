@@ -8,7 +8,7 @@
         Title="The Coolest Program Everrr" Height="550" Width="550"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Window.Resources>
-        <Style x:Key="ClockButtons" TargetType="Button">
+        <Style x:Key="ClockButtons" TargetType="Button"  BasedOn="{StaticResource RoundedButton}">
             <Setter Property="Margin" Value="2" />
             <Setter Property="Padding" Value="5 2" />
             <Setter Property="Background" Value="#B2EBF2" />
@@ -16,8 +16,8 @@
             <Setter Property="Width" Value="70" />
             <Setter Property="FontSize" Value="12" />
         </Style>
-        
-        <Style x:Key="UsersButtons" TargetType="Button">
+
+        <Style x:Key="UsersButtons" TargetType="Button" BasedOn="{StaticResource RoundedButton}">
             <Setter Property="Margin" Value="10" />
             <Setter Property="Padding" Value="5 2" />
             <Setter Property="Background" Value="#4DB6AC" />

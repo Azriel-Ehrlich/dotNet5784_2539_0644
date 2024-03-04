@@ -36,7 +36,7 @@ namespace PL.Manager
         public SuggestedDateWindow()
         {
             InitializeComponent();
-            StartProj = s_bl.Clock;
+            StartProj = s_bl.Clock.CurrentTime;
 		}
 
         private void ScheudledDate_Button(object sender, RoutedEventArgs e)

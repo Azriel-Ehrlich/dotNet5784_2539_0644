@@ -80,8 +80,8 @@ public class TaskIdToWidth : IValueConverter
 
 		DateTime start = (DateTime)task.ScheduledDate;
 		DateTime end = (DateTime)task.ForecastDate;
-		int Left = (int)(start - s_bl.Clock).TotalDays;// * ConstantValues.GANT_CHART_MAGIC_NUMBER;
-		int Right = (int)(end - s_bl.Clock).TotalDays;// * ConstantValues.GANT_CHART_MAGIC_NUMBER;
+		int Left = (int)(start - s_bl.Clock.CurrentTime).TotalDays;// * ConstantValues.GANT_CHART_MAGIC_NUMBER;
+		int Right = (int)(end - s_bl.Clock.CurrentTime).TotalDays;// * ConstantValues.GANT_CHART_MAGIC_NUMBER;
 		int width = (Right - Left) / ConstantValues.GANT_CHART_MAGIC_NUMBER;
 		return $"{width}";
 	}
@@ -106,7 +106,7 @@ public class TaskIdToLeft : IValueConverter
 			return 0;
 
 		DateTime start = (DateTime)task.ScheduledDate;
-		int left = (int)(start - s_bl.Clock).TotalDays / ConstantValues.GANT_CHART_MAGIC_NUMBER;
+		int left = (int)(start - s_bl.Clock.CurrentTime).TotalDays / ConstantValues.GANT_CHART_MAGIC_NUMBER;
 		return left;
 	}
 

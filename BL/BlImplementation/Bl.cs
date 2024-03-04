@@ -4,9 +4,20 @@ using BO;
 
 sealed public class Bl : IBl
 {
-	public IEngineer Engineer => new EngineerImplementation();
+	public Bl()
+	{
+        // initialize fields. if we use "public IClock Clock => new ClockImplementation();" it will generate
+		// too many threads and never stop (it call staop of new object and not the current thread)
+        Engineer = new EngineerImplementation();
+        Task = new TaskImplementation(this);
+		Clock = new ClockImplementation();
+    }
 
-	public ITask Task => new TaskImplementation(this);
+	public IEngineer Engineer { get; private set; }
+
+    public ITask Task { get; private set; }
+
+    public IClock Clock { get; private set; }
 
 	public void InitializeDB() => DalTest.Initialization.Do();
 	public void ResetDB() => DalTest.Initialization.Reset();
@@ -66,40 +77,4 @@ sealed public class Bl : IBl
 	{
 		DalApi.Factory.Get.SaveScheduledDate();
 	}
-
-
-	#region Clock Object
-
-	static object s_Lock = new object(); // Lock for the clock
-	bool s_runClockThread = false;
-	static DateTime s_Clock = DateTime.Now.Date;
-
-	public DateTime Clock
-	{
-		get { lock (s_Lock) { return s_Clock; } }
-		private set { lock (s_Lock) { s_Clock = value; } }
-	}
-
-	public void InitClock() { lock (s_Lock) { Clock = DateTime.Now; } }
-	public void AddHours(int hours) { lock (s_Lock) { Clock = Clock.AddHours(hours); } }
-	public void AddDays(int days) { lock (s_Lock) { Clock = Clock.AddDays(days); } }
-	public void AddMinutes(int minutes) { lock (s_Lock) { Clock = Clock.AddMinutes(minutes); } }
-	public void AddSeconds(int seconds) { lock (s_Lock) { Clock = Clock.AddSeconds(seconds); } }
-
-	public void StartClockThread(Action onChange)
-	{
-		new Thread(() =>
-		{
-			s_runClockThread = true;
-			while (s_runClockThread)
-			{
-				Thread.Sleep(1000);
-				AddMinutes(10);
-				AddSeconds(1);
-				onChange();
-			}
-		}).Start();
-	}
-	public void StopClockThread() { s_runClockThread = false; }
-	#endregion
 }

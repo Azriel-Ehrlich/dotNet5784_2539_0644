@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PL.Manager" 
         mc:Ignorable="d" 
         Title="GantChartWindow" 
-        Height="auto" Width="800" MinHeight="640" 
+        Height="auto" MinWidth="800" MinHeight="640" Width="auto"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
     <Grid Background="#A0A0A0">
         <TextBlock Text="Gant Chart" HorizontalAlignment="Center" VerticalAlignment="Top" Style="{StaticResource stTextBlock-Title}"/>

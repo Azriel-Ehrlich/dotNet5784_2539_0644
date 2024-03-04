@@ -45,7 +45,7 @@ internal class TaskImplementation : BlApi.ITask
 		if (check is not null)
 			throw new BO.BlAlreadyExistsException("The task already exist");
 
-		int newId = _dal.Task.Create(task.ToDOTask() with { CreatedAtDate = _bl.Clock, Active = true });
+		int newId = _dal.Task.Create(task.ToDOTask() with { CreatedAtDate = _bl.Clock.CurrentTime, Active = true });
 
 		if (task.Dependencies is not null)
 		{
@@ -237,7 +237,7 @@ internal class TaskImplementation : BlApi.ITask
 			}
 		}
 
-		task.StartDate = _bl.Clock;
+		task.StartDate = _bl.Clock.CurrentTime;
 		BO.Engineer eng = _bl.Engineer.Read(engId);
 		task.Engineer = new EngineerInTask() { Id = engId, Name = eng.Name };
 		Update(task);
@@ -254,7 +254,7 @@ internal class TaskImplementation : BlApi.ITask
 		if (task.Engineer == null)
 			throw new BlCannotUpdateException("you need assign engineer to task to finish it");
 
-		task.CompleteDate = _bl.Clock;
+		task.CompleteDate = _bl.Clock.CurrentTime;
 		Update(task);
 	}
 
