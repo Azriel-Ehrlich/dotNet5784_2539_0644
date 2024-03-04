@@ -49,14 +49,13 @@
                       ItemsSource="{Binding Source={StaticResource EngineerExpirieneWithoutAllCollectionKey}}"
                       SelectedValue="{Binding Path=Level, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
         </WrapPanel>
-        <Separator Opacity="0" />
-
-        <Separator Opacity="0" Height="30"/>
-        <Button Style="{StaticResource stButton}" Click="AddOrUpdateEngineer"
+        
+        <WrapPanel HorizontalAlignment="Center" Margin="0,30,0,0">
+            <Button Style="{StaticResource BigUsersButtons}" Click="AddOrUpdateEngineer"
                 Content="{Binding Id, Converter={StaticResource ConverIdToContentKey}, Mode=OneTime}"/>
-        <Button Style="{StaticResource stButton}" Click="ChangeEngineerkState"
+            <Button Style="{StaticResource BigUsersButtons}" Click="ChangeEngineerkState"
                 Content="{Binding IsActive, Mode=OneWay, Converter={StaticResource ConvertActiveToContent}}"
                 Visibility="{Binding Id, Converter={StaticResource ConvertEgineerIdToVisibilityKey}}"   />
-
+        </WrapPanel>
     </StackPanel>
 </Window>

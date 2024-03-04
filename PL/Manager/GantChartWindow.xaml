@@ -4,12 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:local="clr-namespace:PL.Manager" 
-        mc:Ignorable="d" 
-        Title="GantChartWindow" 
+        mc:Ignorable="d" Title="Gantt Chart" 
         Height="auto" MinWidth="800" MinHeight="640" Width="auto"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
     <Grid Background="#A0A0A0">
-        <TextBlock Text="Gant Chart" HorizontalAlignment="Center" VerticalAlignment="Top" Style="{StaticResource stTextBlock-Title}"/>
+        <TextBlock Text="Gant Chart" Style="{StaticResource MainTitle}"/>
         <!-- Bind Rectangle items to Task data -->
         <ItemsControl ItemsSource="{Binding TasksList}" HorizontalAlignment="Left">
             <ItemsControl.ItemTemplate>
@@ -17,18 +16,15 @@
                     <!-- Container for Rectangle and overlay panel -->
                     <Canvas>
                         <!-- Display ID -->
-                        <TextBlock 
-                            Canvas.Top="{Binding Id, Converter={StaticResource TaskIdToTop}}"
-                            Text="{Binding Id}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                        <TextBlock Canvas.Top="{Binding Id, Converter={StaticResource TaskIdToTop}}"
+                                   Text="{Binding Id}" VerticalAlignment="Center" Margin="5,0,0,0" Height="30" />
                         <!-- Rectangle representing the task -->
                         <Rectangle
                             Fill="{Binding Status, Converter={StaticResource StatusToColorConverterKey}}" 
                             Width="{Binding Id, Converter={StaticResource TaskIdToWidth}}" 
                             Canvas.Left="{Binding Id, Converter={StaticResource TaskIdToLeft}}" 
                             Canvas.Top="{Binding Id, Converter={StaticResource TaskIdToTop}}"
-                            Height="30" Stroke="Black"
-                            Margin="30,0,0,0">
-
+                            Height="30" Stroke="Black" Margin="30,0,0,0">
                             <Rectangle.ToolTip>
                                 <TextBlock Text="{Binding Id, Converter={StaticResource TaskIdToString}}" />
                             </Rectangle.ToolTip>

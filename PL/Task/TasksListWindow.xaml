@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Task"
         mc:Ignorable="d"
-        Title="Tasks List" Height="640" Width="800" Background="DarkGoldenrod"
+        Title="Tasks List" Height="640" Width="800" Background="DarkSeaGreen"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
     <Grid>
         <Grid.RowDefinitions>
@@ -19,8 +19,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Label Content="Select Task" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="0"
-                FontSize="20" Height="40"/>
+            <TextBlock Text="Select Task" Style="{StaticResource MainTitle}" Margin="0,10,0,0" Grid.Column="0" FontSize="20" />
             <ComboBox FontSize="20" Height="40" Margin="0,10,10,0" Grid.Column="1" 
                    ItemsSource="{Binding Source={StaticResource EngineerExpirieneWithAllCollection}}" 
                    SelectedValue="{Binding LevelCategory, Mode=TwoWay}" SelectionChanged="ChangeToSelectedLevel"/>
@@ -39,7 +38,7 @@
         </ListView>
 
         <!--the button to add new Engineer-->
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="30" Width="200" Click="AddTask"
+        <Button Content="Add" Grid.Row="2" Style="{StaticResource SmallUsersButtons}" Width="120" Margin="0,0,0,10" Click="AddTask"
                 Visibility="{Binding CanAddTasks, Converter={StaticResource ConvertBoolToVisibilityKey}}"/>
     </Grid>
 </Window>

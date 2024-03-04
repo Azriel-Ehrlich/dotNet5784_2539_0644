@@ -5,29 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Manager"
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml" x:Class="PL.Manager.SuggestedDateWindow"
-        mc:Ignorable="d"
-        Title="SuggestedDateWindow" Height="450" Width="800"
-    DataContext="{Binding RelativeSource={RelativeSource Mode=self}}">
-    <Window.Background>
-        <ImageBrush ImageSource="/Manager/minipPicture.gif"/>
-    </Window.Background>
-
-
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <!-- Label -->
-        <TextBlock Text="The time to schedule the project has come. Please insert the Expected date of the project." 
-           HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap"
-           FontWeight="Bold" FontSize="18" Foreground="Black" Width="417" Margin="380,0,0,0"/>
-
-        <!-- DatePicker -->
-        <DatePicker Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" FontSize="80" Background="#FFAC3E3E" Foreground="#FF131313" 
-            Text="{Binding StartProj}"  />
-        <Button Content="Confirm" HorizontalAlignment="Left" Margin="514,297,0,0" Grid.Row="1" VerticalAlignment="Top" Height="67" Width="262"
-                FontSize="20" Click="ScheudledDate_Button"/>
-    </Grid>
+        mc:Ignorable="d" Background="{StaticResource MainBackgroundBrush}"
+        Title="Suggested Date Window" Height="450" Width="800" 
+        DataContext="{Binding RelativeSource={RelativeSource Mode=self}}">
+    <StackPanel Margin="10">
+        <TextBlock Style="{StaticResource MainTitle}" FontSize="25"><Run>
+            The time to schedule the project has come.</Run>
+            <LineBreak/>
+            <Run>Please insert the Expected date of the project.</Run>
+        </TextBlock>
+        <WrapPanel Margin="0,20,0,0" HorizontalAlignment="Center">
+            <DatePicker Text="{Binding StartProj}" Style="{StaticResource stDatePicker}" />
+            <Button Content="Confirm" Style="{StaticResource BigUsersButtons}" Click="ScheudledDate_Button"/>
+        </WrapPanel>
+        <Image Source="/Manager/minipPicture.gif" Height="250"/>
+    </StackPanel>
 </Window>

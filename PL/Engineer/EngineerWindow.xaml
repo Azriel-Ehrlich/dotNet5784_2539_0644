@@ -4,16 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Engineer"
-        mc:Ignorable="d" Background="YellowGreen"
-        Title="EngineerWindow" Height="450" Width="800"
+        mc:Ignorable="d" Background="LightBlue"
+        Title="Engineer Window" Height="450" Width="800"
          DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid Margin="20,20,20,20">
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <WrapPanel>
-                    <TextBlock Text="Engineer Window :)" FontSize="30"/>
+                    <TextBlock Text="Engineer Window :)" Style="{StaticResource MainTitle}" FontSize="30"/>
                     <Separator Width="100" Opacity="0" />
-                    <Button Content="Finish Task" Click="FinishTask" />
+                    <Button Content="Finish Task" Click="FinishTask" Style="{StaticResource SmallUsersButtons}" Width="100"/>
                 </WrapPanel>
 
                 <WrapPanel>
@@ -21,7 +21,7 @@
                     <TextBlock Text="{Binding Engineer.Name, Mode=OneWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Width="120" FontSize="20"/>
                 </WrapPanel>
                 <WrapPanel>
-                    <TextBlock Text="Current Task:" Width="120" FontSize="20"/>
+                    <TextBlock Text="Current Task:" Width="120" FontSize="15"/>
                     <TextBlock Text="Task ID:" FontSize="15"/>
                     <TextBlock Text="{Binding Engineer.Task.Id}" Width="50" FontSize="15"/>
                     <TextBlock Text="Alias:" FontSize="15"/>

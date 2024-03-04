@@ -7,9 +7,9 @@
         mc:Ignorable="d" SizeToContent="Height"
         Title="Task Data Window" MinHeight="650" Width="1100" Background="LightBlue"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
-    <WrapPanel>
+    <WrapPanel Margin="20,20,20,20">
         <!-- Display task data -->
-        <StackPanel Margin="20,20,20,20">
+        <StackPanel>
             <WrapPanel>
                 <!-- [not] amazing title -->
                 <TextBlock Style="{StaticResource stTextBlock-Title}" Text="Task Data" />
@@ -83,14 +83,13 @@
                 <TextBlock Style="{StaticResource stTextBlock}" Text="{Binding Path=CurrentTask.Status, Mode=OneWay}" />
             </WrapPanel>
 
-            <Separator Opacity="0" Height="30" />
-
-            <Button Style="{StaticResource stButton}" Click="AddOrUpdateTask"
-                    Content="{Binding Path=CurrentTask.Id, Mode=OneWay, Converter={StaticResource ConverIdToContentKey}}"/>
-            <Separator Opacity="0" Height="30" />
-            <Button Style="{StaticResource stButton}" Click="ChangeTaskState" 
-                    Content="{Binding CurrentTask.IsActive, Mode=OneWay, Converter={StaticResource ConvertActiveToContent}}"
-                 Visibility="{Binding CurrentTask.Status, Converter={StaticResource ConvertStatusToVisibilityKey}}"   />
+            <WrapPanel HorizontalAlignment="Center" Margin="0,30,0,0">
+                <Button Style="{StaticResource BigUsersButtons}" Click="AddOrUpdateTask"
+                        Content="{Binding Path=CurrentTask.Id, Mode=OneWay, Converter={StaticResource ConverIdToContentKey}}"/>
+                <Button Style="{StaticResource BigUsersButtons}" Click="ChangeTaskState"
+                        Content="{Binding CurrentTask.IsActive, Mode=OneWay, Converter={StaticResource ConvertActiveToContent}}"
+                        Visibility="{Binding CurrentTask.Status, Converter={StaticResource ConvertStatusToVisibilityKey}}" />
+            </WrapPanel>
 
         </StackPanel>
 
