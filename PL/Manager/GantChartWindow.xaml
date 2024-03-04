@@ -7,8 +7,8 @@
         mc:Ignorable="d" Title="Gantt Chart" 
         Height="auto" MinWidth="800" MinHeight="640" Width="auto"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
-    <Grid Background="#A0A0A0">
-        <TextBlock Text="Gant Chart" Style="{StaticResource MainTitle}"/>
+    <StackPanel Background="#A0A0A0">
+        <TextBlock Text="Gantt Chart" Style="{StaticResource MainTitle}"/>
         <!-- Bind Rectangle items to Task data -->
         <ItemsControl ItemsSource="{Binding TasksList}" HorizontalAlignment="Left">
             <ItemsControl.ItemTemplate>
@@ -33,5 +33,5 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-    </Grid>
+    </StackPanel>
 </Window>

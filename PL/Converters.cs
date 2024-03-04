@@ -72,18 +72,12 @@ public class TaskIdToWidth : IValueConverter
 
 	public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 	{
-		int taskId = (int)value;
-		BO.Task task = s_bl.Task.Read(taskId);
+		BO.Task task = s_bl.Task.Read((int)value);
 
 		if (task.ScheduledDate is null || task.ForecastDate is null)
 			return 10;
 
-		DateTime start = (DateTime)task.ScheduledDate;
-		DateTime end = (DateTime)task.ForecastDate;
-		int Left = (int)(start - s_bl.Clock.CurrentTime).TotalDays;// * ConstantValues.GANT_CHART_MAGIC_NUMBER;
-		int Right = (int)(end - s_bl.Clock.CurrentTime).TotalDays;// * ConstantValues.GANT_CHART_MAGIC_NUMBER;
-		int width = (Right - Left) / ConstantValues.GANT_CHART_MAGIC_NUMBER;
-		return $"{width}";
+		return (int)(((DateTime)task.ForecastDate - (DateTime)task.ScheduledDate).TotalDays) / ConstantValues.GANTT_CHART_MAGIC_NUMBER;
 	}
 
 	public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -105,9 +99,7 @@ public class TaskIdToLeft : IValueConverter
 		if (task.ScheduledDate is null)
 			return 0;
 
-		DateTime start = (DateTime)task.ScheduledDate;
-		int left = (int)(start - s_bl.Clock.CurrentTime).TotalDays / ConstantValues.GANT_CHART_MAGIC_NUMBER;
-		return left;
+		return (int)((DateTime)task.ScheduledDate - s_bl.Clock.CurrentTime).TotalDays / ConstantValues.GANTT_CHART_MAGIC_NUMBER;
 	}
 
 	public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -119,12 +111,9 @@ public class TaskIdToLeft : IValueConverter
 /// <summary> convert task id to Cnvas.Top of the rectangle in the gant chart </summary>
 public class TaskIdToTop : IValueConverter
 {
-	static readonly IBl s_bl = BlApi.Factory.Get();
-
 	public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 	{
-		int taskId = (int)value;
-		return (taskId + 1) * 30;
+		return ((int)value + 1) * 30;
 	}
 
 	public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

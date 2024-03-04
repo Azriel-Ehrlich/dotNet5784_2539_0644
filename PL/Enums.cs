@@ -33,5 +33,5 @@ internal class EngineerExpirieneWithoutAllCollection : IEnumerable
 internal class ConstantValues
 {
 	public static readonly int NO_ID = -1;
-	public static readonly int GANT_CHART_MAGIC_NUMBER = 10;
+	public static readonly int GANTT_CHART_MAGIC_NUMBER = 10;
 }
