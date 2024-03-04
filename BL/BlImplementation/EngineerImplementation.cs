@@ -94,6 +94,14 @@ internal class EngineerImplementation : BlApi.IEngineer
     }
 
     /// <inheritdoc/>
+	public void Restore(int id)
+    {
+        BO.Engineer eng = Read(id);
+        eng.IsActive = true;
+        Update(eng);
+    }
+
+    /// <inheritdoc/>
     public IEnumerable<BO.Engineer> ReadAll(Func<BO.Engineer, bool>? filter = null)
     {
         IEnumerable<DO.Engineer?> res;

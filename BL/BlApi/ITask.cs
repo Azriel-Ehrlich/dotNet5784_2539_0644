@@ -15,7 +15,6 @@ public interface ITask
 	/// <param name="id"> The id of the task to restore </param>
 	public void Restore(int id);
 
-
 	/// <summary> Read a task </summary>
 	/// <param name="id"> The id of the task to read </param>
 	/// <returns> The task with the given id </returns>

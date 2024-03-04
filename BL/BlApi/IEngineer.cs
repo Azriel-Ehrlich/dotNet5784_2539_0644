@@ -41,5 +41,9 @@ public interface IEngineer
 	/// <param name="id"> The id of the engineer to delete </param>
 	public void Delete(int id);
 
-	// public IEnumerable<BO.EngineerInTask> ReadAllEngineersInTask(int taskId);
+    /// <summary> Restore an engineer </summary>
+    /// <param name="id"> The id of the engineer to restore </param>
+    public void Restore(int id);
+
+    // public IEnumerable<BO.EngineerInTask> ReadAllEngineersInTask(int taskId);
 }

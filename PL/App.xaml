@@ -6,11 +6,10 @@
     <Application.Resources>
         
         <!-- Resources -->
-        <local:EngineerExpirieneCollection x:Key="EngineerExpirienceCollectionKey" />
-        <local:EngineerExpirieneWithDeletedTaskCollection x:Key="EngineerExpirieneWithDeletedTaskCollectionKey" />
+        <local:EngineerExpirieneWithAllCollection x:Key="EngineerExpirieneWithAllCollection" />
+        <local:EngineerExpirieneWithoutAllCollection x:Key="EngineerExpirieneWithoutAllCollectionKey" />
         <local:ConvertIdToContent x:Key="ConverIdToContentKey"/>
         <local:ConvertIdToEnable x:Key="ConvertIdToEnableKey"/>
-        <local:EngineerExpirieneWithoutAllCollection x:Key="EngineerExpirieneWithoutAllCollectionKey" />
         <local:StatusToColorConverter x:Key="StatusToColorConverterKey"/>
         <local:TaskIdToLeft x:Key="TaskIdToLeft"/>
         <local:TaskIdToTop x:Key="TaskIdToTop"/>
@@ -20,6 +19,7 @@
         <local:TaskIdToString x:Key="TaskIdToString"/>
         <local:ConvertBoolToVisibilityKey x:Key="ConvertBoolToVisibilityKey"/>
         <local:ConvertActiveToContent x:Key="ConvertActiveToContent"/>
+        <local:ConvertEgineerIdToVisibilityKey x:Key="ConvertEgineerIdToVisibilityKey"/>
 
         <!-- Styles -->
         <Style TargetType="GridViewColumnHeader" >

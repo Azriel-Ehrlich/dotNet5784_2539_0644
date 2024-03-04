@@ -43,7 +43,7 @@ namespace PL.Task
 		public static readonly DependencyProperty CanAddTasksProperty = DependencyProperty.Register(
 			"CanAddTasks", typeof(bool), typeof(TasksListWindow), new PropertyMetadata(null));
 
-		public EngineerExperienceWithAllAndDeletedTask LevelCategory { get; set; } = EngineerExperienceWithAllAndDeletedTask.All;
+		public EngineerExperienceWithAllAndDeleted LevelCategory { get; set; } = EngineerExperienceWithAllAndDeleted.All;
 
 
 		public TasksListWindow()
@@ -57,8 +57,8 @@ namespace PL.Task
 		void UpdateTasksList()
 		{
 			TasksList = (
-				(LevelCategory == EngineerExperienceWithAllAndDeletedTask.All) ? s_bl?.Task.ReadAll(t => t.IsActive)!
-				: (LevelCategory == EngineerExperienceWithAllAndDeletedTask.DeletedTask) ? s_bl?.Task.ReadAll(t => !t.IsActive)!
+				(LevelCategory == EngineerExperienceWithAllAndDeleted.All) ? s_bl?.Task.ReadAll(t => t.IsActive)!
+				: (LevelCategory == EngineerExperienceWithAllAndDeleted.Deleted) ? s_bl?.Task.ReadAll(t => !t.IsActive)!
 			   : s_bl?.Task.ReadAll(t => t.IsActive && t.Complexity is not null && t.Complexity == (BO.EngineerExperience?)LevelCategory)!
 			   ).OrderBy(e => e.Id); // sort by ID so it will be easier to find the engineer in the list as a human
 		}

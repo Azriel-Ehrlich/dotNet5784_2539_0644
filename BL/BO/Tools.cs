@@ -20,7 +20,7 @@ internal static class Tools
 			Cost = engineer.Cost,
 			Name = engineer.Name,
 			Level = (BO.EngineerExperience)engineer.Level,
-			Active = engineer.Active
+			IsActive = engineer.Active
 		};
 
 		// find all tasks that the engineer is assigned to
@@ -38,7 +38,7 @@ internal static class Tools
 	public static DO.Engineer ToDOEngineer(this BO.Engineer engineer)
 	{
 		return new DO.Engineer(engineer.Id, engineer.Email, engineer.Cost,
-			engineer.Name, (DO.EngineerExperience)engineer.Level);
+			engineer.Name, (DO.EngineerExperience)engineer.Level, engineer.IsActive);
 	}
 
 	/// <summary> Cast a DO.Task to a BO.Task. </summary>

@@ -18,7 +18,7 @@ public class Engineer
 	public double Cost { set; get; }
 	public required string Name { set; get; }
 	public EngineerExperience Level { set; get; }
-	public bool Active { set; get; }
+	public bool IsActive { set; get; }
 	public BO.TaskInEngineer? Task { set; get; }
 
 

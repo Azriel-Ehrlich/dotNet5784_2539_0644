@@ -117,7 +117,7 @@ namespace PL.Task
 			{
 				string text = CurrentTask.IsActive ? "delete" : "restore";
 
-				var result = MessageBox.Show($"Are you sure you want to {text} this Task?", $"{text} Task", MessageBoxButton.YesNo, MessageBoxImage.Question);
+				var result = MessageBox.Show($"Are you sure you want to {text} this task?", $"{text} task", MessageBoxButton.YesNo, MessageBoxImage.Question);
 				if (result == MessageBoxResult.No)
 					return;
 

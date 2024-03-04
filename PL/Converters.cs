@@ -209,3 +209,20 @@ public class ConvertActiveToContent : IValueConverter
 		throw new NotImplementedException();
 	}
 }
+
+
+/// <summary> return button visibility according to engineer id (in case engineer has task he couldn't be removed </summary>
+public class ConvertEgineerIdToVisibilityKey : IValueConverter
+{
+	static readonly IBl _bl = BlApi.Factory.Get();
+	public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+	{
+		IEnumerable<BO.TaskInList> tasks = _bl.Task.ReadAll(t => t.Engineer is not null && t.Engineer.Id == (int)value);
+		return tasks.Any() ? Visibility.Collapsed : Visibility.Visible;
+	}
+
+	public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+	{
+		throw new NotImplementedException();
+	}
+}

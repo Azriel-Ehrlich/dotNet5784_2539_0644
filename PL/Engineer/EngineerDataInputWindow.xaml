@@ -52,7 +52,11 @@
         <Separator Opacity="0" />
 
         <Separator Opacity="0" Height="30"/>
-        <Button Style="{StaticResource stButton}" Click="btnAddUpdate_Click"
+        <Button Style="{StaticResource stButton}" Click="AddOrUpdateEngineer"
                 Content="{Binding Id, Converter={StaticResource ConverIdToContentKey}, Mode=OneTime}"/>
+        <Button Style="{StaticResource stButton}" Click="ChangeEngineerkState"
+                Content="{Binding IsActive, Mode=OneWay, Converter={StaticResource ConvertActiveToContent}}"
+                Visibility="{Binding Id, Converter={StaticResource ConvertEgineerIdToVisibilityKey}}"   />
+
     </StackPanel>
 </Window>

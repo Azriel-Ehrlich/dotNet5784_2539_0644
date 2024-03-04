@@ -29,7 +29,7 @@ namespace PL.Engineer
             CurrentEngineer = isNewEngineer ? new BO.Engineer() { Id = ConstantValues.NO_ID, Email = "", Name = "" } : s_bl.Engineer.Read(id);
         }
 
-        private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
+        private void AddOrUpdateEngineer(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -45,6 +45,30 @@ namespace PL.Engineer
                 }
 
                 this.Close(); // close window after adding or updating the engineer
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void ChangeEngineerkState(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string text = CurrentEngineer.IsActive ? "delete" : "restore";
+
+                var result = MessageBox.Show($"Are you sure you want to {text} this engineer?", $"{text} engineer", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.No)
+                    return;
+
+                if (CurrentEngineer.IsActive)
+                    s_bl.Engineer.Delete(CurrentEngineer.Id);
+                else
+                    s_bl.Engineer.Restore(CurrentEngineer.Id);
+
+                MessageBox.Show($"Engineer {text}d successfully", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close(); // close window after deleting/restoring the Task
             }
             catch (Exception ex)
             {

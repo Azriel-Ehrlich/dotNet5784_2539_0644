@@ -28,14 +28,16 @@ namespace PL.Engineer
                 typeof(IEnumerable<BO.Engineer>),
                 typeof(EngineerListWindow), new PropertyMetadata(null));
 
-        public EngineerExperienceWithAll LevelCategory { get; set; } = EngineerExperienceWithAll.All;
+        public EngineerExperienceWithAllAndDeleted LevelCategory { get; set; } = EngineerExperienceWithAllAndDeleted.All;
 
         /// <summary> update the list of engineers in the window according to the selected level </summary>
         void UpdateEngineerList()
         {
-            EngineersList = ((LevelCategory == EngineerExperienceWithAll.All) ? s_bl?.Engineer.ReadAll()!
-               : s_bl?.Engineer.ReadAll(item => item.Level == (BO.EngineerExperience)LevelCategory)!)
-               .OrderBy(e => e.Id); // sort by ID so it will be easier to find the engineer in the list as a human
+            EngineersList = (
+                (LevelCategory == EngineerExperienceWithAllAndDeleted.All) ? s_bl?.Engineer.ReadAll(e => e.IsActive)!
+                : (LevelCategory == EngineerExperienceWithAllAndDeleted.Deleted) ? s_bl?.Engineer.ReadAll(e => !e.IsActive)!
+               : s_bl?.Engineer.ReadAll(e => e.IsActive && e.Level == (BO.EngineerExperience)LevelCategory)!
+               ).OrderBy(e => e.Id); // sort by ID so it will be easier to find the engineer in the list as a human
         }
 
         private void ChangeToSelectedLevel(object sender, SelectionChangedEventArgs e)

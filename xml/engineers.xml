@@ -9,19 +9,11 @@
     <Active>true</Active>
   </Engineer>
   <Engineer>
-    <Id>234566019</Id>
-    <Email>mic@gmail.com</Email>
-    <Cost>300</Cost>
-    <Name>Michael</Name>
-    <Level>Expert</Level>
-    <Active>true</Active>
-  </Engineer>
-  <Engineer>
-    <Id>220359006</Id>
-    <Email>brandon@gmail.com</Email>
-    <Cost>200</Cost>
-    <Name>Brandon</Name>
-    <Level>Advanced</Level>
+    <Id>371400813</Id>
+    <Email>elizabeth123@gmail.com</Email>
+    <Cost>60</Cost>
+    <Name>Elizabeth</Name>
+    <Level>Beginner</Level>
     <Active>true</Active>
   </Engineer>
   <Engineer>
@@ -33,11 +25,19 @@
     <Active>true</Active>
   </Engineer>
   <Engineer>
-    <Id>371400813</Id>
-    <Email>elizabeth123@gmail.com</Email>
-    <Cost>60</Cost>
-    <Name>Elizabeth</Name>
-    <Level>Beginner</Level>
+    <Id>220359006</Id>
+    <Email>brandon@gmail.com</Email>
+    <Cost>200</Cost>
+    <Name>Brandon</Name>
+    <Level>Expert</Level>
     <Active>true</Active>
+  </Engineer>
+  <Engineer>
+    <Id>234566019</Id>
+    <Email>mic@gmail.com</Email>
+    <Cost>300</Cost>
+    <Name>Michael</Name>
+    <Level>Expert</Level>
+    <Active>false</Active>
   </Engineer>
 </ArrayOfEngineer>
