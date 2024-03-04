@@ -58,7 +58,42 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
+
+        <!-- main background -->
+        <LinearGradientBrush x:Key="MainBackgroundBrush" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#B2EBF2" Offset="0"/>
+            <GradientStop Color="#80DEEA" Offset="1"/>
+        </LinearGradientBrush>
+
+        <Style TargetType="TextBlock" x:Key="MainTitle">
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="40" />
+            <Setter Property="Foreground" Value="#004D40" />
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="BigUsersButtons" TargetType="Button" BasedOn="{StaticResource RoundedButton}">
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="Padding" Value="5 2" />
+            <Setter Property="Background" Value="#4DB6AC" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Width" Value="100" />
+            <Setter Property="FontSize" Value="17" />
+        </Style>
+
+        <Style x:Key="SmallUsersButtons" TargetType="Button" BasedOn="{StaticResource RoundedButton}">
+            <Setter Property="Margin" Value="2" />
+            <Setter Property="Padding" Value="5 2" />
+            <Setter Property="Background" Value="#B2EBF2" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Width" Value="70" />
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+
+
         <Style x:Key="stTextBlock" TargetType="TextBlock">
             <Setter Property="Width" Value="200"/>
             <Setter Property="Height" Value="30"/>

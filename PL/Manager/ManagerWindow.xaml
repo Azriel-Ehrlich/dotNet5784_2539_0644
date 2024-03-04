@@ -4,23 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Manager"
-        mc:Ignorable="d" Background="MediumPurple"
-        Title="ManagerWindow" Height="450" Width="800">
+        mc:Ignorable="d" Background="{StaticResource MainBackgroundBrush}"
+        Title="Manager Window" Height="450" Width="800">
     <Window.Resources>
-        <Style x:Key="stButton" TargetType="Button">
+        <Style x:Key="stButton" TargetType="Button" BasedOn="{StaticResource BigUsersButtons}">
             <Setter Property="Width" Value="200"/>
             <Setter Property="Height" Value="50"/>
             <Setter Property="FontSize" Value="20"/>
         </Style>
-        <Style x:Key="stTextBlock_Title" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="30"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-        </Style>
 
         <Style x:Key="stTextBlock_Message" TargetType="TextBlock">
             <Setter Property="FontSize" Value="20"/>
-            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Foreground" Value="#0A0A0A"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
         </Style>
 
@@ -49,32 +44,20 @@
     </Window.Resources>
 
     <Grid>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Text="Manager Window" Style="{StaticResource stTextBlock_Title}" />
+        <StackPanel>
+            <TextBlock Text="Manager Window" Style="{StaticResource MainTitle}" Margin="0,20,0,0" />
 
             <CheckBox Template="{StaticResource StarToggleButton}"/>
-            <TextBlock Text="Mark this star will make you cool" Style="{StaticResource stTextBlock_Message}" />
+            <TextBlock Text="Mark this star will make you cool 😎" Style="{StaticResource stTextBlock_Message}" />
 
-            <Separator Height="100" Opacity="0" />
+            <Separator Height="50" Opacity="0" />
 
-            <WrapPanel HorizontalAlignment="Center">
+            <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Button Content="Engineers" Style="{StaticResource stButton}" Click="ShowEngineersList" />
-                <Separator Width="20" Opacity="0" />
                 <Button Content="Tasks" Style="{StaticResource stButton}" Click="ShowTasksList" />
-                <Separator Width="20" Opacity="0"/>
                 <Button Content="Suggested Date" Style="{StaticResource stButton}" Click="SuggestedDate"/>
-            </WrapPanel>
-
-            <Separator Height="10"/>
-
-            <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <!--button for initializing the data-->
                 <Button Content="Initialize Data" Style="{StaticResource stButton}" Click="InintalData"/>
-                <Separator Width="20" Opacity="0"/>
-                <!--button for reset the data-->
                 <Button Content="Reset" Style="{StaticResource stButton}" Click="ResetData"/>
-
-                <Separator Width="20" Opacity="0"/>
                 <Button Content="Gantt Chart" Style="{StaticResource stButton}" Click="OpenGantChart"/>
               </WrapPanel>
         </StackPanel>

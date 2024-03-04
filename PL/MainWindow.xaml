@@ -4,61 +4,29 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
-        mc:Ignorable="d" Background="#E5F5F3"
-        Title="The Coolest Program Everrr" Height="550" Width="550"
+        mc:Ignorable="d" Background="{StaticResource MainBackgroundBrush}"
+        Title="The Coolest Program Everrr" Height="550" Width="650"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
-    <Window.Resources>
-        <Style x:Key="ClockButtons" TargetType="Button"  BasedOn="{StaticResource RoundedButton}">
-            <Setter Property="Margin" Value="2" />
-            <Setter Property="Padding" Value="5 2" />
-            <Setter Property="Background" Value="#B2EBF2" />
-            <Setter Property="Height" Value="30" />
-            <Setter Property="Width" Value="70" />
-            <Setter Property="FontSize" Value="12" />
-        </Style>
-
-        <Style x:Key="UsersButtons" TargetType="Button" BasedOn="{StaticResource RoundedButton}">
-            <Setter Property="Margin" Value="10" />
-            <Setter Property="Padding" Value="5 2" />
-            <Setter Property="Background" Value="#4DB6AC" />
-            <Setter Property="Foreground" Value="White" />
-            <Setter Property="Height" Value="40" />
-            <Setter Property="Width" Value="100" />
-            <Setter Property="FontSize" Value="17" />
-        </Style>
-    </Window.Resources>
-    
     <StackPanel>
-        <!-- Main Grid with soft blue-green background -->
-        <StackPanel.Background>
-            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                <GradientStop Color="#B2EBF2" Offset="0"/>
-                <GradientStop Color="#80DEEA" Offset="1"/>
-            </LinearGradientBrush>
-        </StackPanel.Background>
-
         <!-- Title and author section -->
         <StackPanel Margin="0,20,0,0" HorizontalAlignment="Center">
             <!-- Amazing title with soft blue-green color -->
             <TextBlock Text="Welcome to the Tasks &amp; Engineers Management System"
-                       TextWrapping="Wrap"
-                       FontSize="30" FontWeight="Bold" Foreground="#004D40" Margin="0,0,0,10" />
+                      Style="{StaticResource MainTitle}" Margin="10,0,10,5" />
 
             <!-- Author label with subtle gray color -->
-            <Label Content="By AH and AE" Foreground="#757575" FontSize="15"/>
-        </StackPanel>
+            <TextBlock Text="By AH and AE" Foreground="#757575" FontSize="15" TextAlignment="Center"/>
 
-        <StackPanel>
             <!-- add image from link -->
-            <Image Source="/spaceship.jpeg" Height="200" />
+            <Image Source="/spaceship.jpeg" Height="200" Margin="0,10,0,0"/>
             <!--<Image Source="https://static.vecteezy.com/system/resources/previews/026/975/650/large_2x/spaceship-next-generation-robotic-spaceship-leaving-the-earth-futuristic-robot-satellite-technology-space-exploration-space-travel-outer-space-spacecraft-futuristic-science-fiction-ai-generated-free-photo.jpeg" Height="200" />-->
-            <Label Content="our spaceship, where we usualy work" Margin="50,0,0,0"/>
+            <TextBlock Text="our spaceship, where we usualy work" Foreground="#004D40" TextAlignment="Center"/>
         </StackPanel>
 
         <!-- Manager and Engineer buttons -->
         <StackPanel Margin="0,3,0,0" HorizontalAlignment="Center" Orientation="Horizontal">
-            <Button Content="Manager" Click="ManagerMenu" Style="{StaticResource UsersButtons}" />
-            <Button Content="Engineer" Click="EngineerMenu" Style="{StaticResource UsersButtons}"/>
+            <Button Content="Manager" Click="ManagerMenu" Style="{StaticResource BigUsersButtons}" />
+            <Button Content="Engineer" Click="EngineerMenu" Style="{StaticResource BigUsersButtons}"/>
         </StackPanel>
 
         <!-- Time manipulation buttons -->
@@ -68,12 +36,12 @@
 
             <!-- Buttons with soft blue-green background -->
             <WrapPanel>
-                <Button Content="dec day"   Click="ClockDecDay"  Style="{StaticResource ClockButtons}"/>
-                <Button Content="dec hour"  Click="ClockDecHour" Style="{StaticResource ClockButtons}"/>
-                <Button Content="inc hour"  Click="ClockIncHour" Style="{StaticResource ClockButtons}"/>
-                <Button Content="inc day"   Click="ClockIncDay"  Style="{StaticResource ClockButtons}"/>
-                <Button Content="start clock" Click="StartClock" Style="{StaticResource ClockButtons}"/>
-                <Button Content="stop clock"  Click="StopClock"  Style="{StaticResource ClockButtons}"/>
+                <Button Content="dec day"   Click="ClockDecDay"  Style="{StaticResource SmallUsersButtons}"/>
+                <Button Content="dec hour"  Click="ClockDecHour" Style="{StaticResource SmallUsersButtons}"/>
+                <Button Content="inc hour"  Click="ClockIncHour" Style="{StaticResource SmallUsersButtons}"/>
+                <Button Content="inc day"   Click="ClockIncDay"  Style="{StaticResource SmallUsersButtons}"/>
+                <Button Content="start clock" Click="StartClock" Style="{StaticResource SmallUsersButtons}"/>
+                <Button Content="stop clock"  Click="StopClock"  Style="{StaticResource SmallUsersButtons}"/>
             </WrapPanel>
         </StackPanel>
     </StackPanel>
