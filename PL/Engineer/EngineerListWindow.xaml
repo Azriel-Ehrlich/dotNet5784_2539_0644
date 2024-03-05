@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
-        Title="Engineers List" Height="640" Width="800" Background="DarkSeaGreen"
+        Title="Engineers List" Height="640" Width="800" Background="{StaticResource MainBackgroundBrush}"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
     <Grid>
         <Grid.RowDefinitions>
@@ -29,7 +29,7 @@
         <!--the list of elements-->
         <ListView Margin="10" Grid.Row="1" ItemsSource="{Binding Path=EngineersList}" MouseDoubleClick="UpdateEngineer">
             <ListView.View>
-                <GridView >
+                <GridView>
                     <GridViewColumn Header="Id"    DisplayMemberBinding="{Binding Path=Id}"    />
                     <GridViewColumn Header="Name"  DisplayMemberBinding="{Binding Path=Name}"  />
                     <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Path=Email}" />

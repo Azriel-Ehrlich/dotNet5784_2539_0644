@@ -37,25 +37,26 @@ internal class ConvertIdToEnable : IValueConverter
 /// <summary> convert the date to x position in the gant chart </summary>
 public class StatusToColorConverter : IValueConverter
 {
+	static SolidColorBrush GetBrushFromHex(string hexValue)
+	{
+		SolidColorBrush brush = (SolidColorBrush)(new BrushConverter().ConvertFrom(hexValue));
+		return brush;
+	}
+
 	public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 	{
 		if (value is Status status)
 		{
-			switch (status)
+			return status switch
 			{
-				case Status.Unscheduled:
-					return Brushes.Gray;
-				case Status.Scheduled:
-					return Brushes.Yellow;
-				case Status.OnTrack:
-					return Brushes.Green;
-				case Status.Done:
-					return Brushes.Blue;
-				default:
-					return Brushes.Gray;
-			}
+				Status.Unscheduled => GetBrushFromHex("#C8A2C8"),
+				Status.Scheduled => GetBrushFromHex("#90EE90"),
+				Status.OnTrack => GetBrushFromHex("#87CEEB"),
+				Status.Done => GetBrushFromHex("#B0E0E6"),
+				_ => GetBrushFromHex("#ADD8E6"),
+			};
 		}
-		return Brushes.Gray;
+		return GetBrushFromHex("#ADD8E6");
 	}
 
 	public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -75,7 +76,7 @@ public class TaskIdToWidth : IValueConverter
 		BO.Task task = s_bl.Task.Read((int)value);
 
 		if (task.ScheduledDate is null || task.ForecastDate is null)
-			return 10;
+			return 30;
 
 		return (int)(((DateTime)task.ForecastDate - (DateTime)task.ScheduledDate).TotalDays) / ConstantValues.GANTT_CHART_MAGIC_NUMBER;
 	}
@@ -86,34 +87,18 @@ public class TaskIdToWidth : IValueConverter
 	}
 }
 
-/// <summary> convert task id to Cnvas.Left of the rectangle in the gant chart </summary>
-public class TaskIdToLeft : IValueConverter
+/// <summary> convert task id to margin of the rectangle in the gantt chart </summary>
+public class TaskIdToMargin : IValueConverter
 {
 	static readonly IBl s_bl = BlApi.Factory.Get();
 
 	public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 	{
-		int taskId = (int)value;
-		BO.Task task = s_bl.Task.Read(taskId);
-
-		if (task.ScheduledDate is null)
-			return 0;
-
-		return (int)((DateTime)task.ScheduledDate - s_bl.Clock.CurrentTime).TotalDays / ConstantValues.GANTT_CHART_MAGIC_NUMBER;
-	}
-
-	public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-	{
-		throw new NotImplementedException();
-	}
-}
-
-/// <summary> convert task id to Cnvas.Top of the rectangle in the gant chart </summary>
-public class TaskIdToTop : IValueConverter
-{
-	public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-	{
-		return ((int)value + 1) * 30;
+		DateTime? scheduledDate = s_bl.Task.Read((int)value).ScheduledDate;
+		int left = 0;
+		if (scheduledDate is not null)
+			left = (int)((DateTime)scheduledDate - s_bl.Clock.CurrentTime).TotalDays / ConstantValues.GANTT_CHART_MAGIC_NUMBER;
+		return $"{left},0,0,0";
 	}
 
 	public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -130,11 +115,10 @@ public class TaskIdToString : IValueConverter
 	public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 	{
 		BO.Task task = _bl.Task.Read((int)value);
-		return $"Alias: {task.Alias}\n"
-			+ $"Description: {task.Description}\n"
-			+ $"Status: {task.Status}\n"
-			+ $"Scheduled Date: {task.ScheduledDate}\n"
-			+ $"Forecast Date: {task.ForecastDate}\n";
+		string text = task.Description;
+		if (task.ScheduledDate is not null && task.ForecastDate is not null) 
+			text += $"\nScheduled Date: {task.ScheduledDate}\nForecast Date: {task.ForecastDate}\n";
+		return text;
 	}
 
 	public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

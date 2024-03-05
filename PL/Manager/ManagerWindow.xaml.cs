@@ -69,8 +69,6 @@ namespace PL.Manager
 
 		private void OpenGantChart(object sender, RoutedEventArgs e)
 		{
-			if (!s_bl.IsProjectScheduled())
-				MessageBox.Show("The project is not scheduled", "Note", MessageBoxButton.OK, MessageBoxImage.Information);
 			new Manager.GantChartWindow().Show();
 		}
 	}

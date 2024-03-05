@@ -34,8 +34,12 @@ namespace PL.Manager
         public GantChartWindow()
         {
             InitializeComponent();
-            // update chart when back to window:
-            this.Activated += (s, e) => TasksList = s_bl.Task.ReadAll().OrderBy(t => s_bl.Task.Read(t.Id).ScheduledDate);
+
+			if (!s_bl.IsProjectScheduled())
+				MessageBox.Show("The project is not scheduled", "Note", MessageBoxButton.OK, MessageBoxImage.Information);
+
+			// update chart when back to window:
+			this.Activated += (s, e) => TasksList = s_bl.Task.ReadAll().OrderBy(t => s_bl.Task.Read(t.Id).ScheduledDate);
         }
     }
 }

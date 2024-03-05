@@ -3,35 +3,54 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-        xmlns:local="clr-namespace:PL.Manager" 
-        mc:Ignorable="d" Title="Gantt Chart" 
-        Height="auto" MinWidth="800" MinHeight="640" Width="auto"
+        xmlns:local="clr-namespace:PL.Manager"
+        mc:Ignorable="d" Title="Gantt Chart" Background="{StaticResource MainBackgroundBrush}"
+        Width="800" Height="600"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
-    <StackPanel Background="#A0A0A0">
-        <TextBlock Text="Gantt Chart" Style="{StaticResource MainTitle}"/>
-        <!-- Bind Rectangle items to Task data -->
-        <ItemsControl ItemsSource="{Binding TasksList}" HorizontalAlignment="Left">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <!-- Container for Rectangle and overlay panel -->
-                    <Canvas>
-                        <!-- Display ID -->
-                        <TextBlock Canvas.Top="{Binding Id, Converter={StaticResource TaskIdToTop}}"
-                                   Text="{Binding Id}" VerticalAlignment="Center" Margin="5,0,0,0" Height="30" />
-                        <!-- Rectangle representing the task -->
-                        <Rectangle
-                            Fill="{Binding Status, Converter={StaticResource StatusToColorConverterKey}}" 
-                            Width="{Binding Id, Converter={StaticResource TaskIdToWidth}}" 
-                            Canvas.Left="{Binding Id, Converter={StaticResource TaskIdToLeft}}" 
-                            Canvas.Top="{Binding Id, Converter={StaticResource TaskIdToTop}}"
-                            Height="30" Stroke="Black" Margin="30,0,0,0">
-                            <Rectangle.ToolTip>
-                                <TextBlock Text="{Binding Id, Converter={StaticResource TaskIdToString}}" />
-                            </Rectangle.ToolTip>
-                        </Rectangle>
-                    </Canvas>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Gantt Chart" Style="{StaticResource MainTitle}"/>
+
+        <ScrollViewer Margin="20,0,20,0" HorizontalAlignment="Center" Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <ListView ItemsSource="{Binding TasksList}" HorizontalAlignment="Left" MinWidth="600">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Background" Value="{StaticResource MainBackgroundBrush}"/>
+                        <Setter Property="Height" Value="30" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}" Width="30"/>
+                        <GridViewColumn Header="Task" Width="Auto">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Rectangle Fill="{Binding Status, Converter={StaticResource StatusToColorConverterKey}}"
+                                               Width="{Binding Id, Converter={StaticResource TaskIdToWidth}}"
+                                               Margin="{Binding Id, Converter={StaticResource TaskIdToMargin}}"
+                                               Stroke="Black" Height="25">
+                                        <Rectangle.ToolTip>
+                                            <ToolTip Background="#0cd3f3">
+                                                <TextBlock Foreground="#006994" FontFamily="Consolas" FontSize="15">
+                                                    <Run Text="{Binding Alias}" FontWeight="Bold" />
+                                                    <LineBreak/>
+                                                    <Run Text="{Binding Id, Converter={StaticResource TaskIdToString}}" />
+                                                </TextBlock>
+                                            </ToolTip>
+                                        </Rectangle.ToolTip>
+                                    </Rectangle>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </ScrollViewer>
+    </Grid>
 </Window>

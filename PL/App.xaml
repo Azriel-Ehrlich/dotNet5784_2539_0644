@@ -11,8 +11,7 @@
         <local:ConvertIdToContent x:Key="ConverIdToContentKey"/>
         <local:ConvertIdToEnable x:Key="ConvertIdToEnableKey"/>
         <local:StatusToColorConverter x:Key="StatusToColorConverterKey"/>
-        <local:TaskIdToLeft x:Key="TaskIdToLeft"/>
-        <local:TaskIdToTop x:Key="TaskIdToTop"/>
+        <local:TaskIdToMargin x:Key="TaskIdToMargin"/>
         <local:TaskIdToWidth x:Key="TaskIdToWidth"/>
         <local:ConvertStatusToEnable x:Key="ConvertStatusToEnableKey"/>
         <local:ConvertStatusToVisibility x:Key="ConvertStatusToVisibilityKey"/>

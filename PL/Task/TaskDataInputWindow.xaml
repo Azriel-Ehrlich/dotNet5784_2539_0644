@@ -106,7 +106,7 @@
                     <!-- Define a template column with a checkbox -->
                     <DataGridTemplateColumn Header="Select" CanUserResize="False">
                         <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
+                            <DataTemplate>
                                 <CheckBox Checked="AddDependency" Unchecked="RemoveDependency" IsChecked="{Binding IsChecked}"
                                           IsEnabled="{Binding Status, Converter={StaticResource ConvertStatusToEnableKey}}"/>
                             </DataTemplate>
