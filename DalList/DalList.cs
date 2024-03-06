@@ -27,6 +27,8 @@ sealed internal class DalList : IDal
 
 	public void SaveScheduledDate() { }
 
+	public DateTime? GetStartProject() { return DateTime.Now; }
+
 	/// <inheritdoc/>
 	public void SaveClock(DateTime time) { }
 

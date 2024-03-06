@@ -77,4 +77,9 @@ sealed public class Bl : IBl
 	{
 		DalApi.Factory.Get.SaveScheduledDate();
 	}
+	/// <inheritdoc/>
+	public DateTime? GetStartProject()
+	{
+        return DalApi.Factory.Get.GetStartProject();
+    }
 }
