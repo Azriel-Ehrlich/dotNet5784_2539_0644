@@ -17,4 +17,9 @@ public interface IClock
 
     /// <summary> Stop the clock thread </summary>
     public void StopClockThread();
+
+    /// <summary> save clock to DB </summary>
+    public void SaveClock();
+    /// <summary> load clock from DB </summary>
+    public void LoadClock();
 }

@@ -39,7 +39,7 @@ public class StatusToColorConverter : IValueConverter
 {
 	static SolidColorBrush GetBrushFromHex(string hexValue)
 	{
-		SolidColorBrush brush = (SolidColorBrush)(new BrushConverter().ConvertFrom(hexValue));
+		SolidColorBrush brush = (SolidColorBrush)(new BrushConverter().ConvertFrom(hexValue))!;
 		return brush;
 	}
 
@@ -98,6 +98,7 @@ public class TaskIdToMargin : IValueConverter
 		int left = 0;
 		if (scheduledDate is not null)
 			left = (int)((DateTime)scheduledDate - s_bl.Clock.CurrentTime).TotalDays / ConstantValues.GANTT_CHART_MAGIC_NUMBER;
+		left = Math.Max(left, 0);
 		return $"{left},0,0,0";
 	}
 

@@ -24,12 +24,22 @@ namespace PL
         public MainWindow()
         {
             InitializeComponent();
-            s_bl.Clock.InitClock();
+
+            var ans = MessageBox.Show("Do you want to load the last clock?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (ans == MessageBoxResult.Yes)
+                s_bl.Clock.LoadClock();
+            else
+                s_bl.Clock.InitClock();
+
             StartClock();
             UpdateClock();
             // Stop the timer when the window is closed and wait for the thread to stop
-            // TODO: save the clock time to the database and load it when the program starts
-            this.Closing += (s, e) => { StopClock(); Thread.Sleep(1000); };
+            this.Closing += (s, e) =>
+            {
+                StopClock(); Thread.Sleep(1000);
+                s_bl.Clock.SaveClock();
+            };
         }
 
         private void UpdateClock() { Dispatcher.Invoke(() => CurrentTime = s_bl.Clock.CurrentTime); }

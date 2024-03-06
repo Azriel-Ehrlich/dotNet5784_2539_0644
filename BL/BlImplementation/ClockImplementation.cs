@@ -6,6 +6,8 @@ internal class ClockImplementation : BlApi.IClock
     bool s_runClockThread = false;
     static DateTime s_Clock = DateTime.Now.Date;
 
+    DalApi.IDal _dal = DalApi.Factory.Get;
+
     public DateTime CurrentTime
     {
         get { lock (s_Lock) { return s_Clock; } }
@@ -44,4 +46,16 @@ internal class ClockImplementation : BlApi.IClock
         while (s_runClockThread)
             Thread.Sleep(100);
     }
+
+	/// <inheritdoc/>
+	public void SaveClock()
+    {
+        _dal.SaveClock(CurrentTime);
+    }
+
+	/// <inheritdoc/>
+	public void LoadClock()
+    {
+        CurrentTime = _dal.LoadClock();
+	}
 }

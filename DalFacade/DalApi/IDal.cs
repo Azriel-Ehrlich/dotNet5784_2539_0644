@@ -11,4 +11,9 @@ public interface IDal
 
 	/// <summary> Saves the start and end date of the project </summary>
 	abstract void SaveScheduledDate();
+
+	/// <summary> save clock to DB </summary>
+	public void SaveClock(DateTime time);
+	/// <summary> load clock from DB </summary>
+	public DateTime LoadClock();
 }

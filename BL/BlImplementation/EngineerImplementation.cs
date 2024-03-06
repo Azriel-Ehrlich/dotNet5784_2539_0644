@@ -18,17 +18,6 @@ internal class EngineerImplementation : BlApi.IEngineer
         // check if the email is valid using Regex:
         if (!new Regex(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$").IsMatch(engineer.Email))
             throw new BO.BlInvalidParameterException("invalid email address");
-        /*
-        // the cool way to check if the email is valid :)
-        try
-        {
-            new System.Net.Mail.MailAddress(engineer.Email);
-        }
-        catch (FormatException)
-        {
-            throw new BO.BlInvalidParameterException("invalid email address");
-        }
-        */
 
         // check if task is valid
         if (engineer.Task is not null)
@@ -70,7 +59,6 @@ internal class EngineerImplementation : BlApi.IEngineer
 
         try
         {
-            //updateTask(engineer);
             return _dal.Engineer.Create(engineer.ToDOEngineer());
         }
         catch (DO.DalAlreadyExistsException ex)
@@ -132,8 +120,6 @@ internal class EngineerImplementation : BlApi.IEngineer
         
         try
         {
-            //updateTask(engineer); // TODO: check if we need this
-
             _dal.Engineer.Update(engineer.ToDOEngineer());
         }
         catch (DO.DalDoesNotExistException ex)

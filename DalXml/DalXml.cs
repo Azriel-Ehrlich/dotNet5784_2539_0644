@@ -27,7 +27,7 @@ sealed internal class DalXml : IDal
 			new XElement("config",
 				new XElement("NextTaskId", 0),
 				new XElement("NextDependencyId", 0),
-				new XElement("ScheduledStartDate", null)
+				new XElement("ScheduledStartDate")
 			), Config.s_data_config_xml);
 	}
 
@@ -52,5 +52,31 @@ sealed internal class DalXml : IDal
 			config.Add(new XElement("ScheduledStartDate", start));
 
 		XMLTools.SaveListToXMLElement(config, Config.s_data_config_xml);
+	}
+
+	/// <inheritdoc/>
+	public void SaveClock(DateTime time)
+	{
+		XElement config = XMLTools.LoadListFromXMLElement(Config.s_data_config_xml);
+
+		XElement? clock = config.Element("Clock");
+		if (clock is not null)
+			clock.Value = time.ToString();
+		else
+			config.Add(new XElement("Clock", time));
+
+		XMLTools.SaveListToXMLElement(config, Config.s_data_config_xml);
+	}
+
+	/// <inheritdoc/>
+	public DateTime LoadClock()
+	{
+		XElement config = XMLTools.LoadListFromXMLElement(Config.s_data_config_xml);
+
+		XElement? clock = config.Element("Clock");
+		if (clock is not null)
+			return DateTime.Parse(clock.Value);
+		else
+			return DateTime.Now;
 	}
 }
