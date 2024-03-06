@@ -54,6 +54,18 @@ sealed internal class DalXml : IDal
 		XMLTools.SaveListToXMLElement(config, Config.s_data_config_xml);
 	}
 
+	///<inheritdoc/>
+	public DateTime? GetStartProject()
+	{
+        XElement config = XMLTools.LoadListFromXMLElement(Config.s_data_config_xml);
+
+        XElement? scheduledStartDate = config.Element("ScheduledStartDate");
+        if (scheduledStartDate is not null)
+            return DateTime.Parse(scheduledStartDate.Value);
+        else
+            return null;
+    }
+
 	/// <inheritdoc/>
 	public void SaveClock(DateTime time)
 	{

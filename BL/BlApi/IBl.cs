@@ -28,4 +28,6 @@ public interface IBl
 
 	/// <summary> Saves the start and end date of the project </summary>
 	public void SaveScheduledDate();
+	/// <summary> Returns the start date of the project </summary>
+	public DateTime? GetStartProject();
 }

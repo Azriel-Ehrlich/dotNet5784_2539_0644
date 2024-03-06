@@ -97,8 +97,10 @@ public class TaskIdToMargin : IValueConverter
 		DateTime? scheduledDate = s_bl.Task.Read((int)value).ScheduledDate;
 		int left = 0;
 		if (scheduledDate is not null)
-			left = (int)((DateTime)scheduledDate - s_bl.Clock.CurrentTime).TotalDays / ConstantValues.GANTT_CHART_MAGIC_NUMBER;
-		left = Math.Max(left, 0);
+		{
+			DateTime? startProj= s_bl.GetStartProject();
+			left = (int)((DateTime)scheduledDate - (DateTime)startProj!).TotalDays / ConstantValues.GANTT_CHART_MAGIC_NUMBER;
+		}
 		return $"{left},0,0,0";
 	}
 
