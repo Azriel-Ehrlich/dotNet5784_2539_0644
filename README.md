@@ -15,5 +15,14 @@ This project created during "Mini Project in Windows Systems" course at JCT.
 * Restore deleted tasks and engineers
 * Saving the clock between runs (so you can continue from the last time)
 
+### Other Bonuses
+* Use TryParse to validate input
+* Implement ToStringProperty
+* System clock in the background - the clock in main window advances automatically
+* Singleton
+* Data Triggers
+* Distribution of users and entry into the system according to current engineer
+* Amazing README file
+
 ### Screenshot
 <img src="screenshot.png" alt="screenshot of the opening screen" height="500"/>
