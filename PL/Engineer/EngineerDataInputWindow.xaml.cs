@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace PL.Engineer
 {
@@ -75,5 +76,11 @@ namespace PL.Engineer
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+		/// <summary> Event handler for validating text input in a TextBox to ensure only double values are entered. </summary>
+		/// <param name="sender">The object that raised the event.</param>
+		/// <param name="e">TextCompositionEventArgs containing information about the text composition.</param>
+		private void DoubleValidationTextBox(object sender, TextCompositionEventArgs e)
+            => e.Handled = !double.TryParse((sender as TextBox)!.Text + e.Text, out _);
     }
 }
