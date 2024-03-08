@@ -24,7 +24,7 @@ namespace PL.Task
 		static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
 
-		/// <summary> for the list of engineers in the window </summary>
+		/// <summary> for the list of tasks in the window </summary>
 		public IEnumerable<BO.TaskInList> TasksList
 		{
 			get { return (IEnumerable<BO.TaskInList>)GetValue(TasksListProperty); }// return the value of the property
@@ -53,21 +53,29 @@ namespace PL.Task
 			CanAddTasks = !s_bl.IsProjectScheduled();
 		}
 
-		/// <summary> update the list of engineers in the window according to the selected level </summary>
+		/// <summary> update the list of tasks in the window according to the selected level </summary>
 		void UpdateTasksList()
 		{
 			TasksList = (
 				(LevelCategory == EngineerExperienceWithAllAndDeleted.All) ? s_bl?.Task.ReadAll(t => t.IsActive)!
 				: (LevelCategory == EngineerExperienceWithAllAndDeleted.Deleted) ? s_bl?.Task.ReadAll(t => !t.IsActive)!
 			   : s_bl?.Task.ReadAll(t => t.IsActive && t.Complexity is not null && t.Complexity == (BO.EngineerExperience?)LevelCategory)!
-			   ).OrderBy(e => e.Id); // sort by ID so it will be easier to find the engineer in the list as a human
+			   ).OrderBy(e => e.Id); // sort by ID so it will be easier to find the task in the list
 		}
-
+		/// <summary>
+		/// change the level of the task
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void ChangeToSelectedLevel(object sender, SelectionChangedEventArgs e)
 		{
 			UpdateTasksList();
 		}
-
+		/// <summary>
+		/// adding a task
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void AddTask(object sender, RoutedEventArgs e)
 		{
 			if (TasksList.Any(t => t.Status != BO.Status.Unscheduled))
@@ -78,7 +86,11 @@ namespace PL.Task
 			new TaskDataInputWindow().ShowDialog();
 			UpdateTasksList();
 		}
-
+		/// <summary>
+		/// updating a task
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void UpdateTask(object sender, MouseButtonEventArgs e)
 		{
 			if ((sender as ListView)?.SelectedItem is BO.TaskInList task)

@@ -110,7 +110,11 @@ namespace PL.Task
 				CurrentTask.Dependencies.Remove(task);
 			}
 		}
-
+		/// <summary>
+		/// deleting or restoring a deleted task
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void ChangeTaskState(object sender, RoutedEventArgs e)
 		{
 			try

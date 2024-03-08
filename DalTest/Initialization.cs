@@ -117,7 +117,7 @@ public static class Initialization
     /// <summary> Create the list of the engineers </summary>
     private static void createEngineers()
     {
-        int id;
+       
         foreach (var eng in ENGINEERS)
         {
 			/*
