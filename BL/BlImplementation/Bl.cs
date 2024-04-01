@@ -62,7 +62,7 @@ sealed public class Bl : IBl
 		{
 			Task.UpdateScheduledDate(t.Id, startProj);
 		}
-		foreach (var t in Task.ReadAll(t => t.Dependencies is not null))
+		foreach (var t in (Task.ReadAll(t => t.Dependencies is not null)).ToList())
 		{
 			DateTime? date = SuggestedDate(t, startProj);
 			if (date is not null)

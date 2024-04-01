@@ -182,7 +182,7 @@ internal class TaskImplementation : BlApi.ITask
 			}
 
 			// delete all old dependencies
-			IEnumerable<DO.Dependency?> oldDeps = _dal.Dependency.ReadAll(d => d.DependentTask == task.Id);
+			IEnumerable<DO.Dependency?> oldDeps = (_dal.Dependency.ReadAll(d => d.DependentTask == task.Id)).ToList();
 			foreach (var dep in oldDeps)
 			{
 				_dal.Dependency.Delete(dep!.Id);
