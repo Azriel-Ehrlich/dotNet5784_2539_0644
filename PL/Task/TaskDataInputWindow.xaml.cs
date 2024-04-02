@@ -51,7 +51,7 @@ namespace PL.Task
 			InitializeComponent();
 
 			CurrentTask = (Id != ConstantValues.NO_ID) ? s_bl.Task.Read(Id)
-					: new BO.Task() { Id = Id, Alias = "", Description = "" };
+					: new BO.Task() { Id = Id, Alias = "", Description = "", IsActive = true };
 			if (CurrentTask.Engineer is null)
 			{
 				CurrentTask.Engineer = new BO.EngineerInTask() { Name = "" };
@@ -98,6 +98,11 @@ namespace PL.Task
 			{
 				BO.TaskInList task = ((sender as CheckBox)!.DataContext as BO.TaskInList)!;
 				CurrentTask.Dependencies ??= new();
+
+				// check if task already exists in the dependencies list
+				if (CurrentTask.Dependencies.Any(t => t.Id == task.Id))
+					return;
+
 				CurrentTask.Dependencies.Add(task);
 			}
 		}
@@ -107,7 +112,7 @@ namespace PL.Task
 			{
 				BO.TaskInList task = ((sender as CheckBox)!.DataContext as BO.TaskInList)!;
 				CurrentTask.Dependencies ??= new();
-				CurrentTask.Dependencies.Remove(task);
+				CurrentTask.Dependencies = CurrentTask.Dependencies.Where(t => t.Id != task.Id).ToList();
 			}
 		}
 		/// <summary>

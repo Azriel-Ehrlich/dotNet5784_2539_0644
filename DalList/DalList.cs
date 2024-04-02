@@ -16,6 +16,8 @@ sealed internal class DalList : IDal
 
 	public IDependency Dependency => new DependencyImplementation();
 
+	private DateTime ScheduledStartDate = DateTime.MinValue;
+
 	/// <summary> Reset all lists to empty </summary>
 	public void Reset()
 	{
@@ -25,9 +27,17 @@ sealed internal class DalList : IDal
 		DataSource.Config.Reset();
 	}
 
-	public void SaveScheduledDate() { }
+	public void SaveScheduledDate()
+	{
+		// get the earliest start date
+		IEnumerable<DO.Task?> tasks = Task.ReadAll().Where(t => t is null || t.ScheduledDate is not null);
 
-	public DateTime? GetStartProject() { return DateTime.Now; }
+		ScheduledStartDate = DateTime.MinValue;
+		if (tasks.Any())
+			ScheduledStartDate = tasks.Min(t => t!.ScheduledDate!.Value);
+	}
+
+	public DateTime? GetStartProject() { return ScheduledStartDate; }
 
 	/// <inheritdoc/>
 	public void SaveClock(DateTime time) { }

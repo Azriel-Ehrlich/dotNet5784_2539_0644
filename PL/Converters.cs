@@ -119,7 +119,7 @@ public class TaskIdToString : IValueConverter
 	{
 		BO.Task task = _bl.Task.Read((int)value);
 		string text = task.Description;
-		if (task.ScheduledDate is not null && task.ForecastDate is not null) 
+		if (task.ScheduledDate is not null && task.ForecastDate is not null)
 			text += $"\nScheduled Date: {task.ScheduledDate}\nForecast Date: {task.ForecastDate}\n";
 		return text;
 	}
@@ -144,12 +144,17 @@ public class ConvertStatusToEnable : IValueConverter
 	}
 }
 
-/// <summary> convert the status to visibility of the button </summary>
-public class ConvertStatusToVisibility : IValueConverter
+/// <summary> convert the task to visibility of the button according to its id and status </summary>
+public class ConvertStatusToVisibility : IValueConverter // TODO: rename to ConvertTaskToVisibility
 {
 	public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 	{
-		return (BO.Status)value == BO.Status.Unscheduled ? Visibility.Visible : Visibility.Collapsed;
+		if (value is null)
+			return Visibility.Collapsed;
+		BO.Task task = (BO.Task)value;
+		if (task.Id == ConstantValues.NO_ID)
+			return Visibility.Collapsed;
+		return task.Status == BO.Status.Unscheduled ? Visibility.Visible : Visibility.Collapsed;
 	}
 
 	public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

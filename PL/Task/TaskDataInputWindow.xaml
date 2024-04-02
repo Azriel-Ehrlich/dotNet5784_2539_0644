@@ -88,7 +88,7 @@
                         Content="{Binding Path=CurrentTask.Id, Mode=OneWay, Converter={StaticResource ConverIdToContentKey}}"/>
                 <Button Style="{StaticResource BigUsersButtons}" Click="ChangeTaskState"
                         Content="{Binding CurrentTask.IsActive, Mode=OneWay, Converter={StaticResource ConvertActiveToContent}}"
-                        Visibility="{Binding CurrentTask.Status, Converter={StaticResource ConvertStatusToVisibilityKey}}" />
+                        Visibility="{Binding CurrentTask, Converter={StaticResource ConvertStatusToVisibilityKey}}" />
             </WrapPanel>
 
         </StackPanel>

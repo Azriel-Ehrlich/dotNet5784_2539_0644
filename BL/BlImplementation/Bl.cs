@@ -6,18 +6,18 @@ sealed public class Bl : IBl
 {
 	public Bl()
 	{
-        // initialize fields. if we use "public IClock Clock => new ClockImplementation();" it will generate
+		// initialize fields. if we use "public IClock Clock => new ClockImplementation();" it will generate
 		// too many threads and never stop (it call staop of new object and not the current thread)
-        Engineer = new EngineerImplementation();
-        Task = new TaskImplementation(this);
+		Engineer = new EngineerImplementation();
+		Task = new TaskImplementation(this);
 		Clock = new ClockImplementation();
-    }
+	}
 
 	public IEngineer Engineer { get; private set; }
 
-    public ITask Task { get; private set; }
+	public ITask Task { get; private set; }
 
-    public IClock Clock { get; private set; }
+	public IClock Clock { get; private set; }
 
 	public void InitializeDB() => DalTest.Initialization.Do();
 	public void ResetDB() => DalTest.Initialization.Reset();
@@ -46,7 +46,11 @@ sealed public class Bl : IBl
 	/// <inheritdoc/>
 	public bool IsProjectScheduled()
 	{
-		foreach (var task in Task.ReadAll())
+		IEnumerable<TaskInList> tasks = Task.ReadAll();
+		if (tasks.Count() == 0)
+			return false;
+
+		foreach (var task in tasks)
 		{
 			if (task.Status == Status.Unscheduled)
 				return false;
@@ -80,6 +84,6 @@ sealed public class Bl : IBl
 	/// <inheritdoc/>
 	public DateTime? GetStartProject()
 	{
-        return DalApi.Factory.Get.GetStartProject();
-    }
+		return DalApi.Factory.Get.GetStartProject();
+	}
 }

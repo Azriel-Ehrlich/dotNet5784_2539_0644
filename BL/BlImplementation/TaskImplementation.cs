@@ -45,21 +45,23 @@ internal class TaskImplementation : BlApi.ITask
 		if (check is not null)
 			throw new BO.BlAlreadyExistsException("The task already exist");
 
+		if (task.Dependencies is null) // if we don't have dependencies just create the task
+			return _dal.Task.Create(task.ToDOTask() with { CreatedAtDate = _bl.Clock.CurrentTime, Active = true });
+
+		// TODO: move next line to `checkTask`
+		CheckCyclicDependency(task); // In case of cyclic dependency, exception will be thrown
+
 		int newId = _dal.Task.Create(task.ToDOTask() with { CreatedAtDate = _bl.Clock.CurrentTime, Active = true });
 
-		if (task.Dependencies is not null)
+		// find the dependencies and create them in the DAL
+		foreach (var t in task.Dependencies)
 		{
-			CheckCyclicDependency(task); // In case of cyclic dependency, exception will be thrown
-
-			// find the dependencies and create them in the DAL
-			foreach (var t in task.Dependencies)
+			if (_dal.Task.Read(t.Id) is not null)
 			{
-				if (_dal.Task.Read(t.Id) is not null)
-				{
-					_dal.Dependency.Create(new DO.Dependency(newId, t.Id));
-				}
+				_dal.Dependency.Create(new DO.Dependency(newId, t.Id));
 			}
 		}
+
 		return newId;
 	}
 
@@ -128,10 +130,21 @@ internal class TaskImplementation : BlApi.ITask
 	/// <exception cref="BO.BlCannotUpdateException"> If there is a cyclic dependency. </exception>
 	void CheckCyclicDependency(BO.Task task)
 	{
+		/*
+		TODO: improve this method:
+
+		this case:
+		   b <- (a)
+		   c <- (b, a)
+
+		is not a cyclic dependency, but the current implementation will throw an exception
+
+		*/
+
 		if (task.Dependencies is not null)
 		{
 			List<int> deps = (task.Dependencies is null) ? new() : task.Dependencies.Select(t => t.Id).ToList();
-			if (task.Id != -1) // is not a new task
+			if (task.Id != -1) // it is not a new task
 				deps.Add(task.Id);
 			for (int i = 0; i < deps.Count; i++)
 			{
