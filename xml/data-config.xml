@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <config>
-  <NextTaskId>20</NextTaskId>
-  <NextDependencyId>21</NextDependencyId>
-  <ScheduledStartDate>07/03/2024 21:20:42</ScheduledStartDate>
+  <NextTaskId>21</NextTaskId>
+  <NextDependencyId>34</NextDependencyId>
+  <ScheduledStartDate />
+  <Clock>2024-04-04T00:59:58.5375002+03:00</Clock>
 </config>

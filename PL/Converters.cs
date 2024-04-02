@@ -145,7 +145,7 @@ public class ConvertStatusToEnable : IValueConverter
 }
 
 /// <summary> convert the task to visibility of the button according to its id and status </summary>
-public class ConvertStatusToVisibility : IValueConverter // TODO: rename to ConvertTaskToVisibility
+public class ConvertTaskToVisibility : IValueConverter
 {
 	public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 	{

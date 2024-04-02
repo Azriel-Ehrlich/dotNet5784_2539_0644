@@ -14,7 +14,7 @@
         <local:TaskIdToMargin x:Key="TaskIdToMargin"/>
         <local:TaskIdToWidth x:Key="TaskIdToWidth"/>
         <local:ConvertStatusToEnable x:Key="ConvertStatusToEnableKey"/>
-        <local:ConvertStatusToVisibility x:Key="ConvertStatusToVisibilityKey"/>
+        <local:ConvertTaskToVisibility x:Key="ConvertTaskToVisibility"/>
         <local:TaskIdToString x:Key="TaskIdToString"/>
         <local:ConvertBoolToVisibilityKey x:Key="ConvertBoolToVisibilityKey"/>
         <local:ConvertActiveToContent x:Key="ConvertActiveToContent"/>
