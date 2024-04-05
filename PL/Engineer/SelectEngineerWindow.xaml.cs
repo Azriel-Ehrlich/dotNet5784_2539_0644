@@ -39,7 +39,9 @@ namespace PL.Engineer
 		{
 			try
 			{
-				_bl.Engineer.Read(EngineerId); // check if exists
+				BO.Engineer eng=_bl.Engineer.Read(EngineerId); // check if exists
+				if(eng.IsActive==false)
+                    throw new Exception("Engineer is not active");
 				new Engineer.EngineerWindow(EngineerId).Show();
 				this.Close();
 			}

@@ -27,7 +27,7 @@ namespace PL.Engineer
         {
             InitializeComponent();
             isNewEngineer = (id == ConstantValues.NO_ID);
-            CurrentEngineer = isNewEngineer ? new BO.Engineer() { Id = ConstantValues.NO_ID, Email = "", Name = "" } : s_bl.Engineer.Read(id);
+            CurrentEngineer = isNewEngineer ? new BO.Engineer() { Id = ConstantValues.NO_ID, Email = "", Name = "" ,IsActive=true} : s_bl.Engineer.Read(id);
         }
 
         private void AddOrUpdateEngineer(object sender, RoutedEventArgs e)
