@@ -14,6 +14,7 @@ internal class EngineerImplementation : IEngineer
         List<Engineer> engineers = XMLTools.LoadListFromXMLSerializer<Engineer>(s_engineers_xml);
         if (engineers.Where(e => e.Id == item.Id).FirstOrDefault() is not null)
             throw new DalAlreadyExistsException($"Engineer with id {item.Id} already exists");
+        item = item with { Active = true }; // make sure the engineer is active
         engineers.Add(item);
         XMLTools.SaveListToXMLSerializer(engineers, s_engineers_xml);
         return item.Id;
