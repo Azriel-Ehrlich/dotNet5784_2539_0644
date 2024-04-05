@@ -48,5 +48,8 @@ namespace PL.Engineer
 				MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 			}
 		}
-	}
+
+        private void IntValidationTextBox(object sender, TextCompositionEventArgs e)
+       => e.Handled = !int.TryParse((sender as TextBox)!.Text + e.Text, out _);
+    }
 }

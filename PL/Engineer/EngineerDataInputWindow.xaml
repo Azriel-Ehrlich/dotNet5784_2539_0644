@@ -16,7 +16,7 @@
 
         <WrapPanel>
             <TextBlock Style="{StaticResource stTextBlock}" Text="Id" />
-            <TextBox Style="{StaticResource stTextBox}"
+            <TextBox Style="{StaticResource stTextBox}" PreviewTextInput="DoubleValidationTextBox"
                      Text="{Binding Path=Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
                      IsEnabled="{Binding Path=Id, Converter={StaticResource ConvertIdToEnableKey}, Mode=OneTime}"/>
         </WrapPanel>

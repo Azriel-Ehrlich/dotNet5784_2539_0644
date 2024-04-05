@@ -37,6 +37,7 @@
             <WrapPanel>
                 <TextBlock Style="{StaticResource stTextBlock}" Text="Required Effort Time" />
                 <TextBox Style="{StaticResource stTextBox}" Text="{Binding Path=CurrentTask.RequiredEffortTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+                         PreviewTextInput="IntValidationTextBox"
                          IsEnabled="{Binding CurrentTask.Status, Mode=OneWay,Converter={StaticResource ConvertStatusToEnableKey}}"/>
             </WrapPanel>
             <Separator Opacity="0" />
