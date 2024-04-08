@@ -14,62 +14,65 @@ using System.Windows.Shapes;
 
 namespace PL.Manager
 {
-	/// <summary>
-	/// Interaction logic for ManagerWindow.xaml
-	/// </summary>
-	public partial class ManagerWindow : Window
-	{
-		BlApi.IBl s_bl = BlApi.Factory.Get();
+    /// <summary>
+    /// Interaction logic for ManagerWindow.xaml
+    /// </summary>
+    public partial class ManagerWindow : Window
+    {
+        BlApi.IBl s_bl = BlApi.Factory.Get();
 
 
-		public ManagerWindow()
-		{
-			InitializeComponent();
-		}
+        public ManagerWindow()
+        {
+            InitializeComponent();
+        }
 
-		private void ShowEngineersList(object sender, RoutedEventArgs e)
-		{
-			new Engineer.EngineerListWindow().Show();
-		}
+        private void ShowEngineersList(object sender, RoutedEventArgs e)
+        {
+            new Engineer.EngineerListWindow().Show();
+        }
 
-		private void ShowTasksList(object sender, RoutedEventArgs e)
-		{
-			new Task.TasksListWindow().Show();
-		}
+        private void ShowTasksList(object sender, RoutedEventArgs e)
+        {
+            new Task.TasksListWindow().Show();
+        }
 
-		private void InintalData(object sender, RoutedEventArgs e)
-		{
-			var ans = MessageBox.Show("Are you sure you want to initial the data?", "Note", MessageBoxButton.YesNo, MessageBoxImage.Question);
+        private void InintalData(object sender, RoutedEventArgs e)
+        {
+            var ans = MessageBox.Show("Are you sure you want to initial the data?", "Note", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-			if (ans == MessageBoxResult.Yes)
-			{
-				s_bl.InitializeDB();
-				MessageBox.Show("Data has been initialized successfully");
-			}
-		}
+            if (ans == MessageBoxResult.Yes)
+            {
+                s_bl.InitializeDB();
+                MessageBox.Show("Data has been initialized successfully");
+            }
+        }
 
-		private void ResetData(object sender, RoutedEventArgs e)
-		{
-			var ans = MessageBox.Show("Are you sure you want to reset all data?", "Note", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+        private void ResetData(object sender, RoutedEventArgs e)
+        {
+            var ans = MessageBox.Show("Are you sure you want to reset all data?", "Note", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
-			if (ans == MessageBoxResult.Yes)
-			{
-				s_bl.ResetDB();
-				MessageBox.Show("Data has been reset successfully");
-			}
-		}
+            if (ans == MessageBoxResult.Yes)
+            {
+                s_bl.ResetDB();
+                MessageBox.Show("Data has been reset successfully");
+            }
+        }
 
-		private void SuggestedDate(object sender, RoutedEventArgs e)
-		{
-			if (s_bl.IsProjectScheduled())
-				MessageBox.Show("You already scheduled the project");
-			else
-				new SuggestedDateWindow().Show();
-		}
+        private void SuggestedDate(object sender, RoutedEventArgs e)
+        {
+            if (s_bl.IsProjectScheduled())
+                MessageBox.Show("You already scheduled the project");
+            else
+                new SuggestedDateWindow().Show();
+        }
 
-		private void OpenGantChart(object sender, RoutedEventArgs e)
-		{
-			new Manager.GantChartWindow().Show();
-		}
-	}
+        private void OpenGantChart(object sender, RoutedEventArgs e)
+        {
+            if (s_bl.IsProjectScheduled())
+                new Manager.GantChartWindow().Show();
+            else
+                MessageBox.Show("You need to schedule the project first");
+        }
+    }
 }
