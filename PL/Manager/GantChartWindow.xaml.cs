@@ -35,11 +35,14 @@ namespace PL.Manager
         {
             InitializeComponent();
 
-			if (!s_bl.IsProjectScheduled())
-				MessageBox.Show("The project is not scheduled", "Note", MessageBoxButton.OK, MessageBoxImage.Information);
+            if (!s_bl.IsProjectScheduled())
+            {
+                MessageBox.Show("The project is not scheduled", "Note", MessageBoxButton.OK, MessageBoxImage.Information);
+                return; // do not display chart
+            }
 
 			// update chart when back to window:
-			this.Activated += (s, e) => TasksList = s_bl.Task.ReadAll().OrderBy(t => s_bl.Task.Read(t.Id).ScheduledDate);
+			this.Activated += (s, e) => TasksList = s_bl.Task.ReadAll().OrderBy(t => t.Id);
         }
     }
 }

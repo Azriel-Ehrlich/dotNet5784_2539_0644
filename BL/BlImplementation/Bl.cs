@@ -26,20 +26,38 @@ sealed public class Bl : IBl
 	/// <inheritdoc/>
 	public DateTime? SuggestedDate(BO.TaskInList? task, DateTime startProj)
 	{
-		BO.Task tas = Task.Read(task!.Id);
+		return SuggestedDate(task!.Id, startProj);
+	}
+	// like the second SuggestedDate, just get ID instead of TaskInList
+	public DateTime? SuggestedDate(int tid, DateTime startProj)
+	{
+		BO.Task task = Task.Read(tid);
 		DateTime? date = startProj;
-		if (tas!.Dependencies is null) return date;
-		foreach (var dep in tas!.Dependencies!)
+		if (task!.Dependencies is null || task!.Dependencies.Count == 0) // there are no dependencies
+			return date;
+
+		foreach (var d in task!.Dependencies!)
 		{
-			BO.Task depTask = Task.Read(dep.Id);
-			if (depTask!.ScheduledDate is null) throw new BlCannotUpdateException("The task cann't be updated");
-			DateTime? depSDate = depTask.ScheduledDate + depTask.RequiredEffortTime;
-			DateTime? depTDate = depTask.StartDate + depTask.RequiredEffortTime;
+			BO.Task dep = Task.Read(d.Id);
+
+			if (dep.ScheduledDate is null) // should find `ScheduledDate` for `dep`
+			{
+				DateTime? date2 = SuggestedDate(dep.Id, startProj);
+				if (date2 is not null)
+				{
+					Task.UpdateScheduledDate(dep.Id, date2.Value);
+					dep = Task.Read(d.Id);
+				}
+			}
+
+			DateTime? depSDate = dep.ScheduledDate + dep.RequiredEffortTime;
+			DateTime? depTDate = dep.StartDate + dep.RequiredEffortTime;
 			if (depSDate > date)
 				date = depSDate;
 			if (depTDate > date && depTDate is not null)
 				date = depTDate;
 		}
+
 		return date;
 	}
 
@@ -62,11 +80,7 @@ sealed public class Bl : IBl
 	/// <inheritdoc/>
 	public void MakeSuggestedDates(DateTime startProj)
 	{
-		foreach (var t in Task.ReadAll(t => t.Dependencies is null))
-		{
-			Task.UpdateScheduledDate(t.Id, startProj);
-		}
-		foreach (var t in (Task.ReadAll(t => t.Dependencies is not null)).ToList())
+		foreach (var t in Task.ReadAll())
 		{
 			DateTime? date = SuggestedDate(t, startProj);
 			if (date is not null)
